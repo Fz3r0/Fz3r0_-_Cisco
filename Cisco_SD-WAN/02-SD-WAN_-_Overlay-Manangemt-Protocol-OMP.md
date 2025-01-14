@@ -19,7 +19,22 @@
 
 # Overlay Manangemt Protocol (OMP)
 
+![image](https://github.com/user-attachments/assets/3600a416-553e-456d-b07b-25b3a918c4c7)
 
+- Si se utiliza mas de un vSmart deben estar en modo full mesh
+- OMP Utiliza tuneles TLS/DTLS
+
+![image](https://github.com/user-attachments/assets/9e5e80d7-81ea-4d1e-9954-c6040051683b)
+
+### **OMP distribuye todas las rutas y los TLOCS**. 
+
+![image](https://github.com/user-attachments/assets/0c8ffc1c-2801-4ae2-b97d-74d8d497cb8e)
+
+## Tuneles entre dispositivos (conexiones seguras)
+
+- TODAS LAS CONEXIONES SON TUNELEADAS EN UNA SD-WAN
+
+![image](https://github.com/user-attachments/assets/705bded4-13f9-45dc-898f-308f7d1aa6ca)
 
 
 
