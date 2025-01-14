@@ -13,10 +13,6 @@
 
 <br>
 
-# 📝❓📄 `Index`
-
-- 
-
 # Cisco SD WAN Components
 
 - vManage : Management Plane
