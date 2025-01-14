@@ -26,6 +26,11 @@
 
 ![image](https://github.com/user-attachments/assets/298ff229-8cdc-4b55-aabc-48216a4a9aff)
 
+![image](https://github.com/user-attachments/assets/d6cd6a14-daa8-4534-9b3b-1916df0e97f8)
+
+![image](https://github.com/user-attachments/assets/d7e32e13-88d0-4dd2-b034-c8932d857082)
+
+
 ## vManage : Management Plane
 
 - Installation: Local Data Center, Remote Data Center (other vendor) or Cisco Cloud Based
@@ -82,7 +87,19 @@ Similar al vEdge, pero usado en Routers normales Cisco que pueden ser upgeadeado
 
 ![image](https://github.com/user-attachments/assets/edde6664-b02d-4e1f-b7c7-1de44dfbe24b)
 
+## vAnalytics: Analytics / Extra
 
+- Se conecta entre vManage y vAnalytics
+- Monitoring & Analytics
+- Graph & Tasty
+
+![image](https://github.com/user-attachments/assets/46b8502d-cc73-4180-9b46-068be3ec23bc)
+
+![image](https://github.com/user-attachments/assets/9c51a525-0177-405b-879e-e48c1811b054)
+
+## Licencing example
+
+![image](https://github.com/user-attachments/assets/e4b5e07e-1875-404d-9e02-a60c77275204)
 
 
 # 📚🗂️🎥 Resources
