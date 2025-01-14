@@ -19,6 +19,25 @@
 
 # Transport Locators (TLOCS)
 
+- **Simple. Los TLOCs son lo que identifica a un vEdge en su sitio y configuraciones**
+
+# 3 Rutas OMP
+
+Es importante siempre recordar los 3 tipos de ruta OMP: 
+
+1. Rutas OMP o vRoutes: prefijos que pertenecen al sitio local es decir la LAN de la branc h de un cliente. (la LAN puede tener switches, routers, etc. donde hay redes lan internas como 192.168.1.0/24, esa es una vRoute)
+2. Service Route: Todas las redes que se publican, pero son para servicios exclusivos para todos los vEdge
+
+![image](https://github.com/user-attachments/assets/bc400377-4566-4fd4-bac8-855db6743119)
+
+
+## Rutas OMP o vRoutes:
+
+![image](https://github.com/user-attachments/assets/348fad88-76d5-4e0d-be57-654b7c1ade77)
+
+## Service Route
+
+![image](https://github.com/user-attachments/assets/80d29754-7104-4058-9c1e-0f8439837d7b)
 
 
 # 📚🗂️🎥 Resources
