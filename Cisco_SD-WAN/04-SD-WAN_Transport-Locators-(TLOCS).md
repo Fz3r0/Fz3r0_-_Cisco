@@ -58,7 +58,7 @@ Función principal:
 
 ![image](https://github.com/user-attachments/assets/8d2415b1-81be-4fe4-988c-0ef74e2a1ccb)
 
-### TLOC: Atributos
+### TLOC: Atributos/Valores
 
 NOTA: IPsec es mejor que GRE  por sgeuridad. 
 
@@ -67,6 +67,10 @@ NOTA: IPsec es mejor que GRE  por sgeuridad.
 ### TLOV: Valores
 
 ![image](https://github.com/user-attachments/assets/e34e1905-8858-469c-8b72-b256ea2a4805)
+
+### TLOV: Color (Interfaces) y Encapsulation
+
+![image](https://github.com/user-attachments/assets/a349a252-5e64-4d5d-bddb-0d97ac960b0c)
 
 
 # 📚🗂️🎥 Resources
