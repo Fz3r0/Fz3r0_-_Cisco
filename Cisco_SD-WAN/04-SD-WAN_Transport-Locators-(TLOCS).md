@@ -72,6 +72,10 @@ NOTA: IPsec es mejor que GRE  por sgeuridad.
 
 ![image](https://github.com/user-attachments/assets/a349a252-5e64-4d5d-bddb-0d97ac960b0c)
 
+## Arquitectura final 
+
+![image](https://github.com/user-attachments/assets/34eac2c4-185e-465e-8478-bc4555742b4c)
+
 
 # 📚🗂️🎥 Resources
 
