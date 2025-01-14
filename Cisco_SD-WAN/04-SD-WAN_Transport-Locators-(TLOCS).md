@@ -27,6 +27,7 @@ Es importante siempre recordar los 3 tipos de ruta OMP:
 
 1. Rutas OMP o vRoutes: prefijos que pertenecen al sitio local es decir la LAN de la branc h de un cliente. (la LAN puede tener switches, routers, etc. donde hay redes lan internas como 192.168.1.0/24, esa es una vRoute)
 2. Service Route: Todas las redes que se publican, pero son para servicios exclusivos para todos los vEdge
+3. TLOCs: 
 
 ![image](https://github.com/user-attachments/assets/bc400377-4566-4fd4-bac8-855db6743119)
 
@@ -38,6 +39,24 @@ Es importante siempre recordar los 3 tipos de ruta OMP:
 ## Service Route
 
 ![image](https://github.com/user-attachments/assets/80d29754-7104-4058-9c1e-0f8439837d7b)
+
+## TLOC
+
+Un TLOC (Transport Locator) en Cisco SD-WAN es un identificador que representa una ruta o enlace de transporte en la red. El TLOC se utiliza para identificar los diferentes transportes (como MPLS, Internet, 4G, etc.) a través de los cuales los dispositivos en la red SD-WAN pueden comunicarse.
+
+En términos simples, el TLOC se compone de los siguientes elementos:
+
+- IP de Transporte: La dirección IP del dispositivo en la red que está proporcionando el transporte.
+- Color de TLOC: Es una etiqueta que define la calidad o tipo del enlace de transporte (por ejemplo, "MPLS", "Internet", "4G", etc.). Este color ayuda a priorizar y seleccionar el transporte más adecuado según las políticas definidas.
+
+El TLOC se utiliza en el contexto de la control plane en Cisco SD-WAN, especialmente en el protocolo Overlay Management Protocol (OMP), que facilita la comunicación entre los dispositivos de la red. Es una pieza fundamental para que el controlador SD-WAN (vBond) y los dispositivos de borde (vEdge o CPE) puedan intercambiar información sobre las rutas y los enlaces disponibles para el enrutamiento dinámico.
+
+Función principal:
+
+- Encapsulamiento de tráfico: Los TLOCs permiten que el tráfico de usuario sea encapsulado y enviado a través del transporte más adecuado.
+- Selección de rutas: Ayudan en la toma de decisiones sobre cuál es el mejor transporte a utilizar en función de las políticas definidas en la red SD-WAN.
+
+![image](https://github.com/user-attachments/assets/8d2415b1-81be-4fe4-988c-0ef74e2a1ccb)
 
 
 # 📚🗂️🎥 Resources
