@@ -58,6 +58,12 @@ Función principal:
 
 ![image](https://github.com/user-attachments/assets/8d2415b1-81be-4fe4-988c-0ef74e2a1ccb)
 
+## TLOC: Atributos
+
+NOTA: IPsec es mejor que GRE  por sgeuridad. 
+
+![image](https://github.com/user-attachments/assets/918e5a38-049d-488a-ab9e-b1dcc685181d)
+
 
 # 📚🗂️🎥 Resources
 
