@@ -60,6 +60,7 @@ Capacidades:
 - On-Site: Debe de estar localmente en la red LAN del cliente (puede ser virtual, pero local)
 - Tunel entre vSmart: Conecta al vSmart con OMP, el vSmart le comparte las rutas
 - Tunel entre sitios: IPsec o GRE entre sitios
+- Como su nombre lo dice: está en el borde/edge, es como si fuera el router, conectado directo a la WAN (internet, mpls, 4g, etc)
 
 ![image](https://github.com/user-attachments/assets/10953c05-5a22-43fb-ad44-6ff76777220f)
 
