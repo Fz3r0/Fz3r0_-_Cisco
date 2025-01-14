@@ -41,6 +41,11 @@ The following table compares both architectures, highlighting why SD-WAN is incr
 | **Cloud Adaptability**              | Limited ability to adapt to cloud and virtualized services. | Designed to fully integrate with the cloud, offering efficient cloud service management. |
 | **Multi-Network Traffic Management** | Requires manual management of multiple links and routes for critical and user traffic. | Dynamically and optimally manages traffic across multiple links and networks. |
 
+### SD-WAN Gartner Magic Cuadrant
+
+![image](https://github.com/user-attachments/assets/b84350f0-56f8-4f3f-bf38-498732f7f26c)
+
+
 ## Cisco iWAN (legacy)
 
 Cisco's previous SD-WAN-like solution, iWAN, provided traffic control, security, QoS, WAN optimization, and VPN tunneling without the high costs of MPLS VPNs. However, iWAN had challenges in deployment and management, especially in complex or existing environments. As internet services improved and MPLS became less attractive due to lower costs and better SLAs, Cisco transitioned to SD-WAN to offer a more user-friendly solution with enhanced flexibility, scalability, and integration with cloud services.
