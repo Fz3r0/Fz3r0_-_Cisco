@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `SD-WAN: Overlay Manangemt Protocol (OMP)`
+# 🔥🧱🛡️ Cisco: `SD-WAN: vEdge & VPNs`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -17,8 +17,19 @@
 
 - 
 
-# Overlay Manangemt Protocol (OMP)
+# vEdge & VPNs
 
+![image](https://github.com/user-attachments/assets/dd39b611-36fd-43f3-9cfa-4af37b99dae6)
+
+## VRF example
+
+User VPNs es como usar VRF en una forma tradiconal dentro de un router que comparte diferentes redes que quieren ser aisladas, por eso explicare un poco de VRF:
+
+Quick Definition: Cisco Virtual Routing and Forwarding, known as Cisco VRF, gives routers a virtualization functionality that enables network engineers to create multiple routing tables using a single layer 3 device. This technology can improve security and optimize network performance, all while being easily configurable and relatively scalable.
+
+![image](https://github.com/user-attachments/assets/c1db6118-fcce-43e3-ac97-abc9d3c948b8)
+
+![image](https://github.com/user-attachments/assets/43022fb9-9ebe-408b-a7f1-2f6dc9a965a7)
 
 
 
