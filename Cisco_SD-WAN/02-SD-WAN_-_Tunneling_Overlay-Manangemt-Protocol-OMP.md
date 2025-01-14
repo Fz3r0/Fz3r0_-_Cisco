@@ -38,6 +38,8 @@
 
 ## Puertos de comunicación TLS/DTLS
 
+- **TODOS ESTOS PUERTOS DEBEN ESTAR HABILITADOS EN EL FIREWALL**
+
 ![image](https://github.com/user-attachments/assets/30aa9e3d-9783-4de7-bd1d-10b55217c2cc)
 
 
