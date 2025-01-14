@@ -13,10 +13,6 @@
 
 <br>
 
-# 📝❓📄 `Index`
-
-- 
-
 # Overlay Manangemt Protocol (OMP)
 
 ![image](https://github.com/user-attachments/assets/3600a416-553e-456d-b07b-25b3a918c4c7)
