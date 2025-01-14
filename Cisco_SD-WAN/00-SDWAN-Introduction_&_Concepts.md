@@ -61,6 +61,26 @@ One of Viptela's main advantages was its ability to replace expensive MPLS lines
 | **Viptela**      | 2012                | Acquired by Cisco  | Legacy (now part of Cisco SD-WAN) | WAN virtualization, carrier agnostic, cost-effective compared to MPLS, cloud service integration (AWS, Azure, Office 365), simple interface. |
 | **iWAN**         | 2013                | Retired            | Legacy               | Integrated into Cisco branch routers, used DMVPN, IPSec, and PfRv3 for WAN optimization, security, and QoS, but difficult to deploy and manage compared to SD-WAN. |
 
+# Cisco SD-WAN
+
+
+## Cisco SD WAN
+
+![image](https://github.com/user-attachments/assets/d80aaaaa-f66e-48b4-9ddc-0372346e14f3)
+
+![image](https://github.com/user-attachments/assets/74a9b988-d881-456a-9f95-c8a5bd049890)
+
+![image](https://github.com/user-attachments/assets/3269ac75-30d1-41a3-ac25-0319206d2a42)
+
+![image](https://github.com/user-attachments/assets/9c38633d-a7e2-4548-807d-d15e00a5d86e)
+
+![image](https://github.com/user-attachments/assets/9bc58514-9ea3-45a0-a048-76a2b709965f)
+
+![image](https://github.com/user-attachments/assets/085b472d-4f93-43cd-b203-96d0e27bb64d)
+
+## vManage Dashboard Overview
+
+- https://www.youtube.com/watch?v=KqZcDJYQGvg
 
 # 📚🗂️🎥 Resources
 
