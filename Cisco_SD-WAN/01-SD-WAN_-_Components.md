@@ -70,7 +70,16 @@ Capacidades:
 
 Similar al vEdge, pero usado en Routers normales Cisco que pueden ser upgeadeados con un software que los hace compatibles con SD-WAN, es decir, equipos edge a la SDWAN. 
 
-![image](https://github.com/user-attachments/assets/0678a427-f132-407d-9d0f-aec67431a3db)
+![image](https://github.com/user-attachments/assets/214f311d-0497-4a9c-89f0-970cfa35fb9a)
+
+## vEdge: Family Products and capabilities
+
+- Depende del equipo sus capacidades, en particular cambia mucho la seguridad. 
+
+![image](https://github.com/user-attachments/assets/a5492dd2-47ea-4afc-ab11-1553a9b3d234)
+
+![image](https://github.com/user-attachments/assets/edde6664-b02d-4e1f-b7c7-1de44dfbe24b)
+
 
 
 
