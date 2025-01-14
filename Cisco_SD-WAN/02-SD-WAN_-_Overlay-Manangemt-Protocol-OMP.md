@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `SD-WAN: OMP Protocol`
+# 🔥🧱🛡️ Cisco: `SD-WAN: Overlay Manangemt Protocol (OMP)`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Cisco` `SD-WAN` `OMP Protocol`
+#### Keywords: `Cisco` `SD-WAN` `OMP` `Overlay Manangemt Protocol (OMP)`
 
 ---
 
@@ -17,7 +17,7 @@
 
 - 
 
-# Cisco SD WAN Components
+# Overlay Manangemt Protocol (OMP)
 
 
 
