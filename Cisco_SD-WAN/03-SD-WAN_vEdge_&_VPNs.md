@@ -58,6 +58,10 @@ De esta manera se hace management fuera de banda
 ![image](https://github.com/user-attachments/assets/a2404f54-91b3-46bb-b7ff-20dcdf643603)
 
 
+## Operación de la Fabric SD-WAN
+
+![image](https://github.com/user-attachments/assets/044e141a-e521-49d4-853e-7a581a5edf39)
+
 
 
 # 📚🗂️🎥 Resources
