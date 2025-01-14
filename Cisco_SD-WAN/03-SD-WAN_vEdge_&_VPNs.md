@@ -23,7 +23,9 @@
 
 ## VRF example
 
-User VPNs es como usar VRF en una forma tradiconal dentro de un router que comparte diferentes redes que quieren ser aisladas, por eso explicare un poco de VRF:
+Usar VPNs en un vEdge es como usar VRF en una forma tradiconal dentro de un router que comparte diferentes redes que quieren ser aisladas, la diferencia en que VRF lo hace en un mismo router fisico (separandolo layer 3 virtualmente y asignando tablas de rutas diferentes) y el vEdge lo hace en varios dispositivos, cada uno en su ubicación, y por eso se hace el túnel VPN para comunicarlos entre si. 
+
+- POR ESO DE BRANCH A @ BRACH B DE UN VEDGE, PODRÍAN HACER UNA RUTA PARA MANDAR DATOS VIA TUNNEL, USANDO EL MISMO SEGMENTO.
 
 Quick Definition: Cisco Virtual Routing and Forwarding, known as Cisco VRF, gives routers a virtualization functionality that enables network engineers to create multiple routing tables using a single layer 3 device. This technology can improve security and optimize network performance, all while being easily configurable and relatively scalable.
 
