@@ -33,6 +33,13 @@ Quick Definition: Cisco Virtual Routing and Forwarding, known as Cisco VRF, give
 
 ![image](https://github.com/user-attachments/assets/43022fb9-9ebe-408b-a7f1-2f6dc9a965a7)
 
+## vEdge & VPNs
+
+![image](https://github.com/user-attachments/assets/c72152c1-6221-4e7e-98b8-312951a233fb)
+
+## vEdge VPNs Table
+
+![image](https://github.com/user-attachments/assets/8acb5f4a-fc6b-484a-be8c-e9cd7172b92d)
 
 
 # 📚🗂️🎥 Resources
