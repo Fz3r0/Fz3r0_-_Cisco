@@ -64,6 +64,10 @@ NOTA: IPsec es mejor que GRE  por sgeuridad.
 
 ![image](https://github.com/user-attachments/assets/918e5a38-049d-488a-ab9e-b1dcc685181d)
 
+### TLOV: Valores
+
+![image](https://github.com/user-attachments/assets/e34e1905-8858-469c-8b72-b256ea2a4805)
+
 
 # 📚🗂️🎥 Resources
 
