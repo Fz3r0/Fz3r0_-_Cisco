@@ -13,5 +13,9 @@
 
 ![image](https://github.com/user-attachments/assets/085b472d-4f93-43cd-b203-96d0e27bb64d)
 
+## vManage Dashboard Overview
+
+- https://www.youtube.com/watch?v=KqZcDJYQGvg
+
 
 
