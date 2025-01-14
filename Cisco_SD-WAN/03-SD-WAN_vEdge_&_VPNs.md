@@ -46,6 +46,11 @@ Quick Definition: Cisco Virtual Routing and Forwarding, known as Cisco VRF, give
 
 ![image](https://github.com/user-attachments/assets/13bc9192-00cf-47f8-9ace-fd1604655ae1)
 
+Otro punto de vista: 
+
+![image](https://github.com/user-attachments/assets/90b1a39c-72d8-44bf-aa7d-ec4774fe2773)
+
+
 ## vEdge out of band management VPN 512
 
 De esta manera se hace management fuera de banda
