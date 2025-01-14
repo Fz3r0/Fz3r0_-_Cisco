@@ -19,6 +19,11 @@
 
 # Cisco SD WAN Components
 
+- vManage : Management Plane
+- vSmart : Control Plane
+- vBond : Orchestrator
+- vEdge : Data Plane
+
 ## vManage : Management Plane
 
 - Installation: Local Data Center, Remote Data Center (other vendor) or Cisco Cloud Based
@@ -46,6 +51,18 @@ Capacidades:
 
 ## vBond: Orchestrator
 
+- Autentica: Valida que todos los elementos, sean elementos de nuestra red (vManage, vSmart, vEdge) y no sean falsos creados por un adversario/hunter
+
+![image](https://github.com/user-attachments/assets/21a15b84-e086-4113-9891-3a9e92d3d9d9)
+
+## vEdge: Data Plane
+
+- On-Site: Debe de estar localmente en la red LAN del cliente (puede ser virtual, pero local)
+- Tunel entre vSmart: Conecta al vSmart con OMP, el vSmart le comparte las rutas
+- Tunel entre sitios: IPsec o GRE entre sitios
+
+![image](https://github.com/user-attachments/assets/10953c05-5a22-43fb-ad44-6ff76777220f)
+
 
 
 
@@ -53,6 +70,8 @@ Capacidades:
 
 - https://www.youtube.com/watch?v=voaycjsoips&list=PLwAU7bA502wHJkVCke8ypTxZUeeV9bVZL
 - https://youtu.be/zs8fDA1ZlzE?si=k57gh4tALBGl-svn
+- https://youtu.be/zs8fDA1ZlzE?si=4u82LXB3zi96xxyc
+- https://youtu.be/8lW_FQYhOp0?si=b5ul89wREtJMlA-J
 
 
   
