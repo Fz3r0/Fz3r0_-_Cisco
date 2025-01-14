@@ -64,6 +64,13 @@ Capacidades:
 
 ![image](https://github.com/user-attachments/assets/10953c05-5a22-43fb-ad44-6ff76777220f)
 
+![image](https://github.com/user-attachments/assets/94b99005-0a43-4e75-b135-27c247f59af0)
+
+## cEdge: Data Plane
+
+Similar al vEdge, pero usado en Routers normales Cisco que pueden ser upgeadeados con un software que los hace compatibles con SD-WAN, es decir, equipos edge a la SDWAN. 
+
+![image](https://github.com/user-attachments/assets/0678a427-f132-407d-9d0f-aec67431a3db)
 
 
 
