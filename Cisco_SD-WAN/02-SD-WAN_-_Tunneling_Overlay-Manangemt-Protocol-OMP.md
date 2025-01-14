@@ -36,6 +36,10 @@
 
 ![image](https://github.com/user-attachments/assets/705bded4-13f9-45dc-898f-308f7d1aa6ca)
 
+## Puertos de comunicación TLS/DTLS
+
+![image](https://github.com/user-attachments/assets/30aa9e3d-9783-4de7-bd1d-10b55217c2cc)
+
 
 
 
@@ -46,7 +50,7 @@
 # 📚🗂️🎥 Resources
 
 - https://youtu.be/pioVGnXECv0?si=G1MVccVetfJb5Z7m
-- 
+
 
 
   
