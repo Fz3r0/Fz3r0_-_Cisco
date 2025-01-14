@@ -34,8 +34,17 @@ Capacidades:
 
 ![image](https://github.com/user-attachments/assets/a0f59c06-2617-47eb-8197-bce87d6c93fc)
 
+## vSmart : Control Plane
 
+- Installation: Local Data Center, Remote Data Center (other vendor) or Cisco Cloud Based
+- Fuction: Cerebro de la arquitectura SD.-WAN (administra routing, politicas, QoS y elección de ruta)
+- Anuncia ruta, politica de data plane, politicas de seguridad (mini-firewall). 
+- Todo el Data Plane se empareja con el vSmart, y el vSMart lo enruta
+- Los clusters deben estar conectados por cable uno al otro para lograr la latencia minima. 
 
+![image](https://github.com/user-attachments/assets/315630f4-f88f-47bf-9923-444b5b7a9a20)
+
+## vBond: Orchestrator
 
 
 
