@@ -45,6 +45,13 @@ Emular Router fisico:
 
 ![image](https://github.com/user-attachments/assets/a1317c62-d345-49d6-b82d-3124e1ebdf23)
 
+## vManage Req
+
+![image](https://github.com/user-attachments/assets/6b249024-e75b-4cff-b496-0657b9f03e64)
+
+## vBong Req
+
+![image](https://github.com/user-attachments/assets/1136337f-97ed-4143-b8c3-951826c7e8b5)
 
 
 
