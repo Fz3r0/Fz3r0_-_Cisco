@@ -19,7 +19,11 @@
 
 # Initalizing Control Plane
 
-Credenciales
+## Diagram
+
+![image](https://github.com/user-attachments/assets/6f984862-c1e5-4275-90a4-4e6a9fc001da)
+
+## Credenciales
 
 - admin
 - admin
