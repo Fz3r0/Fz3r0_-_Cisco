@@ -19,11 +19,21 @@
 
 # Considerations and Implementation Scenarios
 
+Puntos a considerar cuando migraremos nuestros enlaces para implementar SD-WAN
+
+Exsten 3 metodos diferentes para implementar SDWAN:
+
+1. Entreprise IT (Private) :: Tener en sitio todos los elementos que componen el control plane (y managament)
+2. Manage Service Provider (MSP) :: Contratamos servicios de SD-WAN a un proveedor de sevricio que ya tiene implementado todo (como un ISP), como cliente solo se hará uin deploy de vEdge
+3. Cisco Cloud :: Cisco nos vende TODO: Administración, Implementación, Producto, etc. 
+
+![image](https://github.com/user-attachments/assets/979189ac-55d1-4fb3-98f2-12dc81a2c4e2)
+
 
 
 # 📚🗂️🎥 Resources
 
-- https://youtu.be/JM5LD8doDPg?si=t2cikk8sYRHtevXd
+- https://youtu.be/JM5LD8doDPg?si=9L-REEqY6wuAlKbL
 
 
 
