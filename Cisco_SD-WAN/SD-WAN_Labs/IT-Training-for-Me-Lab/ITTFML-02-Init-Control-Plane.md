@@ -41,10 +41,11 @@
 - Organization Name "sd-wan-lab"
 - vBond = 200.1.1.1
 
-1. empezar
+#### I - System IP, Site ID, Organization Name & vBond
+
+![image](https://github.com/user-attachments/assets/b3a92d3f-016c-4deb-ba86-34d4ce4e4467)
 
 ````java
-
 configuration mode terminal
 system
 
@@ -54,6 +55,37 @@ organization-name "sd-wan-lab"
 vbond 200.1.1.1
 exit
 ````
+
+#### II - VPNs
+
+- VPN0 = vManage
+- VPN512 = (no necesaria)
+
+![image](https://github.com/user-attachments/assets/9fe12c70-ae4a-4477-b4d7-e165062b556a)
+
+````java
+vpn0
+interface eth0
+ip address 200.1.1.2/24
+no shutdown
+exit
+
+commit and-quit
+````
+
+#### III - Validar
+
+````java
+show running config
+````
+
+
+
+
+
+
+
+
 
 # 📚🗂️🎥 Resources
 
