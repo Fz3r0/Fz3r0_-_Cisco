@@ -19,6 +19,29 @@
 
 # System Requierements
 
+Pasos:
+
+![image](https://github.com/user-attachments/assets/69ac7883-4d02-440a-8c7f-9f027f9039a2)
+
+Calculador de Productos:
+
+![image](https://github.com/user-attachments/assets/7b4dbde6-2dcb-4351-83b4-43d85b42f9ef)
+
+![image](https://github.com/user-attachments/assets/186b745d-dfbd-428e-86b5-d8ca27c7e65f)
+
+Descarga de drivers y software:
+
+Ojo vEdge y vBond es el mismo software
+
+![image](https://github.com/user-attachments/assets/023d3cfa-bcbc-4f76-bc39-0b7814e37c98)
+
+![image](https://github.com/user-attachments/assets/00c3f19c-a56f-4f67-b5a4-32cc60cc7263)
+
+Emular Router fisico:
+
+![image](https://github.com/user-attachments/assets/ea09fab6-0cb3-4cb0-ab51-46cd68219c7c)
+
+
 
 
 
