@@ -41,6 +41,10 @@ Emular Router fisico:
 
 ![image](https://github.com/user-attachments/assets/ea09fab6-0cb3-4cb0-ab51-46cd68219c7c)
 
+### Virtualizar en hipervisors: 
+
+![image](https://github.com/user-attachments/assets/a1317c62-d345-49d6-b82d-3124e1ebdf23)
+
 
 
 
