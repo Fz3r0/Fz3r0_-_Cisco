@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `SD-WAN: Transport Locators (TLOCS)`
+# 🔥🧱🛡️ Cisco: `SD-WAN: (BFD)`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Cisco` `SD-WAN` `OMP` `Overlay Manangemt Protocol (OMP)`
+#### Keywords: `Cisco` `(BFD)`
 
 ---
 
@@ -17,7 +17,16 @@
 
 - 
 
-# 
+# (BFD)
+
+Protocolo activo en los vEdge que sirve para 2 beneficios:
+
+1. Monitorea conexiones hacia otros vEdge (IPsec -> VLOCs etc)
+2. Estadística de parámetrocs de las interfaces que permite tomar desciones mas concientes (application awareness).
+
+ ## Mensajes usados por BFD: 
+
+ ![image](https://github.com/user-attachments/assets/7ae68bd1-1b45-4724-b360-b5903165612f)
 
 
 # 📚🗂️🎥 Resources
