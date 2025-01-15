@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `SD-WAN: Considerations and Implementation Scenarios`
+# 🔥🧱🛡️ Cisco: `SD-WAN: Tenancy Options for Service Providers`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Cisco` `(BFD)`
+#### Keywords: `Tenancy Options`
 
 ---
 
@@ -17,33 +17,32 @@
 
 - 
 
-# Considerations and Implementation Scenarios
+# Tenancy Option
 
-Puntos a considerar cuando migraremos nuestros enlaces para implementar SD-WAN
+Tenency Option es la opción que utilizan los proveedores de sevricio como ISPs, para ofertar el servicio de conexión SD-WAN a sus diferentes clientes.
 
-Exsten 3 metodos diferentes para implementar SDWAN:
+## Administration Scenarios 
 
-1. Entreprise IT (Private) :: Tener en sitio todos los elementos que componen el control plane (y managament)
-2. Manage Service Provider (MSP) :: Contratamos servicios de SD-WAN a un proveedor de sevricio que ya tiene implementado todo (como un ISP), como cliente solo se hará uin deploy de vEdge
-3. Cisco Cloud :: Cisco nos vende TODO: Administración, Implementación, Producto, etc. 
+![image](https://github.com/user-attachments/assets/407b0e98-d0fa-465d-93c9-fa787d0dab04)
 
-![image](https://github.com/user-attachments/assets/979189ac-55d1-4fb3-98f2-12dc81a2c4e2)
+### Dedicated Tenancy 
 
-## Remote: vEdge remote site designs
+![image](https://github.com/user-attachments/assets/192cb334-2b22-4a65-a24c-1e42b828e3b2)
 
-1 licencia por cada enlace (MPLS, WAN, 4g, etc), en el ejhemplo del diagrama sería algo así:
+### Multi-Tenancy
 
-- Mesh:  4 licencias = 4 enlaces (2 cada vEdge)
-- Mesh switch: (ahorra licencias)
-- TLOC extension: 2 salidas pero unicamente 1 licencia por cada vEdge grciuas a un link entre 2 vEdges conectados por el SW L2
-- TLOC extension over L3: similar al anterior, pero con un link L3
+![image](https://github.com/user-attachments/assets/ec71529a-b6fa-4c51-aa98-f4b799f8f023)
 
-![image](https://github.com/user-attachments/assets/e90903bc-5ab5-4297-aab0-ceb5b755f39c)
+### Entreprise Tenancy
+
+![image](https://github.com/user-attachments/assets/121d4140-51c8-4eb9-9ad9-af9ac8b08912)
+
+
 
 
 # 📚🗂️🎥 Resources
 
-- https://youtu.be/JM5LD8doDPg?si=9L-REEqY6wuAlKbL
+- https://youtu.be/k4yETVf8XaM?si=rWn_bHtvjV7PwdJX
 
 
 
