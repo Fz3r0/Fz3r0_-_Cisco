@@ -24,9 +24,13 @@ Protocolo activo en los vEdge que sirve para 2 beneficios:
 1. Monitorea conexiones hacia otros vEdge (IPsec -> VLOCs etc)
 2. Estadística de parámetrocs de las interfaces que permite tomar desciones mas concientes (application awareness).
 
- ## Mensajes usados por BFD: 
+## Mensajes usados por BFD: 
 
- ![image](https://github.com/user-attachments/assets/7ae68bd1-1b45-4724-b360-b5903165612f)
+![image](https://github.com/user-attachments/assets/7ae68bd1-1b45-4724-b360-b5903165612f)
+
+## App aware routing
+
+![image](https://github.com/user-attachments/assets/511b8d04-e133-453f-b631-5ada6bf7933c)
 
 
 # 📚🗂️🎥 Resources
