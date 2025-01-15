@@ -29,6 +29,16 @@ Exsten 3 metodos diferentes para implementar SDWAN:
 
 ![image](https://github.com/user-attachments/assets/979189ac-55d1-4fb3-98f2-12dc81a2c4e2)
 
+## Remote: vEdge remote site designs
+
+1 licencia por cada enlace (MPLS, WAN, 4g, etc), en el ejhemplo del diagrama sería algo así:
+
+- Mesh:  4 licencias = 4 enlaces (2 cada vEdge)
+- Mesh switch: (ahorra licencias)
+- TLOC extension: 2 salidas pero unicamente 1 licencia por cada vEdge grciuas a un link entre 2 vEdges conectados por el SW L2
+- TLOC extension over L3: similar al anterior, pero con un link L3
+
+![image](https://github.com/user-attachments/assets/e90903bc-5ab5-4297-aab0-ceb5b755f39c)
 
 
 # 📚🗂️🎥 Resources
