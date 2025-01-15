@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `SD-WAN: System Requierements`
+# 🔥🧱🛡️ Cisco: `SD-WAN: Eve-NG install`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `System Requierements`
+#### Keywords: `Eve-NG install`
 
 ---
 
@@ -17,15 +17,18 @@
 
 - 
 
-# System Requierements
+# Eve-NG install & Diagram
 
+## Diagram
 
+![image](https://github.com/user-attachments/assets/bd587d5e-5a0d-4297-b853-972bf9b2497a)
 
 
 
 # 📚🗂️🎥 Resources
 
 - https://github.com/hegdepavankumar/Cisco-Images-for-GNS3-and-EVE-NG?tab=readme-ov-file
+- https://www.youtube.com/watch?v=gYWr5pNYkuw
 
 
 
