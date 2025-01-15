@@ -35,7 +35,7 @@ Protocolo activo en los vEdge que sirve para 2 beneficios:
 
 # 📚🗂️🎥 Resources
 
-- https://youtu.be/9wpHWhDFVpo?si=ydFINrvyD37ckba-
+- https://youtu.be/geOxXCT3K8Q?si=r4NSwOOo6YvJRxQT
 
 
 
