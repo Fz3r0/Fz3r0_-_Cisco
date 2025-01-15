@@ -25,7 +25,7 @@
 
 # 📚🗂️🎥 Resources
 
-- https://youtu.be/gYWr5pNYkuw?si=-vdxTeP4Lq7QFd0R
+- https://github.com/hegdepavankumar/Cisco-Images-for-GNS3-and-EVE-NG?tab=readme-ov-file
 
 
 
