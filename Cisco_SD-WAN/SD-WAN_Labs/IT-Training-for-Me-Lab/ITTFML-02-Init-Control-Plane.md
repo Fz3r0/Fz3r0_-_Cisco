@@ -34,6 +34,8 @@
 
 ![image](https://github.com/user-attachments/assets/e9a47f49-5e45-4a38-a500-9f6d886da919)
 
+---
+
 ### 2. Config Basica:
 
 - System IP Address 50.3.0.2
@@ -103,9 +105,32 @@ Verificar Acceso Web:
 
 ---
 
-### 4. Cambiar Password
+### 4. Cambiar User y Password de la db
 
+Default:
 
+- neo4j
+- password
+
+Nuevo:
+
+- vmanage
+- password
+
+````java
+request nms configuration-db update-admin-user
+
+neo4j
+password
+
+vmanage
+cisco123
+
+````
+
+#### Validar:
+
+![image](https://github.com/user-attachments/assets/4914d0b3-266f-4762-9477-ab97c44c8ac9)
 
 
 
