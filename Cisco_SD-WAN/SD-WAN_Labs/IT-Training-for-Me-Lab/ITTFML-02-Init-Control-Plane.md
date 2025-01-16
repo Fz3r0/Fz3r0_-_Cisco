@@ -28,7 +28,7 @@
 - admin
 - admin
 
-## vManage
+## `vManage`
 
 ### 1. Hacer el Storage
 
@@ -50,6 +50,8 @@
 ````java
 configuration mode terminal
 system
+
+host-name vmanage
 
 system-ip 50.3.0.2
 site-id 503
@@ -132,7 +134,58 @@ cisco123
 
 ![image](https://github.com/user-attachments/assets/4914d0b3-266f-4762-9477-ab97c44c8ac9)
 
+## `vBond`
 
+- Es basicamente el mismo script, pero cambiando la IP correspondiente.
+- **Tambien se tiene que declarar que este es el vbond**
+- Si da error de interface revisar si es ethernet o gigabit
+
+#### I - System IP, Site ID, Organization Name & vBond
+
+![image](https://github.com/user-attachments/assets/beea13f9-9276-42c5-a5d2-9b6094b86108)
+
+
+````java
+configuration mode terminal
+system
+
+host-name vbond
+
+system-ip 50.3.0.1
+site-id 503
+organization-name "sd-wan-lab"
+
+vbond 200.1.1.1 local vbond-only
+
+exit
+````
+
+#### II - VPNs
+
+- VPN0 = vBond
+- VPN512 = (no necesaria)
+
+![image](https://github.com/user-attachments/assets/9fe12c70-ae4a-4477-b4d7-e165062b556a)
+
+````java
+vpn0
+interface eth0
+ip address 200.1.1.1/24
+no shutdown
+exit
+
+commit and-quit
+````
+
+#### III - Validar
+
+````java
+show running config
+````
+
+## `vSmart`
+
+Lo mismo, pero con la nueva IP
 
 
 
