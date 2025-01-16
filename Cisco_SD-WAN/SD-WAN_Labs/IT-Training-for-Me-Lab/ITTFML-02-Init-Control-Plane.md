@@ -79,6 +79,34 @@ commit and-quit
 show running config
 ````
 
+![image](https://github.com/user-attachments/assets/718e0d19-f8ba-4c79-b3d8-26bf13cd70ad)
+
+![image](https://github.com/user-attachments/assets/282d8d8f-6741-4d27-b1d6-10a92eba8e99)
+
+---
+
+### 3. Probar Conectividad
+
+Ejemplo: 
+
+![image](https://github.com/user-attachments/assets/8ccb2c49-9607-44a1-a9f5-ff3240c9b662)
+
+Abrir CMD desde PC:
+
+![image](https://github.com/user-attachments/assets/4500fab6-1767-4aed-8481-0dfe07363a8f)
+
+Verificar Acceso Web:
+
+![image](https://github.com/user-attachments/assets/6e3a587a-1abb-4671-a5a7-5a2be2f20c89)
+
+![image](https://github.com/user-attachments/assets/3465a553-0a15-41bd-b582-4fa71f80daa2)
+
+---
+
+### 4. Cambiar Password
+
+
+
 
 
 
