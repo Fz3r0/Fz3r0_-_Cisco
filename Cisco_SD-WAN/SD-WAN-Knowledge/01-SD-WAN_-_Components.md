@@ -60,6 +60,8 @@ Capacidades:
 
 ## vEdge: Data Plane
 
+You don't typically need a separate "traditional router" when using SD-WAN, as an SD-WAN appliance essentially functions as a router itself, managing traffic routing and connections across multiple WAN links through a centralized controller, effectively replacing the need for individual routers at each branch location; however, depending on your network setup, you might still need a router at the edge of your network to connect to the SD-WAN appliance. (Some Cisco Routers can bu upgraded to Edge devices called "cEdge" devices)
+
 - On-Site: Debe de estar localmente en la red LAN del cliente (puede ser virtual, pero local)
 - Tunel entre vSmart: Conecta al vSmart con OMP, el vSmart le comparte las rutas
 - Tunel entre sitios: IPsec o GRE entre sitios
