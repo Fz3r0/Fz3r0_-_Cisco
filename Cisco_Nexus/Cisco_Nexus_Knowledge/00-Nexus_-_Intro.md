@@ -29,7 +29,10 @@ The Nexus platform is known for its **scalability, low-latency architecture, and
 
 In networking, **traffic flow** refers to the direction data moves within a network. Understanding the difference between **east-west traffic** and **north-south traffic** is crucial, especially in data center environments, as they define how devices communicate and how the network architecture is designed.
 
-![image](https://github.com/user-attachments/assets/a92245b3-dfe8-44e3-9d86-fe42d362144e)
+![image](https://github.com/user-attachments/assets/9b1200f3-adb2-4700-8cfb-abbae7f36acc)
+
+
+
 
 ### East-West Traffic
 
@@ -55,6 +58,8 @@ The center of the compass is your **data center**.
 - **East & West** represent **server-to-server traffic**.
 - **Northbound** traffic flows **out of your data center** toward clients or external systems.
 - **Southbound** traffic flows **deeper into your data center**, such as server-to-IP storage traffic.
+
+![image](https://github.com/user-attachments/assets/7da945f1-e2ca-4e49-b6cb-00a2104a809c)
 
 However, there are also interpretations where **Northbound** refers to **external clients**, and **Southbound** refers to **internal clients**.
 
