@@ -23,7 +23,7 @@
 
 ## Classic VLAN architecture on a LAN
 
-Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a traves de VLAN para comunicar PC-A y PC-B a traves de switches capa 2 usando VLAN, los enalces de nemedio son los clasicos trunk y hacia las PC los clasicos access, ambas PC tienen la VLAN 10, y si tuvieran diferentes vlan y subnet, deberian ser routeados entre si con algo capa 3, ya sea un mismo switch L3, un router, firewall etc, lo clasico! 
+Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a traves de VLAN para comunicar PC-A y PC-B a traves de switches capa 2 usando VLAN, los enalces de nemedio son los clasicos trunk y hacia las PC los clasicos access, ambas PC tienen la VLAN 10, y si tuvieran diferentes vlan y subnet, deberian ser routeados entre si con algo capa 3, ya sea un mismo switch L3, un router, firewall etc, lo clasico! simplemente la PC a envia trafico con su MAC, y los dispositivos L2 van aprendiendo tu MAC y la guardan en sus tablas, es decirt se genera un broadcast para buscar la MAC de destino via L2 (ARP). 
 
 ![image](https://github.com/user-attachments/assets/6ca80d48-648c-4084-947b-5479b96325a5)
 
@@ -39,7 +39,18 @@ Todos tienen capacidad de L3 Router/Switch es decir hacer rutas estaticas, OSPF,
 
 Que es el Ciusoc DNA center
 
-Sistema operativo
+Un sistema iperativo que automatizara la red y todos los quipos cisco se registran en el DNA center y esta controladora los puede monitorear y congfigurar remotamente, dales roels como acceso, borde, ser ocntorl plane, comunicar VRFs, etc. es decir, adminsitrar toda la red desde ahi. 
+
+Y la parte de capa 2 en realidad se contruye con VXLAN. 
+
+VXLAN
+
+Lo que se hara en una VXLAN a diferencia de la L2 normal con VLANs y lo tradicional o legacy, es primero utilizar equipos capaces de VXLAN como serie 9000. 
+
+
+
+
+
 
 # 📚🗂️🎥 Resources
 
