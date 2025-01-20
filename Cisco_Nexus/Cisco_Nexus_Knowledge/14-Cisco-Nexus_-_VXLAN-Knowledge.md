@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco Nexus: 
+# 🔥🧱🛡️ Cisco Nexus: `VXLAN`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -20,6 +20,7 @@
 
 # 
 
+VXLAN significado: 
 
 ## Classic VLAN architecture on a LAN
 
@@ -27,7 +28,14 @@ Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a trave
 
 ![image](https://github.com/user-attachments/assets/6ca80d48-648c-4084-947b-5479b96325a5)
 
+
+
+## VXLAN architecture 
+
 el chiste de VXLAN es elminiar la conuicacion L2, vlans tags, trunks, stp... asi es!!! no usar enalces capa 3 y dejar de usar el concepto tradicional, la idea de VXLAN es comuinicar PC con PC b ahora usando conexiones L3 en lugar de L2, es decir, sinusar VLANs, STP, etc.
+
+![image](https://github.com/user-attachments/assets/dc08c7a8-b000-4dfa-a5b5-3bd25fc54949)
+
 
 Esto surve por tencolofgias tipo SDN, como Cisco SD-WAN y solo est adisponible par anuevos rquipos cisoc XE o Nexus que es la nueva gama d eequipos de cisco, como la serie 9000 de cisco o la nexus.   
 
@@ -55,8 +63,16 @@ Ojo, obviamente las conexiones que van de un switch a la PC si será layer 2, de
 
 Es decir, una VXLAN es un segmento de capa 2 que esta en el borde hacia el usuario, que en relaidafd es una base de datos o tabla de direcciones mac o "bridge domain". En L2 sabemos que una VLAN lleva tambien una direccion MAC asociada cuando se aprende el switch las direcicones, por ejemplo F0:f0:f0 percecene a la vlan 10 y puede comunicarse con todas las VLAN 10 pero no con otras VLAN (a menos que sean routeadas en capa 3), asi que vxlan cumnple con al funcion de la VLAN. 
 
-Por ejempo, en un switch conextado a la PC A yo peudo crear la VXLAN 700, asi como en el switch pegado en la PC-B, esto se llama en realidad VNI. Enoncers el puerot lo poondr een la VXLAN/VNI 700 de ambos lados, y asi cuando la PC haga un comun y corriente y tradicional ARP y se comunique por primera vez, el switch se la aprendera en ese segmento de capa 2 VXLAN/VNI 700. 
+Por ejempo, en un switch conextado a la PC A yo peudo crear la VXLAN 700, asi como en el switch pegado en la PC-B, esto se llama en realidad VNI. Enoncers el puerot lo poondr een la VXLAN/VNI 700 de ambos lados, y asi cuando la PC haga un comun y corriente y tradicional ARP y se comunique por primera vez, el switch se la aprendera en ese segmento de capa 2 VXLAN/VNI 700m etoibnces ka MAC de la PC-A se aprendera en la tabla de MAC de la VXLAN, del otro extren¡ en PC-B tambien. 
 
+Cuando yo habilito para todos los equipos, se crea algo que se llama virtual tunnel interface VTEP.
+
+legacy = vlan | nuevo = vxlan | vlan 700 = vxlan 700
+legacy capa 2  = trunk | nuevo capa 3 = VTEP
+
+Es devicr cuando yo habilit VXLAN en los switches le debo decir a donde voy a buscar el resto de MACs que tmb pertenecne a la misma VXLAN 700, asi que lo que har ees crar un tunel hacia otro dispositoivo que este usando VCLAN, digo, no es un trunk como tal, pero si lo quisieramos asocialr es eso, ya que es el que guarda todas las VLANs para comunicar esas MAC capa 2, por toda la red capa 3 (ya que hay switches que no necesariamente stan conectados  auna PC!!! ahi es todo capa 3). Tal cual como un tuner GRE desde switcg A a switch B, a eso se le llaba VTEP. y por ese tunet VTP se hacern ocnsultar de MAC L2, por ejemplo si PC A hace un ARP para buscar a PC-B. 
+
+Entonces, como todo esta en capa 3 por medio de tuneles, por ejemplo lso switches de nemedio que no estan viendo a ningun usuario no reicibieron ningun broadcast (porque no son layer 2), si uno se apaga no hay STP, no se apagan puertos... todo es L3... ellos estan apra transportar de Switch a a switch b, con ptorocolors de routeo, RIP, OSPF, ISIS etc. 
 
 
 
