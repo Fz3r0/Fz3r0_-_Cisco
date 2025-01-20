@@ -136,6 +136,8 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 - **Increase Throughput**: High-speed data handling for large networks.  
 - **Optimize Resources**: Frees up CPU resources for other tasks.  
 
+![image](https://github.com/user-attachments/assets/ef93b611-2f7b-41f3-9ff5-5f5180f68235)
+
 ## Key Features of NX-OS  
 
 1. **Linux-Based Kernel**:  
