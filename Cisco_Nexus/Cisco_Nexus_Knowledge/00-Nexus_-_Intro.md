@@ -88,13 +88,40 @@ Your data center environment should be built to handle **significant amounts of 
 
 ![image](https://github.com/user-attachments/assets/41c7d898-1668-4cd1-b89b-92fc21402d3e)
 
-### Key characteristics of NX-OS:  
+### Key characteristics and features of NX-OS:  
 
 - **Stability and Modularity**: A robust OS designed for mission-critical workloads.  
 - **Dual Functionality**: Operates in **LAN** mode (similar to Cisco IOS) or **SAN** mode (SAN-OS, used in MDS platforms for Fibre Channel networking).  
 - **High Availability**: Offers advanced features like In-Service Software Upgrades (ISSU) and redundancy mechanisms.  
 
 ![image](https://github.com/user-attachments/assets/854f237e-2b87-4ced-9ba1-b24d944ebd3d)
+
+**Featuring:**
+
+1. **Linux-Based Kernel**:  
+   - Provides stability, modularity, and reliability.  
+
+2. **Unified Image**:  
+   - A single OS image supports all Nexus models, simplifying updates and management.  
+
+3. **LAN and SAN Modes**:  
+   - **NX-OS for LAN**: Features like VLANs, static routes, OSPF, and BGP.  
+   - **SAN-OS for MDS**: Specialized for Storage Area Networks with support for Fibre Channel (FC) and Fibre Channel over Ethernet (FCoE).  
+
+4. **Feature Activation**:  
+   - Services like OSPF, BGP, and VRF are **off by default** to optimize system resources.  
+   - Activating them:  
+     - Reserves memory.  
+     - Builds necessary databases.  
+     - Ensures efficient resource use.  
+
+5. **High Availability**:  
+   - **In-Service Software Upgrades (ISSU)** for seamless updates.  
+   - Redundant supervisor modules for seamless failover.  
+
+6. **Support for Leaf-Spine Architectures**:  
+   - Protocols like VXLAN and BGP EVPN enable scalable, multi-tenant environments.  
+   - Designed for efficient east-west traffic management.  
 
 ## Why is Cisco Nexus Designed for Data Centers?  
 
@@ -149,32 +176,9 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 
 ![image](https://github.com/user-attachments/assets/ef93b611-2f7b-41f3-9ff5-5f5180f68235)
 
-## Key Features of NX-OS  
 
-1. **Linux-Based Kernel**:  
-   - Provides stability, modularity, and reliability.  
 
-2. **Unified Image**:  
-   - A single OS image supports all Nexus models, simplifying updates and management.  
 
-3. **LAN and SAN Modes**:  
-   - **NX-OS for LAN**: Features like VLANs, static routes, OSPF, and BGP.  
-   - **SAN-OS for MDS**: Specialized for Storage Area Networks with support for Fibre Channel (FC) and Fibre Channel over Ethernet (FCoE).  
-
-4. **Feature Activation**:  
-   - Services like OSPF, BGP, and VRF are **off by default** to optimize system resources.  
-   - Activating them:  
-     - Reserves memory.  
-     - Builds necessary databases.  
-     - Ensures efficient resource use.  
-
-5. **High Availability**:  
-   - **In-Service Software Upgrades (ISSU)** for seamless updates.  
-   - Redundant supervisor modules for seamless failover.  
-
-6. **Support for Leaf-Spine Architectures**:  
-   - Protocols like VXLAN and BGP EVPN enable scalable, multi-tenant environments.  
-   - Designed for efficient east-west traffic management.  
 
 ---
 
