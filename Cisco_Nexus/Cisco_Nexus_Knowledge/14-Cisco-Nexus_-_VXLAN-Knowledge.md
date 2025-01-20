@@ -32,6 +32,14 @@ Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a trave
 
 ## VXLAN architecture 
 
+Tencologia que pemrite el transporte dee direcicones mac por medio de uan red ovalray
+
+coloca dispositivos en un segmento de VXLAN cada seghmento de VXLan con sus direcciones MAC anunciada por los router, cada ropiuert podra comunicar los dipsositivos en el mismo segmento de VXLAN por meido de tuneles IP a traes de toda la red L3.
+
+El proposito principoal en trener una comunitacion basada en touting en vez de switching. 
+
+nota: bgp tiene su propia tencolofdia que es EBP pero eso aun no lo veremos aqui, pero no es VXLAN como tal. 
+
 el chiste de VXLAN es elminiar la conuicacion L2, vlans tags, trunks, stp... asi es!!! no usar enalces capa 3 y dejar de usar el concepto tradicional, la idea de VXLAN es comuinicar PC con PC b ahora usando conexiones L3 en lugar de L2, es decir, sinusar VLANs, STP, etc.
 
 ![image](https://github.com/user-attachments/assets/dc08c7a8-b000-4dfa-a5b5-3bd25fc54949)
@@ -73,6 +81,8 @@ legacy capa 2  = trunk | nuevo capa 3 = VTEP
 Es devicr cuando yo habilit VXLAN en los switches le debo decir a donde voy a buscar el resto de MACs que tmb pertenecne a la misma VXLAN 700, asi que lo que har ees crar un tunel hacia otro dispositoivo que este usando VCLAN, digo, no es un trunk como tal, pero si lo quisieramos asocialr es eso, ya que es el que guarda todas las VLANs para comunicar esas MAC capa 2, por toda la red capa 3 (ya que hay switches que no necesariamente stan conectados  auna PC!!! ahi es todo capa 3). Tal cual como un tuner GRE desde switcg A a switch B, a eso se le llaba VTEP. y por ese tunet VTP se hacern ocnsultar de MAC L2, por ejemplo si PC A hace un ARP para buscar a PC-B. 
 
 Entonces, como todo esta en capa 3 por medio de tuneles, por ejemplo lso switches de nemedio que no estan viendo a ningun usuario no reicibieron ningun broadcast (porque no son layer 2), si uno se apaga no hay STP, no se apagan puertos... todo es L3... ellos estan apra transportar de Switch a a switch b, con ptorocolors de routeo, RIP, OSPF, ISIS etc. 
+
+![image](https://github.com/user-attachments/assets/27a6b1df-8259-4807-b3a0-7d97d70086c0)
 
 
 
