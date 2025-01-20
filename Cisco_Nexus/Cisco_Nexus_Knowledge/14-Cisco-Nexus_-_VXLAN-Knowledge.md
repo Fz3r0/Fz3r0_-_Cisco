@@ -46,7 +46,9 @@ Y la parte de capa 2 en realidad se contruye con VXLAN.
 VXLAN
 
 Lo que se hara en una VXLAN a diferencia de la L2 normal con VLANs y lo tradicional o legacy, es primero utilizar equipos capaces de VXLAN como serie 9000. 
+Que ninguna conexion sea capa 2, sino que ahora todas las conexxiones sea capa 3. si todo. Es decir cada interfaz tendra una direccion IP y necesitaria configurar un enrutamiento, por ejemplo un routing dinamico como OSPF, ISIS, etc.  Por ejemplo ahi la reduncacia tendir aque se OSPF, entonces ya no necesito STP y lidiar que un puerto se va a bloeuaqr o esas cosas ya consideradas del pasado, chavo! 
 
+Ojo, obviamente las conexiones que van de un switch a la PC si será layer 2, de acceso normalito, la PC ni se dara cuenta
 
 
 
