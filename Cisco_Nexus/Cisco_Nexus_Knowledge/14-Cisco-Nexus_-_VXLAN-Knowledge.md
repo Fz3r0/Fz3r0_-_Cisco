@@ -48,7 +48,14 @@ VXLAN
 Lo que se hara en una VXLAN a diferencia de la L2 normal con VLANs y lo tradicional o legacy, es primero utilizar equipos capaces de VXLAN como serie 9000. 
 Que ninguna conexion sea capa 2, sino que ahora todas las conexxiones sea capa 3. si todo. Es decir cada interfaz tendra una direccion IP y necesitaria configurar un enrutamiento, por ejemplo un routing dinamico como OSPF, ISIS, etc.  Por ejemplo ahi la reduncacia tendir aque se OSPF, entonces ya no necesito STP y lidiar que un puerto se va a bloeuaqr o esas cosas ya consideradas del pasado, chavo! 
 
-Ojo, obviamente las conexiones que van de un switch a la PC si será layer 2, de acceso normalito, la PC ni se dara cuenta
+![image](https://github.com/user-attachments/assets/f2a90c1a-cea4-43e5-8bbe-89ac96b06b88)
+
+
+Ojo, obviamente las conexiones que van de un switch a la PC si será layer 2, de acceso normalito, la PC ni se dara cuenta. para esto alfgo que se llama dominio de puente o dominio de capa 2 "bridge domain" o "VXLAN"!!! . 
+
+Es decir, una VXLAN es un segmento de capa 2 que esta en el borde hacia el usuario, que en relaidafd es una base de datos o tabla de direcciones mac o "bridge domain". En L2 sabemos que una VLAN lleva tambien una direccion MAC asociada cuando se aprende el switch las direcicones, por ejemplo F0:f0:f0 percecene a la vlan 10 y puede comunicarse con todas las VLAN 10 pero no con otras VLAN (a menos que sean routeadas en capa 3), asi que vxlan cumnple con al funcion de la VLAN. 
+
+Por ejempo, en un switch conextado a la PC A yo peudo crear la VXLAN 700, asi como en el switch pegado en la PC-B, esto se llama en realidad VNI. Enoncers el puerot lo poondr een la VXLAN/VNI 700 de ambos lados, y asi cuando la PC haga un comun y corriente y tradicional ARP y se comunique por primera vez, el switch se la aprendera en ese segmento de capa 2 VXLAN/VNI 700. 
 
 
 
