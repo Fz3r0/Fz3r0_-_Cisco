@@ -206,7 +206,7 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 
 
 
-![image](https://github.com/user-attachments/assets/67ab0574-98e4-46a4-b8c3-903b14e3c549)
+
 
 
 
@@ -241,6 +241,8 @@ A **SAN** is an essential part of any **datacenter** that needs to provide high-
 - **Centralized Storage Management**: A SAN allows for easier and more efficient management of storage resources across multiple servers.
 
 ### Key Components of SAN
+
+![image](https://github.com/user-attachments/assets/67ab0574-98e4-46a4-b8c3-903b14e3c549)
 
 1. **Fiber Channel (FC)**:
    - **FC** is the main protocol used in SANs, designed to carry large amounts of data with no packet loss. This ensures that the data between servers and storage devices is transmitted in an **error-free** and **ordered** manner. FC operates using **fiber optic** connections for superior speed and reliability.
