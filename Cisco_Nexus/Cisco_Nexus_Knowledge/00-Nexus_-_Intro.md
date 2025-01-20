@@ -86,7 +86,7 @@ Your data center environment should be built to handle **significant amounts of 
 
 ![image](https://github.com/user-attachments/assets/463aee42-256f-418b-9f89-6edd5d3bda21)
 
-![image](https://github.com/user-attachments/assets/d15b2fb2-1eed-4aaf-846e-d03906b0d8b5)
+![image](https://github.com/user-attachments/assets/41c7d898-1668-4cd1-b89b-92fc21402d3e)
 
 ### Key characteristics of NX-OS:  
 
