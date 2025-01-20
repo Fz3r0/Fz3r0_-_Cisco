@@ -24,9 +24,13 @@
 
 ## Classic VLAN architecture on a LAN
 
+Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a traves de VLAN para comunicar PC-A y PC-B a traves de switches capa 2 usando VLAN, los enalces de nemedio son los clasicos trunk y hacia las PC los clasicos access, ambas PC tienen la VLAN 10, y si tuvieran diferentes vlan y subnet, deberian ser routeados entre si con algo capa 3, ya sea un mismo switch L3, un router, firewall etc, lo clasico! 
+
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
+el chiste de VXLAN es elminiar la conuicacion L2, vlans tags, trunks, stp... asi es!!! no usar enalces capa 3 y dejar de usar el concepto tradicional, la idea de VXLAN es comuinicar PC con PC b ahora usando conexiones L3 en lugar de L2, es decir, sinusar VLANs, STP, etc.
 
+Esto surve por tencolofgias tipo SDN, como Cisco SD-WAN y solo est adisponible par anuevos rquipos cisoc XE o Nexus.  
 
 
 # 📚🗂️🎥 Resources
