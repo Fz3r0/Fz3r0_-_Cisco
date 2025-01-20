@@ -33,7 +33,8 @@ Esto surve por tencolofgias tipo SDN, como Cisco SD-WAN y solo est adisponible p
 
 ![image](https://github.com/user-attachments/assets/3b5dab0a-1ea5-4d30-b990-82a35931aedd)
 
-![image](https://github.com/user-attachments/assets/c173ec92-1b82-406b-ae72-20477a509fa9)
+![image](https://github.com/user-attachments/assets/75f830c2-1e1f-47c5-9b6d-42ceb4077e31)
+
 
 
 # 📚🗂️🎥 Resources
