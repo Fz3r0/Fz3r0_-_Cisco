@@ -1,6 +1,6 @@
 ## On-Site basic LAN Scenario
 
-
+![image](https://github.com/user-attachments/assets/a8daeb90-9455-4748-91cc-f18576fd279f)
 
 ## Remote Scenario
 
