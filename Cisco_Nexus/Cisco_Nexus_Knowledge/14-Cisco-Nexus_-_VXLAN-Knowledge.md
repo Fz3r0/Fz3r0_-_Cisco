@@ -37,12 +37,11 @@ Solciion overlay para extension fabric entre data center (ese era el proposito o
 Ahora está SDN que define que todas las redes deben de tener un contorlador centrlaizado qu debe proporcionar automatizacion y desedre ahi cofnigurar todo como SD-Access (como DNA- Center que controla muchos siwtches en la red), SD-WAN, SDI, etc.... asi que ahora puede usarse para soluciones tanto de Business como de Data Center y como Service Provider, es deicr la trifuerza!!!! (hacer tabla comparando los 3). Los serived peorviders lo tuilzan con BGP para transportar por medio de red MPLS. 
 
 VXLAN = RFC 7348
-
 VXLA reuqier unicamente rtransporte IP
 cereado como suolucion intra-fabric basada en tuneles creando una overlay
 utriliza encabezado UDP puerto 4789 para informacion VXLAN
 incrementa 54 bytes de encabezado que debe se rocnsiderado swen el MTU
-utiuliza espacio numerico 24 bits (16,777,216)
+utiuliza espacio numerico 24 bits (16,777,216) muchisimo mayor a la capcadicad tradicional para VLANs ;) 
 cada VXLAN represent aun segmento de vboracast
 Soolo los sevruidores que se neucnetene en el mismo segmento de VXLAN peuden comuciars eentr esoi 
 
@@ -98,8 +97,15 @@ Entonces, como todo esta en capa 3 por medio de tuneles, por ejemplo lso switche
 
 ![image](https://github.com/user-attachments/assets/27a6b1df-8259-4807-b3a0-7d97d70086c0)
 
+Tabla de concepts y temrinos: 
 
+VNI o VNID (VXLAN netowkr id) teemplazo de VLAN ID y tiene un numero de VXLAN
 
+VTEP (VXLAN tunnel end point): tunnel entro equio`pos para tranposttyar la VXLAN, dispositivo qwue encapsula y desencpasula el traifoco de las vxlan
+
+VXLAN gateway: equipo desigando para la comunicacion entre VXLAN
+
+VNE (Network Virtulaization Edge): nombre de la interfaz logic aurtuilizadfa para los VTEP. 
 
 # 📚🗂️🎥 Resources
 
