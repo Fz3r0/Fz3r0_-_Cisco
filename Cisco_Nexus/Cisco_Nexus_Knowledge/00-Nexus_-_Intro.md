@@ -79,11 +79,17 @@ Your data center environment should be built to handle **significant amounts of 
 - It is based on a **Linux kernel** and is specifically optimized for **data center environments**.
 - NX-OS supports advanced Layer 2 and Layer 3 networking features while also providing capabilities for **Storage Area Networks (SANs)**.  
 
+![image](https://github.com/user-attachments/assets/463aee42-256f-418b-9f89-6edd5d3bda21)
+
+![image](https://github.com/user-attachments/assets/d15b2fb2-1eed-4aaf-846e-d03906b0d8b5)
+
 ### Key characteristics of NX-OS:  
 
 - **Stability and Modularity**: A robust OS designed for mission-critical workloads.  
 - **Dual Functionality**: Operates in **LAN** mode (similar to Cisco IOS) or **SAN** mode (SAN-OS, used in MDS platforms for Fibre Channel networking).  
 - **High Availability**: Offers advanced features like In-Service Software Upgrades (ISSU) and redundancy mechanisms.  
+
+![image](https://github.com/user-attachments/assets/854f237e-2b87-4ced-9ba1-b24d944ebd3d)
 
 ## Why is Cisco Nexus Designed for Data Centers?  
 
@@ -175,6 +181,7 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 # 📚🗂️🎥 Resources
 
 - https://youtu.be/lADK3STwwAM?si=LBcn1JuF76icjXqN
+- https://www.analysisman.com/2020/10/cisco-nxos-commands.html
 
 
 
