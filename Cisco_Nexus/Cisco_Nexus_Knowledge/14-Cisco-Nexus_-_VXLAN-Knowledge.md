@@ -35,11 +35,16 @@ Esto surve por tencolofgias tipo SDN, como Cisco SD-WAN y solo est adisponible p
 
 ![image](https://github.com/user-attachments/assets/75f830c2-1e1f-47c5-9b6d-42ceb4077e31)
 
+Todos tienen capacidad de L3 Router/Switch es decir hacer rutas estaticas, OSPF, DHCP Pool, aunque limitadas por temas de licencias. Por ejemplo la licencia advantage es la que realmente te habilita L3 y ser controlado por una controladora externa, como el Cisco DNA-Center. 
 
+Que es el Ciusoc DNA center
+
+Sistema operativo
 
 # 📚🗂️🎥 Resources
 
 - https://www.youtube.com/live/uW--KhRzdEk?si=ujMneJdPkihxBtT4
+- [Cisco DNA Center](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2023/pdf/BRKOPS-2077.pdf)
 
 
 
