@@ -229,7 +229,10 @@ VXLAN functionality is often tied to specific software licenses, particularly in
 4. **Future-Ready**:
    - Cisco's focus on SDN and automation ensures that VXLAN-enabled devices are ready for evolving networking requirements.
 
----
+# Multicast Flood and Learn
+
+![image](https://github.com/user-attachments/assets/b1c6ef7e-e749-4d4c-bd06-c2bf043b14fa)
+
 
 
 
@@ -327,6 +330,7 @@ VXLAN functionality is often tied to specific software licenses, particularly in
 
 - https://www.youtube.com/live/uW--KhRzdEk?si=ujMneJdPkihxBtT4
 - [Cisco DNA Center](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2023/pdf/BRKOPS-2077.pdf)
+- https://www.linkedin.com/pulse/vxlan-via-flood-learn-multicast-gedion-hulluka/
 
 
 
