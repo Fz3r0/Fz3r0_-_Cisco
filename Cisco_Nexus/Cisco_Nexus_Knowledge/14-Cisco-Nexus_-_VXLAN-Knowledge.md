@@ -32,6 +32,20 @@ Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a trave
 
 ## VXLAN architecture 
 
+Solciion overlay para extension fabric entre data center (ese era el proposito original donde entre un DC-1-mex y DC-2-col se extendieran las direcciones MAC, ya que existen ISPs de MPLS que dan sercios de L2 VPN, es decir para interconectar 2 locaciones remotas, como si estuvieran conectados al mismo switch capa 2).
+
+Ahora está SDN que define que todas las redes deben de tener un contorlador centrlaizado qu debe proporcionar automatizacion y desedre ahi cofnigurar todo como SD-Access (como DNA- Center que controla muchos siwtches en la red), SD-WAN, SDI, etc....
+
+VXLAN = RFC 7348
+
+VXLA reuqier unicamente rtransporte IP
+cereado como suolucion intra-fabric basada en tuneles creando una overlay
+utriliza encabezado UDP puerto 4789 para informacion VXLAN
+incrementa 54 bytes de encabezado que debe se rocnsiderado swen el MTU
+utiuliza espacio numerico 24 bits (16,777,216)
+cada VXLAN represent aun segmento de vboracast
+Soolo los sevruidores que se neucnetene en el mismo segmento de VXLAN peuden comuciars eentr esoi 
+
 Tencologia que pemrite el transporte dee direcicones mac por medio de uan red ovalray
 
 coloca dispositivos en un segmento de VXLAN cada seghmento de VXLan con sus direcciones MAC anunciada por los router, cada ropiuert podra comunicar los dipsositivos en el mismo segmento de VXLAN por meido de tuneles IP a traes de toda la red L3.
