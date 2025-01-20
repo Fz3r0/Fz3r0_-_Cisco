@@ -22,28 +22,33 @@
 
 VXLAN (Virtual Extensible LAN) is a network virtualization technology that enables the creation of Layer 2 overlays on top of Layer 3 networks. It was designed to address limitations of traditional VLAN-based networks, particularly in large-scale data center environments and Software-Defined Networking (SDN) solutions. This document provides an in-depth analysis of VXLAN, its architecture, key components, and practical use cases with a focus on Cisco implementations.
 
----
+VXLAN represents a transformative shift from traditional VLAN-based networking to a scalable, efficient, and flexible architecture. By encapsulating Layer 2 traffic into Layer 3 tunnels, VXLAN enables enterprises to build robust and scalable networks suitable for modern data centers, cloud environments, and SDN deployments. Cisco’s robust portfolio of VXLAN-enabled solutions, such as the Nexus 9000 series and Cisco DNA Center, ensures seamless integration and operational simplicity.
 
 ## Traditional VLAN Architecture: A Foundation for VXLAN
 
-### Overview
 Traditional VLANs allow segmentation of Layer 2 networks, enabling devices in the same VLAN to communicate directly while isolating devices in different VLANs. Inter-VLAN communication is facilitated via Layer 3 routing. However, VLANs are constrained by scalability limitations (12-bit VLAN ID supports only 4,096 VLANs) and are prone to inefficiencies like Spanning Tree Protocol (STP) issues and broadcast traffic overhead.
 
 ### Workflow Example
+
 Consider a scenario where two PCs (PC-A and PC-B) reside in VLAN 10 and communicate through a Layer 2 network. The switches connecting the PCs use access ports for direct PC connections and trunk ports for inter-switch communication. MAC address learning occurs dynamically, and ARP broadcasts are used to discover destination MAC addresses.
 
+![image](https://github.com/user-attachments/assets/6ca80d48-648c-4084-947b-5479b96325a5)
+
 **Key Characteristics of Traditional VLANs:**
+
 - VLAN ID: 12 bits (4,096 VLANs maximum).
 - Requires Layer 2 connectivity (trunks) between switches.
 - Uses STP to prevent loops, potentially blocking redundant links.
 
----
 
 ## VXLAN Architecture: Extending Layer 2 Across Layer 3
 
-VXLAN (RFC 7348) is an overlay technology that encapsulates Layer 2 Ethernet frames into UDP packets for transport across an IP-based network. It was originally developed to address the need for seamless Layer 2 connectivity between geographically distributed data centers. However, VXLAN has evolved into a versatile solution applicable to data centers, service provider networks, and enterprise SDN deployments.
+VXLAN (RFC 7348) is an overlay technology that encapsulates Layer 2 Ethernet frames into UDP packets for transport across an IP-based network. 
+
+It was originally developed to address the need for seamless Layer 2 connectivity between geographically distributed data centers. However, VXLAN has evolved into a versatile solution applicable to data centers, service provider networks, and enterprise SDN deployments.
 
 ### Key Features of VXLAN:
+
 | Feature                       | Description                                                                                  |
 |-------------------------------|----------------------------------------------------------------------------------------------|
 | **Encapsulation**             | Uses UDP encapsulation with a VXLAN header (port 4789). Adds 54 bytes to the packet size.    |
@@ -51,9 +56,8 @@ VXLAN (RFC 7348) is an overlay technology that encapsulates Layer 2 Ethernet fra
 | **Transport Requirements**    | Operates over Layer 3 (IP network). No reliance on Layer 2 (trunks, STP).                   |
 | **Multitenancy**              | Each VXLAN segment is isolated (broadcast domain), enabling tenant separation.               |
 
----
 
-### VXLAN Components
+## VXLAN Components
 
 1. **VXLAN Network Identifier (VNI):**
    - Analogous to VLAN IDs but with a 24-bit space (16,777,216 VNIs).
@@ -74,9 +78,8 @@ VXLAN (RFC 7348) is an overlay technology that encapsulates Layer 2 Ethernet fra
      - Multicast: Uses multicast groups for replication.
      - BGP EVPN: A control-plane mechanism for MAC/IP learning and forwarding.
 
----
 
-### VXLAN vs. Traditional VLANs: A Comparison
+## VXLAN vs. Traditional VLANs: A Comparison
 
 | **Feature**                 | **Traditional VLANs**                   | **VXLAN**                                    |
 |-----------------------------|------------------------------------------|----------------------------------------------|
@@ -105,15 +108,17 @@ In VXLAN, devices in the same VNI communicate as if they are in the same Layer 2
 4. **Traffic Decapsulation:**
    - The destination VTEP removes the VXLAN header and forwards the original Ethernet frame to PC-B.
 
-### Example: PC-A in VNI 700 Communicating with PC-B
+## Example: PC-A in VNI 700 Communicating with PC-B
+
 - VNI 700 is configured on both VTEPs.
 - PC-A generates an ARP request for PC-B.
 - The local VTEP learns PC-A's MAC and encapsulates the ARP request.
 - The destination VTEP decapsulates the ARP request and forwards it to PC-B.
 
----
+![image](https://github.com/user-attachments/assets/dc08c7a8-b000-4dfa-a5b5-3bd25fc54949)
 
-### Benefits of VXLAN in Modern Networks
+
+## Benefits of VXLAN in Modern Networks
 
 1. **Layer 2 Extension Over Layer 3:**
    - Enables seamless communication between devices in different geographical locations.
@@ -127,7 +132,6 @@ In VXLAN, devices in the same VNI communicate as if they are in the same Layer 2
 4. **Multitenancy:**
    - Perfect for environments with multiple tenants, as each VNI is isolated.
 
----
 
 ## VXLAN and SDN: The Cisco Perspective
 
@@ -147,9 +151,8 @@ VXLAN forms the foundation of many SDN solutions, including Cisco’s SD-Access 
 
 ---
 
-## Conclusion
 
-VXLAN represents a transformative shift from traditional VLAN-based networking to a scalable, efficient, and flexible architecture. By encapsulating Layer 2 traffic into Layer 3 tunnels, VXLAN enables enterprises to build robust and scalable networks suitable for modern data centers, cloud environments, and SDN deployments. Cisco’s robust portfolio of VXLAN-enabled solutions, such as the Nexus 9000 series and Cisco DNA Center, ensures seamless integration and operational simplicity.
+
 
 ---
 
@@ -217,7 +220,7 @@ VXLAN significado:
 
 Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a traves de VLAN para comunicar PC-A y PC-B a traves de switches capa 2 usando VLAN, los enalces de nemedio son los clasicos trunk y hacia las PC los clasicos access, ambas PC tienen la VLAN 10, y si tuvieran diferentes vlan y subnet, deberian ser routeados entre si con algo capa 3, ya sea un mismo switch L3, un router, firewall etc, lo clasico! simplemente la PC a envia trafico con su MAC, y los dispositivos L2 van aprendiendo tu MAC y la guardan en sus tablas, es decirt se genera un broadcast para buscar la MAC de destino via L2 (ARP). 
 
-![image](https://github.com/user-attachments/assets/6ca80d48-648c-4084-947b-5479b96325a5)
+
 
 
 
@@ -246,7 +249,7 @@ nota: bgp tiene su propia tencolofdia que es EBP pero eso aun no lo veremos aqui
 
 el chiste de VXLAN es elminiar la conuicacion L2, vlans tags, trunks, stp... asi es!!! no usar enalces capa 3 y dejar de usar el concepto tradicional, la idea de VXLAN es comuinicar PC con PC b ahora usando conexiones L3 en lugar de L2, es decir, sinusar VLANs, STP, etc.
 
-![image](https://github.com/user-attachments/assets/dc08c7a8-b000-4dfa-a5b5-3bd25fc54949)
+
 
 
 Esto surve por tencolofgias tipo SDN, como Cisco SD-WAN y solo est adisponible par anuevos rquipos cisoc XE o Nexus que es la nueva gama d eequipos de cisco, como la serie 9000 de cisco o la nexus.   
