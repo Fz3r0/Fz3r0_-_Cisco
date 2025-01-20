@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco Nexus Knowledge: `Intro`
+# 🔥🧱🛡️ Cisco Nexus: `Nexus, NX-OS & Data Center Architecture`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -17,7 +17,7 @@
 
 - 
 
-# Cisco Nexus and NX-OS 
+# Cisco Nexus: `Nexus, NX-OS & Data Center Architecture`
 
 Cisco Nexus is a family of high-performance network switches purpose-built for **data centers**. These switches are designed to handle the increasing demands of modern IT environments, including cloud computing, virtualization, and **massive amounts of east-west traffic**. 
 
@@ -31,9 +31,6 @@ In networking, **traffic flow** refers to the direction data moves within a netw
 
 ![image](https://github.com/user-attachments/assets/9b1200f3-adb2-4700-8cfb-abbae7f36acc)
 
-
-
-
 ### East-West Traffic
 
 This term refers to traffic that occurs **within a data center**, meaning communication between devices within the same network. A clear example of East-West traffic is **server-to-server communication**. During **convergence** in networking, **routers** exchange routing table information to ensure they have the same knowledge of the internetwork in which they operate. Additionally, **switches** can exchange **Spanning Tree** information to prevent network loops, which is a type of lateral traffic between devices within a network.
@@ -42,7 +39,9 @@ This term refers to traffic that occurs **within a data center**, meaning commun
 
 North-South traffic refers to the flow of data **into and out of the data center**. Traffic entering the data center through perimeter network devices is considered **southbound** traffic. Conversely, traffic exiting the data center via perimeter network devices is **northbound** traffic.
 
-## Key Differences Between East-West and North-South Traffic
+---
+
+### Key Differences Between East-West and North-South Traffic
 
 | **Aspect**            | **East-West Traffic**                                    | **North-South Traffic**                               |
 |-----------------------|----------------------------------------------------------|-------------------------------------------------------|
@@ -90,13 +89,15 @@ Your data center environment should be built to handle **significant amounts of 
 
 ### Key characteristics and features of NX-OS:  
 
+**Key characteristics:**
+
 - **Stability and Modularity**: A robust OS designed for mission-critical workloads.  
 - **Dual Functionality**: Operates in **LAN** mode (similar to Cisco IOS) or **SAN** mode (SAN-OS, used in MDS platforms for Fibre Channel networking).  
 - **High Availability**: Offers advanced features like In-Service Software Upgrades (ISSU) and redundancy mechanisms.  
 
 ![image](https://github.com/user-attachments/assets/854f237e-2b87-4ced-9ba1-b24d944ebd3d)
 
-**Featuring:**
+**Features:**
 
 1. **Linux-Based Kernel**:  
    - Provides stability, modularity, and reliability.  
@@ -125,9 +126,7 @@ Your data center environment should be built to handle **significant amounts of 
 
 ## Why is Cisco Nexus Designed for Data Centers?  
 
-Cisco Nexus switches are uniquely designed for **data centers** because they address specific challenges not typically found in traditional networks.  
-
-### Key advantages:  
+Cisco Nexus switches are uniquely designed for **data centers** because they address specific challenges not typically found in traditional networks:  
 
 1. **High-Performance Hardware with ASICs**:  
    Nexus switches use **ASICs (Application-Specific Integrated Circuits)** for hardware-accelerated performance. This allows for line-rate throughput and reduces latency compared to software-based processing.  
@@ -143,7 +142,7 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 4. **High Availability**:  
    With features like **ISSU**, **Stateful Switchover (SSO)**, and redundant hardware, Nexus ensures minimal downtime in critical environments.  
 
-## Data Center vs. Traditional Tree Network Architecture  
+### Data Center vs. Traditional Tree Network Architecture  
 
 | **Feature**            | **Data Center Architecture**               | **Traditional Tree Design**                  |  
 |-------------------------|--------------------------------------------|---------------------------------------------|  
@@ -153,7 +152,7 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 | **Redundancy**          | Multiple layers of built-in redundancy    | Redundancy often focused on the core        |  
 | **Latency**             | Low due to fewer hops in communication    | Higher latency with more hops               |  
 
-## Cisco Nexus vs. Traditional Switches (e.g., Catalyst 2960)  
+### Cisco Nexus vs. Traditional Switches (e.g., Catalyst 2960)  
 
 | **Feature**             | **Cisco Nexus**                           | **Cisco Catalyst 2960**                     |  
 |-------------------------|--------------------------------------------|---------------------------------------------|  
@@ -176,6 +175,34 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 
 ![image](https://github.com/user-attachments/assets/ef93b611-2f7b-41f3-9ff5-5f5180f68235)
 
+ The ASIC is basically a CPU that is not a general purpose CPU but is a CPU for making switching decisions very quickly. It can't be used for much else. This is similar to a high-end graphics card that has a special CPU for graphics processing that wouldn't be good for general applications. Hence the name, Application Specific Integrated Circuit.
+
+![image](https://github.com/user-attachments/assets/ff8a61bc-6c96-43e9-a2a6-24c9184fd37e)
+
+#### Comparison of Cisco ASICs
+
+| **Product**           | **ASIC Name**                | **Market Focus**                                  | **Key Features**                                          | **Technology Highlights**                               |
+|-----------------------|------------------------------|---------------------------------------------------|----------------------------------------------------------|---------------------------------------------------------|
+| **Catalyst 9000**      | Cisco Unified Access Data Plane (UADP) | Enterprise Campus and Branch Networks            | Multi-stage programmable pipeline, smart on-die buffers   | Optimized for evolving enterprise campus needs         |
+| **Nexus 9000**         | Cisco Cloudscale             | Enterprise and Service Provider Data Centers      | High bandwidth, rich telemetry, supports ACI (Application Centric Infrastructure) | High-performance pipeline, smart on-die buffers       |
+| **ASR 9000**           | Cisco Lightspeed             | Service Provider Core and Aggregation Networks    | Multi-threaded C programmable network processors, deep buffers | Sophisticated features with high bandwidth for service provider edges and core |
+| **Cisco 8000**         | Cisco Silicon One            | Service Provider and Web Scale Networks           | P4 programmable run-to-completion engine, deep buffers   | High bandwidth, programmability, and high scale        |
+
+1. **UADP (Unified Access Data Plane)**:
+   - Found in **Catalyst 9000** series, optimized for **enterprise campus and branch networks**.
+   - **Key Features**: Multi-stage pipeline and smart buffers that handle evolving enterprise features.
+   
+2. **Cloudscale**:
+   - Found in **Nexus 9000** series, designed for **data centers** of both **enterprises and service providers**.
+   - **Key Features**: High bandwidth, support for **ACI**, and deep buffers for optimal data center performance.
+   
+3. **Lightspeed**:
+   - Found in **ASR 9000** series, suited for **service provider core and aggregation**.
+   - **Key Features**: High scale, deep buffers, and multi-threaded processors enable complex service provider features.
+   
+4. **Silicon One**:
+   - Found in **Cisco 8000**, tailored for **service providers and web scale networks**.
+   - **Key Features**: Programmable processing engine, deep buffers, high scale, and high bandwidth, supporting a broad range of applications, from simple to highly complex deployments.
 
 
 
@@ -191,6 +218,7 @@ Cisco Nexus switches are uniquely designed for **data centers** because they add
 
 - https://youtu.be/lADK3STwwAM?si=LBcn1JuF76icjXqN
 - https://www.analysisman.com/2020/10/cisco-nxos-commands.html
+- https://blogs.cisco.com/networking/cisco-silicon-applications
 
 
 
