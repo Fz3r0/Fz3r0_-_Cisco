@@ -133,7 +133,7 @@ In VXLAN, devices in the same VNI communicate as if they are in the same Layer 2
    - Perfect for environments with multiple tenants, as each VNI is isolated.
 
 
-## VXLAN and SDN: The Cisco Perspective
+# VXLAN and SDN: The Cisco Perspective
 
 VXLAN forms the foundation of many SDN solutions, including Cisco’s SD-Access and SD-WAN. For example:
 
@@ -149,6 +149,87 @@ VXLAN forms the foundation of many SDN solutions, including Cisco’s SD-Access 
 - **Licensing:**
   - Features like VXLAN require advanced licenses (e.g., Cisco DNA Advantage).
 
+## VXLAN: Device Requirements and Cisco Support
+
+To deploy VXLAN in a network, the primary requirement is having devices that support VXLAN capabilities. VXLAN introduces specific hardware and software requirements due to its reliance on encapsulation, tunneling, and advanced routing functionalities. Cisco offers a wide range of devices that fully support VXLAN, with the **Cisco Nexus 9000 series** being a cornerstone for VXLAN deployments.
+
+Deploying VXLAN begins with selecting the right hardware. Cisco’s Nexus 9000 series and other VXLAN-capable devices provide the foundation for creating scalable, flexible, and efficient network overlays. These devices ensure seamless integration with modern SDN platforms like Cisco DNA Center and ACI, making them the ideal choice for enterprise and data center environments. By meeting hardware and licensing requirements, organi
+
+## Hardware Requirements for VXLAN
+
+Not all network devices can support VXLAN due to the advanced processing required for encapsulation and decapsulation of VXLAN traffic, as well as the necessity for enhanced routing and tunneling capabilities. Here are the key requirements:
+
+### Essential Features:
+1. **VXLAN Support**:
+   - Devices must support VXLAN encapsulation (UDP-based) and decapsulation to enable communication across Layer 3 networks.
+2. **VTEP (VXLAN Tunnel Endpoint)**:
+   - Hardware or software support for VTEP functionality is required. The device should be capable of creating and managing VXLAN tunnels for traffic encapsulation and decapsulation.
+3. **Routing Protocols**:
+   - Devices must support dynamic routing protocols such as OSPF, IS-IS, or BGP to enable Layer 3 connectivity for VXLAN overlays.
+4. **Increased MTU Support**:
+   - VXLAN adds 54 bytes of overhead to each packet. Devices must support a higher MTU (e.g., 1600 bytes or higher) to handle VXLAN-encapsulated traffic without fragmentation.
+5. **Advanced Control Plane**:
+   - Devices must support protocols like BGP EVPN or multicast for MAC address learning and VXLAN control plane operations.
+6. **High-Performance Forwarding**:
+   - Since VXLAN is designed for large-scale environments, devices must offer high-speed forwarding and processing to handle encapsulated traffic efficiently.
+
+---
+
+## Cisco Devices That Support VXLAN
+
+Cisco offers a broad portfolio of VXLAN-enabled devices, with the **Cisco Nexus 9000 series** being the flagship solution for VXLAN in modern data centers. These devices are specifically designed to handle VXLAN traffic, provide scalability, and integrate seamlessly with SDN solutions like Cisco DNA Center and Cisco ACI.
+
+### Cisco Nexus 9000 Series
+
+The Nexus 9000 series is the gold standard for VXLAN deployments. These switches are optimized for data centers and SDN environments, offering high performance, scalability, and rich feature sets for VXLAN overlays.
+
+| **Feature**                        | **Nexus 9000 Series**                                                                                 |
+|------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **VXLAN Support**                  | Fully supports VXLAN encapsulation, decapsulation, and tunneling.                                     |
+| **VXLAN EVPN (Control Plane)**     | Integrates with BGP EVPN for advanced VXLAN control plane operations.                                 |
+| **Programmability**                | Supports Cisco NX-OS and ACI mode for flexible VXLAN configurations.                                 |
+| **Automation**                     | Compatible with Cisco DNA Center for centralized automation and management.                          |
+| **MTU Support**                    | Configurable for increased MTU to handle VXLAN encapsulated traffic.                                 |
+| **Scalability**                    | Designed for large-scale environments, supporting millions of VXLANs (VNIs) and high-density ports.   |
+
+### Cisco Catalyst 9000 Series
+While primarily designed for enterprise access and distribution layers, the Catalyst 9000 series also supports VXLAN in certain models, enabling VXLAN-based segmentation in campus networks.
+
+| **Feature**                        | **Catalyst 9000 Series**                                                                              |
+|------------------------------------|-------------------------------------------------------------------------------------------------------|
+| **Use Case**                       | Best suited for enterprise campus networks and branch connectivity.                                   |
+| **VXLAN Support**                  | Supported in advanced models with specific licenses (e.g., DNA Advantage).                           |
+| **Controller Integration**         | Fully integrated with Cisco DNA Center for SD-Access deployments.                                    |
+
+---
+
+## Licensing and Software Requirements
+
+VXLAN functionality is often tied to specific software licenses, particularly in Cisco devices. Advanced features like BGP EVPN, SDN integration, and VXLAN tunneling require higher-tier licenses.
+
+| **License Tier**       | **Features**                                                                                   |
+|------------------------|-----------------------------------------------------------------------------------------------|
+| **Essentials**         | Basic Layer 2/3 functionality. VXLAN is not supported in this tier.                           |
+| **Advantage**          | Enables advanced routing (OSPF, BGP), VXLAN support, and SDN integration with Cisco DNA Center.|
+| **Premier/ACI Mode**   | Provides full capabilities for VXLAN-based data center fabric automation in ACI environments.  |
+
+---
+
+## Benefits of Using Cisco VXLAN-Ready Devices
+
+1. **Scalability**:
+   - Cisco devices like the Nexus 9000 series are purpose-built for large-scale VXLAN environments, supporting up to 16 million VNIs.
+
+2. **Centralized Management**:
+   - Integration with Cisco DNA Center and Cisco ACI ensures that VXLAN-enabled devices can be centrally managed, reducing operational complexity.
+
+3. **Interoperability**:
+   - Cisco VXLAN-enabled devices are compatible with other VXLAN-capable platforms, ensuring smooth interoperability in multi-vendor environments.
+
+4. **Future-Ready**:
+   - Cisco's focus on SDN and automation ensures that VXLAN-enabled devices are ready for evolving networking requirements.
+
+---
 
 
 
@@ -201,7 +282,6 @@ VXLAN forms the foundation of many SDN solutions, including Cisco’s SD-Access 
 
 
 
-VXLAN significado: 
 
 
 
@@ -220,10 +300,34 @@ VXLAN significado:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 📚🗂️🎥 Resources
 
 - https://www.youtube.com/live/uW--KhRzdEk?si=ujMneJdPkihxBtT4
 - [Cisco DNA Center](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2023/pdf/BRKOPS-2077.pdf)
+
 
 
 
