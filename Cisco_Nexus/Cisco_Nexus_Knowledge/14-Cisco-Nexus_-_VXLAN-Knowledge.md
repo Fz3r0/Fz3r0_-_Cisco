@@ -34,7 +34,7 @@ Para entender VXLAN primero veamos como se hace tradicionalmente una LAN a trave
 
 Solciion overlay para extension fabric entre data center (ese era el proposito original donde entre un DC-1-mex y DC-2-col se extendieran las direcciones MAC, ya que existen ISPs de MPLS que dan sercios de L2 VPN, es decir para interconectar 2 locaciones remotas, como si estuvieran conectados al mismo switch capa 2).
 
-Ahora está SDN que define que todas las redes deben de tener un contorlador centrlaizado qu debe proporcionar automatizacion y desedre ahi cofnigurar todo como SD-Access (como DNA- Center que controla muchos siwtches en la red), SD-WAN, SDI, etc....
+Ahora está SDN que define que todas las redes deben de tener un contorlador centrlaizado qu debe proporcionar automatizacion y desedre ahi cofnigurar todo como SD-Access (como DNA- Center que controla muchos siwtches en la red), SD-WAN, SDI, etc.... asi que ahora puede usarse para soluciones tanto de Business como de Data Center y como Service Provider, es deicr la trifuerza!!!! (hacer tabla comparando los 3). Los serived peorviders lo tuilzan con BGP para transportar por medio de red MPLS. 
 
 VXLAN = RFC 7348
 
