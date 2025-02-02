@@ -23,8 +23,16 @@
 
 Cisco **StackWise** is a switch stacking technology that allows multiple physical switches to operate as a single logical unit. It is primarily used in Cisco **Catalyst** series switches, providing high availability, simplified management, and increased scalability for enterprise networks.
 
+![image](https://github.com/user-attachments/assets/00920e6c-0246-4a73-834d-d17f95e9e854)
+
 Cisco StackWise is a powerful technology for creating a highly available and scalable switch network with **centralized management** and **high-speed interconnectivity**. However, its **cost** and **hardware dependency** make it less suitable for networks requiring vendor diversity or distributed locations. **For high-performance, low-latency environments, StackWise is an optimal choice, whereas trunked switches offer flexibility and cost savings.**
 
+![image](https://github.com/user-attachments/assets/93650678-7cd5-4e82-a249-23de4bcbf3fb)
+
+- **Switch stacking is to connect two or more stackable switches, usually up to nine, through a stack cable and uses Cisco propriety StackWise protocol.**
+- **Stacked switches can be regarded as one unit, and use the same IP address.**
+- **The stack master which contains the saved and running configuration files for the switch stack controls the whole stack units and can be replaced if it fails.**
+- **And stacking connects the backplane of the switches thus having full backplane speed connectivity between the switches.**
 
 ## Cisco StackWise: **Key Features**
 
@@ -54,8 +62,6 @@ Cisco StackWise is a powerful technology for creating a highly available and sca
 > - **StackWise** requires proprietary stacking cables for physical stacking.
 > - **StackWise Virtual** enables logical stacking via fiber links without dedicated stacking cables.
 
-
-
 ## **Stacking Technologies: Differences & Capabilities**
 
 | **Technology**         | **Connection Type**   | **Max Bandwidth** | **Stacking Method** |
@@ -66,9 +72,9 @@ Cisco StackWise is a powerful technology for creating a highly available and sca
 | **StackWise-480**      | Proprietary stacking cables | 480 Gbps         | Physical Stacking |
 | **StackWise Virtual**  | Fiber (No stacking cables) | N/A              | Logical Stacking |
 
-
-
 ## **StackWise vs. Switches Connected via Trunk**
+
+Switching stacking and trunking are two different concepts, even though both of them can simplify network management. Switch stacking vs trunking, choosing which one depends on users requirements. If high density port and high speed are the first parameter to consider, stacking and stackable switch are a better choice. If not, then trunking can be taken into consideration.
 
 | **Comparison Factor**    | **Cisco StackWise** | **Switches Connected via Trunk** |
 |-------------------------|---------------------|---------------------------------|
@@ -79,6 +85,10 @@ Cisco StackWise is a powerful technology for creating a highly available and sca
 | **Configuration Complexity** | Simple, single-device configuration. | Requires VLAN configuration, inter-switch routing, and STP tuning. |
 | **Cost**                | Higher due to proprietary stacking hardware. | More cost-effective using standard Ethernet or fiber links. |
 | **Scalability**         | Easily scalable with plug-and-play stacking. | Adding switches requires manual trunk and VLAN configuration. |
+
+![image](https://github.com/user-attachments/assets/9a31a9b4-3ec9-47b2-a83c-9b918415b7f5)
+
+![image](https://github.com/user-attachments/assets/3cd4814a-7c5d-43f4-be7f-fb9a222515b6)
 
 
 ## **Pros and Cons of StackWise**
@@ -115,6 +125,10 @@ Cisco StackWise is a powerful technology for creating a highly available and sca
 
 
 
+# Cisco StackWise: `Configuration`
+
+
+
 
 
 
@@ -124,6 +138,7 @@ Cisco StackWise is a powerful technology for creating a highly available and sca
 
 - https://www.youtube.com/watch?v=oBGQ8bCjA9w
 - https://www.youtube.com/watch?v=OXQSVJwwHjo
+- https://www.fiberopticshare.com/switch-stacking-vs-trunking-whats-difference.html
 
 
 
