@@ -125,12 +125,79 @@ Switching stacking and trunking are two different concepts, even though both of 
 
 
 
-# Cisco StackWise: `Configuration`
+# Cisco StackWise: `Configuration :: Cisco 3750 StackWise Configuration Lab`
+
+This guide will walk you through the process of configuring two Cisco Catalyst 3750 switches with StackWise technology. We will outline the materials required, the step-by-step configuration, and troubleshooting commands.
+
+## Materials Needed
+
+- Cisco Catalyst 3750 Series Switches (2 switches minimum)
+- Stacking Cables (Cisco proprietary cables for StackWise, make sure you have enough for the desired stack configuration)
+- Power cables for each switch
+- Ethernet cables for initial connectivity
+- Console cables for configuration via serial port
+- Terminal emulation software (e.g., PuTTY, Tera Term)
+- Access to Cisco IOS on both switches
+
+## Physical Setup
+
+### 2 Switches: 
+
+- Connect the StackWise cables to the StackWise ports on both Cisco 3750 switches in "X" pattern. _These ports are typically located at the back of the switch._
+- Power on both switches.
+- Ensure both switches are powered and stacked through the StackWise cables.
+- Connect your console cable to one of the switches for configuration.
+
+![image](https://github.com/user-attachments/assets/39de40f0-36d0-414a-9144-4938bba5aa01)
+
+### 3 or more Switches
+
+If you have 3 switches or more, you will need to connect the switches in a daisy-chain fashion.
+
+- Switch 1 to Switch 2: Connect Switch 1’s Port 1 to Switch 2’s Port 2.
+- Switch 2 to Switch 3: Connect Switch 2’s Port 1 to Switch 3’s Port 2.
+
+If you have more than 3 switches, continue chaining them using Port 1 of the higher-numbered switch to Port 2 of the next switch.
+
+![image](https://github.com/user-attachments/assets/2adfb895-9ee3-4b7e-9b31-8fb0a7d1810e)
+
+
+## Enter CLI via Console Port
+
+
+![image](https://github.com/user-attachments/assets/3e9450a8-7c87-4d56-a044-f63f633b4d3f)
+
+
+## Configuration
+
+After connecting 2 or more switches and enter to CLI via console, you only need to follow the next steps: 
+
+### 1. Verify the StackWise Status
+
+Before starting configuration, it's important to check the stack status and ensure both switches are properly communicating.
+
+On your terminal emulator, access the switch console & execute the following command to check the stack status:
+
+````
+show switch
+````
+
+- **You should see both switches listed, with one designated as `Master` and the other as `Member` **
+
+### 2. Assigning a Switch Priority
 
 
 
 
 
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/f5206010-cebf-4cd4-863e-b8ddbdf7b941)
 
 
 
