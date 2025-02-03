@@ -48,29 +48,34 @@ Cisco StackWise is a powerful technology for creating a highly available and sca
 
 ## Cisco StackWise: **Supported Switch Models and Technologies**
 
-| **Catalyst Series** | **Stacking Technology**          | **Backplane Speed** | **Compatible IOS** |
-|---------------------|--------------------------------|---------------------|------------------|
-| **2960-X**         | FlexStack-Plus                  | 40 Gbps            | IOS LAN Base, LAN Lite |
-| **2960-XR**        | FlexStack-Plus, FlexStack-Extended | 40 Gbps            | IOS IP Lite, IP Base |
-| **3650**           | StackWise-160                   | 160 Gbps           | IOS XE |
-| **3850**           | StackWise-480                   | 480 Gbps           | IOS XE |
-| **9300**           | StackWise-480, StackWise Virtual | 480 Gbps           | IOS XE |
-| **9400**           | StackWise Virtual               | N/A                | IOS XE |
-| **9500**           | StackWise Virtual               | N/A                | IOS XE |
+| **Brand & Model**             | **Stacking Technology**           | **Backplane Speed** | **Year** | **Compatible IOS**            |
+|-------------------------------|-----------------------------------|---------------------|----------|------------------------------|
+| **Cisco Catalyst 2960-X**      | FlexStack-Plus                    | 40 Gbps             | 2013     | IOS LAN Base, LAN Lite        |
+| **Cisco Catalyst 2960-XR**     | FlexStack-Plus, FlexStack-Extended | 40 Gbps             | 2015     | IOS IP Lite, IP Base          |
+| **Cisco Catalyst 3650**        | StackWise-160                     | 160 Gbps            | 2014     | IOS XE                        |
+| **Cisco Catalyst 3850**        | StackWise-480                     | 480 Gbps            | 2014     | IOS XE                        |
+| **Cisco Catalyst 9300**        | StackWise-480, StackWise Virtual  | 480 Gbps            | 2017     | IOS XE                        |
+| **Cisco Catalyst 9400**        | StackWise Virtual                 | N/A                 | 2017     | IOS XE                        |
+| **Cisco Catalyst 9500**        | StackWise Virtual                 | N/A                 | 2017     | IOS XE                        |
+
 
 > **Note:**
 > - **StackWise** requires proprietary stacking cables for physical stacking.
 > - **StackWise Virtual** enables logical stacking via fiber links without dedicated stacking cables.
 
+- _`IOS (Internetwork Operating System)` is the operating system developed by Cisco for its networking devices, such as switches and routers. There are different versions of IOS, each designed to meet specific needs. IOS LAN Base is a basic version, ideal for small to medium-sized networks, with limited features. IOS IP Lite is also a lighter version, but with specific capabilities for routing IP._
+- _`IOS XE` is the most recent and advanced version, based on Linux, offering greater modularity, flexibility, and support for new technologies, making it ideal for more complex and large-scale environments._
+
 ## **Stacking Technologies: Differences & Capabilities**
 
-| **Technology**         | **Connection Type**   | **Max Bandwidth** | **Stacking Method** |
-|------------------------|----------------------|------------------|-------------------|
-| **FlexStack-Plus**     | Dedicated stacking cables | 40 Gbps          | Physical Stacking |
-| **FlexStack-Extended** | Stacking over fiber  | 40 Gbps          | Physical Stacking (Extended Range) |
-| **StackWise-160**      | Proprietary stacking cables | 160 Gbps         | Physical Stacking |
-| **StackWise-480**      | Proprietary stacking cables | 480 Gbps         | Physical Stacking |
-| **StackWise Virtual**  | Fiber (No stacking cables) | N/A              | Logical Stacking |
+| **Technology**         | **Brand & Model**                | **Year**  | **Connection Type**        | **Max Bandwidth** | **Stacking Method**              | **Status**         | **Real-Life Example**                                                                 |
+|------------------------|----------------------------------|----------|----------------------------|------------------|----------------------------------|--------------------|--------------------------------------------------------------------------------------|
+| **FlexStack-Plus**     | Cisco Catalyst 2960-X, 2960-XR  | 2013     | Dedicated stacking cables   | 40 Gbps          | Physical Stacking               | In Use             | Used in enterprise networks for small-to-medium scale setups, like office campuses. |
+| **FlexStack-Extended** | Cisco Catalyst 2960-XR           | 2015     | Stacking over fiber         | 40 Gbps          | Physical Stacking (Extended Range) | In Use             | Deployed in larger campuses or multi-building installations for extended reach.      |
+| **StackWise-160**      | Cisco Catalyst 3650              | 2014     | Proprietary stacking cables | 160 Gbps         | Physical Stacking               | In Use             | Common in medium to large enterprises, data centers requiring higher bandwidth.      |
+| **StackWise-480**      | Cisco Catalyst 3850              | 2014     | Proprietary stacking cables | 480 Gbps         | Physical Stacking               | In Use             | Used in high-performance enterprise networks and campus environments.                |
+| **StackWise Virtual**  | Cisco Catalyst 9300, 9400        | 2017     | Fiber (No stacking cables)  | N/A              | Logical Stacking                | In Use             | Deployed in large-scale data centers and enterprises requiring flexibility.          |
+
 
 ## **StackWise vs. Switches Connected via Trunk**
 
