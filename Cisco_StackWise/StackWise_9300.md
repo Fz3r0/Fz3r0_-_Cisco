@@ -31,22 +31,14 @@ Cisco **StackWise** is a switch stacking technology that allows multiple physica
 ![image](https://github.com/user-attachments/assets/4f0716fe-9b0c-4aaa-b057-91c9815c1ed2)
 
 
-![image](https://github.com/user-attachments/assets/00920e6c-0246-4a73-834d-d17f95e9e854)
-
-![image](https://github.com/user-attachments/assets/93650678-7cd5-4e82-a249-23de4bcbf3fb)
-
-
-
 ## Cisco StackWise: **Key Features**
 
-| **Feature**               | **Description** |
-|---------------------------|----------------|
-| **Single Control Plane**  | All switches in the stack function as a single entity, with one switch acting as the **Master** and others as **Members**. |
-| **High Availability**     | If the Master switch fails, another switch in the stack takes over without interrupting network operations. |
-| **High-Speed Backplane**  | Switches are connected using Cisco’s proprietary stacking cables, with speeds up to **480 Gbps (StackWise-480)**. |
-| **Unified Configuration** | Managed as a single switch with a single IP address, simplifying network administration. |
-| **Scalability**           | Allows adding or removing switches without network downtime. |
-| **Redundancy Support**    | Load is distributed across multiple switches, preventing single points of failure. |
+- **Single Control Plane**: All switches in the stack function as a single entity, with one switch acting as the **Master** and others as **Members**.
+- **High Availability**: If the Master switch fails, another switch in the stack takes over without interrupting network operations.
+- **High-Speed Backplane**: Switches are connected using Cisco’s proprietary stacking cables, with speeds up to **480 Gbps (StackWise-480)**.
+- **Unified Configuration**: Managed as a single switch with a single IP address, simplifying network administration. 
+- **Scalability**:  Allows adding or removing switches without network downtime. 
+- **Redundancy Support**: Load is distributed across multiple switches, preventing single points of failure.
 
 
 ## Cisco StackWise: **Supported Switch Models and Technologies**
@@ -68,16 +60,6 @@ Cisco **StackWise** is a switch stacking technology that allows multiple physica
 
 - _`IOS (Internetwork Operating System)` is the operating system developed by Cisco for its networking devices, such as switches and routers. There are different versions of IOS, each designed to meet specific needs. IOS LAN Base is a basic version, ideal for small to medium-sized networks, with limited features. IOS IP Lite is also a lighter version, but with specific capabilities for routing IP._
 - _`IOS XE` is the most recent and advanced version, based on Linux, offering greater modularity, flexibility, and support for new technologies, making it ideal for more complex and large-scale environments._
-
-## **Stacking Technologies: Differences & Capabilities**
-
-| **Technology**         | **Brand & Model**                | **Year**  | **Connection Type**        | **Max Bandwidth** | **Stacking Method**              | **Status**         | **Real-Life Example**                                                                 |
-|------------------------|----------------------------------|----------|----------------------------|------------------|----------------------------------|--------------------|--------------------------------------------------------------------------------------|
-| **FlexStack-Plus**     | Cisco Catalyst 2960-X, 2960-XR  | 2013     | Dedicated stacking cables   | 40 Gbps          | Physical Stacking               | In Use             | Used in enterprise networks for small-to-medium scale setups, like office campuses. |
-| **FlexStack-Extended** | Cisco Catalyst 2960-XR           | 2015     | Stacking over fiber         | 40 Gbps          | Physical Stacking (Extended Range) | In Use             | Deployed in larger campuses or multi-building installations for extended reach.      |
-| **StackWise-160**      | Cisco Catalyst 3650              | 2014     | Proprietary stacking cables | 160 Gbps         | Physical Stacking               | In Use             | Common in medium to large enterprises, data centers requiring higher bandwidth.      |
-| **StackWise-480**      | Cisco Catalyst 3850              | 2014     | Proprietary stacking cables | 480 Gbps         | Physical Stacking               | In Use             | Used in high-performance enterprise networks and campus environments.                |
-| **StackWise Virtual**  | Cisco Catalyst 9300, 9400        | 2017     | Fiber (No stacking cables)  | N/A              | Logical Stacking                | In Use             | Deployed in large-scale data centers and enterprises requiring flexibility.          |
 
 
 ## **StackWise vs. Switches Connected via Trunk**
@@ -103,17 +85,17 @@ Switching stacking and trunking are two different concepts, even though both of 
 
 ### ✅ **Advantages**
 
-✔ **Simplified Management**: Managed as a single entity with one IP address.
-✔ **High Performance**: Dedicated stacking bandwidth up to 480 Gbps.
-✔ **Failover Redundancy**: Automatic Master switch reassignment in case of failure.
-✔ **Scalability**: Add/remove switches dynamically without downtime.
-✔ **Unified Configuration**: No need for STP tuning or VLAN trunking between stacked switches.
+- ✔ **Simplified Management**: Managed as a single entity with one IP address.
+- ✔ **High Performance**: Dedicated stacking bandwidth up to 480 Gbps.
+- ✔ **Failover Redundancy**: Automatic Master switch reassignment in case of failure.
+- ✔ **Scalability**: Add/remove switches dynamically without downtime.
+- ✔ **Unified Configuration**: No need for STP tuning or VLAN trunking between stacked switches.
 
 ### ❌ **Disadvantages**
 
-❌ **Higher Cost**: Requires proprietary Cisco stacking hardware and cables.
-❌ **Hardware Dependency**: Only works with compatible Cisco Catalyst models.
-❌ **Physical Limitations**: Stacked switches must be in close proximity due to stacking cable length constraints.
+- ❌ **Higher Cost**: Requires proprietary Cisco stacking hardware and cables.
+- ❌ **Hardware Dependency**: Only works with compatible Cisco Catalyst models.
+- ❌ **Physical Limitations**: Stacked switches must be in close proximity due to stacking cable length constraints.
 
 
 ## **Use Cases**
@@ -135,7 +117,7 @@ Switching stacking and trunking are two different concepts, even though both of 
 
 # Cisco StackWise: `Configuration`
 
-This guide will walk you through the process of configuring two Cisco Catalyst 3750 switches with StackWise technology. We will outline the materials required, the step-by-step configuration, and troubleshooting commands.
+This guide will walk you through the process of configuring two or more Cisco Catalyst switches using IOS XE with StackWise technology. 
 
 ## Materials Needed
 
