@@ -242,9 +242,12 @@ reload
 ## Validation
 
 show switch
+show interface description
 show version
 
 ## Configuration
+
+
 ````
 
 
