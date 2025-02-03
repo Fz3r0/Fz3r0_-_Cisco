@@ -28,6 +28,9 @@ Cisco **StackWise** is a switch stacking technology that allows multiple physica
 - **The stack master which contains the saved and running configuration files for the switch stack controls the whole stack units and can be replaced if it fails.**
 - **Stacking connects the backplane of the switches thus having full backplane speed connectivity between the switches.**
 
+![image](https://github.com/user-attachments/assets/4f0716fe-9b0c-4aaa-b057-91c9815c1ed2)
+
+
 ![image](https://github.com/user-attachments/assets/00920e6c-0246-4a73-834d-d17f95e9e854)
 
 ![image](https://github.com/user-attachments/assets/93650678-7cd5-4e82-a249-23de4bcbf3fb)
