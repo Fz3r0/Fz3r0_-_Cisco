@@ -217,10 +217,21 @@ Add the next command (priotioty 10 = lower priority):
 switch 2 priority 10
 ````
 
-### 2. Assigning a Switch Priority
+### 3. Save Configuration & Reload (Reboot)
 
+Every configuration change in Switch Number, Role or Priority need the devices to `Reboot/Reload` to take new changes. But first we need to save configuration to running config. 
 
+1. Save Config:
 
+````
+write memory
+````
+
+2. Reload:
+
+````
+reload
+````
 
 
 
