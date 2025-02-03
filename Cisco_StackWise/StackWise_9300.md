@@ -168,18 +168,18 @@ If you have more than 3 switches, continue chaining them using Port 1 of the hig
 
 ![image](https://github.com/user-attachments/assets/3e9450a8-7c87-4d56-a044-f63f633b4d3f)
 
-2. Ya estando dentro del CLI primero vamos a revisar la version con el comando `show version`, aqui podremos ver:
+2. Once inside the CLI, first check the version with the show version command. Here you can see:
 
-    - La versión del SO: ![image](https://github.com/user-attachments/assets/658e8c26-58ea-4b73-add4-25c7831bf732)
-    - Y el status de los switches: ![image](https://github.com/user-attachments/assets/d3f130f6-f939-4064-8353-648a254c2158)
+    - The OS version: ![image](https://github.com/user-attachments/assets/658e8c26-58ea-4b73-add4-25c7831bf732)
+    - And the status of the switches: ![image](https://github.com/user-attachments/assets/d3f130f6-f939-4064-8353-648a254c2158)
 
-3. Revisamos el stats con el comando `show switch` para Verify the StackWise Status
+3. Check the stats with the show switch command to verify the StackWise status:
 
    - **You should see both switches listed, with one designated as `Active` and the other as `Member` **
 
 ![image](https://github.com/user-attachments/assets/5384a919-01f7-48b0-9a87-2969faec94d2)
 
-El orden del `active` y el `member` se puede cambiar, en mi caso yo quiero que el `active` sea el switch se arriba, para eso solo hay que configurar el StackWise. 
+The order of `Active` and `Member` can be changed. In my case, I want the Active switch to be the top one, for which I just need to configure the StackWise.
 
 ## Configuration
 
