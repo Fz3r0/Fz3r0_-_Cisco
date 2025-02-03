@@ -125,7 +125,7 @@ Switching stacking and trunking are two different concepts, even though both of 
 
 
 
-# Cisco StackWise: `Configuration :: Cisco 3750 StackWise Configuration Lab`
+# Cisco StackWise: `Configuration`
 
 This guide will walk you through the process of configuring two Cisco Catalyst 3750 switches with StackWise technology. We will outline the materials required, the step-by-step configuration, and troubleshooting commands.
 
