@@ -170,8 +170,8 @@ If you have more than 3 switches, continue chaining them using Port 1 of the hig
 
 2. Once inside the CLI, first check the version with the show version command. Here you can see:
 
-    - The OS version: ![image](https://github.com/user-attachments/assets/658e8c26-58ea-4b73-add4-25c7831bf732)
-    - And the status of the switches: ![image](https://github.com/user-attachments/assets/d3f130f6-f939-4064-8353-648a254c2158)
+    - The OS version: <br> <br> ![image](https://github.com/user-attachments/assets/658e8c26-58ea-4b73-add4-25c7831bf732) <br>
+    - And the status of the switches: <br> <br> ![image](https://github.com/user-attachments/assets/d3f130f6-f939-4064-8353-648a254c2158) <br>
 
 3. Check the stats with the show switch command to verify the StackWise status:
 
