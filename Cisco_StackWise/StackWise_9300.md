@@ -187,19 +187,35 @@ show switch
 
 ![image](https://github.com/user-attachments/assets/5384a919-01f7-48b0-9a87-2969faec94d2)
 
-The order of `Active` and `Member` can be changed. In my case, I want the Active switch to be the top one, for which I just need to configure the StackWise.
+The order of `Active` and `Member` can be changed with just a simple configuration:. 
 
 ## Configuration
 
-After connecting 2 or more switches and enter to CLI via console, you only need to follow the next steps: 
+To configure the `Priority` value between `1` and `15` (**higher values make the switch to become the master**). In my case, I want the Active switch to be the top one, for which I just need to configure the StackWise.: 
 
-### 1. Verify the StackWise Status
+There are also other configurable values like the switch number and role: 
+
+![image](https://github.com/user-attachments/assets/6ab13005-ec3d-4848-88ea-64cb82bee772)
+
+- ⚠️ **`IMPORTANT`: Every configuration change in Switch Number, Role or Priority need the devices to `Reboot/Reload` to take new changes.**
+
+### 1. Change Priority of `Switch 1` (Top Switch)
+
+Add the next command (priotioty 15 = highest priority):
 
 ````
-show switch
+switch 1 priority 15
 ````
 
+### 2. Change Priority of `Switch 2` (Bottom Switch)
 
+Add the next command (priotioty 10 = lower priority):
+
+- NOTE: If more switches are added to the stack, you can configure lower values such as 9, 8, 7, 6... for the other switches. If only one switch has the highest priority and the others have the same priority, then if the active switch fails, the new active switch may be chosen randomly using other factors.
+
+````
+switch 2 priority 10
+````
 
 ### 2. Assigning a Switch Priority
 
