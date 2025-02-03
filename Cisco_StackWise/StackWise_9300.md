@@ -164,9 +164,22 @@ If you have more than 3 switches, continue chaining them using Port 1 of the hig
 
 ## Enter CLI via Console Port
 
+1. Connect the console cable to the console port of the top switch, which we will call `Core 1`:
 
 ![image](https://github.com/user-attachments/assets/3e9450a8-7c87-4d56-a044-f63f633b4d3f)
 
+2. Ya estando dentro del CLI primero vamos a revisar la version con el comando `show version`, aqui podremos ver:
+
+    - La versión del SO: ![image](https://github.com/user-attachments/assets/658e8c26-58ea-4b73-add4-25c7831bf732)
+    - Y el status de los switches: ![image](https://github.com/user-attachments/assets/d3f130f6-f939-4064-8353-648a254c2158)
+
+3. Revisamos el stats con el comando `show switch` para Verify the StackWise Status
+
+   - **You should see both switches listed, with one designated as `Active` and the other as `Member` **
+
+![image](https://github.com/user-attachments/assets/5384a919-01f7-48b0-9a87-2969faec94d2)
+
+El orden del `active` y el `member` se puede cambiar, en mi caso yo quiero que el `active` sea el switch se arriba, para eso solo hay que configurar el StackWise. 
 
 ## Configuration
 
@@ -174,15 +187,11 @@ After connecting 2 or more switches and enter to CLI via console, you only need 
 
 ### 1. Verify the StackWise Status
 
-Before starting configuration, it's important to check the stack status and ensure both switches are properly communicating.
-
-On your terminal emulator, access the switch console & execute the following command to check the stack status:
-
 ````
 show switch
 ````
 
-- **You should see both switches listed, with one designated as `Master` and the other as `Member` **
+
 
 ### 2. Assigning a Switch Priority
 
