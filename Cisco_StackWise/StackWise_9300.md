@@ -23,16 +23,16 @@
 
 Cisco **StackWise** is a switch stacking technology that allows multiple physical switches to operate as a single logical unit. It is primarily used in Cisco **Catalyst** series switches, providing high availability, simplified management, and increased scalability for enterprise networks.
 
-![image](https://github.com/user-attachments/assets/00920e6c-0246-4a73-834d-d17f95e9e854)
-
-Cisco StackWise is a powerful technology for creating a highly available and scalable switch network with **centralized management** and **high-speed interconnectivity**. However, its **cost** and **hardware dependency** make it less suitable for networks requiring vendor diversity or distributed locations. **For high-performance, low-latency environments, StackWise is an optimal choice, whereas trunked switches offer flexibility and cost savings.**
-
-![image](https://github.com/user-attachments/assets/93650678-7cd5-4e82-a249-23de4bcbf3fb)
-
 - **Switch stacking is to connect two or more stackable switches, usually up to nine, through a stack cable and uses Cisco propriety StackWise protocol.**
 - **Stacked switches can be regarded as one unit, and use the same IP address.**
 - **The stack master which contains the saved and running configuration files for the switch stack controls the whole stack units and can be replaced if it fails.**
-- **And stacking connects the backplane of the switches thus having full backplane speed connectivity between the switches.**
+- **Stacking connects the backplane of the switches thus having full backplane speed connectivity between the switches.**
+
+![image](https://github.com/user-attachments/assets/00920e6c-0246-4a73-834d-d17f95e9e854)
+
+![image](https://github.com/user-attachments/assets/93650678-7cd5-4e82-a249-23de4bcbf3fb)
+
+
 
 ## Cisco StackWise: **Key Features**
 
