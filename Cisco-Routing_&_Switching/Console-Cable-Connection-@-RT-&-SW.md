@@ -38,6 +38,8 @@ Serial communication was pioneered by IBM and widely adopted in computing and ne
 | **USB to Serial (DB9/RJ45)**      | Required for newer PCs without serial ports. Needs a USB-to-serial adapter or a direct USB-to-RJ45 cable. | Cisco 2900, 3900, Catalyst 3750X | 2010s           |
 | **Micro-USB to USB**              | Newer Cisco devices have a built-in USB console port, allowing direct connection.                         | Cisco ISR 4000, Catalyst 9000    | 2015-Present    |
 
+![image](https://github.com/user-attachments/assets/e0a421a1-849a-44ea-8393-f3db4ebeee84)
+
 ## How to Connect Each Type
 
 ### Legacy (RJ45 to DB9)
@@ -64,7 +66,7 @@ Serial communication was pioneered by IBM and widely adopted in computing and ne
 
 ### Step 1: Identify the COM Port
 
-1. Connect the PC to the router/switch using the appropriate serial cable.
+1. Connect the PC to the router/switch using the appropriate serial cable for your PC/Router/Switch.
 2. Open **Device Manager** (`Win + X` → Device Manager).
 3. Expand **"Ports (COM & LPT)"**.
 4. Locate the active COM ports (e.g., `COM4`, `COM7`).
