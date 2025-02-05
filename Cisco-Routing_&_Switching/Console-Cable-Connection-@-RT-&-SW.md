@@ -21,6 +21,8 @@ A serial cable is a communication cable used to establish a direct connection be
 
 Serial communication was pioneered by IBM and widely adopted in computing and networking in the 1960s. The RS-232 standard, developed in 1960 by the Electronic Industries Association (EIA), became the foundation for serial communication. These cables are composed of multiple conductors, typically twisted pairs, enclosed in a protective shield to reduce electromagnetic interference (EMI). Older serial connectors used DB25 and DB9 connectors, while modern implementations have transitioned to RJ45 and USB interfaces.
 
+![image](https://github.com/user-attachments/assets/0f11c505-e4ea-4fc5-a198-b561820eeed4)
+
 ### Why Not Use a Regular RJ45 Cable?
 
 - A standard RJ45 cable is used for network communication, not direct console access.
