@@ -1,5 +1,22 @@
 # CCNA Breakdwon & Roadmap
 
+### 1.0 Network Fundamentals
+
+- [OSI Model](https://github.com/Fz3r0/Fz3r0_-_802.3_Ethernet_-_Knowledge-Base/blob/main/Network-Reference-Models/OSI-Model.md)
+- [TCP and UDP](https://github.com/Fz3r0/Fz3r0_-_802.3_Ethernet_-_Knowledge-Base/blob/main/TCP_&_UDP/TCP_&_UDP.md)
+- WAN Tutorial
+- Cisco Command Line Interface CLI
+- Cisco Router Boot Sequence Tutorial
+- Spine-Leaf Architecture Tutorial
+- Subnetting Tutorial – Subnetting Made Easy
+- Wireless Tutorial
+- IPv6 Tutorial
+
+
+
+
+
+
 Whether you're a beginner or enhancing your expertise, this roadmap has got you covered!
 
 ## 1. Networking Fundamentals
