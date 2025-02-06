@@ -4,7 +4,7 @@
 
 - [OSI Model](https://github.com/Fz3r0/Fz3r0_-_802.3_Ethernet_-_Knowledge-Base/blob/main/Network-Reference-Models/OSI-Model.md)
 - [TCP and UDP](https://github.com/Fz3r0/Fz3r0_-_802.3_Ethernet_-_Knowledge-Base/blob/main/TCP_&_UDP/TCP_&_UDP.md)
-- WAN Tutorial
+- [WAN](https://github.com/Fz3r0/Fz3r0_-_802.3_Ethernet_-_Knowledge-Base/blob/main/WAN/WAN.md)
 - Cisco Command Line Interface CLI
 - Cisco Router Boot Sequence Tutorial
 - Spine-Leaf Architecture Tutorial
