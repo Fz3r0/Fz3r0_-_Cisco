@@ -21,7 +21,8 @@
 
 ## Topology 
 
-![image](https://github.com/user-attachments/assets/6f712314-9a24-4a81-868c-3768fe7c2bb1)
+![image](https://github.com/user-attachments/assets/51b9e345-3523-4954-a0c4-bb5318af2988)
+
 
 
 ## Devices Init Setup & Addressing
@@ -127,18 +128,25 @@ show ip interface brief
 
 ### Route :: From `Site A` ➡️ To `Site B`
 
-![image](https://github.com/user-attachments/assets/fbfbf670-30e4-4a79-a436-9e21df168a4e)
+![image](https://github.com/user-attachments/assets/9416672b-9422-4130-9494-84ff9b7d0dae)
+
+````py
+````
 
 
 ### Route :: From `R2-Center` To `Site A & Site B`
 
-![image](https://github.com/user-attachments/assets/eed693b1-0099-4d65-ab41-36ade2b44bed)
+![image](https://github.com/user-attachments/assets/e7baa391-9499-4d48-a58a-192a5cc330c1)
+
+
 
 
 
 ### Route :: To `Site A` ⬅️ From `Site B`
 
-![image](https://github.com/user-attachments/assets/1a3e5f96-ad96-4dba-9946-1e24110a6081)
+![image](https://github.com/user-attachments/assets/859055d9-b669-4c2e-a85d-379add576e5c)
+
+
 
 
 
