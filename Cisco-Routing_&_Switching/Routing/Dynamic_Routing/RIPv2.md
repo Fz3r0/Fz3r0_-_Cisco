@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `Static & Default Routing @ Packet Tracer`
+# 🔥🧱🛡️ Cisco: `Dynamic Routing : RIPv2 @ Packet Tracer`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Static Routing` `Default Routing` `Packet Tracer`
+#### Keywords: `Dynamic Routing` `RIPv2` `Packet Tracer`
 
 ---
 
@@ -20,6 +20,8 @@
 # CCNA Lab: `Dynamic Routing` :: `RIPv2`
 
 Configuring **RIP v2** is useful for learning dynamic routing in small networks. However, for larger, more complex networks, protocols like **OSPF or EIGRP** are preferred due to their scalability and efficiency.
+
+- **RIPv2 operates by simply advertising its own networks. In this scenario, each router has three different networks—one for each interface (one LAN and two WAN). RIPv2 sends advertisements of these networks to its neighboring routers, which then propagate the updates to their neighbors, and so on, forming a continuous update process. This propagation continues until reaching the maximum limit of 15 hops, as any route with 16 hops is considered unreachable.**
 
 ## Lab Files
 
@@ -294,7 +296,25 @@ With **five routers** connected in a ring topology, RIP v2 will:
 
 ## 🛠 **Configuring RIP v2 on Each Router**
 
-### RIP v2 Config: Router-1
+RIPv2 operates by simply advertising its own networks. In this scenario, each router has three different networks—one for each interface (one LAN and two WAN). RIPv2 sends advertisements of these networks to its neighboring routers, which then propagate the updates to their neighbors, and so on, forming a continuous update process. This propagation continues until reaching the maximum limit of 15 hops, as any route with 16 hops is considered unreachable.
+
+### TIP: `No Autosum`
+
+Auto-summarization in RIP automatically summarizes routes to their classful network address when sending updates. This can cause issues in networks with discontiguous subnets, where networks of the same class are split across multiple locations without a direct connection.
+
+**If no auto-summary is not used, RIP will:**
+
+- **Summarize routes to their classful boundaries (e.g., 10.1.0.0/8 instead of 10.1.0.0/30).**
+- Cause incorrect routing because **routers might not know the exact subnet mask**.
+- Forward traffic incorrectly or drop packets due to missing subnet information.
+
+** Example of the Problem** 
+
+- Imagine R1 advertises 10.1.0.0/30 to R2, but R2 summarizes it as 10.0.0.0/8. If R3 has a different 10.x.x.x subnet, R2 may think it belongs to the same large network and misroute traffic.
+
+The Best Practice is **Always use `no auto-summary`, This ensures RIP advertises specific subnet masks instead of summarizing to classful boundaries, preventing routing errors.:
+
+### RIP v2 Config: `Router-1`
 
 ```
 enable
@@ -305,6 +325,7 @@ router rip
 version 2
 !
 ! ## Advertise Networks
+! ## WANs(Fa0/0,0/1) LAN(Fa1/1)
 network 10.1.0.0
 network 10.5.0.0
 network 192.168.1.0
