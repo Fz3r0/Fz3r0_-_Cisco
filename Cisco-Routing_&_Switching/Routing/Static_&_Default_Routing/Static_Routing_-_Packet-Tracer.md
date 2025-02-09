@@ -348,6 +348,48 @@ write memory
 ````
 
 
+## Validations
+
+To verify the routing configuration and ensure connectivity between the sites, we will use various commands on the routers and perform ping and traceroute tests from PC-A and PC-B.
+
+### Router Validation
+
+![image](https://github.com/user-attachments/assets/91a19beb-460a-42ac-99b6-63f30829f11b)
+
+````sh
+! ## Validation Commands on Router:
+!
+! Displays the router's routing table, showing all routes and their destinations.
+show ip route
+!
+! Provides a quick overview of the router's interfaces, their IP addresses, and their status (up or down).
+show ip interface brief
+!
+
+````
+
+### PC-1 (Site-A) & PC-2 (Site-B) Validation
+
+![image](https://github.com/user-attachments/assets/c95a92cd-9298-4c59-a7da-1841587fdafc)
+
+- PC-1 (Site-A):
+
+````sh
+ping 192.168.2.100
+tracert 192.168.2.100
+````
+
+- PC-2 (Site-B):
+
+````sh
+ping 192.168.1.100
+tracert 192.168.1.100
+````
+
+
+
+
+
 
 
 
