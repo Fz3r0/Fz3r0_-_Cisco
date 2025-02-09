@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `Static Routing @ Packet Tracer`
+# 🔥🧱🛡️ Cisco: `Static & Default Routing @ Packet Tracer`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Static Routing` `Packet Tracer`
+#### Keywords: `Static Routing` `Default Routing` `Packet Tracer`
 
 ---
 
@@ -19,7 +19,7 @@
 
 # `Static Routing @ Packet Tracer`
 
-## Topology 
+## Static Routing: Topology 
 
 ![image](https://github.com/user-attachments/assets/51b9e345-3523-4954-a0c4-bb5318af2988)
 
@@ -251,6 +251,97 @@ tracert 192.168.2.100
 ping 192.168.1.100
 tracert 192.168.1.100
 ````
+
+
+
+
+
+
+
+# `Default Routing @ Packet Tracer`
+
+
+
+## Default Routing: Topology 
+
+In this setup, Router 2 (R2-CENTER) acts as the core router handling static routes for Site A and Site B, while Router 1 (R1-LEFT) and Router 3 (R3-RIGHT) use a default route (0.0.0.0/0) to send all unknown traffic to R2, simulating a typical internet gateway scenario. This configuration simplifies routing for edge devices, as they rely on a single route for external connectivity.
+
+![image](https://github.com/user-attachments/assets/29b4a3b8-0cfd-478f-94c3-9c6b9acbbe84)
+
+## Default Route Configuration
+
+
+### Route :: From `R2-Center` To `Site A & Site B`
+
+_This is the simulation of "Internet"_
+
+````py
+! ## ROUTER 2 (CENTER)
+!
+! Destination (Site A - LAN)      = 192.168.1.0/24 
+! Next Hop: Static to (R1-Left)   = R1 - Fa0/0 - 10.1.0.1/30 
+! ---
+! Destination (Site B - LAN)      = 192.168.2.0/24 
+! Next Hop: Static to (R3-Right)  = R3 - Fa0/0 - 10.2.0.1/30 
+!
+enable
+configure terminal
+!
+! # Route to Site A:
+ip route 192.168.1.0 255.255.255.0 10.1.0.1
+!
+! # Route to Site B:
+ip route 192.168.2.0 255.255.255.0 10.2.0.1
+end
+!
+write memory
+!
+
+````
+
+
+### Route :: From `Site A` ➡️ To `ANY 0.0.0.0/0`
+
+````py
+! ## ROUTER 1 (LEFT)
+!
+! Destination = ANY               = 0.0.0.0/0
+! Next Hop: Static to (R2-Center) = R2 - Fa0/0 - 10.1.0.2/30 
+!
+enable
+configure terminal
+!
+ip route 0.0.0.0 0.0.0.0 10.1.0.2
+end
+!
+write memory
+!
+
+````
+
+
+
+### Route :: From `Site B` ➡️ To `ANY 0.0.0.0/0`
+
+````py
+! ## ROUTER 3 (RIGHT)
+!
+! Destination = ANY               = 0.0.0.0/0
+! Next Hop: Static to (R2-Center) = R2 - Fa0/1 - 10.2.0.2/30 
+!
+enable
+configure terminal
+!
+ip route 0.0.0.0 0.0.0.0 10.2.0.2
+end
+!
+write memory
+!
+
+````
+
+
+
 
 
 
