@@ -35,6 +35,7 @@ This setup consists of **five routers** (R1 to R5) connected in a **ring topolog
 - **One LAN interface** using `/24 subnets` (local network per router).
 - **Each LAN** have a PC for testing purposes. 
 
+![image](https://github.com/user-attachments/assets/839123a4-3bf0-447b-a40b-b43ab632c6fb)
 
 ## 📋 **IP Addressing Table**
 
