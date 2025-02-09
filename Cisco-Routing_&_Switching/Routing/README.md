@@ -21,16 +21,22 @@ Los **Routing Protocols** se pueden clasificar en tres categorías principales:
 2. **`Dynamic Routing`** → Los routers **aprenden y actualizan rutas automáticamente** según la topología de la red.  
 3. **`Default Routing`** → Ruta predefinida usada cuando no hay una coincidencia específica en la routing table (eg 0.0.0.0 0.0.0.0 + GW = cualquier destino no conocido). 
 
-Dentro de **Dynamic Routing**, existen dos grandes tipos:  
+Dentro de **Dynamic Routing**, existen dos grandes tipos: `Interior Gateway Protocols (IGP)` and `External Gateway Protocols (EGP)`:  
+
+### IGP: Interior Gateway Protocols 
 
 1. **`Distance Vector Routing Protocols`** → Determinan la mejor ruta según la cantidad de **hops** hasta el destino y envían la routing table completa a los vecinos (Ej.: RIP, IGRP).  
 2. **`Link-State Routing Protocols`** → Calculan la mejor ruta basándose en el **estado de los enlaces**, creando un mapa de la red y enviando solo actualizaciones específicas (Ej.: OSPF, IS-IS).  
 
-Adicionalmente, tenemos los **`Exterior Gateway Protocols (EGP)`** como **BGP**, que se utilizan para el enrutamiento entre diferentes **Autonomous Systems (AS)** en Internet.  
+### EGP: External Gateway Protocols
 
+Los **Exterior Gateway Protocols (EGP)** como **`BGP`**, se utilizan para el enrutamiento entre diferentes **Autonomous Systems (AS)** en Internet.  
+
+Un **Autonomous System (AS)** es un grupo de redes IP bajo una misma administración y con una política de enrutamiento común. Cada **AS** tiene un número único llamado **ASN (Autonomous System Number)** asignado por **IANA (Internet Assigned Numbers Authority)** o los **RIR (Regional Internet Registries)**. (eg. **Google (AS15169)** Usa BGP para gestionar tráfico entre sus servidores y otros ISPs. ) 
 
 
 ## 🔹 Static Routing  
+
 
 El **Static Routing** implica la configuración manual de rutas en cada router. Es más seguro, pero menos flexible.  
 
@@ -45,7 +51,6 @@ El **Static Routing** implica la configuración manual de rutas en cada router. 
 - ❌ Requiere conocer manualmente la topología de la red.  
 - ❌ No es escalable en redes grandes.  
 - ❌ Si una ruta falla, el administrador debe actualizarla manualmente.  
-
 
 
 
@@ -84,7 +89,32 @@ Utilizan el **Bellman-Ford Algorithm** y envían periódicamente la **routing ta
 
 ### ❌ Desventajas  
 
-- ❌ Convergencia más lenta que los protocolos de **Link-State
+- ❌ Convergencia más lenta que los protocolos de **Link-State**
+
+
+
+
+## 🔹 Link-State Routing Protocols  
+
+Estos protocolos determinan la mejor ruta basándose en el **estado de los enlaces** en lugar de la cantidad de **hops**.  
+Utilizan el **Dijkstra Algorithm (Shortest Path First - SPF)** para calcular la mejor ruta y envían solo **actualizaciones específicas** en caso de cambios en la topología.  
+
+📌 **Ejemplos de Link-State Routing Protocols:**  
+
+- **OSPF (Open Shortest Path First)**  
+- **IS-IS (Intermediate System to Intermediate System)**  
+
+### ✅ Ventajas  
+
+- ✔️ Convergencia rápida y eficiente en comparación con Distance Vector.  
+- ✔️ Uso optimizado del ancho de banda al no enviar la tabla completa.  
+- ✔️ Escalable y adecuado para redes grandes y complejas.  
+- ✔️ Menos propenso a **routing loops**.  
+
+### ❌ Desventajas  
+
+- ❌ Mayor consumo de **CPU y memoria** debido a la complejidad del cálculo SPF.  
+- ❌ Más difícil de configurar y administrar en comparación con Distance Vector.
 
 
 ## 📌 Comparativa de Routing Protocols  
