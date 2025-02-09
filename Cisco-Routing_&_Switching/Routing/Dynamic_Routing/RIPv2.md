@@ -25,7 +25,7 @@
 
 - [Download Cisco Packet Tracer Fz3r0 Labs :: ***]()
 
-# `Static Routing @ Packet Tracer`
+# `Dynamic Routing @ Packet Tracer`
 
 
 
