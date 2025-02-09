@@ -490,6 +490,14 @@ debug ip rip
 
 ### PC Validation
 
+````py
+ping 192.168.5.100
+tracert 192.168.5.100
+````
+
+![image](https://github.com/user-attachments/assets/75e31ab1-d594-4b71-8f4e-7d4f325bc07f)
+
+
 
 
 
