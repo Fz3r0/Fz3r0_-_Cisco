@@ -39,7 +39,7 @@ In this lab, we manually configure static routes on three routers to ensure comm
 
 
 
-## Devices Init Setup & Addressing
+## Static Routing: Devices Init Setup & Addressing
 
 These initial steps configure three interconnected routers, each with two interfaces, to set up a network ready for static routing. The IPs on the router interfaces enable communication between the routers, which is essential for the next step: configuring static routes to route traffic between the local networks 192.168.1.0/24 and 192.168.2.0/24.
 
@@ -141,7 +141,7 @@ show ip interface brief
 
 
 
-## Static Route Configuration
+## Static Routing: Static Route Configuration
 
 In this lab, we are configuring static routes between three routers to establish communication between `Site A` <<->> `Site B`, and the `R2-Center` router, which serves as the intermediary. The routers are connected through specific interfaces, and static routing is manually configured to define the exact path for each packet to take based on its destination network.
 
@@ -228,7 +228,7 @@ write memory
 
 ````
 
-## Validations
+## Static Routing: Validations
 
 To verify the routing configuration and ensure connectivity between the sites, we will use various commands on the routers and perform ping and traceroute tests from PC-A and PC-B.
 
@@ -284,7 +284,7 @@ In this setup, Router 2 (R2-CENTER) acts as the core router handling static rout
 
 ![image](https://github.com/user-attachments/assets/29b4a3b8-0cfd-478f-94c3-9c6b9acbbe84)
 
-## Default Route Configuration
+## Default Routing: Default Route Configuration
 
 ### Route :: From `R2-Center` To `Site A & Site B`
 
@@ -363,7 +363,7 @@ write memory
 ````
 
 
-## Validations
+## Default Routing: Validations
 
 To verify the routing configuration and ensure connectivity between the sites, we will use various commands on the routers and perform ping and traceroute tests from PC-A and PC-B.
 
