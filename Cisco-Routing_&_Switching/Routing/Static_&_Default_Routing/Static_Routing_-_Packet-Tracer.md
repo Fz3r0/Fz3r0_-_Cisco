@@ -26,6 +26,8 @@
 
 ## Devices & Addressing
 
+These initial steps configure three interconnected routers, each with two interfaces, to set up a network ready for static routing. The IPs on the router interfaces enable communication between the routers, which is essential for the next step: configuring static routes to route traffic between the local networks 192.168.1.0/24 and 192.168.2.0/24.
+
 | Device       | Interface     | IP Address         | Subnet Mask       | Network Address with CIDR |
 |--------------|---------------|--------------------|-------------------|---------------------------|
 | **R1-LEFT**  | fa 0/0        | 10.1.0.1           | 255.255.255.252   | 10.1.0.0/30               |
