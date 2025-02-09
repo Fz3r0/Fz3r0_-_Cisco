@@ -19,7 +19,7 @@
 
 # CCNA Lab: `Dynamic Routing` :: `RIPv2`
 
-
+Configuring **RIP v2** is useful for learning dynamic routing in small networks. However, for larger, more complex networks, protocols like **OSPF or EIGRP** are preferred due to their scalability and efficiency.
 
 ## Lab Files
 
@@ -259,11 +259,99 @@ show ip interface brief
 
 
 
+# 📌 Configuring RIP v2 in Packet Tracer
+
+## 🔹 Introduction to RIP v2
+
+The **Routing Information Protocol (RIP)** is a dynamic routing protocol that uses **hop count** as its metric to determine the best path. There are two main versions:
+
+1. **RIP v1:** (_Legacy_) Uses **classful routing**, meaning it does not support **VLSM (Variable Length Subnet Masking)** or **CIDR (Classless Inter-Domain Routing)**.
+2. **RIP v2:** Uses **classless routing**, which supports **CIDR**, **VLSM**, and sends subnet masks with routing updates.
+
+**IMPORTANT**:  RIP v1 Is **No Longer Used** because not support **subnet masks**, making it incompatible with modern networks, Does not support **route summarization**, Broadcast-based updates consume unnecessary bandwidth, and No support for **authentication**, making it vulnerable to attacks.
+
+### ✅ When to Use RIP v2
+
+- **Small networks** with a limited number of routers.
+- **Lab environments** for learning basic dynamic routing.
+- **Backup routing** when using another protocol as the primary.
+
+### ❌ When Not to Use RIP v2
+
+- **Large networks** due to its **15-hop limit**.
+- Networks requiring **fast convergence**, as RIP has slow convergence.
+- When using modern **link-state protocols** like **OSPF** or **EIGRP**, which provide better scalability and efficiency.
+
+## 🔹 How RIP v2 Works in This Topology
+
+With **five routers** connected in a ring topology, RIP v2 will:
+
+1. Exchange routing updates every **30 seconds**.
+2. Use **hop count** as the only metric (lower is better).
+3. If multiple paths exist, the **path with the lowest hop count** will be preferred.
+4. The **maximum number of hops is 15**—any route with **16 hops is considered unreachable**.
+5. Subnet masks will be included in updates (unlike RIP v1), allowing for **CIDR and VLSM**.
+
+## 🛠 **Configuring RIP v2 on Each Router**
+
+### RIP v2 Config: Router-1
+
+```
+enable
+configure terminal
+!
+! ## Enable RIP and Set Version 2
+router rip
+version 2
+!
+! ## Advertise Networks
+network 10.1.0.0
+network 10.5.0.0
+network 192.168.1.0
+!
+! ## Disable Auto-Summarization
+!  # Since we are using >discontiguous networks<, disable auto-summary to avoid incorrect routing:
+no auto-summary
+!
+! ## Save & Check Configs
+end
+write memory
+!
+show ip route rip
+!
+
+
+```
+
+## RIP v2: Validation
+
+```
+# This should display learned routes from other routers.
+show ip route rip
+
+# To check RIP updates being sent:
+debug ip rip
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # 📚🗂️🎥 Resources
 
-- 
+- https://www.youtube.com/watch?v=u6LA4fB-hDo
 
   
 ---
