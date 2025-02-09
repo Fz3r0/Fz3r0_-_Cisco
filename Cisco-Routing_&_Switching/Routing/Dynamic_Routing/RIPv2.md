@@ -298,7 +298,9 @@ With **five routers** connected in a ring topology, RIP v2 will:
 
 RIPv2 operates by simply advertising its own networks. In this scenario, each router has three different networks—one for each interface (one LAN and two WAN). RIPv2 sends advertisements of these networks to its neighboring routers, which then propagate the updates to their neighbors, and so on, forming a continuous update process. This propagation continues until reaching the maximum limit of 15 hops, as any route with 16 hops is considered unreachable.
 
-### IMPORTANT!!!: `No Auto-summarization`
+![image](https://github.com/user-attachments/assets/b25f1fe0-3570-4baa-a014-9dd55bc8983c)
+
+### ⚠️ IMPORTANT!!!: `No Auto-summarization`
 
 Auto-summarization in RIP automatically summarizes routes to their classful network address when sending updates. This can cause issues in networks with discontiguous subnets, where networks of the same class are split across multiple locations without a direct connection.
 
@@ -345,7 +347,6 @@ show ip route rip
 
 ```
 
-
 ### RIP v2 Config: `Router-2`
 
 ```py
@@ -376,8 +377,6 @@ show ip route rip
 !
 
 ```
-
-
 
 ### RIP v2 Config: `Router-3`
 
@@ -410,8 +409,6 @@ show ip route rip
 
 ```
 
-
-
 ### RIP v2 Config: `Router-4`
 
 ```py
@@ -442,8 +439,6 @@ show ip route rip
 !
 
 ```
-
-
 
 ### RIP v2 Config: `Router-5`
 
