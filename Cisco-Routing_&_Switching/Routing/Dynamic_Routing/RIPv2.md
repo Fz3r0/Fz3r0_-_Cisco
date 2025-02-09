@@ -476,6 +476,8 @@ show ip route rip
 
 ## RIP v2: Validation
 
+### Router Validation
+
 ```
 # This should display learned routes from other routers.
 show ip route rip
@@ -484,6 +486,9 @@ show ip route rip
 debug ip rip
 ```
 
+![image](https://github.com/user-attachments/assets/e8a7fdba-05cb-44be-beb9-07c05a16c7c8)
+
+### PC Validation
 
 
 
