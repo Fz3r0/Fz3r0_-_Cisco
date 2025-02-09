@@ -257,7 +257,7 @@ tracert 192.168.1.100
 # 📚🗂️🎥 Resources
 
 - https://www.youtube.com/watch?v=7jJylCfmVvQ
-
+- https://www.youtube.com/watch?v=wfQyLosNTVo
 
 
   
@@ -295,23 +295,3 @@ tracert 192.168.1.100
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-These initial steps configure three interconnected routers, each with two interfaces, to set up a network ready for static routing. The IPs on the router interfaces enable communication between the routers, which is essential for the next step: configuring static routes to route traffic between the local networks 192.168.1.0/24 and 192.168.2.0/24.
-- https://www.youtube.com/watch?v=wfQyLosNTVo
