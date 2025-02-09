@@ -129,7 +129,13 @@ show ip interface brief
 
 ## Static Route Configuration
 
+In this lab, we are configuring static routes between three routers to establish communication between `Site A` <<->> `Site B`, and the `R2-Center` router, which serves as the intermediary. The routers are connected through specific interfaces, and static routing is manually configured to define the exact path for each packet to take based on its destination network.
+
+- **Static routes are particularly useful in small networks, like this one, where the network topology is fixed, and we want precise control over the routing process. Each router is configured with routes to the other sites using the next-hop IP addresses for the appropriate routers. This ensures proper packet delivery between sites.**
+
 ### Route :: From `Site A` ➡️ To `Site B`
+
+Router 1 (R1-LEFT) to Router 2 (R2-CENTER) using the IP 10.1.0.2 on interface Fa0/0 as the next hop.
 
 ![image](https://github.com/user-attachments/assets/9416672b-9422-4130-9494-84ff9b7d0dae)
 
@@ -152,6 +158,11 @@ write memory
 
 
 ### Route :: From `R2-Center` To `Site A & Site B`
+
+Router 2 (R2-CENTER) has two static routes:
+
+- To Site A (using 10.1.0.1 on Router 1)
+- To Site B (using 10.2.0.1 on Router 3)
 
 ![image](https://github.com/user-attachments/assets/e7baa391-9499-4d48-a58a-192a5cc330c1)
 
@@ -182,6 +193,8 @@ write memory
 
 ### Route :: To `Site A` ⬅️ From `Site B`
 
+Router 3 (R3-RIGHT) to Router 2 (R2-CENTER) using the IP 10.2.0.2 on interface Fa0/1 as the next hop.
+
 ![image](https://github.com/user-attachments/assets/859055d9-b669-4c2e-a85d-379add576e5c)
 
 ````py
@@ -201,7 +214,39 @@ write memory
 
 ````
 
+## Validations
 
+To verify the routing configuration and ensure connectivity between the sites, we will use various commands on the routers and perform ping and traceroute tests from PC-A and PC-B.
+
+### Router Validation
+
+````sh
+! ## Validation Commands on Router:
+!
+! Displays the router's routing table, showing all routes and their destinations.
+show ip route
+!
+! Provides a quick overview of the router's interfaces, their IP addresses, and their status (up or down).
+show ip interface brief
+!
+
+````
+
+### PC-1 (Site-A) & PC-2 (Site-B) Validation
+
+- PC-1 (Site-A):
+
+````sh
+ping 192.168.2.100
+tracert 192.168.2.100
+````
+
+- PC-2 (Site-B):
+
+````sh
+ping 192.168.1.100
+tracert 192.168.1.100
+````
 
 
 # 📚🗂️🎥 Resources
