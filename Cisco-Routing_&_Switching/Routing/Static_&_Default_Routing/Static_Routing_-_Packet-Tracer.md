@@ -130,6 +130,10 @@ show ip interface brief
 ![image](https://github.com/user-attachments/assets/fbfbf670-30e4-4a79-a436-9e21df168a4e)
 
 
+### Route :: From `R2-Center` To `Site A & Site B`
+
+![image](https://github.com/user-attachments/assets/eed693b1-0099-4d65-ab41-36ade2b44bed)
+
 
 
 ### Route :: To `Site A` ⬅️ From `Site B`
