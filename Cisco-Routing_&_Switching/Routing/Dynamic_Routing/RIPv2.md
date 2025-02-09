@@ -27,10 +27,47 @@
 
 # `Dynamic Routing @ Packet Tracer`
 
+## Dynamic Routing: Topology
 
+This setup consists of **five routers** (R1 to R5) connected in a **ring topology**, each with:
+
+- **Two WAN interfaces** using `/30 subnets` (point-to-point links between routers).
+- **One LAN interface** using `/24 subnets` (local network per router).
+- **Each LAN** have a PC for testing purposes. 
+
+
+## 📋 **IP Addressing Table**
+
+| Device  | Interface | IP Address   | Subnet Mask      | Network Address with CIDR |
+|---------|-----------|--------------|------------------|---------------------------|
+| **R1**  | Fa0/0    | 10.1.0.1      | 255.255.255.252  | 10.1.0.0/30               |
+|         | Fa0/1    | 10.5.0.2      | 255.255.255.252  | 10.5.0.0/30               |
+|         | Fa1/1    | 192.168.1.1   | 255.255.255.0    | 192.168.1.0/24            |
+| **R2**  | Fa0/0    | 10.2.0.1      | 255.255.255.252  | 10.2.0.0/30               |
+|         | Fa0/1    | 10.1.0.2      | 255.255.255.252  | 10.1.0.0/30               |
+|         | Fa1/1    | 192.168.2.1   | 255.255.255.0    | 192.168.2.0/24            |
+| **R3**  | Fa0/0    | 10.3.0.1      | 255.255.255.252  | 10.3.0.0/30               |
+|         | Fa0/1    | 10.2.0.2      | 255.255.255.252  | 10.2.0.0/30               |
+|         | Fa1/1    | 192.168.3.1   | 255.255.255.0    | 192.168.3.0/24            |
+| **R4**  | Fa0/0    | 10.4.0.1      | 255.255.255.252  | 10.4.0.0/30               |
+|         | Fa0/1    | 10.3.0.2      | 255.255.255.252  | 10.3.0.0/30               |
+|         | Fa1/1    | 192.168.4.1   | 255.255.255.0    | 192.168.4.0/24            |
+| **R5**  | Fa0/0    | 10.5.0.1      | 255.255.255.252  | 10.5.0.0/30               |
+|         | Fa0/1    | 10.4.0.2      | 255.255.255.252  | 10.4.0.0/30               |
+|         | Fa1/1    | 192.168.5.1   | 255.255.255.0    | 192.168.5.0/24            |
+
+- `PC-1 (Site-A)` :: 192.168.1.100/24
+- `PC-2 (Site-B)` :: 192.168.2.100/24
+- `PC-3 (Site-C)` :: 192.168.3.100/24
+- `PC-4 (Site-D)` :: 192.168.4.100/24
+- `PC-5 (Site-E)` :: 192.168.5.100/24
+  
+---
 
 ## Init Config
 
+
+### Init Setup: `Router 1`
 
 ````py
 ! ## ROUTER 1
@@ -67,6 +104,7 @@ show ip interface brief
 
 ````
 
+### Init Setup: `Router 2`
 
 ````py
 ! ## ROUTER 2
@@ -103,6 +141,8 @@ show ip interface brief
 
 ````
 
+### Init Setup: `Router 3`
+
 ````py
 ! ## ROUTER 3
 !
@@ -138,6 +178,7 @@ show ip interface brief
 
 ````
 
+### Init Setup: `Router 4`
 
 ````py
 ! ## ROUTER 4
@@ -174,6 +215,7 @@ show ip interface brief
 
 ````
 
+### Init Setup: `Router 5`
 
 ````py
 ! ## ROUTER 5
