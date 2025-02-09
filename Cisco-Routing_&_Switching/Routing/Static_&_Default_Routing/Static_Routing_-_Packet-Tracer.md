@@ -17,9 +17,19 @@
 
 - 
 
+# CCNA Lab: `Static Routing` & `Default Routing` @ Packet Tracer
+
+This lab explores the fundamentals of static and default routing using Cisco Packet Tracer. Through a step-by-step approach, we configure routers to establish communication between different network segments. 
+
+The goal is to understand how static routes define precise paths for packet forwarding and how default routes simplify network management.
+
 # `Static Routing @ Packet Tracer`
 
+Static routing is a manual method of defining network paths. It provides complete control over traffic flow, making it ideal for small, predictable network environments. 
+
 ## Static Routing: Topology 
+
+In this lab, we manually configure static routes on three routers to ensure communication between Site A (192.168.1.0/24) and Site B (192.168.2.0/24), with Router 2 acting as the central hub.
 
 ![image](https://github.com/user-attachments/assets/51b9e345-3523-4954-a0c4-bb5318af2988)
 
@@ -260,16 +270,17 @@ tracert 192.168.1.100
 
 # `Default Routing @ Packet Tracer`
 
-
+Default routing is used when a router does not have a specific route for a destination, for example a simple route from "Site-XYZ" to the Internet. It forwards all unknown traffic to a designated next-hop router. This method is beneficial for simplifying routing in networks with a single exit point, reducing the need for multiple static routes. 
 
 ## Default Routing: Topology 
+
+In this lab, we implement a default route on the edge routers to direct all traffic through the central router.
 
 In this setup, Router 2 (R2-CENTER) acts as the core router handling static routes for Site A and Site B, while Router 1 (R1-LEFT) and Router 3 (R3-RIGHT) use a default route (0.0.0.0/0) to send all unknown traffic to R2, simulating a typical internet gateway scenario. This configuration simplifies routing for edge devices, as they rely on a single route for external connectivity.
 
 ![image](https://github.com/user-attachments/assets/29b4a3b8-0cfd-478f-94c3-9c6b9acbbe84)
 
 ## Default Route Configuration
-
 
 ### Route :: From `R2-Center` To `Site A & Site B`
 
