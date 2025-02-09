@@ -35,39 +35,14 @@ Los **Exterior Gateway Protocols (EGP)** como **`BGP`**, se utilizan para el enr
 Un **Autonomous System (AS)** es un grupo de redes IP bajo una misma administración y con una política de enrutamiento común. Cada **AS** tiene un número único llamado **ASN (Autonomous System Number)** asignado por **IANA (Internet Assigned Numbers Authority)** o los **RIR (Regional Internet Registries)**. (eg. **Google (AS15169)** Usa BGP para gestionar tráfico entre sus servidores y otros ISPs. ) 
 
 
-## 🔹 Static Routing  
+## 🔹 Static Routing VS Dynamic Routing VS Default Routing
 
+| **Tipo de Enrutamiento**     | **Descripción**                                                                                                                                       | **Ejemplos de Protocolo**                                      | **Ventajas**                                                                                                                          | **Desventajas**                                                                                                                        |
+|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| **Static Routing**            | Rutas **configuradas manualmente** por el administrador, sin cambios automáticos.                                                                     | - No aplica (no hay protocolos específicos, ya que es manual) | ✔️ No consume CPU del router.<br>✔️ No genera tráfico innecesario en la red.<br>✔️ Solo el administrador puede modificar las rutas. | ❌ Requiere conocer manualmente la topología de la red.<br>❌ No es escalable en redes grandes.<br>❌ Si una ruta falla, el administrador debe actualizarla manualmente. |
+| **Dynamic Routing**           | Los **routers aprenden y actualizan rutas automáticamente** según la topología de la red.                                                             | - **RIP (Routing Information Protocol)**<br>- **OSPF (Open Shortest Path First)**<br>- **BGP (Border Gateway Protocol)** | ✔️ Más fácil de configurar en redes grandes.<br>✔️ Ajusta rutas dinámicamente en caso de fallos.<br>✔️ Permite **load balancing** sobre múltiples enlaces. | ❌ Consume más CPU y RAM del router.<br>❌ Utiliza ancho de banda para intercambiar información. |
+| **Default Routing**           | Ruta predefinida usada cuando no hay una coincidencia específica en la routing table (ej. 0.0.0.0 0.0.0.0 + GW = cualquier destino no conocido). | - No aplica (se configura manualmente, no es un protocolo específico) | ✔️ Simplifica la configuración.<br>✔️ Usada comúnmente en redes pequeñas o en el borde de una red. | ❌ No es flexible para redes grandes.<br>❌ Solo maneja rutas no específicas. |
 
-El **Static Routing** implica la configuración manual de rutas en cada router. Es más seguro, pero menos flexible.  
-
-### ✅ Ventajas  
-
-- ✔️ No consume CPU del router.  
-- ✔️ No genera tráfico innecesario en la red.  
-- ✔️ Solo el administrador puede modificar las rutas.  
-
-### ❌ Desventajas  
-
-- ❌ Requiere conocer manualmente la topología de la red.  
-- ❌ No es escalable en redes grandes.  
-- ❌ Si una ruta falla, el administrador debe actualizarla manualmente.  
-
-
-
-## 🔹 Dynamic Routing  
-
-Los **Dynamic Routing Protocols** permiten que los routers aprendan y actualicen rutas automáticamente en función de los cambios en la red.  
-
-### ✅ Ventajas  
-
-- ✔️ Más fácil de configurar en redes grandes.  
-- ✔️ Ajusta rutas dinámicamente en caso de fallos.  
-- ✔️ Permite **load balancing** sobre múltiples enlaces.  
-
-### ❌ Desventajas  
-
-- ❌ Consume más CPU y RAM del router.  
-- ❌ Utiliza ancho de banda para intercambiar información.  
 
 
 ## 🔹 Dynamic Routing: Distance Vector VS Link-State VS Path Vector
