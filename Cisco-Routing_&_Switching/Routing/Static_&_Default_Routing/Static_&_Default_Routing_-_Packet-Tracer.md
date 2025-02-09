@@ -23,6 +23,10 @@ This lab explores the fundamentals of static and default routing using Cisco Pac
 
 The goal is to understand how static routes define precise paths for packet forwarding and how default routes simplify network management.
 
+## Lab Files
+
+- [Download Cisco Packet Tracer Fz3r0 Labs :: **Static_&_Default_Routing_-_Packet-Tracer (.ZIP)**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco-Routing_%26_Switching/Routing/Static_%26_Default_Routing/Static_%26_Default_Routing_-_Packet-Tracer(PT_Files).zip)
+
 # `Static Routing @ Packet Tracer`
 
 Static routing is a manual method of defining network paths. It provides complete control over traffic flow, making it ideal for small, predictable network environments. 
