@@ -316,7 +316,7 @@ The Best Practice is **Always use `no auto-summary`, This ensures RIP advertises
 
 ### RIP v2 Config: `Router-1`
 
-```
+```py
 ! ## ROUTER 1 : RIPv2
 !
 enable
@@ -348,7 +348,7 @@ show ip route rip
 
 ### RIP v2 Config: `Router-2`
 
-```
+```py
 ! ## ROUTER 2 : RIPv2
 !
 enable
@@ -381,7 +381,7 @@ show ip route rip
 
 ### RIP v2 Config: `Router-3`
 
-```
+```py
 ! ## ROUTER 3 : RIPv2
 !
 enable
@@ -414,7 +414,7 @@ show ip route rip
 
 ### RIP v2 Config: `Router-4`
 
-```
+```py
 ! ## ROUTER 4 : RIPv2
 !
 enable
@@ -447,7 +447,7 @@ show ip route rip
 
 ### RIP v2 Config: `Router-5`
 
-```
+```py
 ! ## ROUTER 5 : RIPv2
 !
 enable
