@@ -70,51 +70,14 @@ Los **Dynamic Routing Protocols** permiten que los routers aprendan y actualicen
 - ❌ Utiliza ancho de banda para intercambiar información.  
 
 
-
-## 🔹 Distance Vector Routing Protocols  
-
-Estos protocolos determinan la mejor ruta basándose en la **distancia** (cantidad de **hops** hasta el destino).  
-Utilizan el **Bellman-Ford Algorithm** y envían periódicamente la **routing table** completa a los routers vecinos.  
-
-📌 **Ejemplos de Distance Vector Routing Protocols:** 
-
-- **RIP (Routing Information Protocol)**  
-- **IGRP (Interior Gateway Routing Protocol)**  
-- **EIGRP (Enhanced Interior Gateway Routing Protocol)** (híbrido, pero basado en Distance Vector)  
-
-### ✅ Ventajas 
-
-- ✔️ Fácil de configurar y mantener.  
-- ✔️ Funciona bien en redes pequeñas y medianas.  
-
-### ❌ Desventajas  
-
-- ❌ Convergencia más lenta que los protocolos de **Link-State**
+## 🔹 Dynamic Routing: Distance Vector VS Link-State VS Path Vector
 
 
-
-
-## 🔹 Link-State Routing Protocols  
-
-Estos protocolos determinan la mejor ruta basándose en el **estado de los enlaces** en lugar de la cantidad de **hops**.  
-Utilizan el **Dijkstra Algorithm (Shortest Path First - SPF)** para calcular la mejor ruta y envían solo **actualizaciones específicas** en caso de cambios en la topología.  
-
-📌 **Ejemplos de Link-State Routing Protocols:**  
-
-- **OSPF (Open Shortest Path First)**  
-- **IS-IS (Intermediate System to Intermediate System)**  
-
-### ✅ Ventajas  
-
-- ✔️ Convergencia rápida y eficiente en comparación con Distance Vector.  
-- ✔️ Uso optimizado del ancho de banda al no enviar la tabla completa.  
-- ✔️ Escalable y adecuado para redes grandes y complejas.  
-- ✔️ Menos propenso a **routing loops**.  
-
-### ❌ Desventajas  
-
-- ❌ Mayor consumo de **CPU y memoria** debido a la complejidad del cálculo SPF.  
-- ❌ Más difícil de configurar y administrar en comparación con Distance Vector.
+| **Protocolo de Enrutamiento**         | **Descripción**                                                                                                                                          | **Ejemplos**                                                                                     | **Ventajas**                                                                                                                                                          | **Desventajas**                                                                                                                       |
+|---------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
+| **Distance Vector Routing Protocols** | Determinan la mejor ruta basándose en la **distancia** (cantidad de **hops** hasta el destino). Utilizan el **Bellman-Ford Algorithm** y envían periódicamente la **routing table** completa a los routers vecinos. | - **RIP (Routing Information Protocol)**<br>- **IGRP (Interior Gateway Routing Protocol)**<br>- **EIGRP (Enhanced Interior Gateway Routing Protocol)** (híbrido, pero basado en Distance Vector) | ✔️ Fácil de configurar y mantener.<br>✔️ Funciona bien en redes pequeñas y medianas.                                                                                                                                  | ❌ Convergencia más lenta que los protocolos de **Link-State**.                                                                            |
+| **Link-State Routing Protocols**      | Determinan la mejor ruta basándose en el **estado de los enlaces** en lugar de la cantidad de **hops**. Utilizan el **Dijkstra Algorithm (Shortest Path First - SPF)** para calcular la mejor ruta y envían solo **actualizaciones específicas** en caso de cambios en la topología. | - **OSPF (Open Shortest Path First)**<br>- **IS-IS (Intermediate System to Intermediate System)** | ✔️ Convergencia rápida y eficiente en comparación con Distance Vector.<br>✔️ Uso optimizado del ancho de banda al no enviar la tabla completa.<br>✔️ Escalable y adecuado para redes grandes y complejas.<br>✔️ Menos propenso a **routing loops**. | ❌ Mayor consumo de **CPU y memoria** debido a la complejidad del cálculo SPF.<br>❌ Más difícil de configurar y administrar en comparación con Distance Vector. |
+| **Path Vector Routing Protocols**     | Determinan la mejor ruta utilizando un **vector de caminos**, lo que significa que cada router mantiene una lista de rutas completas hacia los destinos, incluyendo información sobre los routers intermedios por los que pasan esos caminos. El protocolo más conocido en este grupo es **BGP (Border Gateway Protocol)**. | - **BGP (Border Gateway Protocol)** | ✔️ Escalable y adecuado para redes de gran tamaño, como Internet.<br>✔️ Permite políticas de enrutamiento avanzadas mediante la manipulación de atributos como **AS Path**, **Next Hop**, y **Local Preference**.<br>✔️ Redundancia y robustez debido a la capacidad de seleccionar múltiples rutas de acceso. | ❌ Convergencia más lenta que los protocolos **Link-State** debido a la cantidad de rutas que deben intercambiarse.<br>❌ Configuración y mantenimiento más complejos, especialmente en redes grandes con múltiples **AS**.<br>❌ Susceptible a **routing loops** si no se implementan correctamente las políticas de control de rutas. |
 
 
 ## 📌 Comparativa de Routing Protocols  
