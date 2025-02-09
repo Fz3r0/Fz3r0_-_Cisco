@@ -23,12 +23,14 @@ Los **Routing Protocols** se pueden clasificar en tres categorías principales:
 
 Dentro de **Dynamic Routing**, existen dos grandes tipos: `Interior Gateway Protocols (IGP)` and `External Gateway Protocols (EGP)`:  
 
-### IGP: Interior Gateway Protocols 
+### 🔄 IGP: Interior Gateway Protocols 
+
+Los Interior Gateway Protocols (IGPs) intercambian información de enrutamiento **dentro de un único dominio de enrutamiento**.
 
 1. **`Distance Vector Routing Protocols`** → Determinan la mejor ruta según la cantidad de **hops** hasta el destino y envían la routing table completa a los vecinos (Ej.: RIP, IGRP).  
 2. **`Link-State Routing Protocols`** → Calculan la mejor ruta basándose en el **estado de los enlaces**, creando un mapa de la red y enviando solo actualizaciones específicas (Ej.: OSPF, IS-IS).  
 
-### EGP: External Gateway Protocols
+### 🔄 EGP: External Gateway Protocols
 
 Los **Exterior Gateway Protocols (EGP)** como **`BGP`**, se utilizan para el enrutamiento entre diferentes **Autonomous Systems (AS)** en Internet.  
 
@@ -86,6 +88,8 @@ Esta tabla detalla las diferencias clave entre los distintos **Routing Protocols
 ## Resources
 
 - https://edukedar.com/routing-protocols/#gsc.tab=0
+- https://www.baeldung.com/cs/routing-igp-egp-protocols
+- https://en.wikipedia.org/wiki/Routing_protocol#Routed_protocols
 
 
 
