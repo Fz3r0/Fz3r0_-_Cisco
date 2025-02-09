@@ -24,7 +24,7 @@
 ![image](https://github.com/user-attachments/assets/6f712314-9a24-4a81-868c-3768fe7c2bb1)
 
 
-## Devices & Addressing
+## Devices Init Setup & Addressing
 
 These initial steps configure three interconnected routers, each with two interfaces, to set up a network ready for static routing. The IPs on the router interfaces enable communication between the routers, which is essential for the next step: configuring static routes to route traffic between the local networks 192.168.1.0/24 and 192.168.2.0/24.
 
@@ -120,6 +120,24 @@ show ip interface brief
 
 
 ````
+
+
+
+## Static Route Configuration
+
+### Route :: From `Site A` ➡️ To `Site B`
+
+![image](https://github.com/user-attachments/assets/fbfbf670-30e4-4a79-a436-9e21df168a4e)
+
+
+
+
+### Route :: To `Site A` ⬅️ From `Site B`
+
+![image](https://github.com/user-attachments/assets/1a3e5f96-ad96-4dba-9946-1e24110a6081)
+
+
+
 
 # 📚🗂️🎥 Resources
 
