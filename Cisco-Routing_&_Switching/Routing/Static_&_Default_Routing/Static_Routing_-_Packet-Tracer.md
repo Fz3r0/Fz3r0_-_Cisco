@@ -38,6 +38,9 @@ These initial steps configure three interconnected routers, each with two interf
 | **R3-RIGHT** | fa 0/0        | 10.2.0.1           | 255.255.255.252   | 10.2.0.0/30               |
 |              | fa 0/1        | 192.168.2.1        | 255.255.255.0     | 192.168.2.0/24            |
 
+- **PC1 (Site A)** = 192.168.1.100/24
+- **PC2 (Site B)** = 192.168.2.100/24
+
 ### Router-1 Config: 
 
 ````py
@@ -131,6 +134,63 @@ show ip interface brief
 ![image](https://github.com/user-attachments/assets/9416672b-9422-4130-9494-84ff9b7d0dae)
 
 ````py
+! ## ROUTER 1 (LEFT)
+!
+! Destination (Site B - LAN)      = 192.168.2.0/24 
+! Next Hop: Static to (R2-Center) = R2 - Fa0/0 - 10.1.0.2/30 
+!
+enable
+configure terminal
+!
+ip route 192.168.2.0 255.255.255.0 10.1.0.2
+end
+!
+write memory
+!
+
+
+
+
+! ## ROUTER 2 (CENTER)
+!
+! Destination (Site A - LAN)      = 192.168.1.0/24 
+! Next Hop: Static to (R1-Left)   = R1 - Fa0/0 - 10.1.0.1/30 
+! ---
+! Destination (Site B - LAN)      = 192.168.2.0/24 
+! Next Hop: Static to (R3-Right)  = R3 - Fa0/0 - 10.2.0.1/30 
+!
+enable
+configure terminal
+!
+! # Route to Site A:
+ip route 192.168.1.0 255.255.255.0 10.1.0.1
+!
+! # Route to Site B:
+ip route 192.168.2.0 255.255.255.0 10.2.0.1
+end
+!
+write memory
+!
+
+
+
+
+
+! ## ROUTER 3 (RIGHT)
+!
+! Destination (Site A - LAN)      = 192.168.1.0/24 
+! Next Hop: Static to (R2-Center) = R2 - Fa0/1 - 10.2.0.2/30 
+!
+enable
+configure terminal
+!
+ip route 192.168.1.0 255.255.255.0 10.2.0.2
+end
+!
+write memory
+!
+
+
 ````
 
 
