@@ -220,6 +220,8 @@ To verify the routing configuration and ensure connectivity between the sites, w
 
 ### Router Validation
 
+![image](https://github.com/user-attachments/assets/008c265e-d367-42e1-8630-783bad09e9c7)
+
 ````sh
 ! ## Validation Commands on Router:
 !
@@ -234,6 +236,8 @@ show ip interface brief
 
 ### PC-1 (Site-A) & PC-2 (Site-B) Validation
 
+![image](https://github.com/user-attachments/assets/7380008c-27d4-4d71-80ef-2d0b0ca2b106)
+
 - PC-1 (Site-A):
 
 ````sh
@@ -247,6 +251,7 @@ tracert 192.168.2.100
 ping 192.168.1.100
 tracert 192.168.1.100
 ````
+
 
 
 # 📚🗂️🎥 Resources
