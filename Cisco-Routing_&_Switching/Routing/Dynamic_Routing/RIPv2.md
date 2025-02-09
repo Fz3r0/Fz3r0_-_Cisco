@@ -298,7 +298,7 @@ With **five routers** connected in a ring topology, RIP v2 will:
 
 RIPv2 operates by simply advertising its own networks. In this scenario, each router has three different networks—one for each interface (one LAN and two WAN). RIPv2 sends advertisements of these networks to its neighboring routers, which then propagate the updates to their neighbors, and so on, forming a continuous update process. This propagation continues until reaching the maximum limit of 15 hops, as any route with 16 hops is considered unreachable.
 
-### TIP: `No Autosum`
+### IMPORTANT!!!: `No Auto-summarization`
 
 Auto-summarization in RIP automatically summarizes routes to their classful network address when sending updates. This can cause issues in networks with discontiguous subnets, where networks of the same class are split across multiple locations without a direct connection.
 
@@ -308,7 +308,7 @@ Auto-summarization in RIP automatically summarizes routes to their classful netw
 - Cause incorrect routing because **routers might not know the exact subnet mask**.
 - Forward traffic incorrectly or drop packets due to missing subnet information.
 
-** Example of the Problem** 
+**Example of the Problem** 
 
 - Imagine R1 advertises 10.1.0.0/30 to R2, but R2 summarizes it as 10.0.0.0/8. If R3 has a different 10.x.x.x subnet, R2 may think it belongs to the same large network and misroute traffic.
 
@@ -317,6 +317,8 @@ The Best Practice is **Always use `no auto-summary`, This ensures RIP advertises
 ### RIP v2 Config: `Router-1`
 
 ```
+! ## ROUTER 1 : RIPv2
+!
 enable
 configure terminal
 !
@@ -341,8 +343,141 @@ write memory
 show ip route rip
 !
 
+```
+
+
+### RIP v2 Config: `Router-2`
 
 ```
+! ## ROUTER 2 : RIPv2
+!
+enable
+configure terminal
+!
+! ## Enable RIP and Set Version 2
+router rip
+version 2
+!
+! ## Advertise Networks
+! ## WANs(Fa0/0,0/1) LAN(Fa1/1)
+network 10.2.0.0
+network 10.1.0.0
+network 192.168.2.0
+!
+! ## Disable Auto-Summarization
+!  # Since we are using >discontiguous networks<, disable auto-summary to avoid incorrect routing:
+no auto-summary
+!
+! ## Save & Check Configs
+end
+write memory
+!
+show ip route rip
+!
+
+```
+
+
+
+### RIP v2 Config: `Router-3`
+
+```
+! ## ROUTER 3 : RIPv2
+!
+enable
+configure terminal
+!
+! ## Enable RIP and Set Version 2
+router rip
+version 2
+!
+! ## Advertise Networks
+! ## WANs(Fa0/0,0/1) LAN(Fa1/1)
+network 10.3.0.0
+network 10.2.0.0
+network 192.168.3.0
+!
+! ## Disable Auto-Summarization
+!  # Since we are using >discontiguous networks<, disable auto-summary to avoid incorrect routing:
+no auto-summary
+!
+! ## Save & Check Configs
+end
+write memory
+!
+show ip route rip
+!
+
+```
+
+
+
+### RIP v2 Config: `Router-4`
+
+```
+! ## ROUTER 4 : RIPv2
+!
+enable
+configure terminal
+!
+! ## Enable RIP and Set Version 2
+router rip
+version 2
+!
+! ## Advertise Networks
+! ## WANs(Fa0/0,0/1) LAN(Fa1/1)
+network 10.4.0.0
+network 10.3.0.0
+network 192.168.4.0
+!
+! ## Disable Auto-Summarization
+!  # Since we are using >discontiguous networks<, disable auto-summary to avoid incorrect routing:
+no auto-summary
+!
+! ## Save & Check Configs
+end
+write memory
+!
+show ip route rip
+!
+
+```
+
+
+
+### RIP v2 Config: `Router-5`
+
+```
+! ## ROUTER 5 : RIPv2
+!
+enable
+configure terminal
+!
+! ## Enable RIP and Set Version 2
+router rip
+version 2
+!
+! ## Advertise Networks
+! ## WANs(Fa0/0,0/1) LAN(Fa1/1)
+network 10.5.0.0
+network 10.4.0.0
+network 192.168.5.0
+!
+! ## Disable Auto-Summarization
+!  # Since we are using >discontiguous networks<, disable auto-summary to avoid incorrect routing:
+no auto-summary
+!
+! ## Save & Check Configs
+end
+write memory
+!
+show ip route rip
+!
+
+```
+
+
+
 
 ## RIP v2: Validation
 
