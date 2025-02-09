@@ -516,6 +516,7 @@ tracert 192.168.5.100
 # 📚🗂️🎥 Resources
 
 - https://www.youtube.com/watch?v=u6LA4fB-hDo
+- https://www.youtube.com/watch?v=HP1vCvE4xU4
 
   
 ---
