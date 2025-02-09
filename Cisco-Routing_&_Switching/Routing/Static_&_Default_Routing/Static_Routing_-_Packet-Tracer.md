@@ -136,8 +136,8 @@ show ip interface brief
 ````py
 ! ## ROUTER 1 (LEFT)
 !
-! Destination (Site B - LAN)      = 192.168.2.0/24 
-! Next Hop: Static to (R2-Center) = R2 - Fa0/0 - 10.1.0.2/30 
+! # Destination (Site B - LAN)      = 192.168.2.0/24 
+! # Next Hop: Static to (R2-Center) = R2 - Fa0/0 - 10.1.0.2/30 
 !
 enable
 configure terminal
@@ -148,16 +148,21 @@ end
 write memory
 !
 
+````
 
 
+### Route :: From `R2-Center` To `Site A & Site B`
 
+![image](https://github.com/user-attachments/assets/e7baa391-9499-4d48-a58a-192a5cc330c1)
+
+````py
 ! ## ROUTER 2 (CENTER)
 !
-! Destination (Site A - LAN)      = 192.168.1.0/24 
-! Next Hop: Static to (R1-Left)   = R1 - Fa0/0 - 10.1.0.1/30 
+! # Destination (Site A - LAN)      = 192.168.1.0/24 
+! # Next Hop: Static to (R1-Left)   = R1 - Fa0/0 - 10.1.0.1/30 
 ! ---
-! Destination (Site B - LAN)      = 192.168.2.0/24 
-! Next Hop: Static to (R3-Right)  = R3 - Fa0/0 - 10.2.0.1/30 
+! # Destination (Site B - LAN)      = 192.168.2.0/24 
+! # Next Hop: Static to (R3-Right)  = R3 - Fa0/0 - 10.2.0.1/30 
 !
 enable
 configure terminal
@@ -172,14 +177,18 @@ end
 write memory
 !
 
+````
 
 
+### Route :: To `Site A` ⬅️ From `Site B`
 
+![image](https://github.com/user-attachments/assets/859055d9-b669-4c2e-a85d-379add576e5c)
 
+````py
 ! ## ROUTER 3 (RIGHT)
 !
-! Destination (Site A - LAN)      = 192.168.1.0/24 
-! Next Hop: Static to (R2-Center) = R2 - Fa0/1 - 10.2.0.2/30 
+! # Destination (Site A - LAN)      = 192.168.1.0/24 
+! # Next Hop: Static to (R2-Center) = R2 - Fa0/1 - 10.2.0.2/30 
 !
 enable
 configure terminal
@@ -190,23 +199,7 @@ end
 write memory
 !
 
-
 ````
-
-
-### Route :: From `R2-Center` To `Site A & Site B`
-
-![image](https://github.com/user-attachments/assets/e7baa391-9499-4d48-a58a-192a5cc330c1)
-
-
-
-
-
-### Route :: To `Site A` ⬅️ From `Site B`
-
-![image](https://github.com/user-attachments/assets/859055d9-b669-4c2e-a85d-379add576e5c)
-
-
 
 
 
