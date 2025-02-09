@@ -275,6 +275,8 @@ In this setup, Router 2 (R2-CENTER) acts as the core router handling static rout
 
 _This is the simulation of "Internet"_
 
+![image](https://github.com/user-attachments/assets/63579a53-3696-4795-bcce-244d24fd1bbe)
+
 ````py
 ! ## ROUTER 2 (CENTER)
 !
@@ -302,6 +304,9 @@ write memory
 
 ### Route :: From `Site A` ➡️ To `ANY 0.0.0.0/0`
 
+![image](https://github.com/user-attachments/assets/6e70311a-34d6-428b-be8e-9fd80dd20e12)
+
+
 ````py
 ! ## ROUTER 1 (LEFT)
 !
@@ -322,6 +327,8 @@ write memory
 
 
 ### Route :: From `Site B` ➡️ To `ANY 0.0.0.0/0`
+
+![image](https://github.com/user-attachments/assets/918e4724-fcf3-4ea1-9e8d-81a66fdf6e58)
 
 ````py
 ! ## ROUTER 3 (RIGHT)
