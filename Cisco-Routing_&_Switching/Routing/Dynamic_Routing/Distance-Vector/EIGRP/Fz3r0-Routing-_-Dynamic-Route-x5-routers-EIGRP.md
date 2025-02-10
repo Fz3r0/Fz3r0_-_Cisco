@@ -235,7 +235,8 @@ This setup consists of **five routers** (R1 to R5) connected in a **ring topolog
 
 - **Two WAN interfaces** using `/30 subnets` (point-to-point links between routers).
 - **One LAN interface** using `/24 subnets` (local network per router).
-- **Each LAN** have a PC for testing purposes. 
+- **Each LAN** have a PC for testing purposes.
+- **There's an additional Router-WAN to simulate Internet/Google connection to 8.8.8.8**
 
 ![image](https://github.com/user-attachments/assets/bdd0378a-a6f9-40c8-9117-c2fbf0a59320)
 
@@ -517,7 +518,7 @@ show ip interface brief
 2. Deshabilitar sumarizacion automatica
 3. Declarar las IP o redes de las interfaces donde se realizara el envío de mensajes EIGRP (es decir, IPs de la red como 10.10.0.0/30)
 4. Deshabilitar el envío de mensajes EIGRP en las interfaces de acceso a redes LAN (Switches/PCs) (Por buena práctica se deshabilita porque aqui no tengo router, me ahorro ancho de banda y evito de algun ataque o algun malintencionado que quiera aprender o inyectar prefixes, desvaiar trafico, etc)
-5. Inyectar una ruta por defecto en el router de borde (En caso de existir una salida a una WAN/Internet) (0.0.0.0/0 + Router/Vecino)
+5. Inyectar una ruta por defecto en el router de borde (En caso de existir una salida a una WAN/Internet) (0.0.0.0/0 + IP Interfaz next hop // `ip route 0.0.0.0 0.0.0.0 200.1.1.2`)
 6. Realizar sumarización manual de rutas.
 
 ### Optional EIGRP Configuration Steps:
