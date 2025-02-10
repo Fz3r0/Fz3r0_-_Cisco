@@ -573,10 +573,7 @@ There are EIGRP basic configuration that is mandatory and some additional config
 
 
 
-
----
-
-## ⚡ EIGRP Configuration
+## ⚡ EIGRP Configuration: `Basic / Mandatory`
 
 
 In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in the setup.
@@ -899,6 +896,7 @@ show run | se router eigrp
 ```
 
 
+## ⚡ EIGRP Configuration: `Optional`
 
 
 
@@ -911,9 +909,6 @@ show run | se router eigrp
 
 
 
-
-
-# ⚙️ EIGRP Configuration @ Packet Tracer :: `More Optional Configurations` 
 
 
 
