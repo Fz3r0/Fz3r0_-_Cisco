@@ -25,7 +25,7 @@ Configuring **RIP v2** is useful for learning dynamic routing in small networks.
 
 ## Lab Files
 
-- [Download Cisco Packet Tracer Fz3r0 Labs :: **Dynamic Route x5 Routers : `RIPv2`**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco-Routing_%26_Switching/Routing/Dynamic_Routing/RIPv2/Fz3r0-Routing-_-Dynamic-Route-x5-routers-RIPV2_PT-Files.zip)
+- [Download Cisco Packet Tracer Fz3r0 Labs :: **Dynamic Route x5 Routers : `RIPv2`**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco-Routing_&_Switching/Routing/Dynamic_Routing/Distance-Vector/RIPv2/Fz3r0-Routing-_-Dynamic-Route-x5-routers-RIPV2_PT-File.zip)
 
 # `Dynamic Routing @ Packet Tracer`
 
