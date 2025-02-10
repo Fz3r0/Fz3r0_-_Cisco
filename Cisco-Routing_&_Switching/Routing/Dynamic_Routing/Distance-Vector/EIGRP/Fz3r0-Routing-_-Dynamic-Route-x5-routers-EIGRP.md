@@ -448,6 +448,8 @@ Since **K1 = 1** and **K3 = 1** by default, the formula simplifies to:
 
 - If all K-values were used, the complete formula would be more complex.
 
+![image](https://github.com/user-attachments/assets/849393f5-83a2-4b3b-b747-435808ec2aa5)
+
 ### 🧮 EIGRP Metric Calculation Example:
 
 ![image](https://github.com/user-attachments/assets/8f21a179-17b0-418d-9b8d-a82fb78442a6)
