@@ -13,23 +13,7 @@
 
 <br>
 
-
-
-- 
-
-# CCNA Lab: `Dynamic Routing` :: `EIGRP`
-
-
-
-
-
-
-# 🚀 EIGRP @ Packet Tracer Configuration 
-
-
-
-
-## 📖 **What is EIGRP?**
+# 📖 EIGRP (Enhanced Interior Gateway Routing Protocol)
 
 **Enhanced Interior Gateway Routing Protocol (EIGRP)** is a Cisco proprietary routing protocol that combines the best features of distance-vector and link-state protocols. It is a hybrid protocol, offering faster convergence and lower bandwidth usage compared to other distance-vector protocols like RIP.
 
@@ -38,7 +22,7 @@ The protocol was designed by Cisco Systems in 1992 as a proprietary protocol, av
 - **Hybrid Distance Vector Routing Protocol**: Called "hybrid" because it combines features of **distance vector** and **link-state** protocols. <br><br>
 - **Successor of IGRP** (Deprecated): IGRP is no longer used because it had **slower convergence**, used **less efficient metrics** and EIGRP became open standard in 2016 (RFC 7868).  
 
-### **Why Use EIGRP?** 🌐
+### 🌐 **Why Use EIGRP?** 
 
 EIGRP is used primarily in larger, more complex networks because of its ability to scale efficiently and support advanced features, such as:
 
@@ -47,18 +31,18 @@ EIGRP is used primarily in larger, more complex networks because of its ability 
 - **Supports multiple network layer protocols**: Works with both IPv4 and IPv6.
 - **Automatic summarization** (in earlier versions) and **manual summarization**.
 
-**EIGRP is ideal for:**
+⭕ **EIGRP is ideal for:**
 
 - Medium to large networks with Cisco routers.
 - Networks requiring fast convergence (faster than RIP).
 - Scenarios where IP address summarization and route aggregation are needed.
 
-**Examples:**
+⭕ **Examples:**
 
 - **Enterprise Networks**: Large companies using EIGRP for internal routing across multiple office locations.
 - **Data Centers**: EIGRP is widely used to ensure optimal routing and fast recovery from link failures.
   
-### **When NOT to Use EIGRP?** 🚫
+### 🚫 **When NOT to Use EIGRP?** 
 
 EIGRP may not be the best choice when:
 
@@ -78,9 +62,6 @@ EIGRP may not be the best choice when:
 | **Administrative Distance (AD)** | Determines **trust level** of routes |
 
 
-
-
-
 ## 🔄 **EIGRP Operation**
 
 | Operation                                   | Description                                                                 |
@@ -93,11 +74,10 @@ EIGRP may not be the best choice when:
 | **Maximum hop count**                     | Supports up to 255 hops (100 by default).                             |
 | **Supports manual summarization**         | Supports manual summarization on required interfaces.                 |
 
-### 🗂️ **Neighbor & Topology Tables**
+⭕ **Neighbor & Topology Tables:**
 
 - **Neighbor Table:** Stores information about directly connected routers.
 - **Topology Table:** Maintains all learned routes, including successors and feasible successors.
-
 
 
 ## 📡 **EIGRP Message Types**
@@ -112,23 +92,22 @@ EIGRP may not be the best choice when:
 
 
 
-
 ## 🔢 EIGRP: `Autonomous System (AS) Number (ASN)`
 
 An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a collection of IP networks and routers that participate in **BGP** or **EIGRP**, under the control of a single organization that presents a common routing policy to the internet. These numbers allow different networks to communicate with each other on the internet by enabling routing decisions between them. 
  
 - NOTE: Each AS is identified by a **unique number**, called an **AS Number (ASN)**, which is used for **BRP** or **EIGRP**, to identify and differentiate between different networks on the internet or within a private network.**.  
 
-**The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
+⭕ **The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
 
-**Why Do We Always Use the Same AS Number?**
+⭕ **Why Do We Always Use the Same AS Number?**
 
 - In the case of EIGRP, all routers within a single organization or network that are participating in the same routing domain (group of routers exchanging routing information) must use the same AS number to form neighbor relationships and exchange routes.
 - This consistency ensures that the routers recognize each other as part of the same routing domain and share routing information effectively.
 
-**IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
+⚠️ **IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
 
-### ASN: How to Choose an AS Number?
+⭕ How to Choose an AS Number?
 
 - In private networks, you can pick any AS number that you want (e.g., router eigrp 100 or router eigrp 200 or router eigrp 666).
 - In large enterprises, different AS numbers may be used to separate different routing domains.
