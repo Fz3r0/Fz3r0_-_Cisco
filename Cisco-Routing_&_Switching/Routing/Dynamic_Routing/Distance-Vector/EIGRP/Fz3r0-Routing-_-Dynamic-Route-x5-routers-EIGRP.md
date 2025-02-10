@@ -591,7 +591,7 @@ enable
 configure terminal
 hostname R1
 !
-! # Autonomous System (AS)
+! # 1) Autonomous System (AS)
 router eigrp 666
 !
 ! # enable EIGRP on any interface with an IP address that falls within the 10.1.0.0/30 subnet.
@@ -651,17 +651,45 @@ enable
 configure terminal
 hostname R3
 !
-! # Autonomous System (AS)
-router eigrp 1
+! # Step 1: Autonomous System (AS)
+router eigrp 666
 !
+! # Step 2: Disables automatic summarization.
+no auto-summary
+!
+! # Step 3: Enable EIGRP on each Interface (except WAN/Internet if available)
+!     # enable EIGRP on any interface with an IP address that falls within the 10.1.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.5.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
 network 10.3.0.0 0.0.0.3
 network 10.2.0.0 0.0.0.3
-network 192.168.3.0 0.0.0.255
-no auto-summary
-exit
 !
+!     # Enables EIGRP on interfaces in the 192.168.1.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.1.0 to 192.168.1.255"
+network 192.168.3.0 0.0.0.255
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+!
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+ip route 0.0.0.0 0.0.0.0 200.1.1.2
+!
+6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! # Exit, Save & Check Configs
+end
 write memory
-
+!
+show ip eigrp neighbors
+!
+show ip route
+!
+!
 
 ````
 
