@@ -638,6 +638,9 @@ show ip route eigrp
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show run | se router eigrp
 !
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
+!
 !
 
 ```
@@ -699,6 +702,9 @@ show ip route eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show run | se router eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
 !
 !
 
@@ -765,6 +771,9 @@ show ip route eigrp
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show run | se router eigrp
 !
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
+!
 !
 
 ```
@@ -827,6 +836,9 @@ show ip route eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show run | se router eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
 !
 !
 
@@ -891,10 +903,12 @@ show ip route eigrp
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show run | se router eigrp
 !
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
+!
 !
 
 ```
-
 
 ## ⚡ EIGRP Configuration: `Optional`
 
@@ -915,9 +929,41 @@ show run | se router eigrp
 
 
 
+## Validation
 
+## Validation: `Router Side`
 
+````
+## EIGRP Validation @ Router Side
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp neighbors
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip route
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip route eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show run | se router eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
+!
+!
 
+```
+````
+
+## Validation: `PC Side`
+
+````sh
+ping 8.8.8.8
+
+tracert 8.8.8.8
+
+````
 
 
 
