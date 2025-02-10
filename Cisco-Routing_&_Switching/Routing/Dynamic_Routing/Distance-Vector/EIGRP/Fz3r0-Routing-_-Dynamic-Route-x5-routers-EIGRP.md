@@ -238,8 +238,7 @@ This setup consists of **five routers** (R1 to R5) connected in a **ring topolog
 - **Each LAN** have a PC for testing purposes.
 - **There's an additional Router-WAN to simulate Internet/Google connection to 8.8.8.8**
 
-![image](https://github.com/user-attachments/assets/bdd0378a-a6f9-40c8-9117-c2fbf0a59320)
-
+![image](https://github.com/user-attachments/assets/638cb9a0-3104-4d75-8d2c-562ce6b7c493)
 
 ## 📋 **IP Addressing Table**
 
@@ -660,6 +659,8 @@ router eigrp 666
 no auto-summary
 !
 ! # Step 3: Enable EIGRP on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
 !     # enable EIGRP on any interface with an IP address that falls within the 10.1.0.0/30 subnet.
 !     # enable EIGRP on any interface with an IP address that falls within the 10.5.0.0/30 subnet.
 !         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
@@ -670,15 +671,17 @@ no auto-summary
 network 10.3.0.0 0.0.0.3
 network 10.2.0.0 0.0.0.3
 !
+!     ## LAN:
 !     # Enables EIGRP on interfaces in the 192.168.1.0/24 subnet.
 !         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.1.0 to 192.168.1.255"
 network 192.168.3.0 0.0.0.255
 !
 ! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
-!
+passive-interface fa 1/1
 !
 ! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
 ip route 0.0.0.0 0.0.0.0 200.1.1.2
+redistribute static
 !
 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
@@ -687,9 +690,17 @@ ip route 0.0.0.0 0.0.0.0 200.1.1.2
 end
 write memory
 !
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show ip eigrp neighbors
 !
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show ip route
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip route eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show run | se router eigrp
 !
 !
 
