@@ -349,21 +349,12 @@ An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a 
 
 **IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
 
-### 🔹 **Administrative Distance (AD) Default Values**
-
-| AD Type | Value | Explanation |
-|---------|-------|------------|
-| **Internal AD** | 90 | Routes **within the same AS (Autonomous System)** |
-| **External AD** | 170 | Routes **redistributed from other protocols (OSPF, RIP, etc.)** |
-| **Summary AD** | 5 | **Manually configured summary routes** (trusted due to admin configuration) |
-
-### AS: What Other Numbers Can Be Used?
+### ASN: What Other Numbers Can Be Used?
 
 - The AS number in EIGRP can be any value between 1 and 65,535.
 - 1 to 65,535: Used for internal EIGRP (within a private network).
 
-
-### AS: How to Choose an AS Number?
+### ASN: How to Choose an AS Number?
 
 - In private networks, you can pick any AS number (e.g., router eigrp 100, router eigrp 200).
 - In large enterprises, different AS numbers may be used to separate different routing domains.
@@ -392,6 +383,14 @@ An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a 
 | **Public AS**  | `65536 - 4294967296` | Used for **global internet routing** (similar to old 2-byte ASNs but with a much larger pool). |
 | **Private AS** | `64512 - 65535` | Same range as in 2-byte ASNs, **reserved for internal use**. |
 | **Reserved AS** | `23456` | **Placeholder ASN** used for backward compatibility between 2-byte and 4-byte ASNs. |
+
+## 🔹 **Administrative Distance (AD) Default Values**
+
+| AD Type | Value | Explanation |
+|---------|-------|------------|
+| **Internal AD** | 90 | Routes **within the same AS (Autonomous System)** |
+| **External AD** | 170 | Routes **redistributed from other protocols (OSPF, RIP, etc.)** |
+| **Summary AD** | 5 | **Manually configured summary routes** (trusted due to admin configuration) |
 
 ## 🔹 EIGRP: **Multicast & MAC Addresses**
 
