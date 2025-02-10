@@ -512,45 +512,63 @@ show ip interface brief
 
 ## ⚙️ **EIGRP Configuration Steps** 
 
-### Basic EIGRP Configuration Steps:
+## ⚙️ **EIGRP Configuration Steps**
 
-1. Crear el proceso de EIGRP definiendo un numero de sistema autonomo (ASN)
-2. Deshabilitar sumarizacion automatica
-3. Declarar las IP o redes de las interfaces donde se realizara el envío de mensajes EIGRP (es decir, IPs de la red como 10.10.0.0/30)
-4. Deshabilitar el envío de mensajes EIGRP en las interfaces de acceso a redes LAN (Switches/PCs) (Por buena práctica se deshabilita porque aqui no tengo router, me ahorro ancho de banda y evito de algun ataque o algun malintencionado que quiera aprender o inyectar prefixes, desvaiar trafico, etc)
-5. Inyectar una ruta por defecto en el router de borde (En caso de existir una salida a una WAN/Internet) (0.0.0.0/0 + IP Interfaz next hop // `ip route 0.0.0.0 0.0.0.0 200.1.1.2`)
-6. Realizar sumarización manual de rutas.
+### 🔹 **Basic EIGRP Configuration Steps:**
 
-### Optional EIGRP Configuration Steps:
+1. **Create the EIGRP process by defining an Autonomous System Number (ASN).**  
+   - This number identifies the EIGRP routing domain and must match across all routers in the same EIGRP network.
 
-- Manipular los contadores Hello (default 5 seg) y Hold (default 15 seg)
-- Manipular los valores K (default weights / K values)
-- Seleccionar máxima cantidad de saltos permitidos (default 100)
-- Manipular el % de bandwidth permitido por interfaz (default 50%)
-- Autenticar el envío de mensajes EIGRP entre vecinos (Security)
+2. **Disable automatic summarization.**  
+   - By default, EIGRP summarizes routes at major network boundaries (classful networks).  
+   - Disabling this ensures EIGRP advertises subnet information correctly.
+
+3. **Declare the IP addresses or networks for EIGRP messaging.**  
+   - These are the networks where EIGRP will send and receive routing updates.  
+   - Usually, you specify the subnet, e.g., `10.10.0.0/30`, to include all relevant interfaces.
+
+4. **Disable EIGRP messaging on LAN access interfaces (Switches/PCs).**  
+   - This is a best practice because LAN devices do not participate in routing.  
+   - Disabling it saves bandwidth and prevents security risks, such as unauthorized prefix injection or traffic redirection.
+
+5. **Inject a default route in the border router (if there is a WAN/Internet connection).**  
+   - This is useful for routers that need a default path to external networks.  
+   - Example: `0.0.0.0/0` with a next-hop neighbor.
+
+6. **Manually summarize routes when needed.**  
+   - Manual summarization can help optimize routing tables and reduce unnecessary updates.
+
+### 🔹 **Optional EIGRP Configuration Adjustments:**
+
+- **Adjust Hello (default: 5 sec) and Hold (default: 15 sec) timers.**  
+
+  - **Purpose:** Controls how often routers send Hello packets and how long they wait before declaring a neighbor down.  
+  - **Use case:** Reducing Hello intervals (e.g., from 5s to 1s) allows for faster neighbor failure detection, useful in high-speed or critical networks. Increasing timers can reduce control traffic in stable environments.
+
+- **Modify K-values (default weights).**  
+
+  - **Purpose:** Adjusts how EIGRP calculates the best path using different metrics like bandwidth, delay, reliability, and load.  
+  - **Use case:** Tweaking K-values can prioritize certain paths based on delay instead of bandwidth, or ignore reliability/load in path selection. **Must be consistent across all routers** to avoid neighbor mismatches.
+
+- **Set the maximum number of hops (default: 100).**
+
+  - **Purpose:** Defines how far EIGRP routes can propagate before being considered unreachable.  
+  - **Use case:** Increasing this value allows larger networks to function properly, while lowering it can restrict route propagation in controlled environments.
+
+- **Limit the percentage of bandwidth used per interface (default: 50%).**  
+
+  - **Purpose:** Prevents EIGRP from consuming too much link bandwidth, ensuring normal traffic is not disrupted.  
+  - **Use case:** Reducing the bandwidth percentage (e.g., from 50% to 25%) is useful on slow or shared links to prevent routing updates from congesting the network.
+
+- **Authenticate EIGRP messages between neighbors (security feature).**  
+
+  - **Purpose:** Ensures only trusted routers can exchange EIGRP messages, preventing unauthorized devices from injecting false routes.  
+  - **Use case:** Essential in enterprise and ISP networks to prevent routing attacks or misconfigurations. Uses MD5 or SHA authentication.
 
 
-
-
-
-
-
-1. **Enable EIGRP routing**:
+### **Verify the Configuration**:
    
-   - Use the `router eigrp` command followed by a unique Autonomous System (AS) number. 
-   - All routers in the same EIGRP network must share the same AS number.
-
-2. **Activate EIGRP on Interfaces**:
-   
-   - EIGRP needs to be enabled on each router's interfaces for it to advertise routes.
-
-3. **Network Statements**:
-   
-   - Define which networks should be included in EIGRP by using `network` statements that match the router's interface IP addresses.
-
-4. **Verify the Configuration**:
-   
-   - After configuring, use commands like `show ip eigrp neighbors` and `show ip route` to verify that EIGRP is working properly.
+- After configuring, use commands like `show ip eigrp neighbors` and `show ip route` to verify that EIGRP is working properly.
 
 
 
