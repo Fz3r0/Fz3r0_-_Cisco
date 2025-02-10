@@ -399,7 +399,65 @@ An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a 
 
 
 
+## 🔍 **EIGRP Metric**  
 
+EIGRP uses a **composite metric** to determine the best path to a destination.  
+
+This metric is calculated using multiple parameters (weights **K1 - K5**) collected from **all interfaces**.  
+
+- ✅ The **lowest metric value** determines the **best route**.  
+- ✅ **Only K1 (Bandwidth) and K3 (Delay) are used by default**.  
+- ✅ **Higher bandwidth & lower delay result in better routes**.  
+- ✅ **Load, Reliability, and MTU are ignored unless manually enabled**.
+  
+### ⚙ **EIGRP Metric Components: `K-values`**  
+
+"K" simply means "coefficient" or "weighting factor" in the EIGRP metric formula.  K-values are coefficients assigned to different parameters (such as bandwidth, delay, reliability, etc.) to determine the **weight** of each when calculating the best path.
+
+![image](https://github.com/user-attachments/assets/e63fcd89-f14b-448b-b882-6876feec7b60)
+
+| **K-value**  | **Parameter**     | **Description** |
+|-------------|------------------|----------------|
+| **K1** 🔹  | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** _(Enabled by default)_ |
+| **K2** 📉  | **Load**           | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** _(Disabled by default)_ |
+| **K3** ⏳  | ++ **Delay** (DLY)    | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** _(Enabled by default)_ |
+| **K4** ✅  | **Reliability**    | A number between **1-255**, where **255 means 100% reliability** (fewer errors). _(Disabled by default)_ |
+| **K5** 📦  | **MTU**            | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). _(Disabled by default)_ |
+
+### 🧮 **EIGRP Metric Calculation Formula**  
+
+By default, EIGRP only considers **Bandwidth (K1)** and **Delay (K3)** in the metric calculation:
+
+- **`Metric` = [(K1 * Bandwidth) + (K3 * Delay)] * 256**
+Since **K1 = 1** and **K3 = 1** by default, the formula simplifies to:
+
+- **`Metric` = (Bandwidth + Delay) * 256**
+**The metric in EIGRP is always a large value** because it uses **256 as a multiplier** (eg. 30720).
+
+- If all K-values were used, the complete formula would be more complex.
+
+### 🧮 EIGRP Metric Calculation Example:
+
+![image](https://github.com/user-attachments/assets/8f21a179-17b0-418d-9b8d-a82fb78442a6)
+
+1. **Less Bandwidth = 100 Mbps** _(Both Routers =)_
+   Convert to Kbps:  
+   `100 Mbps = 100,000 Kbps`
+
+3. **Bandwidth Metric**: _(10^8 = 100,000,000 (used for the bandwidth calculation, and it's a fixed constant)_ 
+   Formula:  
+   `(10,000,000 / 100,000) * 256 = 25600`
+
+4. **Delay Metric**:  
+   For each router with 1000 µs delay (= **100 ms**), the total delay is:  
+   Formula:  
+   `[(1000 / 10) + (1000 / 10)] * 256 = 5120`
+
+5. **Final Metric Calculation**:  
+   Add the `bandwidth` + `delay` metrics:  
+   `25600 + 5120 = 30720`
+
+RESULT = **`30720 EIGRP Metric Calculated From Router-1`**
 
 
 
@@ -578,7 +636,7 @@ write memory
 
 
 
-![image](https://github.com/user-attachments/assets/e63fcd89-f14b-448b-b882-6876feec7b60)
+
 
 
 
