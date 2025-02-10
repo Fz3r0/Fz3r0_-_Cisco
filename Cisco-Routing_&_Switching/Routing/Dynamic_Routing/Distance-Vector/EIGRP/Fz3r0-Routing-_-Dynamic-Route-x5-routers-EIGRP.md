@@ -297,7 +297,9 @@ EIGRP may not be the best choice when:
 
 ## EIGRP: `Autonomous System (AS)`
 
-An Autonomous System (AS) number is a unique identifier assigned to a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. **The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
+An Autonomous System (AS) number is a unique identifier assigned to a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. 
+
+**The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
 
 - **AS is used in routing protocols, such as `BGP (Border Gateway Protocol)` and `EIGRP (Enhanced Interior Gateway Routing Protocol)`, to identify and differentiate between different networks on the internet or within a private network.**
 
