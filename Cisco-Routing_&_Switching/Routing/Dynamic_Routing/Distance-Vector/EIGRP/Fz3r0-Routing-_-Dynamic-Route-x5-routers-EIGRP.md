@@ -529,7 +529,8 @@ There are EIGRP basic configuration that is mandatory and some additional config
    - **`IMPORTANT`: You can use the trick of `network 0.0.0.0` command and EIGRP will "magically" set up on all "up" interfaces! _(Use only in controlled enviorments)_**
 
 4. **Disable EIGRP messaging on LAN access interfaces (Switches/PCs).**  
-   - This is a best practice because LAN devices do not participate in routing.  
+   - **`IMPORTANT`: EIGRP must be enabled on LAN interfaces, just messages will be turned off for LAN devices.**
+   - This is a best practice because LAN devices do not participate in routing, only the router interface ;).  
    - Disabling it saves bandwidth and prevents security risks, such as unauthorized prefix injection or traffic redirection.
 
 5. **Inject a default route in the border router (if there is a WAN/Internet connection).**  
