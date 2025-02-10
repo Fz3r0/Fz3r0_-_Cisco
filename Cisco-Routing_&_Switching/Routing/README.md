@@ -36,8 +36,9 @@ Los **Exterior Gateway Protocols (EGP)** como **`BGP`**, se utilizan para el enr
 
 Un **Autonomous System (AS)** es un grupo de redes IP bajo una misma administración y con una política de enrutamiento común. Cada **AS** tiene un número único llamado **ASN (Autonomous System Number)** asignado por **IANA (Internet Assigned Numbers Authority)** o los **RIR (Regional Internet Registries)**. (eg. **Google (AS15169)** Usa BGP para gestionar tráfico entre sus servidores y otros ISPs. ) 
 
-
 ## 🔹 Static Routing VS Dynamic Routing VS Default Routing
+
+
 
 | **Tipo de Enrutamiento**     | **Descripción**                                                                                                                                       | **Ejemplos de Protocolo**                                      | **Ventajas**                                                                                                                          | **Desventajas**                                                                                                                        |
 |------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
@@ -82,6 +83,9 @@ Esta tabla detalla las diferencias clave entre los distintos **Routing Protocols
 - **BGP es el estándar en Internet**, pero **no es necesario** en redes privadas a menos que se manejen múltiples **Autonomous Systems**.
 
 
+## CCNA Routing CheatSheet
+
+![image](https://github.com/user-attachments/assets/05441ab4-5c08-4f39-a892-d9f45433abb4)
 
 
 
