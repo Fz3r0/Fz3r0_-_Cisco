@@ -267,16 +267,10 @@ show ip interface brief
 
 **Enhanced Interior Gateway Routing Protocol (EIGRP)** is a Cisco proprietary routing protocol that combines the best features of distance-vector and link-state protocols. It is a hybrid protocol, offering faster convergence and lower bandwidth usage compared to other distance-vector protocols like RIP.
 
-- **Released in 1992** – Proprietary protocol developed by **Cisco Systems**.  
-  - A **proprietary protocol** means it was **originally exclusive to Cisco devices**.  <br><br>
-- **Hybrid Distance Vector Routing Protocol**  
-  - Called "hybrid" because it combines features of **distance vector** and **link-state** protocols. <br><br>
-- **Successor of IGRP** (Deprecated)  
-  - IGRP is no longer used because:
-    - It had **slower convergence**.
-    - Used **less efficient metrics**.
-    - **EIGRP improved scalability and speed**. <br><br>
-- **Became open standard in 2016** (RFC 7868).  
+The protocol was designed by Cisco Systems in 1992 as a proprietary protocol, available only on Cisco routers. In 2013, Cisco permitted other vendors to freely implement a limited version of EIGRP with some of its associated features such as High Availability (HA), while withholding other EIGRP features such as EIGRP stub, needed for DMVPN and large-scale campus deployment.
+
+- **Hybrid Distance Vector Routing Protocol**: Called "hybrid" because it combines features of **distance vector** and **link-state** protocols. <br><br>
+- **Successor of IGRP** (Deprecated): IGRP is no longer used because it had **slower convergence**, used **less efficient metrics** and EIGRP became open standard in 2016 (RFC 7868).  
 
 ### **Why Use EIGRP?** 🌐
 
@@ -681,8 +675,8 @@ RESULT = **`30720 EIGRP Metric Calculated From Router-1`**
 
 # 📚🗂️🎥 Resources
 
-- https://www.youtube.com/watch?v=u6LA4fB-hDo
-- https://www.youtube.com/watch?v=HP1vCvE4xU4
+- https://www.youtube.com/watch?v=SGKAZ-3X5kI&list=PLwAU7bA502wFCIbUUDC9tvZNl-PkKOo-u
+- https://en.wikipedia.org/wiki/Enhanced_Interior_Gateway_Routing_Protocol
 
   
 ---
