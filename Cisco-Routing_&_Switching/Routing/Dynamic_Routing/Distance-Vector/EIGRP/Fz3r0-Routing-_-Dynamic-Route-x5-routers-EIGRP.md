@@ -354,6 +354,13 @@ configure terminal
 !
 hostname R3
 !
+! ## INTERNET
+!
+interface fa 1/0
+ip address 200.1.1.1 255.255.255.252
+no shutdown
+exit
+!
 ! ## WAN SIDE
 !
 interface fa 0/0
@@ -455,7 +462,73 @@ show ip interface brief
 
 ````
 
-## ⚙️ **Basic EIGRP Configuration Steps** 
+### Init Setup: `Router WAN (Internet)`
+
+````py
+! ## ROUTER WAN (Internet)
+!
+enable
+configure terminal
+!
+hostname R-WAN
+!
+! ## No sumarize
+!
+! no sumarize
+!
+! ## WAN SIDE
+!
+interface fa 0/0
+ip address 200.1.1.2 255.255.255.252
+no shutdown
+exit
+!
+! ## Loopback Interface (Simulating Google)
+!
+interface Loopback0
+ip address 8.8.8.8 255.255.255.255
+exit
+!
+! ! ## Default Route (To reach EIGRP network (next hop interface))
+!
+ip route 0.0.0.0 0.0.0.0 200.1.1.1
+!
+! ## Save & Check Configuration
+!
+end
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+
+## ⚙️ **EIGRP Configuration Steps** 
+
+### Basic EIGRP Configuration Steps:
+
+1. Crear el proceso de EIGRP definiendo un numero de sistema autonomo (ASN)
+2. Deshabilitar sumarizacion automatica
+3. Declarar las IP o redes de las interfaces donde se realizara el envío de mensajes EIGRP (es decir, IPs de la red como 10.10.0.0/30)
+4. Deshabilitar el envío de mensajes EIGRP en las interfaces de acceso a redes LAN (Switches/PCs) (Por buena práctica se deshabilita porque aqui no tengo router, me ahorro ancho de banda y evito de algun ataque o algun malintencionado que quiera aprender o inyectar prefixes, desvaiar trafico, etc)
+5. Inyectar una ruta por defecto en el router de borde (En caso de existir una salida a una WAN/Internet) (0.0.0.0/0 + Router/Vecino)
+6. Realizar sumarización manual de rutas.
+
+### Optional EIGRP Configuration Steps:
+
+- Manipular los contadores Hello (default 5 seg) y Hold (default 15 seg)
+- Manipular los valores K (default weights / K values)
+- Seleccionar máxima cantidad de saltos permitidos (default 100)
+- Manipular el % de bandwidth permitido por interfaz (default 50%)
+- Autenticar el envío de mensajes EIGRP entre vecinos (Security)
+
+
+
+
+
+
 
 1. **Enable EIGRP routing**:
    
@@ -473,6 +546,9 @@ show ip interface brief
 4. **Verify the Configuration**:
    
    - After configuring, use commands like `show ip eigrp neighbors` and `show ip route` to verify that EIGRP is working properly.
+
+
+
 
 ---
 
