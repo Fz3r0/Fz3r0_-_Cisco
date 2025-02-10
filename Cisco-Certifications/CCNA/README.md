@@ -1,5 +1,7 @@
 # CCNA Breakdwon & Roadmap
 
+- [CCNA Cheastsheets](https://www.scribd.com/document/311054157/CCNA-Cheat-sheet)
+
 ### 1.0 Network Fundamentals
 
 - [OSI Model](https://github.com/Fz3r0/Fz3r0_-_802.3_Ethernet_-_Knowledge-Base/blob/main/Network-Reference-Models/OSI-Model.md)
