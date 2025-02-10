@@ -320,18 +320,29 @@ EIGRP may not be the best choice when:
 | Operation                                   | Description                                                                 |
 |-------------------------------------------|-----------------------------------------------------------------------------|
 | **RTP (Reliable Transport Protocol)**     | EIGRP does not use TCP or UDP. Uses its own protocol (RTP).                 |
-| **Uses Autonomous System (AS) numbers**   | EIGRP uses AS numbers for activation.                                        |
-| **Sends HELLO messages**                  | EIGRP sends HELLO messages to maintain neighbor relationships.               |
+| **Uses Autonomous System (AS) numbers**   | Uses AS numbers for activation.                                        |
+| **Sends HELLO messages**                  | Sends HELLO messages to maintain neighbor relationships.               |
 | **Uses separate modules for each routed protocol** | EIGRP uses PDM (Protocol Dependent Modules) for different protocols. |
-| **Limited updates**                       | EIGRP sends updates only when changes occur in the network.                  |
-| **Maximum hop count**                     | EIGRP supports up to 255 hops (100 by default).                             |
-| **Supports manual summarization**         | EIGRP supports manual summarization on required interfaces.                 |
+| **Limited updates**                       | Sends updates only when changes occur in the network.                  |
+| **Maximum hop count**                     | Supports up to 255 hops (100 by default).                             |
+| **Supports manual summarization**         | Supports manual summarization on required interfaces.                 |
 
 ### 🗂️ **Neighbor & Topology Tables**
 
 - **Neighbor Table:** Stores information about directly connected routers.
 - **Topology Table:** Maintains all learned routes, including successors and feasible successors.
 
+
+
+## 📡 **EIGRP Message Types**
+
+| **Message Type** | **Number** | **Description**                                                                                     |
+|------------------|------------|-----------------------------------------------------------------------------------------------------|
+| **🆙 Update**     | 1          | Sent to share routing information with neighbors. It includes new routes or updates to existing ones. |
+| **❓ Query**      | 3          | Sent to request routing information from a neighbor when there is no valid route in the routing table. |
+| **💬 Reply**      | 4          | Sent in response to a Query message, providing the requested routing information.                     |
+| **👋 Hello**      | 5          | Sent periodically to maintain and establish neighbor relationships. It includes information about the router and its capabilities. |
+| **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           |
 
 
 
