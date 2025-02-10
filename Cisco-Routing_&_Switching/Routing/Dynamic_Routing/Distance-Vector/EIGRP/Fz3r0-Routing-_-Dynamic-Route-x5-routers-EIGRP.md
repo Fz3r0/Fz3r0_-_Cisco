@@ -260,9 +260,23 @@ show ip interface brief
 
 # 🚀 EIGRP @ Packet Tracer Configuration 
 
+
+
+
 ## 📖 **What is EIGRP?**
 
 **Enhanced Interior Gateway Routing Protocol (EIGRP)** is a Cisco proprietary routing protocol that combines the best features of distance-vector and link-state protocols. It is a hybrid protocol, offering faster convergence and lower bandwidth usage compared to other distance-vector protocols like RIP.
+
+- **Released in 1992** – Proprietary protocol developed by **Cisco Systems**.  
+  - A **proprietary protocol** means it was **originally exclusive to Cisco devices**.  <br><br>
+- **Hybrid Distance Vector Routing Protocol**  
+  - Called "hybrid" because it combines features of **distance vector** and **link-state** protocols. <br><br>
+- **Successor of IGRP** (Deprecated)  
+  - IGRP is no longer used because:
+    - It had **slower convergence**.
+    - Used **less efficient metrics**.
+    - **EIGRP improved scalability and speed**. <br><br>
+- **Became open standard in 2016** (RFC 7868).  
 
 ### **Why Use EIGRP?** 🌐
 
@@ -294,10 +308,37 @@ EIGRP may not be the best choice when:
 - **Enterprise Networks**: Large companies using EIGRP for internal routing across multiple office locations.
 - **Data Centers**: EIGRP is widely used to ensure optimal routing and fast recovery from link failures.
 
+## ⚙️ EIGRP Features
+
+| Feature | Description |
+|---------|------------|
+| **Standard** | Originally **proprietary** (Cisco), later **open standard** |
+| **Type** | **Distance Vector** protocol |
+| **Algorithm** | Uses **DUAL (Diffusing Update Algorithm)** for fast convergence |
+| **Protocol Support** | Supports **IPv4, IPv6**, and **legacy protocols (IPX, AppleTalk)** |
+| **Metric Calculation** | Based on **Bandwidth + Delay** |
+| **Administrative Distance (AD)** | Determines **trust level** of routes |
+
+## 🔄 **EIGRP Operation**
+
+- **Does not use TCP or UDP** – Uses its own protocol: **RTP (Reliable Transport Protocol)**.
+- **Uses Autonomous System (AS) numbers** for activation.
+- **Sends HELLO messages** to maintain neighbor relationships.
+- **Uses separate modules for each routed protocol** (**PDM – Protocol Dependent Modules**).
+- **Limited updates** – Only sends updates when changes occur in the network.
+- **Maximum hop count:** `255` (`100` by default).
+- **Supports manual summarization** on required interfaces.
+
+### 🗂️ **Neighbor & Topology Tables**
+
+- **Neighbor Table:** Stores information about directly connected routers.
+- **Topology Table:** Maintains all learned routes, including successors and feasible successors.
 
 ## 🔢 EIGRP: `Autonomous System (AS)`
 
 An Autonomous System (AS) number is a unique identifier assigned to a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. 
+ 
+- NOTE: Each AS is identified by a **unique number**, called an **AS Number (ASN)**, which is used for **`inter-domain routing (BGP)`**.  
 
 **The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
 
@@ -309,6 +350,16 @@ An Autonomous System (AS) number is a unique identifier assigned to a collection
 - This consistency ensures that the routers recognize each other as part of the same routing domain and share routing information effectively.
 
 **IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
+
+### 🔹 **Administrative Distance (AD) Default Values**
+
+| AD Type | Value | Explanation |
+|---------|-------|------------|
+| **Internal AD** | 90 | Routes **within the same AS (Autonomous System)** |
+| **External AD** | 170 | Routes **redistributed from other protocols (OSPF, RIP, etc.)** |
+| **Summary AD** | 5 | **Manually configured summary routes** (trusted due to admin configuration) |
+
+
 
 ### AS: What Other Numbers Can Be Used?
 
@@ -322,13 +373,62 @@ An Autonomous System (AS) number is a unique identifier assigned to a collection
 - In large enterprises, different AS numbers may be used to separate different routing domains.
 - In EIGRP Named Mode, the AS number is still required but used differently.
 
-## 🛠️ **EIGRP Configuration on the Ring Topology**
 
-In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in your setup.
+
+
+
+# 🌍 **Autonomous System (AS) Numbers**
+
+## 📌 What is an Autonomous System (AS)?  
+
 
 ---
 
-### **Basic EIGRP Configuration Steps** ⚙️
+## 🌍 AS Numbers
+
+### 🏛 **2-Byte (16-bit) AS Numbers**
+
+| **Type**     | **Range**      | **Description** |
+|-------------|--------------|----------------|
+| **Public AS**  | `1 - 64511`  | Used by **ISPs and large organizations** for **global** routing. _(All public ASNs in this range are already allocated.)_ |
+| **Private AS** | `64512 - 65535` | Used **internally** within organizations (not advertised on the internet). |
+
+###  🚀 **4-Byte (32-bit) AS Numbers**  
+
+Compatible with **2-byte ASNs** and introduced to **support future growth**.
+
+**Why were 4-byte AS numbers introduced?**  
+
+- The **2-byte AS numbers (1 - 64511)** were **completely assigned**, making it necessary to introduce a larger range. 
+
+| **Type**     | **Range**         | **Description** |
+|-------------|-----------------|----------------|
+| **Public AS**  | `65536 - 4294967296` | Used for **global internet routing** (similar to old 2-byte ASNs but with a much larger pool). |
+| **Private AS** | `64512 - 65535` | Same range as in 2-byte ASNs, **reserved for internal use**. |
+| **Reserved AS** | `23456` | **Placeholder ASN** used for backward compatibility between 2-byte and 4-byte ASNs. |
+
+**Why was AS `23456` reserved?** 
+
+- When **BGP peers do not support 4-byte ASNs**, they use **AS 23456** as a **fallback** to maintain compatibility.
+
+
+## 🔹 EIGRP: **Multicast & MAC Addresses**
+
+| Address Type | Value |
+|-------------|-------|
+| **Multicast Address** | `224.0.0.10` |
+| **Multicast MAC Address** | `01:00:5E:00:00:0A` |
+
+
+
+
+
+
+
+
+
+
+## **Basic EIGRP Configuration Steps** ⚙️
 
 1. **Enable EIGRP routing**:
    
@@ -350,6 +450,11 @@ In this example, we will configure EIGRP between five routers (R1 to R5) in the 
 ---
 
 ## ⚡ **EIGRP Configuration** 
+
+
+In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in the setup.
+
+
 
 ### **R1 Configuration:**
 
