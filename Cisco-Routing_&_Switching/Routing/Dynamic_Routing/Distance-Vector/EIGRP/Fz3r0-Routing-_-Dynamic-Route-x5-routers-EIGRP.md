@@ -526,6 +526,7 @@ There are EIGRP basic configuration that is mandatory and some additional config
 3. **Declare the IP addresses or networks for EIGRP messaging.**  
    - These are the networks where EIGRP will send and receive routing updates.  
    - Usually, you specify the subnet, e.g., `10.10.0.0/30`, to include all relevant interfaces.
+   - **`IMPORTANT`: You can use the trick of `network 0.0.0.0` command and EIGRP will "magically" set up on all "up" interfaces! _(Use only in controlled enviorments)_**
 
 4. **Disable EIGRP messaging on LAN access interfaces (Switches/PCs).**  
    - This is a best practice because LAN devices do not participate in routing.  
