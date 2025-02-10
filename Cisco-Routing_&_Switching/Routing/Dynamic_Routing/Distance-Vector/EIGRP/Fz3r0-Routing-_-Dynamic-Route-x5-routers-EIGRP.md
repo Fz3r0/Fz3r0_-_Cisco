@@ -416,13 +416,14 @@ This metric is calculated using multiple parameters (weights **K1 - K5**) collec
 
 ![image](https://github.com/user-attachments/assets/e63fcd89-f14b-448b-b882-6876feec7b60)
 
-| **K-value**  | **Parameter**     | **Description** |
-|-------------|------------------|----------------|
-| **K1** 🔹  | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** _(Enabled by default)_ |
-| **K2** 📉  | **Load**           | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** _(Disabled by default)_ |
-| **K3** ⏳  | ++ **Delay** (DLY)    | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** _(Enabled by default)_ |
-| **K4** ✅  | **Reliability**    | A number between **1-255**, where **255 means 100% reliability** (fewer errors). _(Disabled by default)_ |
-| **K5** 📦  | **MTU**            | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). _(Disabled by default)_ |
+| **K-value**  | **Parameter**     | **Description**                                                                 | **Default**       |
+|--------------|-------------------|---------------------------------------------------------------------------------|-------------------|
+| **K1** 🔹    | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** | **Enabled by default** |
+| **K2** 📉    | **Load**           | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** | _Disabled by default_ |
+| **K3** ⏳    | ++ **Delay** (DLY)    | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** | **Enabled by default** |
+| **K4** ✅    | **Reliability**    | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_ |
+| **K5** 📦    | **MTU**            | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_ |
+
 
 ### 🧮 **EIGRP Metric Calculation Formula**  
 
