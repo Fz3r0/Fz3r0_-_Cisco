@@ -295,7 +295,7 @@ EIGRP may not be the best choice when:
 - **Data Centers**: EIGRP is widely used to ensure optimal routing and fast recovery from link failures.
 
 
-## EIGRP: `Autonomous System (AS)`
+## 🔢 EIGRP: `Autonomous System (AS)`
 
 An Autonomous System (AS) number is a unique identifier assigned to a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. 
 
@@ -309,6 +309,18 @@ An Autonomous System (AS) number is a unique identifier assigned to a collection
 - This consistency ensures that the routers recognize each other as part of the same routing domain and share routing information effectively.
 
 **IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
+
+### AS: What Other Numbers Can Be Used?
+
+- The AS number in EIGRP can be any value between 1 and 65,535.
+- 1 to 65,535: Used for internal EIGRP (within a private network).
+- ASN 0 is not valid in EIGRP.
+
+### AS: How to Choose an AS Number?
+
+- In private networks, you can pick any AS number (e.g., router eigrp 100, router eigrp 200).
+- In large enterprises, different AS numbers may be used to separate different routing domains.
+- In EIGRP Named Mode, the AS number is still required but used differently.
 
 ## 🛠️ **EIGRP Configuration on the Ring Topology**
 
@@ -337,41 +349,136 @@ In this example, we will configure EIGRP between five routers (R1 to R5) in the 
 
 ---
 
-### **EIGRP Configuration Example for Each Router** ⚡
+## ⚡ **EIGRP Configuration** 
 
----
+### **R1 Configuration:**
 
-#### **R1 Configuration:**
-
-```plaintext
+```py
+! # ROUTER 1 : EIGRP
+!
 enable
 configure terminal
 hostname R1
 !
+! # Autonomous System (AS)
 router eigrp 1
+!
+! # enable EIGRP on any interface with an IP address that falls within the 10.1.0.0/30 subnet.
+! # enable EIGRP on any interface with an IP address that falls within the 10.5.0.0/30 subnet.
+!     # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!     # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!     #   - This corresponds to a /30 subnet (255.255.255.252).
+!     #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
 network 10.1.0.0 0.0.0.3
 network 10.5.0.0 0.0.0.3
+!
+! # Enables EIGRP on interfaces in the 192.168.1.0/24 subnet.
+!     # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.1.0 to 192.168.1.255"
 network 192.168.1.0 0.0.0.255
+!
+! # Disables automatic summarization.
+no auto-summary
+!
+! # exit and save
+end
+write memory
+!
+
+````
+
+### **R2 Configuration:**
+
+```py
+! # ROUTER 2 : EIGRP
+!
+enable
+configure terminal
+hostname R2
+!
+! # Autonomous System (AS)
+router eigrp 1
+!
+network 10.2.0.0 0.0.0.3
+network 10.1.0.0 0.0.0.3
+network 192.168.2.0 0.0.0.255
 no auto-summary
 exit
 !
 write memory
+
+
 ````
-
-#### **R2 Configuration:**
-
 
 
 #### **R3 Configuration:**
 
+```py
+! # ROUTER 3 : EIGRP
+!
+enable
+configure terminal
+hostname R3
+!
+! # Autonomous System (AS)
+router eigrp 1
+!
+network 10.3.0.0 0.0.0.3
+network 10.2.0.0 0.0.0.3
+network 192.168.3.0 0.0.0.255
+no auto-summary
+exit
+!
+write memory
+
+
+````
 
 
 #### **R4 Configuration:**
 
+```py
+! # ROUTER 4 : EIGRP
+!
+enable
+configure terminal
+hostname R4
+!
+! # Autonomous System (AS)
+router eigrp 1
+!
+network 10.4.0.0 0.0.0.3
+network 10.3.0.0 0.0.0.3
+network 192.168.4.0 0.0.0.255
+no auto-summary
+exit
+!
+write memory
+
+
+````
 
 
 #### **R5 Configuration:**
 
+```py
+! # ROUTER 5 : EIGRP
+!
+enable
+configure terminal
+hostname R5
+!
+! # Autonomous System (AS)
+router eigrp 1
+!
+network 10.5.0.0 0.0.0.3
+network 10.4.0.0 0.0.0.3
+network 192.168.5.0 0.0.0.255
+no auto-summary
+exit
+!
+write memory
+
+````
 
 
 
