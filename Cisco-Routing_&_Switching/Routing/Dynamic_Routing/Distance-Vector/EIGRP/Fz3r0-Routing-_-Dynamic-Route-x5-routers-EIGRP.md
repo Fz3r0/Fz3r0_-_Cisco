@@ -510,9 +510,9 @@ show ip interface brief
 ````
 
 
-## ⚙️ **EIGRP Configuration Steps** 
+## ⚙️ **EIGRP Configuration** 
 
-## ⚙️ **EIGRP Configuration Steps**
+There are EIGRP basic configuration that is mandatory and some additional configs to be done: 
 
 ### 🔹 **Basic EIGRP Configuration Steps:**
 
@@ -592,10 +592,11 @@ configure terminal
 hostname R1
 !
 ! # Autonomous System (AS)
-router eigrp 1
+router eigrp 666
 !
 ! # enable EIGRP on any interface with an IP address that falls within the 10.1.0.0/30 subnet.
 ! # enable EIGRP on any interface with an IP address that falls within the 10.5.0.0/30 subnet.
+!     # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
 !     # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
 !     # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
 !     #   - This corresponds to a /30 subnet (255.255.255.252).
