@@ -258,36 +258,55 @@ show ip interface brief
 
 
 
-# EIGRP Cheatsheet for CCNA 🚀
+# 🚀 EIGRP @ Packet Tracer Configuration 
 
 ## 📖 **What is EIGRP?**
 
 **Enhanced Interior Gateway Routing Protocol (EIGRP)** is a Cisco proprietary routing protocol that combines the best features of distance-vector and link-state protocols. It is a hybrid protocol, offering faster convergence and lower bandwidth usage compared to other distance-vector protocols like RIP.
 
 ### **Why Use EIGRP?** 🌐
+
 EIGRP is used primarily in larger, more complex networks because of its ability to scale efficiently and support advanced features, such as:
+
 - **Fast convergence**: Reacts quickly to changes in the network.
 - **Efficient use of bandwidth**: EIGRP sends updates only when a change occurs, rather than periodically.
 - **Supports multiple network layer protocols**: Works with both IPv4 and IPv6.
 - **Automatic summarization** (in earlier versions) and **manual summarization**.
 
 ### **When to Use EIGRP?** 🏙️
+
 EIGRP is ideal for:
+
 - Medium to large networks with Cisco routers.
 - Networks requiring fast convergence (faster than RIP).
 - Scenarios where IP address summarization and route aggregation are needed.
   
 ### **When NOT to Use EIGRP?** 🚫
+
 EIGRP may not be the best choice when:
+
 - Working in multi-vendor environments (since it's Cisco proprietary).
 - You need a simple, low-overhead solution (RIP might be enough).
 - Extremely small networks where simpler protocols like static routing may be sufficient.
 
 ### **Real-life Examples** 🌍
+
 - **Enterprise Networks**: Large companies using EIGRP for internal routing across multiple office locations.
 - **Data Centers**: EIGRP is widely used to ensure optimal routing and fast recovery from link failures.
 
----
+
+## EIGRP: `Autonomous System (AS)`
+
+An Autonomous System (AS) number is a unique identifier assigned to a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. **The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
+
+- **AS is used in routing protocols, such as `BGP (Border Gateway Protocol)` and `EIGRP (Enhanced Interior Gateway Routing Protocol)`, to identify and differentiate between different networks on the internet or within a private network.**
+
+**Why Do We Always Use the Same AS Number?**
+
+- In the case of EIGRP, all routers within a single organization or network that are participating in the same routing domain (group of routers exchanging routing information) must use the same AS number to form neighbor relationships and exchange routes.
+- This consistency ensures that the routers recognize each other as part of the same routing domain and share routing information effectively.
+
+**IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
 
 ## 🛠️ **EIGRP Configuration on the Ring Topology**
 
@@ -298,16 +317,20 @@ In this example, we will configure EIGRP between five routers (R1 to R5) in the 
 ### **Basic EIGRP Configuration Steps** ⚙️
 
 1. **Enable EIGRP routing**:
+   
    - Use the `router eigrp` command followed by a unique Autonomous System (AS) number. 
    - All routers in the same EIGRP network must share the same AS number.
 
 2. **Activate EIGRP on Interfaces**:
+   
    - EIGRP needs to be enabled on each router's interfaces for it to advertise routes.
 
 3. **Network Statements**:
+   
    - Define which networks should be included in EIGRP by using `network` statements that match the router's interface IP addresses.
 
 4. **Verify the Configuration**:
+   
    - After configuring, use commands like `show ip eigrp neighbors` and `show ip route` to verify that EIGRP is working properly.
 
 ---
