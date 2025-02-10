@@ -281,41 +281,43 @@ EIGRP is used primarily in larger, more complex networks because of its ability 
 - **Supports multiple network layer protocols**: Works with both IPv4 and IPv6.
 - **Automatic summarization** (in earlier versions) and **manual summarization**.
 
-### **When to Use EIGRP?** 🏙️
-
-EIGRP is ideal for:
+**EIGRP is ideal for:**
 
 - Medium to large networks with Cisco routers.
 - Networks requiring fast convergence (faster than RIP).
 - Scenarios where IP address summarization and route aggregation are needed.
+
+**Examples:**
+
+- **Enterprise Networks**: Large companies using EIGRP for internal routing across multiple office locations.
+- **Data Centers**: EIGRP is widely used to ensure optimal routing and fast recovery from link failures.
   
 ### **When NOT to Use EIGRP?** 🚫
 
 EIGRP may not be the best choice when:
 
-- Working in multi-vendor environments (since it's Cisco proprietary).
-- You need a simple, low-overhead solution (RIP might be enough).
-- Extremely small networks where simpler protocols like static routing may be sufficient.
-
-### **Real-life Examples** 🌍
-
-- **Enterprise Networks**: Large companies using EIGRP for internal routing across multiple office locations.
-- **Data Centers**: EIGRP is widely used to ensure optimal routing and fast recovery from link failures.
+- Working in **multi-vendor environments** (since it's Cisco proprietary).
+- You need a simple, low-overhead solution (**RIPv2** might be enough).
+- Extremely small networks where simpler protocols like **static routing** may be sufficient.
 
 ## ⚙️ EIGRP Features
 
 | Feature | Description |
 |---------|------------|
 | **Standard** | Originally **proprietary** (Cisco), later **open standard** |
-| **Type** | **Distance Vector** protocol |
+| **Type** | **Distance Vector (Hybrid)** protocol |
 | **Algorithm** | Uses **DUAL (Diffusing Update Algorithm)** for fast convergence |
 | **Protocol Support** | Supports **IPv4, IPv6**, and **legacy protocols (IPX, AppleTalk)** |
 | **Metric Calculation** | Based on **Bandwidth + Delay** |
 | **Administrative Distance (AD)** | Determines **trust level** of routes |
 
+
+
+
+
 ## 🔄 **EIGRP Operation**
 
-- **Does not use TCP or UDP** – Uses its own protocol: **RTP (Reliable Transport Protocol)**.
+- **RTP (Reliable Transport Protocol)** - EIGRP **does not use TCP or UDP** Uses its own protocol (RTP).
 - **Uses Autonomous System (AS) numbers** for activation.
 - **Sends HELLO messages** to maintain neighbor relationships.
 - **Uses separate modules for each routed protocol** (**PDM – Protocol Dependent Modules**).
@@ -328,15 +330,17 @@ EIGRP may not be the best choice when:
 - **Neighbor Table:** Stores information about directly connected routers.
 - **Topology Table:** Maintains all learned routes, including successors and feasible successors.
 
-## 🔢 EIGRP: `Autonomous System (AS)`
 
-An Autonomous System (AS) number is a unique identifier assigned to a collection of IP networks and routers under the control of a single organization that presents a common routing policy to the internet. 
+
+
+
+## 🔢 EIGRP: `Autonomous System (AS) Number (ASN)`
+
+An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a collection of IP networks and routers that participate in **BGP** or **EIGRP**, under the control of a single organization that presents a common routing policy to the internet. These numbers allow different networks to communicate with each other on the internet by enabling routing decisions between them. 
  
-- NOTE: Each AS is identified by a **unique number**, called an **AS Number (ASN)**, which is used for **`inter-domain routing (BGP)`**.  
+- NOTE: Each AS is identified by a **unique number**, called an **AS Number (ASN)**, which is used for **BRP** or **EIGRP**, to identify and differentiate between different networks on the internet or within a private network.**.  
 
 **The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
-
-- **AS is used in routing protocols, such as `BGP (Border Gateway Protocol)` and `EIGRP (Enhanced Interior Gateway Routing Protocol)`, to identify and differentiate between different networks on the internet or within a private network.**
 
 **Why Do We Always Use the Same AS Number?**
 
@@ -353,13 +357,11 @@ An Autonomous System (AS) number is a unique identifier assigned to a collection
 | **External AD** | 170 | Routes **redistributed from other protocols (OSPF, RIP, etc.)** |
 | **Summary AD** | 5 | **Manually configured summary routes** (trusted due to admin configuration) |
 
-
-
 ### AS: What Other Numbers Can Be Used?
 
 - The AS number in EIGRP can be any value between 1 and 65,535.
 - 1 to 65,535: Used for internal EIGRP (within a private network).
-- ASN 0 is not valid in EIGRP.
+
 
 ### AS: How to Choose an AS Number?
 
@@ -367,44 +369,29 @@ An Autonomous System (AS) number is a unique identifier assigned to a collection
 - In large enterprises, different AS numbers may be used to separate different routing domains.
 - In EIGRP Named Mode, the AS number is still required but used differently.
 
+### 🌍 ASN: Types
 
+- **2-byte AS numbers**: The original AS numbers (1 - 64511) have been **completely assigned**, necessitating the introduction of a larger range. 
+- **4-byte AS numbers**: These are **compatible with 2-byte ASNs** and were introduced to **support future growth**.
 
+**Note**: AS **23456** is reserved. When **BGP peers do not support 4-byte ASNs**, they use **AS 23456** as a **fallback** to maintain compatibility. 
 
+**Important**: **ASN 0 is not valid in EIGRP.**
 
-# 🌍 **Autonomous System (AS) Numbers**
-
-## 📌 What is an Autonomous System (AS)?  
-
-
----
-
-## 🌍 AS Numbers
-
-### 🏛 **2-Byte (16-bit) AS Numbers**
+#### 🏛 **2-Byte (16-bit) AS Numbers**
 
 | **Type**     | **Range**      | **Description** |
 |-------------|--------------|----------------|
 | **Public AS**  | `1 - 64511`  | Used by **ISPs and large organizations** for **global** routing. _(All public ASNs in this range are already allocated.)_ |
 | **Private AS** | `64512 - 65535` | Used **internally** within organizations (not advertised on the internet). |
 
-###  🚀 **4-Byte (32-bit) AS Numbers**  
-
-Compatible with **2-byte ASNs** and introduced to **support future growth**.
-
-**Why were 4-byte AS numbers introduced?**  
-
-- The **2-byte AS numbers (1 - 64511)** were **completely assigned**, making it necessary to introduce a larger range. 
+####  🚀 **4-Byte (32-bit) AS Numbers**  
 
 | **Type**     | **Range**         | **Description** |
 |-------------|-----------------|----------------|
 | **Public AS**  | `65536 - 4294967296` | Used for **global internet routing** (similar to old 2-byte ASNs but with a much larger pool). |
 | **Private AS** | `64512 - 65535` | Same range as in 2-byte ASNs, **reserved for internal use**. |
 | **Reserved AS** | `23456` | **Placeholder ASN** used for backward compatibility between 2-byte and 4-byte ASNs. |
-
-**Why was AS `23456` reserved?** 
-
-- When **BGP peers do not support 4-byte ASNs**, they use **AS 23456** as a **fallback** to maintain compatibility.
-
 
 ## 🔹 EIGRP: **Multicast & MAC Addresses**
 
@@ -589,67 +576,6 @@ write memory
 
 
 
-
-## 🔍 **EIGRP Metric**  
-
-EIGRP uses a **composite metric** to determine the best path to a destination.  
-
-This metric is calculated using multiple parameters (weights **K1 - K5**) collected from **all interfaces**.  
-
-- ✅ The **lowest metric value** determines the **best route**.  
-- ✅ **Only K1 (Bandwidth) and K3 (Delay) are used by default**.  
-- ✅ **Higher bandwidth & lower delay result in better routes**.  
-- ✅ **Load, Reliability, and MTU are ignored unless manually enabled**.  
-
-### ⚙ **EIGRP Metric Components: `K-values`**  
-
-"K" simply means "coefficient" or "weighting factor" in the EIGRP metric formula.  K-values are coefficients assigned to different parameters (such as bandwidth, delay, reliability, etc.) to determine the **weight** of each when calculating the best path.
-
-| **K-value**  | **Parameter**     | **Description** |
-|-------------|------------------|----------------|
-| **K1** 🔹  | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** _(Enabled by default)_ |
-| **K2** 📉  | **Load**           | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** _(Disabled by default)_ |
-| **K3** ⏳  | ++ **Delay** (DLY)    | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** _(Enabled by default)_ |
-| **K4** ✅  | **Reliability**    | A number between **1-255**, where **255 means 100% reliability** (fewer errors). _(Disabled by default)_ |
-| **K5** 📦  | **MTU**            | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). _(Disabled by default)_ |
-
-
-### 🧮 **EIGRP Metric Calculation Formula**  
-
-By default, EIGRP only considers **Bandwidth (K1)** and **Delay (K3)** in the metric calculation:
-
-- **`Metric` = [(K1 * Bandwidth) + (K3 * Delay)] * 256**
-
-Since **K1 = 1** and **K3 = 1** by default, the formula simplifies to:
-
-- **`Metric` = (Bandwidth + Delay) * 256**
-
-**The metric in EIGRP is always a large value** because it uses **256 as a multiplier** (eg. 30720).
-
-- If all K-values were used, the complete formula would be more complex.
-
-### 🧮 EIGRP Metric Calculation Example:
-
-![image](https://github.com/user-attachments/assets/8f21a179-17b0-418d-9b8d-a82fb78442a6)
-
-1. **Less Bandwidth = 100 Mbps** _(Both Routers =)_
-   Convert to Kbps:  
-   `100 Mbps = 100,000 Kbps`
-
-3. **Bandwidth Metric**: _(10^8 = 100,000,000 (used for the bandwidth calculation, and it's a fixed constant)_ 
-   Formula:  
-   `(10,000,000 / 100,000) * 256 = 25600`
-
-4. **Delay Metric**:  
-   For each router with 1000 µs delay (= **100 ms**), the total delay is:  
-   Formula:  
-   `[(1000 / 10) + (1000 / 10)] * 256 = 5120`
-
-5. **Final Metric Calculation**:  
-   Add the `bandwidth` + `delay` metrics:  
-   `25600 + 5120 = 30720`
-
-RESULT = **`30720 EIGRP Metric Calculated From Router-1`**
 
 
 
