@@ -317,13 +317,15 @@ EIGRP may not be the best choice when:
 
 ## 🔄 **EIGRP Operation**
 
-- **RTP (Reliable Transport Protocol)** - EIGRP **does not use TCP or UDP** Uses its own protocol (RTP).
-- **Uses Autonomous System (AS) numbers** for activation.
-- **Sends HELLO messages** to maintain neighbor relationships.
-- **Uses separate modules for each routed protocol** (**PDM – Protocol Dependent Modules**).
-- **Limited updates** – Only sends updates when changes occur in the network.
-- **Maximum hop count:** `255` (`100` by default).
-- **Supports manual summarization** on required interfaces.
+| Operation                                   | Description                                                                 |
+|-------------------------------------------|-----------------------------------------------------------------------------|
+| **RTP (Reliable Transport Protocol)**     | EIGRP does not use TCP or UDP. Uses its own protocol (RTP).                 |
+| **Uses Autonomous System (AS) numbers**   | EIGRP uses AS numbers for activation.                                        |
+| **Sends HELLO messages**                  | EIGRP sends HELLO messages to maintain neighbor relationships.               |
+| **Uses separate modules for each routed protocol** | EIGRP uses PDM (Protocol Dependent Modules) for different protocols. |
+| **Limited updates**                       | EIGRP sends updates only when changes occur in the network.                  |
+| **Maximum hop count**                     | EIGRP supports up to 255 hops (100 by default).                             |
+| **Supports manual summarization**         | EIGRP supports manual summarization on required interfaces.                 |
 
 ### 🗂️ **Neighbor & Topology Tables**
 
@@ -349,14 +351,9 @@ An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a 
 
 **IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
 
-### ASN: What Other Numbers Can Be Used?
-
-- The AS number in EIGRP can be any value between 1 and 65,535.
-- 1 to 65,535: Used for internal EIGRP (within a private network).
-
 ### ASN: How to Choose an AS Number?
 
-- In private networks, you can pick any AS number (e.g., router eigrp 100, router eigrp 200).
+- In private networks, you can pick any AS number that you want (e.g., router eigrp 100 or router eigrp 200 or router eigrp 666).
 - In large enterprises, different AS numbers may be used to separate different routing domains.
 - In EIGRP Named Mode, the AS number is still required but used differently.
 
