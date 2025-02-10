@@ -684,7 +684,7 @@ passive-interface fa 1/1
 ! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
 ! NOT NEEDED!!!
 !
-6. # Step 6: Manually summarize routes when needed.
+! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
 ! # Exit, Save & Check Configs
@@ -749,7 +749,7 @@ ip route 0.0.0.0 0.0.0.0 200.1.1.2
 router eigrp 666
 redistribute static
 !
-6. # Step 6: Manually summarize routes when needed.
+! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
 ! # Exit, Save & Check Configs
@@ -812,7 +812,7 @@ passive-interface fa 1/1
 ! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
 ! NOT NEEDED!!!
 !
-6. # Step 6: Manually summarize routes when needed.
+! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
 ! # Exit, Save & Check Configs
@@ -875,7 +875,7 @@ passive-interface fa 1/1
 ! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
 ! NOT NEEDED!!!
 !
-6. # Step 6: Manually summarize routes when needed.
+! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
 ! # Exit, Save & Check Configs
