@@ -989,6 +989,9 @@ ping 8.8.8.8
 
 tracert 8.8.8.8
 
+![image](https://github.com/user-attachments/assets/aa4061c6-bb30-4ec3-b086-8bd00668cd5c)
+
+
 ````
 
 
