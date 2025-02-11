@@ -250,7 +250,7 @@ This setup consists of **five routers** (R1 to R5) connected in a **ring topolog
 - **Each LAN** have a PC for testing purposes.
 - **There's an additional Router-WAN to simulate Internet/Google connection to 8.8.8.8**
 
-![image](https://github.com/user-attachments/assets/638cb9a0-3104-4d75-8d2c-562ce6b7c493)
+![image](https://github.com/user-attachments/assets/92c1d2a6-53be-4a8a-8adb-9dbca0a0edd5)
 
 ## 📋 **IP Addressing Table**
 
