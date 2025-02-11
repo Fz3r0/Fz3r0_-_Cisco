@@ -94,6 +94,12 @@ EIGRP may not be the best choice when:
 | **👋 Hello**      | 5          | Sent periodically (**default = 5 seconds**) to maintain and establish neighbor relationships. It includes information about the router and its capabilities. |
 | **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           |
 
+Update
+Query
+Reply
+Hello
+ACK
+
 ### Frame Exchange
 
 ![image](https://github.com/user-attachments/assets/f2fbd6c4-92aa-4217-a69f-066fa8d346c9)
