@@ -81,24 +81,20 @@ EIGRP may not be the best choice when:
 
 ## EIGRP Packets and Frame Exchange
 
-![image](https://github.com/user-attachments/assets/c35d73da-d7a6-4d40-bc68-e6b41dc51190)
-
-
 ### 📡 **EIGRP Message Types**
 
-| **Message Type** | **Number** | **Description**                                                                                     |
-|------------------|------------|-----------------------------------------------------------------------------------------------------|
-| **🆙 Update**     | 1          | Sent to share routing information with neighbors. It includes new routes or updates to existing ones. |
-| **❓ Query**      | 3          | Sent to request routing information from a neighbor when there is no valid route in the routing table. |
-| **💬 Reply**      | 4          | Sent in response to a Query message, providing the requested routing information.                     |
-| **👋 Hello**      | 5          | Sent periodically (**default = 5 seconds**) to maintain and establish neighbor relationships. It includes information about the router and its capabilities. |
-| **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           |
+| **Message Type** | **Number** | **Description**                                                                                     | **Transmission**       | **Reliability**    | **Opcode** | **Sequence Number** |
+|------------------|------------|-----------------------------------------------------------------------------------------------------|------------------------|--------------------|------------|---------------------|
+| **🆙 Update**     | 1          | Sent to share routing information with neighbors. It includes new routes or updates to existing ones. | Multicast or Unicast    | Reliable           | 1          | Assigned            |
+| **❓ Query**      | 3          | Sent to request routing information from a neighbor when there is no valid route in the routing table. | Multicast or Unicast    | Reliable           | 3          | Assigned            |
+| **💬 Reply**      | 4          | Sent in response to a Query message, providing the requested routing information.                     | Unicast                | Reliable           | 4          | Assigned            |
+| **👋 Hello**      | 5          | Sent periodically (**default = 5 seconds**) to maintain and establish neighbor relationships. It includes information about the router and its capabilities. | Multicast              | Unreliable         | 5          | N/A                 |
+| **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           | Unicast                | Unreliable         | 5          | N/A                 |
 
-Update
-Query
-Reply
-Hello
-ACK
+- `Reliable` means the message is guaranteed to reach its destination, and the sender knows when it has been received.
+- `Unreliable` means there's no guarantee the message will reach the destination, and the sender doesn't know if it was received.
+- `Opcode` is a number that identifies the type of EIGRP message being sent. Each type of message (Update, Query, Reply, Hello/ACK) has a specific opcode number to distinguish it from others.
+- `Sequence Number` indicates the order or tracking of messages in EIGRP. Assigned means that the message has a unique identifier (sequence number) to track it. This helps ensure the messages are processed in the correct order and can be re-ordered if necessary. For example, Hello and ACK messages don't need sequence numbers because they are not part of the ordered flow of information like Update, Query, or Reply messages.
 
 ### Frame Exchange
 
