@@ -183,8 +183,6 @@ This metric is calculated using multiple parameters (weights **K1 - K5**) collec
 
 "K" simply means "coefficient" or "weighting factor" in the EIGRP metric formula.  K-values are coefficients assigned to different parameters (such as bandwidth, delay, reliability, etc.) to determine the **weight** of each when calculating the best path.
 
-![image](https://github.com/user-attachments/assets/7eaea3a1-dc35-4b9e-a518-548ff2159a8f)
-
 | **K-value** | **Parameter**       | **Description**                                                                 | **Default State**         | **Default K-value** |
 |-------------|---------------------|---------------------------------------------------------------------------------|---------------------|-------------|
 | **K1** 🔹   | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** | **Enabled by default** | **1**       |
@@ -193,7 +191,7 @@ This metric is calculated using multiple parameters (weights **K1 - K5**) collec
 | **K4** ✅   | **Reliability**      | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_ | **0**       |
 | **K5** 📦   | **MTU**              | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_ | **0**       |
 
-![image](https://github.com/user-attachments/assets/cc35679d-dc36-42ba-a6a2-076edf25a364)
+![image](https://github.com/user-attachments/assets/1dd630c4-692c-4b81-a5c1-80ee72783a45)
 
 ### 🧮 **EIGRP Metric Calculation Formula**  
 
