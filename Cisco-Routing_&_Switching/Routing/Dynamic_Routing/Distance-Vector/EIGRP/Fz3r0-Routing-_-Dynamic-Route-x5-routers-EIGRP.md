@@ -247,7 +247,9 @@ RESULT = **`30720 EIGRP Metric Calculated From Router-1`**
 
 
 
-# ⚙️ EIGRP Configuration @ Packet Tracer :: `Basic Configuration` 
+# ⚙️ EIGRP Configuration @ `Packet Tracer`
+
+This lab focuses on configuring and validating EIGRP (Enhanced Interior Gateway Routing Protocol) in a five-router ring topology using Cisco Packet Tracer. 
 
 ## Lab Files
 
