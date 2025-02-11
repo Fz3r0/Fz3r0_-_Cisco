@@ -1054,6 +1054,7 @@ tracert 8.8.8.8
 - [EIGRP Packets](https://www.youtube.com/watch?v=Vf7sJVXRkSo)
 - [EIGRP Metrics](https://www.youtube.com/watch?v=bGGJYPng6jQ)
 - https://ipcisco.com/lesson/eigrp-configuration-with-packet-tracer-ccnp/
+- [Tabla de Topología EIGRP](https://www.youtube.com/watch?v=95l2pArcgac&list=PLwAU7bA502wFCIbUUDC9tvZNl-PkKOo-u&index=7)
 
   
 ---
