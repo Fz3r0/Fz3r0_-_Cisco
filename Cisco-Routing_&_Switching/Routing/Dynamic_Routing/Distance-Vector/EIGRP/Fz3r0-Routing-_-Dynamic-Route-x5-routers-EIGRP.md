@@ -79,17 +79,24 @@ EIGRP may not be the best choice when:
 - **Neighbor Table:** Stores information about directly connected routers.
 - **Topology Table:** Maintains all learned routes, including successors and feasible successors.
 
+## EIGRP Packets and Frame Exchange
 
-## 📡 **EIGRP Message Types**
+![image](https://github.com/user-attachments/assets/c35d73da-d7a6-4d40-bc68-e6b41dc51190)
+
+
+### 📡 **EIGRP Message Types**
 
 | **Message Type** | **Number** | **Description**                                                                                     |
 |------------------|------------|-----------------------------------------------------------------------------------------------------|
 | **🆙 Update**     | 1          | Sent to share routing information with neighbors. It includes new routes or updates to existing ones. |
 | **❓ Query**      | 3          | Sent to request routing information from a neighbor when there is no valid route in the routing table. |
 | **💬 Reply**      | 4          | Sent in response to a Query message, providing the requested routing information.                     |
-| **👋 Hello**      | 5          | Sent periodically to maintain and establish neighbor relationships. It includes information about the router and its capabilities. |
+| **👋 Hello**      | 5          | Sent periodically (**default = 5 seconds**) to maintain and establish neighbor relationships. It includes information about the router and its capabilities. |
 | **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           |
 
+### Frame Exchange
+
+![image](https://github.com/user-attachments/assets/f2fbd6c4-92aa-4217-a69f-066fa8d346c9)
 
 
 ## 🔢 EIGRP: `Autonomous System (AS) Number (ASN)`
@@ -983,6 +990,7 @@ tracert 8.8.8.8
 - https://www.youtube.com/watch?v=SGKAZ-3X5kI&list=PLwAU7bA502wFCIbUUDC9tvZNl-PkKOo-u
 - https://en.wikipedia.org/wiki/Enhanced_Interior_Gateway_Routing_Protocol
 - https://www.youtube.com/watch?v=Ih4vSDbhRc4&t=240s
+- [EIGRP Packets](https://www.youtube.com/watch?v=Vf7sJVXRkSo)
 
   
 ---
