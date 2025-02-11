@@ -1048,6 +1048,7 @@ tracert 8.8.8.8
 
 # 📚🗂️🎥 Resources
 
+- [EIGRP Explained | Step by Step](https://www.youtube.com/watch?v=QyymlFWDEgM)
 - https://www.youtube.com/watch?v=SGKAZ-3X5kI&list=PLwAU7bA502wFCIbUUDC9tvZNl-PkKOo-u
 - https://en.wikipedia.org/wiki/Enhanced_Interior_Gateway_Routing_Protocol
 - https://www.youtube.com/watch?v=Ih4vSDbhRc4&t=240s
