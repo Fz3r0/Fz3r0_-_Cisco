@@ -973,10 +973,10 @@ show ip route
 show run | se router eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-debug eigrp packet
+! # Debug EIGRP:
+!debug eigrp packet
+!no debug eigrp packet
 !
-!
-
 
 ````
 
