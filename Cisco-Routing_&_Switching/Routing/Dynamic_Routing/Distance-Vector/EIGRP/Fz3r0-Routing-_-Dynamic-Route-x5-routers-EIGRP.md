@@ -937,11 +937,11 @@ show run interface fa 0/0
 
 
 
-## Validation
+## ✅ Validation
 
 Verifying EIGRP functionality is crucial to maintaining a stable and efficient routing environment. Validation steps help confirm neighbor relationships, routing table accuracy, traffic statistics, and overall protocol performance.
 
-## Validation: `Router Side`
+### 🔎 Validation: `Router Side`
 
 Router-side validation includes essential show and debug commands to inspect EIGRP neighbors, interfaces, topology, and route propagation.
 
@@ -980,7 +980,7 @@ debug eigrp packet
 
 ````
 
-## Validation: `PC Side`
+### 🔎 Validation: `PC Side`
 
 PC-side validation uses basic connectivity tests like ping and tracert to confirm end-to-end reachability.
 
