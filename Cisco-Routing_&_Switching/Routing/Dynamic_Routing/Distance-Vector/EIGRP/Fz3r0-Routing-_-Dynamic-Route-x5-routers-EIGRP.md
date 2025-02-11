@@ -936,6 +936,43 @@ show ip eigrp topology
 
 ## ⚡ EIGRP Configuration: `Optional`
 
+### EIGRP Optional Configuration: `Hello Message Timers`
+
+- **This must be done on both sides, e.g., `R5` & `R4`, as they need to be consistent on the same link**
+
+````py
+! ## EIGRP :: Optional Configurations :: Hello Message Customization
+!
+enable
+configure terminal
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!     ## SELECT INTERFACE:
+interface fa 0/0
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!     ## MODIFY HELLO MESSAGE:
+!
+!      # EIGRP Best Practices recommend setting Hello to 1 sec and Hold to 3 sec.
+!      # (This must be done on both sides, e.g., R5 & R4, as they need to be consistent on the same link).
+!
+! ## Modify Hello interval (Default 5 seconds >> New 1 second)
+ip hello-interval eigrp 666 1
+!
+! ## Modify Hold time (Default 15 seconds >> New 3 seconds (3x the Hello time))
+ip hold-time eigrp 666 3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!     ## VERIFY CONFIGURATION AND SAVE:
+!
+end
+!
+write memory
+!
+show run interface fa 0/0
+!
+
+````
 
 
 
