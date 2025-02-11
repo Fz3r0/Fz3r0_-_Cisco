@@ -1015,6 +1015,7 @@ tracert 8.8.8.8
 - https://en.wikipedia.org/wiki/Enhanced_Interior_Gateway_Routing_Protocol
 - https://www.youtube.com/watch?v=Ih4vSDbhRc4&t=240s
 - [EIGRP Packets](https://www.youtube.com/watch?v=Vf7sJVXRkSo)
+- [EIGRP Metrics](https://www.youtube.com/watch?v=bGGJYPng6jQ)
 - https://ipcisco.com/lesson/eigrp-configuration-with-packet-tracer-ccnp/
 
   
