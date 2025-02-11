@@ -96,6 +96,18 @@ EIGRP may not be the best choice when:
 - `Opcode` is a number that identifies the type of EIGRP message being sent. Each type of message (Update, Query, Reply, Hello/ACK) has a specific opcode number to distinguish it from others.
 - `Sequence Number` indicates the order or tracking of messages in EIGRP. Assigned means that the message has a unique identifier (sequence number) to track it. This helps ensure the messages are processed in the correct order and can be re-ordered if necessary. For example, Hello and ACK messages don't need sequence numbers because they are not part of the ordered flow of information like Update, Query, or Reply messages.
 
+### Hello Message
+
+- Sent from each reuter on regular interval
+    - reouter asseumes that as long its receiven heelo packets from neighbot trhe neightbo and routes still viable 
+- The intergavc depen on interface bandwith
+    - low bandwitdg (frame relay or other legacy interfaces) = 60 secons hello interval / defaul hold time = 180 sec
+    - greater than 1.544mbs like ethernet or T1  = 5 secons hello interval / defaul hold time = 15 sec
+        - hold time  is the maxuimum time the router shoudl wait to recienve the next hello before declaring that neighbor as unrechable
+        - The default hodl time is 3 times the hello interfave, eg, 5 sec = 15 sec hold (5*3)
+        - If hold time expires EIGRP declares route as down
+        - DUAL () searches for a new path in the topology table or byu sending out queries. 
+
 ### Frame Exchange
 
 ![image](https://github.com/user-attachments/assets/f2fbd6c4-92aa-4217-a69f-066fa8d346c9)
@@ -971,6 +983,9 @@ show ip route
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show run | se router eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+debug eigrp packet
 !
 !
 
