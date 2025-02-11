@@ -165,20 +165,25 @@ This metric is calculated using multiple parameters (weights **K1 - K5**) collec
 - ✅ **Only K1 (Bandwidth) and K3 (Delay) are used by default**.  
 - ✅ **Higher bandwidth & lower delay result in better routes**.  
 - ✅ **Load, Reliability, and MTU are ignored unless manually enabled**.
+
+### EIGRP Interface Default Metrics
+
+![image](https://github.com/user-attachments/assets/2cb1adfd-2efb-444b-9c89-9eac6ec520a5)
   
 ### ⚙ **EIGRP Metric Components: `K-values`**  
 
 "K" simply means "coefficient" or "weighting factor" in the EIGRP metric formula.  K-values are coefficients assigned to different parameters (such as bandwidth, delay, reliability, etc.) to determine the **weight** of each when calculating the best path.
 
-![image](https://github.com/user-attachments/assets/e63fcd89-f14b-448b-b882-6876feec7b60)
+![image](https://github.com/user-attachments/assets/7eaea3a1-dc35-4b9e-a518-548ff2159a8f)
 
-| **K-value**  | **Parameter**     | **Description**                                                                 | **Default**       |
-|--------------|-------------------|---------------------------------------------------------------------------------|-------------------|
-| **K1** 🔹    | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** | **Enabled by default** |
-| **K2** 📉    | **Load**           | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** | _Disabled by default_ |
-| **K3** ⏳    | ++ **Delay** (DLY)    | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** | **Enabled by default** |
-| **K4** ✅    | **Reliability**    | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_ |
-| **K5** 📦    | **MTU**            | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_ |
+| **K-value** | **Parameter**       | **Description**                                                                 | **Default State**         | **Default K-value** |
+|-------------|---------------------|---------------------------------------------------------------------------------|---------------------|-------------|
+| **K1** 🔹   | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** | **Enabled by default** | **1**       |
+| **K2** 📉   | **Load**             | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** | _Disabled by default_ | **0**       |
+| **K3** ⏳   | ++ **Delay** (DLY)   | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** | **Enabled by default** | **1**       |
+| **K4** ✅   | **Reliability**      | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_ | **0**       |
+| **K5** 📦   | **MTU**              | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_ | **0**       |
+
 
 
 ### 🧮 **EIGRP Metric Calculation Formula**  
