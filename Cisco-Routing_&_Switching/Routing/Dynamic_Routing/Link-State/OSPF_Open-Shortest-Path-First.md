@@ -24,16 +24,14 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 - **Classless Protocol**: OSPF supports VLSM (Variable Length Subnet Mask) and CIDR (Classless Inter-Domain Routing).
 - **Hierarchical Design**: OSPF supports areas to minimize the size of the routing tables and to scale more efficiently.
 
-
-
-## What is Link-State?
+## 🔄 What is Link-State?
 
 OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network**. 
 
 - When a change occurs, like a new route or a failure, routers share this updated information with all others, so every router has the same view of the network.
 - This helps routers calculate the best paths efficiently and react quickly to changes.
 
-##🌐 **Why Use OSPF?**
+## 🌐 **Why Use OSPF?**
 
 OSPF is a robust and efficient routing protocol designed to scale in larger networks. It is ideal for complex enterprise networks and service provider environments.
 
@@ -41,17 +39,16 @@ OSPF is a robust and efficient routing protocol designed to scale in larger netw
 - **Faster Convergence**: OSPF converges much faster compared to distance-vector protocols like RIP.
 - **Hierarchical Structure**: By using areas, OSPF can scale in large networks with fewer routing updates and smaller routing tables.
 
-### **OSPF is ideal for:**
+### 🌟 **OSPF is ideal for:**
 
 - Large enterprise networks
 - Networks requiring fast convergence
 - Environments with multiple routers and subnets
 
-### **Examples:**
+### 🛠️ **Examples:**
 
 - **Large Enterprise Networks**: In networks with hundreds or thousands of routers, OSPF's ability to divide the network into areas helps reduce the size of the routing tables and optimize traffic flow.
 - **Data Centers**: For highly scalable networks, OSPF ensures that the routing topology remains efficient even as the network grows.
-
 
 ### 🚫 **When NOT to Use OSPF?**
 
@@ -60,7 +57,6 @@ OSPF may not be the best choice when:
 - **Small networks**: In small, simple networks, a protocol like **RIP** or even **static routing** might suffice as they are easier to configure and maintain.
 - **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
 
----
 
 ## ⚙️ OSPF Features
 
@@ -72,6 +68,7 @@ OSPF may not be the best choice when:
 | **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |
 | **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
 | **Administrative Distance (AD)** | OSPF has an AD of 110, which means it’s less preferred than directly connected routes (AD = 0) but more preferred than RIP (AD = 120). |
+
 
 
 
@@ -1068,15 +1065,7 @@ tracert 8.8.8.8
 
 # 📚🗂️🎥 Resources
 
-- [EIGRP Explained | Step by Step](https://www.youtube.com/watch?v=QyymlFWDEgM)
-- https://www.youtube.com/watch?v=SGKAZ-3X5kI&list=PLwAU7bA502wFCIbUUDC9tvZNl-PkKOo-u
-- https://en.wikipedia.org/wiki/Enhanced_Interior_Gateway_Routing_Protocol
-- https://www.youtube.com/watch?v=Ih4vSDbhRc4&t=240s
-- [EIGRP Packets](https://www.youtube.com/watch?v=Vf7sJVXRkSo)
-- [EIGRP Metrics](https://www.youtube.com/watch?v=bGGJYPng6jQ)
-- https://ipcisco.com/lesson/eigrp-configuration-with-packet-tracer-ccnp/
-- [Tabla de Topología EIGRP](https://www.youtube.com/watch?v=95l2pArcgac&list=PLwAU7bA502wFCIbUUDC9tvZNl-PkKOo-u&index=7)
-
+- 
   
 ---
 
