@@ -293,10 +293,14 @@ This setup consists of **five routers** (R1 to R5) connected in a **ring topolog
 - `PC-4 (Site-D)` :: 192.168.4.100/24
 - `PC-5 (Site-E)` :: 192.168.5.100/24
   
----
 
-## Init Config
+## Routing Topology: `Init Configuration`
 
+This configuration solely establishes IP addressing for each router’s interfaces and their respective subnets. 
+
+- **NO dynamic or static routing configurations are applied at this stage!!!** _The only exception is a default route on the Internet router (R-WAN), ensuring it is ready when EIGRP routing is later implemented across the network. Each router is assigned appropriate WAN and LAN IP addresses, but no routing protocols are active yet._
+
+The following setup ensures all routers have their interfaces configured and operational, providing a foundation for future any routing protocol deployment:
 
 ### Init Setup: `Router 1`
 
@@ -535,7 +539,7 @@ show ip interface brief
 
 ## ⚙️ **EIGRP Configuration** 
 
-There are EIGRP basic configuration that is mandatory and some additional configs to be done: 
+
 
 ### 🔹 **Basic EIGRP Configuration Steps:**
 
@@ -591,18 +595,21 @@ There are EIGRP basic configuration that is mandatory and some additional config
   - **Use case:** Essential in enterprise and ISP networks to prevent routing attacks or misconfigurations. Uses MD5 or SHA authentication.
 
 
-### **Verify the Configuration**:
-   
-- After configuring, use commands like `show ip eigrp neighbors` and `show ip route` to verify that EIGRP is working properly.
-
-
 
 ## ⚡ EIGRP Configuration: `Basic / Mandatory`
 
+Before diving into more advanced optimizations, we must first establish a functional EIGRP configuration. This section outlines the essential steps required to set up EIGRP across multiple routers, ensuring proper routing communication within the network.
 
-In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in the setup.
+To ensure a stable and predictable network, we will follow these fundamental steps:
 
+1. Define an EIGRP Autonomous System Number (ASN).
+2. Disable automatic route summarization.
+3. Enable EIGRP on relevant interfaces.
+4. Suppress EIGRP messages on LAN-facing interfaces.
+5.  Advertise a default route if required.
+6. Implement manual route summarization when needed.
 
+In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in the setup:
 
 ### **R1 Configuration:**
 
@@ -646,24 +653,9 @@ passive-interface fa 1/1
 ! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
-! # Exit, Save & Check Configs
+! # Exit & Save Configurations
 end
 write memory
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp neighbors
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show run | se router eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp topology
 !
 !
 
@@ -711,24 +703,9 @@ passive-interface fa 1/1
 ! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
-! # Exit, Save & Check Configs
+! # Exit & Save Configurations
 end
 write memory
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp neighbors
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show run | se router eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp topology
 !
 !
 
@@ -779,24 +756,9 @@ redistribute static
 ! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
-! # Exit, Save & Check Configs
+! # Exit & Save Configurations
 end
 write memory
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp neighbors
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show run | se router eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp topology
 !
 !
 
@@ -845,24 +807,9 @@ passive-interface fa 1/1
 ! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
-! # Exit, Save & Check Configs
+! # Exit & Save Configurations
 end
 write memory
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp neighbors
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show run | se router eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp topology
 !
 !
 
@@ -911,30 +858,22 @@ passive-interface fa 1/1
 ! 6. # Step 6: Manually summarize routes when needed.
 ! NOT NEEDED!!!
 !
-! # Exit, Save & Check Configs
+! # Exit & Save Configurations
 end
 write memory
 !
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp neighbors
 !
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show run | se router eigrp
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp topology
-!
-!
+
 
 ```
 
 ## ⚡ EIGRP Configuration: `Optional`
+
+While EIGRP works efficiently with its default settings, certain adjustments can enhance stability, security, and performance based on network requirements. 
+
+- The following optional configurations allow for **better control over neighbor relationships, routing calculations, bandwidth usage, and security**. 
+
+Proper tuning ensures EIGRP adapts to various environments, from high-speed critical networks to large-scale enterprise deployments.
 
 ### EIGRP Optional Configuration: `Hello Message Timers`
 
@@ -992,7 +931,11 @@ show run interface fa 0/0
 
 ## Validation
 
+Verifying EIGRP functionality is crucial to maintaining a stable and efficient routing environment. Validation steps help confirm neighbor relationships, routing table accuracy, traffic statistics, and overall protocol performance.
+
 ## Validation: `Router Side`
+
+Router-side validation includes essential show and debug commands to inspect EIGRP neighbors, interfaces, topology, and route propagation.
 
 ````py
 ! ## EIGRP Validation @ Router Side by Fz3r0
@@ -1030,6 +973,8 @@ debug eigrp packet
 ````
 
 ## Validation: `PC Side`
+
+PC-side validation uses basic connectivity tests like ping and tracert to confirm end-to-end reachability.
 
 ````sh
 ping 8.8.8.8
