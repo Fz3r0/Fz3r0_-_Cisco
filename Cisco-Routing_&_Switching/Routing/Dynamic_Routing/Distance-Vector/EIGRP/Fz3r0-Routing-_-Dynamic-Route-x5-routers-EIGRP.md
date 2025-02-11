@@ -949,19 +949,31 @@ show ip eigrp topology
 ## EIGRP Validation @ Router Side
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show ip eigrp neighbors
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip route
+show ip eigrp interfaces
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp traffic
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show ip route eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show run | se router eigrp
+show ip protocols
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp topology
+show ip route
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show run | se router eigrp
 !
 !
 
@@ -991,6 +1003,7 @@ tracert 8.8.8.8
 - https://en.wikipedia.org/wiki/Enhanced_Interior_Gateway_Routing_Protocol
 - https://www.youtube.com/watch?v=Ih4vSDbhRc4&t=240s
 - [EIGRP Packets](https://www.youtube.com/watch?v=Vf7sJVXRkSo)
+- https://ipcisco.com/lesson/eigrp-configuration-with-packet-tracer-ccnp/
 
   
 ---
