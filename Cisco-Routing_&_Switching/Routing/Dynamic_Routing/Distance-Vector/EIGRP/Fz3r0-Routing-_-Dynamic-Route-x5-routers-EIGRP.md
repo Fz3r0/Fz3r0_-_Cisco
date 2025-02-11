@@ -945,7 +945,7 @@ show ip eigrp topology
 
 ## Validation: `Router Side`
 
-````
+````py
 ! ## EIGRP Validation @ Router Side by Fz3r0
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -977,7 +977,7 @@ show run | se router eigrp
 !
 !
 
-```
+
 ````
 
 ## Validation: `PC Side`
