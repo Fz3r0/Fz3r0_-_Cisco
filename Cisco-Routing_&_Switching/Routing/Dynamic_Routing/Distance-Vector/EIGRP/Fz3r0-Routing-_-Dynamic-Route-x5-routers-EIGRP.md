@@ -191,7 +191,7 @@ This metric is calculated using multiple parameters (weights **K1 - K5**) collec
 | **K4** ✅   | **Reliability**      | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_ | **0**       |
 | **K5** 📦   | **MTU**              | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_ | **0**       |
 
-
+![image](https://github.com/user-attachments/assets/cc35679d-dc36-42ba-a6a2-076edf25a364)
 
 ### 🧮 **EIGRP Metric Calculation Formula**  
 
@@ -947,9 +947,6 @@ show ip eigrp topology
 
 ````py
 ! ## EIGRP Validation @ Router Side by Fz3r0
-!
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-show ip eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 show ip eigrp neighbors
