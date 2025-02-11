@@ -1,5 +1,7 @@
 # CCNA Breakdwon & Roadmap
 
+![image](https://github.com/user-attachments/assets/a22b9a55-bf2b-447b-a47f-386b79b2b554)
+
 ## Courses
 
 - https://www.youtube.com/watch?v=9GciaJ7NazU&list=PLCDpf1W6pOhq3vi0DH0BudJZY7i2c4ePy
