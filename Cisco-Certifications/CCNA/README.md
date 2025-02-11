@@ -3,6 +3,7 @@
 ## Courses
 
 - https://www.youtube.com/watch?v=9GciaJ7NazU&list=PLCDpf1W6pOhq3vi0DH0BudJZY7i2c4ePy
+- https://www.youtube.com/watch?v=hY1sXBt-CQY&list=PLvUOx2WG6R7N5mUWwB-_YLWEkk491XqKx
 
 ## Cheatsheets
 
