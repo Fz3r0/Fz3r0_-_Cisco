@@ -69,173 +69,205 @@ OSPF may not be the best choice when:
 | **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
 | **Administrative Distance (AD)** | OSPF has an AD of 110, which means it’s less preferred than directly connected routes (AD = 0) but more preferred than RIP (AD = 120). |
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 🔄 **EIGRP Operation**
+## 🔄 **OSPF Operation**
 
 | Operation                                   | Description                                                                 |
 |-------------------------------------------|-----------------------------------------------------------------------------|
-| **RTP (Reliable Transport Protocol)**     | EIGRP does not use TCP or UDP. Uses its own protocol (RTP).                 |
-| **Uses Autonomous System (AS) numbers**   | Uses AS numbers for activation.                                        |
-| **Sends HELLO messages**                  | Sends HELLO messages to maintain neighbor relationships.               |
-| **Uses separate modules for each routed protocol** | EIGRP uses PDM (Protocol Dependent Modules) for different protocols. |
-| **Limited updates**                       | Sends updates only when changes occur in the network.                  |
-| **Maximum hop count**                     | Supports up to 255 hops (100 by default).                             |
-| **Supports manual summarization**         | Supports manual summarization on required interfaces.                 |
+| **Hello Protocol**                         | OSPF uses HELLO packets to establish and maintain neighbor relationships.   |
+| **Uses Areas for Scalability**             | OSPF divides large networks into areas to reduce routing table size and improve efficiency. |
+| **Link-State Advertisements (LSAs)**       | OSPF routers exchange LSAs to share information about the network topology. |
+| **Uses Dijkstra's Algorithm**              | OSPF uses the SPF (Shortest Path First) algorithm to calculate the best paths. |
+| **Flooding of LSAs**                       | OSPF floods LSAs throughout the network to ensure all routers have updated information. |
+| **Supports Multiple Routing Tables**       | OSPF can support multiple routing tables for different address families (e.g., IPv4, IPv6). |
+| **Hierarchical Design with Areas**         | OSPF’s hierarchical structure allows dividing networks into areas to minimize routing overhead. |
+| **Supports Equal-Cost Multipath (ECMP)**   | OSPF can support up to 16 equal-cost paths for load balancing. |
 
-⭕ **Neighbor & Topology Tables:**
+⭕ **OSPF Neighbor & Link-State Database (LSDB):**
 
-- **Neighbor Table:** Stores information about directly connected routers.
-- **Topology Table:** Maintains all learned routes, including successors and feasible successors.
+- **Neighbor Table:** Stores information about OSPF neighbors, including their state and interface details.
+- **Link-State Database (LSDB):** Maintains all the Link-State Advertisements (LSAs) received from neighbors, representing the entire network topology. This is used to build the OSPF routing table.
 
-## EIGRP Packets and Frame Exchange
 
-### 📡 **EIGRP Message Types**
 
-| **Message Type** | **Number** | **Description**                                                                                     | **Transmission**       | **Reliability**    | **Opcode** | **Sequence Number** |
-|------------------|------------|-----------------------------------------------------------------------------------------------------|------------------------|--------------------|------------|---------------------|
-| **🆙 Update**     | 1          | Sent to share routing information with neighbors. It includes new routes or updates to existing ones. | Multicast or Unicast    | Reliable           | 1          | Assigned            |
-| **❓ Query**      | 3          | Sent to request routing information from a neighbor when there is no valid route in the routing table. | Multicast or Unicast    | Reliable           | 3          | Assigned            |
-| **💬 Reply**      | 4          | Sent in response to a Query message, providing the requested routing information.                     | Unicast                | Reliable           | 4          | Assigned            |
-| **👋 Hello**      | 5          | Sent periodically (**default = 5 seconds**) to maintain and establish neighbor relationships. It includes information about the router and its capabilities. | Multicast              | Unreliable         | 5          | N/A                 |
-| **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           | Unicast                | Unreliable         | 5          | N/A                 |
+## 📡 **OSPF Message Types**
+
+| **Message Type**     | **Description**                                                                                     | **Transmission**       | **Reliability**    | **Opcode** | **Sequence Number** |
+|----------------------|-----------------------------------------------------------------------------------------------------|------------------------|--------------------|------------|---------------------|
+| **👋 Hello**          | Sent periodically (**default = 10 seconds**) to discover and maintain neighbor relationships.       | Multicast              | Unreliable         | N/A        | N/A                 |
+| **🗣️ Database Description (DBD)** | Sent to exchange summary information about the LSDB between neighbors.                                | Unicast                | Reliable           | N/A        | Assigned            |
+| **📜 Link-State Request (LSR)**  | Sent to request more detailed information about specific LSAs from neighbors.                         | Unicast                | Reliable           | N/A        | Assigned            |
+| **📑 Link-State Update (LSU)**   | Sent to provide detailed LSA information to neighbors in response to an LSR.                        | Unicast or Multicast   | Reliable           | N/A        | Assigned            |
+| **✅ Link-State Acknowledgment (LSAck)** | Sent to acknowledge the receipt of LSUs.                                                           | Unicast                | Unreliable         | N/A        | N/A                 |
 
 - `Reliable` means the message is guaranteed to reach its destination, and the sender knows when it has been received.
 - `Unreliable` means there's no guarantee the message will reach the destination, and the sender doesn't know if it was received.
-- `Opcode` is a number that identifies the type of EIGRP message being sent. Each type of message (Update, Query, Reply, Hello/ACK) has a specific opcode number to distinguish it from others.
-- `Sequence Number` indicates the order or tracking of messages in EIGRP. Assigned means that the message has a unique identifier (sequence number) to track it. This helps ensure the messages are processed in the correct order and can be re-ordered if necessary. For example, Hello and ACK messages don't need sequence numbers because they are not part of the ordered flow of information like Update, Query, or Reply messages.
+- `Opcode` is not directly applicable in OSPF as the messages are categorized by their type and functionality, unlike EIGRP, which assigns specific opcodes to each message.
+- `Sequence Number`: OSPF messages use sequence numbers in the LSU and LSR to track and ensure the correct order and acknowledgment of link-state advertisements.
 
 ### Hello Message
 
-- Sent from each reuter on regular interval
-    - reouter asseumes that as long its receiven heelo packets from neighbot trhe neightbo and routes still viable 
-- The intergavc depen on interface bandwith
-    - low bandwitdg (frame relay or other legacy interfaces) = 60 secons hello interval / defaul hold time = 180 sec
-    - greater than 1.544mbs like ethernet or T1  = 5 secons hello interval / defaul hold time = 15 sec
-        - hold time  is the maxuimum time the router shoudl wait to recienve the next hello before declaring that neighbor as unrechable
-        - The default hodl time is 3 times the hello interfave, eg, 5 sec = 15 sec hold (5*3)
-        - If hold time expires EIGRP declares route as down
-        - DUAL () searches for a new path in the topology table or byu sending out queries. 
+- Sent from each router on a regular interval to establish and maintain neighbor relationships.
+    - The router assumes that as long as it is receiving Hello packets from a neighbor, the neighbor is still reachable and the routes remain valid.
+- The interval depends on the interface bandwidth:
+    - For slower connections (e.g., Frame Relay or legacy interfaces), the default Hello interval is 60 seconds with a hold time of 180 seconds.
+    - For interfaces with bandwidths greater than 1.544 Mbps (such as Ethernet or T1), the default Hello interval is 10 seconds with a hold time of 40 seconds.
+        - The hold time is the maximum amount of time the router will wait to receive the next Hello packet before declaring the neighbor unreachable.
+        - The default hold time is 4 times the Hello interval (e.g., 10 sec Hello = 40 sec Hold Time).
+        - If the hold time expires, the router considers the neighbor down and starts recalculating routes.
+        - OSPF will then search for alternative routes in the LSDB to maintain network stability.
 
 ### Frame Exchange
 
 ![image](https://github.com/user-attachments/assets/f2fbd6c4-92aa-4217-a69f-066fa8d346c9)
 
 
-## 🔢 EIGRP: `Autonomous System (AS) Number (ASN)`
 
-An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a collection of IP networks and routers that participate in **BGP** or **EIGRP**, under the control of a single organization that presents a common routing policy to the internet. These numbers allow different networks to communicate with each other on the internet by enabling routing decisions between them. 
- 
-- NOTE: Each AS is identified by a **unique number**, called an **AS Number (ASN)**, which is used for **BRP** or **EIGRP**, to identify and differentiate between different networks on the internet or within a private network.**.  
 
-⭕ **The same AS number is used to group routers together so they can exchange routing information.** (_Different AS numbers would indicate that routers belong to separate routing domains, and they will not form neighbor relationships with each other._)
 
-⭕ **Why Do We Always Use the Same AS Number?**
 
-- In the case of EIGRP, all routers within a single organization or network that are participating in the same routing domain (group of routers exchanging routing information) must use the same AS number to form neighbor relationships and exchange routes.
-- This consistency ensures that the routers recognize each other as part of the same routing domain and share routing information effectively.
 
-⚠️ **IMPORTANT**: If the AS number differs between routers, they won't recognize each other as part of the same network, and they won't exchange routing information.
 
-⭕ How to Choose an AS Number?
 
-- In private networks, you can pick any AS number that you want (e.g., router eigrp 100 or router eigrp 200 or router eigrp 666).
-- In large enterprises, different AS numbers may be used to separate different routing domains.
-- In EIGRP Named Mode, the AS number is still required but used differently.
 
-### 🌍 ASN: Types
 
-- **2-byte AS numbers**: The original AS numbers (1 - 64511) have been **completely assigned**, necessitating the introduction of a larger range. 
-- **4-byte AS numbers**: These are **compatible with 2-byte ASNs** and were introduced to **support future growth**.
 
-**Note**: AS **23456** is reserved. When **BGP peers do not support 4-byte ASNs**, they use **AS 23456** as a **fallback** to maintain compatibility. 
 
-**Important**: **ASN 0 is not valid in EIGRP.**
 
-#### 🏛 **2-Byte (16-bit) AS Numbers**
 
-| **Type**     | **Range**      | **Description** |
-|-------------|--------------|----------------|
-| **Public AS**  | `1 - 64511`  | Used by **ISPs and large organizations** for **global** routing. _(All public ASNs in this range are already allocated.)_ |
-| **Private AS** | `64512 - 65535` | Used **internally** within organizations (not advertised on the internet). |
 
-####  🚀 **4-Byte (32-bit) AS Numbers**  
 
-| **Type**     | **Range**         | **Description** |
-|-------------|-----------------|----------------|
-| **Public AS**  | `65536 - 4294967296` | Used for **global internet routing** (similar to old 2-byte ASNs but with a much larger pool). |
-| **Private AS** | `64512 - 65535` | Same range as in 2-byte ASNs, **reserved for internal use**. |
-| **Reserved AS** | `23456` | **Placeholder ASN** used for backward compatibility between 2-byte and 4-byte ASNs. |
 
-## 🔹 **Administrative Distance (AD) Default Values**
 
-| AD Type | Value | Explanation |
-|---------|-------|------------|
-| **Internal AD** | 90 | Routes **within the same AS (Autonomous System)** |
-| **External AD** | 170 | Routes **redistributed from other protocols (OSPF, RIP, etc.)** |
-| **Summary AD** | 5 | **Manually configured summary routes** (trusted due to admin configuration) |
 
-## 🔹 EIGRP: **Multicast & MAC Addresses**
 
-| Address Type | Value |
-|-------------|-------|
-| **Multicast Address** | `224.0.0.10` |
-| **Multicast MAC Address** | `01:00:5E:00:00:0A` |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🔢 **OSPF: Router ID (RID)**
+
+An **OSPF Router ID (RID)** is a unique 32-bit identifier assigned to each router within an OSPF domain. This identifier helps OSPF routers to identify and differentiate themselves in the OSPF network and plays a critical role in OSPF's routing and topology calculations.
+
+- NOTE: The **Router ID (RID)** is used by **OSPF** to identify routers uniquely within the routing domain, enabling them to exchange routing information and maintain topology tables.
+
+⭕ **The RID is used to uniquely identify each OSPF router within a given OSPF area or domain.** (_Different Router IDs would indicate that routers belong to separate OSPF routing instances and cannot form neighbor relationships with each other._)
+
+⭕ **Why Do We Always Use the Same Router ID?**
+
+- In the case of OSPF, all routers within a single organization or network that are participating in the same OSPF domain (group of routers exchanging routing information) must use the same Router ID format to form neighbor relationships and exchange routes.
+- This consistency ensures that the routers recognize each other as part of the same OSPF domain and share routing information effectively.
+
+⚠️ **IMPORTANT**: If the Router ID differs between routers, they won't recognize each other as part of the same OSPF domain, and they won't exchange routing information.
+
+⭕ **How to Choose a Router ID?**
+
+- The Router ID can be configured manually or automatically selected based on the router's interface IP addresses.
+    - **Manual Configuration**: The router administrator can specify the Router ID.
+    - **Automatic Configuration**: The router will automatically pick the highest IP address of any of its active interfaces (with the exception of loopback interfaces).
+    - **Loopback Interface Preference**: If a loopback interface exists, OSPF will prefer the highest IP address of any loopback interfaces over physical interfaces.
+    
+### 🌍 **Router ID: Types**
+
+- **IPv4 Router ID**: The Router ID is a 32-bit number, expressed in the same format as an IPv4 address (e.g., 192.168.1.1).
+  
+**Important**: **Router ID 0.0.0.0** is not valid in OSPF.
+
+#### 🏛 **Router ID Selection Process**
+
+| **Priority**     | **Description**                                  |
+|------------------|--------------------------------------------------|
+| **1st**          | **Manually configured Router ID** (highest priority). |
+| **2nd**          | **Highest IP address on a loopback interface** (if loopback interfaces are configured). |
+| **3rd**          | **Highest IP address on any active physical interface** (if no loopback interfaces are configured). |
+| **4th**          | **Router ID 0.0.0.0** if no other ID is configured (invalid in practice). |
+
+
+## 🔹 **OSPF: Administrative Distance (AD) Default Values**
+
+| AD Type            | Value | Explanation                                                                 |
+|--------------------|-------|-----------------------------------------------------------------------------|
+| **Internal AD**     | 110   | Routes **within the same OSPF area** (within the same OSPF domain).          |
+| **External AD**     | 170   | Routes **redistributed from other protocols** (e.g., EIGRP, RIP).            |
+| **Summary AD**      | 5     | **Manually configured summary routes** (trusted due to admin configuration). |
+
+## 🔹 **OSPF: Multicast & MAC Addresses**
+
+| Address Type          | Value             |
+|-----------------------|-------------------|
+| **Multicast Address**  | `224.0.0.5`       |
+| **Multicast MAC Address** | `01:00:5E:00:00:05` |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
