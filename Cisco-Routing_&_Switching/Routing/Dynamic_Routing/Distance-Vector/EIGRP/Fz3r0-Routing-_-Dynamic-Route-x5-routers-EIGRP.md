@@ -95,7 +95,7 @@ OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **
 
 
 
-### 🌐 **Why Use EIGRP?** 
+## 🌐 **Why Use EIGRP?** 
 
 EIGRP is used primarily in larger, more complex networks because of its ability to scale efficiently and support advanced features, such as:
 
