@@ -24,8 +24,6 @@ The protocol was designed by Cisco Systems in 1992 as a proprietary protocol, av
 
 ## ⚙️ **EIGRP Features**
 
-## ⚙️ **EIGRP Features & Properties**
-
 | Feature | Value / Description |
 |---------|---------------------|
 | **Protocol Number** | `88` |
