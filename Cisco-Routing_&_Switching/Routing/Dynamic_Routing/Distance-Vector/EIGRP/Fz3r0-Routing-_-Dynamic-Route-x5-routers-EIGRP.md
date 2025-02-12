@@ -40,32 +40,9 @@ The protocol was designed by Cisco Systems in 1992 as a proprietary protocol, av
 
 When discussing routing protocols, two major categories come up: **Distance Vector** and **Link-State**. Both have distinct methods of determining the best path through a network, and understanding the differences is crucial.
 
-### 🔄 What is Link-State?
-
-- Unlike Distance Vector protocols (such as RIP), Link-State focuses on the **state of the links** rather than the distance.
-- The key factor it considers when determining the best path is **`Bandwidth (BW)`** value. (_EIGRP can use up to 5 values, including bandwidth, while OSPF only uses bandwidth. That's why EIGRP has a lower Administrative Distance (AD) than OSPF._)  
-- This means that if there are two possible paths, it will prefer the one with the highest total bandwidth, even if it has more physical hops.
-
-![image](https://github.com/user-attachments/assets/876ec9eb-db13-4eb9-8174-097fb1b22e06)
-
-OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network in a database, including each router and each route of the network**. 
-
-- When a change occurs, like a new route or a failure, routers share this updated information with all others, so every router has the same view of the network.
-- This helps routers calculate the best paths efficiently and react quickly to changes.
-
-### 🛠️ Key Characteristics of Link-State Protocols:
-
-| Feature                  | Link-State                                 |
-|--------------------------|--------------------------------------------|
-| **Routing Updates**       | Immediate updates sent to all routers in the network |
-| **Network Knowledge**     | Full (routers have a complete map of the network) |
-| **Convergence Time**      | Faster than Distance Vector                |
-| **Loop Prevention**       | Uses SPF (Shortest Path First) algorithm to calculate best paths |
-| **Example Protocols**     | OSPF, IS-IS                               |
-
-**NOTE:** EIGRP is considered a **Distance Vector** protocol because it relies on routing-by-rumor, meaning routers exchange information only with their directly connected neighbors rather than having a complete network topology like OSPF. However, it's called **Hybrid** because it incorporates **Link-State-like** features, for example: Supporting advanced metrics (weights K1-K5) for better path selection.
-
 ### 🔄 What is Distance Vector?
+
+**EIGRP** is considered a **Distance Vector** protocol, however, it's called **Hybrid** because it incorporates **Link-State-like** features
 
 - Unlike Link-State protocols (such as OSPF), Distance Vector focuses on **hop count or cumulative distance** rather than the state of links.  
 - The key factor it considers when determining the best path is **the total metric** (e.g., hop count in RIP or composite metric in EIGRP).  
@@ -91,6 +68,30 @@ RIP is a classic **Distance Vector / Dynamic Routing** protocol, which means:
 
 **NOTE:** EIGRP is technically a **Distance Vector protocol**, but it includes **Link-State-like optimizations**, such as advanced metric calculations (**K-values**) and topology tables, which is why it's called **Hybrid**.
 
+### 🔄 What is Link-State?
+
+- Unlike Distance Vector protocols (such as RIP), Link-State focuses on the **state of the links** rather than the distance.
+- The key factor it considers when determining the best path is **`Bandwidth (BW)`** value. (_EIGRP can use up to 5 values, including bandwidth, while OSPF only uses bandwidth. That's why EIGRP has a lower Administrative Distance (AD) than OSPF._)  
+- This means that if there are two possible paths, it will prefer the one with the highest total bandwidth, even if it has more physical hops.
+
+![image](https://github.com/user-attachments/assets/876ec9eb-db13-4eb9-8174-097fb1b22e06)
+
+OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network in a database, including each router and each route of the network**. 
+
+- When a change occurs, like a new route or a failure, routers share this updated information with all others, so every router has the same view of the network.
+- This helps routers calculate the best paths efficiently and react quickly to changes.
+
+### 🛠️ Key Characteristics of Link-State Protocols:
+
+| Feature                  | Link-State                                 |
+|--------------------------|--------------------------------------------|
+| **Routing Updates**       | Immediate updates sent to all routers in the network |
+| **Network Knowledge**     | Full (routers have a complete map of the network) |
+| **Convergence Time**      | Faster than Distance Vector                |
+| **Loop Prevention**       | Uses SPF (Shortest Path First) algorithm to calculate best paths |
+| **Example Protocols**     | OSPF, IS-IS                               |
+
+**NOTE:** EIGRP is considered a **Distance Vector** protocol because it relies on routing-by-rumor, meaning routers exchange information only with their directly connected neighbors rather than having a complete network topology like OSPF. However, it's called **Hybrid** because it incorporates **Link-State-like** features, for example: Supporting advanced metrics (weights K1-K5) for better path selection.
 
 
 
