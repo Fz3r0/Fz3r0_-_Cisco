@@ -22,6 +22,26 @@ The protocol was designed by Cisco Systems in 1992 as a proprietary protocol, av
 - **Hybrid Distance Vector Routing Protocol**: Called "hybrid" because it combines features of **distance vector** and **link-state** protocols. <br><br>
 - **Successor of IGRP** (Deprecated): IGRP is no longer used because it had **slower convergence**, used **less efficient metrics** and EIGRP became open standard in 2016 (RFC 7868).  
 
+## ⚙️ **EIGRP Features**
+
+## ⚙️ **EIGRP Features & Properties**
+
+| Feature | Value / Description |
+|---------|---------------------|
+| **Protocol Number** | `88` |
+| **Standard** | Originally **proprietary** (Cisco), later **open standard** (RFC 7868) |
+| **Type** | **Distance Vector (Hybrid)** protocol |
+| **Algorithm** | Uses **DUAL (Diffusing Update Algorithm)** for fast convergence |
+| **Protocol Support** | Supports **IPv4, IPv6**, and **legacy protocols** (IPX, AppleTalk) |
+| **Metric Calculation** | Based on **Bandwidth + Delay** |
+| **Administrative Distance (AD)** | **Internal:** `90` → Routes **within the same AS (Autonomous System)** <br> **External:** `170` → Routes **redistributed from other protocols (OSPF, RIP, etc.)** <br> **Summary:** `5` → **Manually configured summary routes** (trusted due to admin configuration) |
+| **Multicast Address** | `224.0.0.10` |
+| **Multicast MAC Address** | `01:00:5E:00:00:0A` |
+
+
+
+
+
 ### 🌐 **Why Use EIGRP?** 
 
 EIGRP is used primarily in larger, more complex networks because of its ability to scale efficiently and support advanced features, such as:
@@ -50,16 +70,6 @@ EIGRP may not be the best choice when:
 - You need a simple, low-overhead solution (**RIPv2** might be enough).
 - Extremely small networks where simpler protocols like **static routing** may be sufficient.
 
-## ⚙️ EIGRP Features
-
-| Feature | Description |
-|---------|------------|
-| **Standard** | Originally **proprietary** (Cisco), later **open standard** |
-| **Type** | **Distance Vector (Hybrid)** protocol |
-| **Algorithm** | Uses **DUAL (Diffusing Update Algorithm)** for fast convergence |
-| **Protocol Support** | Supports **IPv4, IPv6**, and **legacy protocols (IPX, AppleTalk)** |
-| **Metric Calculation** | Based on **Bandwidth + Delay** |
-| **Administrative Distance (AD)** | Determines **trust level** of routes |
 
 
 ## 🔄 **EIGRP Operation**
@@ -166,12 +176,6 @@ An **Autonomous System (AS) Number (ASN)** is a unique identifier assigned to a 
 | **External AD** | 170 | Routes **redistributed from other protocols (OSPF, RIP, etc.)** |
 | **Summary AD** | 5 | **Manually configured summary routes** (trusted due to admin configuration) |
 
-## 🔹 EIGRP: **Multicast & MAC Addresses**
-
-| Address Type | Value |
-|-------------|-------|
-| **Multicast Address** | `224.0.0.10` |
-| **Multicast MAC Address** | `01:00:5E:00:00:0A` |
 
 
 
