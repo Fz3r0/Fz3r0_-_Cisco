@@ -49,7 +49,13 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 
 ## 🔄 What is Link-State?
 
-OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network**. 
+- Unlike Distance Vector protocols (such as RIP), Link-State focuses on the state of the links rather than the distance.
+- The key factor it considers when determining the best path is **`Bandwidth (BW)`** value.
+- This means that if there are two possible paths, it will prefer the one with the highest total bandwidth, even if it has more physical hops.
+
+![image](https://github.com/user-attachments/assets/876ec9eb-db13-4eb9-8174-097fb1b22e06)
+
+OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network in a database, including each router and each route of the network**. 
 
 - When a change occurs, like a new route or a failure, routers share this updated information with all others, so every router has the same view of the network.
 - This helps routers calculate the best paths efficiently and react quickly to changes.
@@ -101,6 +107,9 @@ OSPF may not be the best choice when:
 
 - **Neighbor Table:** Stores information about OSPF neighbors, including their state and interface details.
 - **Link-State Database (LSDB):** Maintains all the Link-State Advertisements (LSAs) received from neighbors, representing the entire network topology. This is used to build the OSPF routing table.
+
+
+
 
 
 
@@ -287,71 +296,117 @@ An **OSPF Router ID (RID)** is a unique 32-bit identifier assigned to each route
 
 
 
-## 🔍 **EIGRP Metric**  
+## 🔍 **OSPF Metric**  
 
-EIGRP uses a **composite metric** to determine the best path to a destination.  
 
-This metric is calculated using multiple parameters (weights **K1 - K5**) collected from **all interfaces**.  
 
-- ✅ The **lowest metric value** determines the **best route**.  
-- ✅ **Only K1 (Bandwidth) and K3 (Delay) are used by default**.  
-- ✅ **Higher bandwidth & lower delay result in better routes**.  
-- ✅ **Load, Reliability, and MTU are ignored unless manually enabled**.
 
-### EIGRP Interface Default Metrics
 
-![image](https://github.com/user-attachments/assets/2cb1adfd-2efb-444b-9c89-9eac6ec520a5)
-  
-### ⚙ **EIGRP Metric Components: `K-values`**  
 
-"K" simply means "coefficient" or "weighting factor" in the EIGRP metric formula.  K-values are coefficients assigned to different parameters (such as bandwidth, delay, reliability, etc.) to determine the **weight** of each when calculating the best path.
 
-| **K-value** | **Parameter**       | **Description**                                                                 | **Default State**         | **Default K-value** |
-|-------------|---------------------|---------------------------------------------------------------------------------|---------------------|-------------|
-| **K1** 🔹   | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** | **Enabled by default** | **1**       |
-| **K2** 📉   | **Load**             | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** | _Disabled by default_ | **0**       |
-| **K3** ⏳   | ++ **Delay** (DLY)   | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** | **Enabled by default** | **1**       |
-| **K4** ✅   | **Reliability**      | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_ | **0**       |
-| **K5** 📦   | **MTU**              | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_ | **0**       |
 
-![image](https://github.com/user-attachments/assets/1dd630c4-692c-4b81-a5c1-80ee72783a45)
 
-### 🧮 **EIGRP Metric Calculation Formula**  
 
-By default, EIGRP only considers **Bandwidth (K1)** and **Delay (K3)** in the metric calculation:
+## 🔍 OSPF Metric  
 
-- **`Metric` = [(K1 * Bandwidth) + (K3 * Delay)] * 256**
-Since **K1 = 1** and **K3 = 1** by default, the formula simplifies to:
+OSPF uses a **cost-based metric** to determine the best path to a destination.  
 
-- **`Metric` = (Bandwidth + Delay) * 256**
-**The metric in EIGRP is always a large value** because it uses **256 as a multiplier** (eg. 30720).
+- ✅ The **lowest cost** determines the **best route**.  
+- ✅ **Cost is based on interface bandwidth** (higher bandwidth = lower cost).  
+- ✅ **Uses Dijkstra’s Shortest Path First (SPF) algorithm** for path selection.  
+- ✅ **By default, OSPF does not consider delay, reliability, or load** like EIGRP does.
 
-- If all K-values were used, the complete formula would be more complex.
+### ⚙ OSPF Interface Default Costs  
 
-![image](https://github.com/user-attachments/assets/849393f5-83a2-4b3b-b747-435808ec2aa5)
+| **Bandwidth (Mbps)** | **Cost (Default Reference: 100 Mbps)** |
+|----------------------|----------------------------------|
+| **10 Gbps**         | 1 |
+| **1 Gbps**          | 1 |
+| **100 Mbps**        | 1 |
+| **10 Mbps**         | 10 |
+| **1.544 Mbps (T1)** | 64 |
+| **768 Kbps**        | 133 |
+| **512 Kbps**        | 195 |
+| **256 Kbps**        | 390 |
+| **128 Kbps**        | 780 |
+| **64 Kbps**         | 1560 |
 
-### 🧮 EIGRP Metric Calculation Example:
+💡 **OSPF Cost = Reference Bandwidth / Interface Bandwidth**  
+_Default Reference Bandwidth = 100 Mbps (can be changed with `auto-cost reference-bandwidth`)_
 
-![image](https://github.com/user-attachments/assets/8f21a179-17b0-418d-9b8d-a82fb78442a6)
+---
 
-1. **Less Bandwidth = 100 Mbps** _(Both Routers =)_
-   Convert to Kbps:  
-   `100 Mbps = 100,000 Kbps`
+## 🧮 OSPF Metric Calculation Formula  
 
-3. **Bandwidth Metric**: _(10^8 = 100,000,000 (used for the bandwidth calculation, and it's a fixed constant)_ 
-   Formula:  
-   `(10,000,000 / 100,000) * 256 = 25600`
+The OSPF cost is calculated as:  
 
-4. **Delay Metric**:  
-   For each router with 1000 µs delay (= **100 ms**), the total delay is:  
-   Formula:  
-   `[(1000 / 10) + (1000 / 10)] * 256 = 5120`
+**`Cost = Reference Bandwidth / Interface Bandwidth`**  
 
-5. **Final Metric Calculation**:  
-   Add the `bandwidth` + `delay` metrics:  
-   `25600 + 5120 = 30720`
+- The **Reference Bandwidth is 100 Mbps by default** (`100,000,000 bps`).
+- Lower cost means a better path.
+- If the result is a decimal, OSPF rounds **down** to the nearest integer.
 
-RESULT = **`30720 EIGRP Metric Calculated From Router-1`**
+### 🔢 OSPF Cost Calculation Example  
+
+1. **GigabitEthernet (1 Gbps) link:**  
+   - `Cost = 100 Mbps / 1000 Mbps = 0.1 → Rounds to 1`
+
+2. **FastEthernet (100 Mbps) link:**  
+   - `Cost = 100 Mbps / 100 Mbps = 1`
+
+3. **T1 (1.544 Mbps) link:**  
+   - `Cost = 100 Mbps / 1.544 Mbps ≈ 64`
+
+4. **512 Kbps link:**  
+   - `Cost = 100 Mbps / 0.512 Mbps ≈ 195`
+
+💡 If high-speed links (like 1 Gbps or 10 Gbps) always show a cost of **1**,  
+consider increasing the **reference bandwidth** (`auto-cost reference-bandwidth`).
+
+---
+
+## 📊 Metric Comparison Between Routing Protocols  
+
+
+
+![image](https://github.com/user-attachments/assets/73f8072a-3f69-4ed5-ba3e-4ec614b0f1f8)
+
+
+
+| **Protocol** | **Metric Used** | **Best Path Decision Criteria** |
+|-------------|----------------|--------------------------------|
+| **RIP**     | Hop Count      | Lowest number of hops (≤ 15) |
+| **EIGRP**   | Composite Metric | Bandwidth + Delay (by default) |
+| **OSPF**    | Cost          | Highest Bandwidth (Lowest Cost) |
+| **IS-IS**   | Cost          | Configurable (default = 10 per link) |
+| **BGP**     | Path Attributes | Complex, based on policies |
+
+🔹 **RIP** → Prefers paths with the fewest **hops** (max **15**).  
+🔹 **EIGRP** → Uses **Bandwidth & Delay** (by default) for best path selection.  
+🔹 **OSPF** → Chooses path based on the **lowest cost (higher bandwidth wins)**.  
+🔹 **IS-IS** → Similar to OSPF, but cost values are configurable.  
+🔹 **BGP** → Uses **AS-path, Local Preference, MED, and other policies** for path selection.  
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
