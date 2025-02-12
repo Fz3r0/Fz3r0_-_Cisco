@@ -17,7 +17,10 @@
 
 **Open Shortest Path First (OSPF)** is a link-state routing protocol used to find the best path for packets as they pass through a set of connected networks. It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
 
-OSPF was developed in the late 1980s by the IETF (Internet Engineering Task Force) as a solution to the limitations of RIP. The first OSPF RFC, RFC 1131, was released in 1989. It was later superseded by RFC 2328 in 1998, which is the widely implemented version today. OSPFv3, defined in RFC 5340, introduced support for IPv6.
+- OSPF was developed in 1987 by the IETF (Internet Engineering Task Force) as a solution to the limitations of RIP.
+- The first OSPF RFC, RFC 1131, was released in 1989.
+- It was later superseded by RFC 2328 in 1998, which is the widely implemented version today.
+- OSPFv3, defined in RFC 5340, introduced support for IPv6.
 
 OSPF is an open standard and is not proprietary. It is supported by all major networking vendors like Cisco, Juniper, and others.
 
@@ -58,16 +61,26 @@ OSPF may not be the best choice when:
 - **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
 
 
-## ⚙️ OSPF Features
+## ⚙️ **OSPF Features**
 
-| Feature | Description |
-|---------|------------|
-| **Standard** | Open standard (RFC 2328 for IPv4, RFC 5340 for IPv6) |
-| **Type** | Link-state routing protocol |
-| **Algorithm** | Dijkstra’s Shortest Path First (SPF) algorithm |
+| Feature | Value / Description |
+|---------|---------------------|
+| **Standard** | Open standard (OSPF v2 RFC 2328 for IPv4, OSPF v3 RFC 5340 for IPv6) |
+| **Type** | Link-State |
+| **Algorithm** | Dijkstra’s Shortest Path First (SPF) |
 | **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |
 | **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
-| **Administrative Distance (AD)** | OSPF has an AD of 110, which means it’s less preferred than directly connected routes (AD = 0) but more preferred than RIP (AD = 120). |
+| **Administrative Distance (AD)** | **Internal:** `110` → Routes within the same OSPF area. <br> **External:** `170` → Routes redistributed from other protocols (EIGRP, RIP, etc.). <br> **Summary:** `5` → Manually configured summary routes (trusted due to admin configuration). |
+| **Protocol Number** | `89` |
+| **Multicast IP (SPF)** | `224.0.0.5` |
+| **Multicast IP (DR/BDR)** | `224.0.0.6` |
+| **Multicast MAC (SPF)** | `01:00:5E:00:00:05` |
+| **Multicast MAC (DR/BDR)** | `01:00:5E:00:00:06` |
+| **Equal Cost Multipath (ECMP)** | **Default:** `4`, **Maximum:** `32` |
+
+
+
+
 
 ## 🔄 **OSPF Operation**
 
