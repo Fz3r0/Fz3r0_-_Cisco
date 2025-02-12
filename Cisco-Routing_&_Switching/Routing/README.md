@@ -15,11 +15,44 @@ El objetivo del **Dynamic Routing** es garantizar una comunicación eficiente en
 
 ![image](https://github.com/user-attachments/assets/921edaf0-8c3c-4160-947b-32bd2f60e78e)
 
+![image](https://github.com/user-attachments/assets/0256d59f-28cb-412b-a995-cc57927919d3)
+
+The image illustrates the classification of routing protocols into two main categories: 
+
+1. Static
+2. Dynamic.
+
+Dynamic routing protocols are further divided into:
+
+- Interior Gateway Protocols (IGP)
+- Exterior Gateway Protocols (EGP).
+
+IGP is subdivided into: 
+
+- Distance Vector
+- Link State
+- Hybrid protocols
+
+EGP only includes:
+
+- Path Vector protocols.
+
+Key Routing Protocols Highlighted:
+
+- Static Routing Protocols 🛠️: These are manually configured and provide a fixed path for data packets. They are simple but lack flexibility in adapting to network changes.
+- Dynamic Routing Protocols:
+ - IGP (Interior Gateway Protocols) 🛤️:
+ - Distance Vector: Protocols like RIP and IGRP that determine the best path based on the distance to the destination.
+ - Link State: Protocols like OSPF and ISIS that use the state of each link in the network to build a comprehensive map for routing decisions.
+ - Hybrid: Protocols like EIGRP that combine elements of both Distance Vector and Link State protocols.
+ - EGP (Exterior Gateway Protocols) 🌐:
+ - Path Vector: Protocols like BGP that are used for routing between autonomous systems and maintain path information to ensure efficient data transfer.
+
 Los **Routing Protocols** se pueden clasificar en tres categorías principales:  
 
 1. **`Static Routing`** → Rutas **configuradas manualmente** por el administrador, sin cambios automáticos.  
 2. **`Dynamic Routing`** → Los routers **aprenden y actualizan rutas automáticamente** según la topología de la red.  
-3. **`Default Routing`** → Ruta predefinida usada cuando no hay una coincidencia específica en la routing table (eg 0.0.0.0 0.0.0.0 + GW = cualquier destino no conocido). 
+3. **`Default Routing`** → Ruta predefinida usada cuando no hay una coincidencia específica en la routing table (eg 0.0.0.0 0.0.0.0 + Next Hop IP = cualquier destino no conocido). 
 
 Dentro de **Dynamic Routing**, existen dos grandes tipos: `Interior Gateway Protocols (IGP)` and `External Gateway Protocols (EGP)`:  
 
