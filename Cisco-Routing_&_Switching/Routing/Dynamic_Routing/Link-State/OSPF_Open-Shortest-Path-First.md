@@ -27,6 +27,26 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 - **Classless Protocol**: OSPF supports VLSM (Variable Length Subnet Mask) and CIDR (Classless Inter-Domain Routing).
 - **Hierarchical Design**: OSPF supports areas to minimize the size of the routing tables and to scale more efficiently.
 
+## ⚙️ **OSPF Features**
+
+| Feature | Value / Description |
+|---------|---------------------|
+| **Protocol Number** | `89` |
+| **Standard** | Open standard (OSPF v2 RFC 2328 for IPv4, OSPF v3 RFC 5340 for IPv6) |
+| **Type** | Link-State |
+| **Algorithm** | Dijkstra’s Shortest Path First (SPF) |
+| **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |
+| **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
+| **Administrative Distance (AD)** | **Internal:** `110` → Routes within the same OSPF area. <br> **External:** `170` → Routes redistributed from other protocols (EIGRP, RIP, etc.). <br> **Summary:** `5` → Manually configured summary routes (trusted due to admin configuration). |
+| **Multicast IP (SPF)** | `224.0.0.5` |
+| **Multicast IP (DR/BDR)** | `224.0.0.6` |
+| **Multicast MAC (SPF)** | `01:00:5E:00:00:05` |
+| **Multicast MAC (DR/BDR)** | `01:00:5E:00:00:06` |
+| **Equal Cost Multipath (ECMP)** | **Default:** `4`, **Maximum:** `32` |
+
+
+
+
 ## 🔄 What is Link-State?
 
 OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network**. 
@@ -59,24 +79,6 @@ OSPF may not be the best choice when:
 
 - **Small networks**: In small, simple networks, a protocol like **RIP** or even **static routing** might suffice as they are easier to configure and maintain.
 - **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
-
-
-## ⚙️ **OSPF Features**
-
-| Feature | Value / Description |
-|---------|---------------------|
-| **Standard** | Open standard (OSPF v2 RFC 2328 for IPv4, OSPF v3 RFC 5340 for IPv6) |
-| **Type** | Link-State |
-| **Algorithm** | Dijkstra’s Shortest Path First (SPF) |
-| **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |
-| **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
-| **Administrative Distance (AD)** | **Internal:** `110` → Routes within the same OSPF area. <br> **External:** `170` → Routes redistributed from other protocols (EIGRP, RIP, etc.). <br> **Summary:** `5` → Manually configured summary routes (trusted due to admin configuration). |
-| **Protocol Number** | `89` |
-| **Multicast IP (SPF)** | `224.0.0.5` |
-| **Multicast IP (DR/BDR)** | `224.0.0.6` |
-| **Multicast MAC (SPF)** | `01:00:5E:00:00:05` |
-| **Multicast MAC (DR/BDR)** | `01:00:5E:00:00:06` |
-| **Equal Cost Multipath (ECMP)** | **Default:** `4`, **Maximum:** `32` |
 
 
 
