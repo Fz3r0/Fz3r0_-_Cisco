@@ -1097,7 +1097,7 @@ tracert 8.8.8.8
 
 # 📚🗂️🎥 Resources
 
-- 
+- [Distance Vector VS Link State](https://www.routexp.com/2020/03/routing-basics-distance-vector-vs-link.html)
   
 ---
 
