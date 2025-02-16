@@ -100,11 +100,19 @@ This is a network topology consisting of **8 internal routers** (R1 to R8) and o
 
 ## 🏁🔄⚙️ Routing Topology: `Init Configuration`
 
-This configuration solely establishes IP addressing for each router’s interfaces and their respective subnets. 
+This configuration focuses exclusively on **IP addressing** for each router’s interfaces and their respective subnets.  
 
-- **NO dynamic or static routing configurations are applied at this stage!!!** _The only exception is a default route on the Internet router (R-WAN), ensuring it is ready when EIGRP routing is later implemented across the network. Each router is assigned appropriate WAN and LAN IP addresses, but no routing protocols are active yet._
+- 🚫 **No dynamic or static routing protocols are configured at this stage!** 🚫 _(The only exception is a **default route** on the **ISP router (R-ISP)** to simulate Internet connectivity.)_
 
-The following setup ensures all routers have their interfaces configured and operational, providing a foundation for future any routing protocol deployment:
+Each router is assigned the appropriate **WAN and LAN IP addresses**, but **no routing protocols** (such as OSPF, EIGRP, or BGP) are active yet.  
+
+💡 **Purpose of this Initial Setup:**  
+
+- ✅ Ensure all router interfaces are properly **configured and operational**.  
+- ✅ Provide a solid foundation for **future routing protocol deployments**.  
+- ✅ Allow **end-to-end connectivity testing** (e.g., using `ping` between routers or VPCs in the same subnet).  
+
+In subsequent configurations, **dynamic routing protocols** (e.g., **EIGRP**) can be implemented to establish full network connectivity and routing between all subnets. 
 
 ### ⚙️ Init Setup: `Router 1`
 
