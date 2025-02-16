@@ -203,12 +203,12 @@ hostname R3
 ! ## WAN SIDE
 !
 interface ethernet 0/0
-ip address 10.2.0.1 255.255.255.252
+ip address 10.3.0.1 255.255.255.252
 no shutdown
 exit
 !
 interface ethernet 0/1
-ip address 10.1.0.2 255.255.255.252
+ip address 10.2.0.2 255.255.255.252
 no shutdown
 exit
 !
@@ -217,7 +217,54 @@ exit
 ! ## LAN SIDE
 !
 interface ethernet 0/3
-ip address 192.168.2.1 255.255.255.0
+ip address 192.168.3.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+### ⚙️ Init Setup: `Router 4`
+
+````py
+! ################
+! ##  ROUTER 4  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R4
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.4.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.3.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.4.1 255.255.255.0
 no shutdown
 end
 !
@@ -235,21 +282,6 @@ show ip interface brief
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### ⚙️ Init Setup: `Router 5`
 
 ````py
@@ -261,6 +293,18 @@ enable
 configure terminal
 !
 hostname R5
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ ISP :: IPROUTE (DEFAULT ROUTE)
+!
+interface ethernet 1/0
+! # Interface IP
+ip address 123.123.123.1 255.255.255.252
+! # Default Route @ ISP (next hop interface)
+ip route 0.0.0.0 0.0.0.0 123.123.123.2
+no shutdown
+exit
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
@@ -298,7 +342,148 @@ show ip interface brief
 ````
 
 
+### ⚙️ Init Setup: `Router 6`
 
+````py
+! ################
+! ##  ROUTER 6  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R6
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.6.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.5.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.6.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+
+### ⚙️ Init Setup: `Router 7`
+
+````py
+! ################
+! ##  ROUTER 7  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R7
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.7.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.6.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.7.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+
+### ⚙️ Init Setup: `Router 8`
+
+````py
+! ################
+! ##  ROUTER 8  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R8
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.8.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.7.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.8.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
 
 
 
@@ -315,6 +500,57 @@ show ip interface brief
 ### ⚙️ Init Setup: `Router WAN (Internet)`
 
 ````py
+! ##################
+! ##  ROUTER WAN  ##
+! ##################
+!
+enable
+configure terminal
+!
+hostname R-WAN
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ R4 :: IPROUTE (DEFAULT ROUTE)
+!
+interface ethernet 0/0
+! # Interface IP
+ip address 123.123.123.2 255.255.255.252
+! # Default Route @ R4 (next hop interface)
+ip route 0.0.0.0 0.0.0.0 123.123.123.1
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LOOPBACK INTERFACES
+!
+! # Google  DNS
+interface loopback 0
+ip address 8.8.8.8. 255.255.255.255
+no shutdown
+exit
+!
+! # Cloudflare DNS
+interface loopback 1
+ip address 1.1.1.1. 255.255.255.255
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+
+
+
+
 ! ## ROUTER WAN (Internet)
 !
 enable
