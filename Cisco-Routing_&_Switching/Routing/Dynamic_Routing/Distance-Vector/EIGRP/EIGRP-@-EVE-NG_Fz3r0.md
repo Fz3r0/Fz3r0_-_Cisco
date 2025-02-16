@@ -39,7 +39,7 @@ This is a network topology consisting of **8 internal routers** (R1 to R8) and o
 - Currently, there is **NO dynamic routing**. Only **default routes** are used between ISP & R5.  
 - The **ISP router** has **loopback interfaces** representing public DNS servers (Google and Cloudflare).  
 
-![image](https://github.com/user-attachments/assets/1cb4186f-77d9-442c-aaa8-d905d64c393f)
+![image](https://github.com/user-attachments/assets/95ba371b-e538-43f9-ab84-37669569953e)
 
 ## 📋 **IP Addressing Table**  
 
