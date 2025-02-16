@@ -32,7 +32,7 @@ This setup consists of **eight routers** (R1 to R8) connected in a **ring topolo
 - **Each LAN** have a PC for testing purposes.
 - **There's an additional Router-WAN to simulate Internet/Google connection to 8.8.8.8**
 
-![image](https://github.com/user-attachments/assets/926a7a83-79c5-4f01-8948-896b96947828)
+![image](https://github.com/user-attachments/assets/1cb4186f-77d9-442c-aaa8-d905d64c393f)
 
 ## 📋 **IP Addressing Table**
 
