@@ -41,6 +41,26 @@ This is a network topology consisting of **8 internal routers** (R1 to R8) and o
 
 ![image](https://github.com/user-attachments/assets/490e5494-14c8-452a-a5ae-9b40eeb563ae)
 
+**Weights:**
+
+### ⚙ **EIGRP Metric Components: `K-values`**  
+
+"K" simply means "coefficient" or "weighting factor" in the EIGRP metric formula. K-values are coefficients assigned to different parameters (such as bandwidth, delay, reliability, etc.) to determine the **weight** of each when calculating the best path.
+
+![image](https://github.com/user-attachments/assets/df818ae5-c321-4b6f-80ee-8d86b0165f24)
+
+| **K-value** | **Parameter**       | **Description**                                                                 | **Default State**         | **Default K-value** | **Actual Value from `show interfaces ethernet 0/0`** |
+|-------------|---------------------|---------------------------------------------------------------------------------|---------------------------|---------------------|-----------------------------------------------------|
+| **K1** 🔹   | ++ **Bandwidth** (bw) | The minimum bandwidth (in Kbps) along the path. **Higher bandwidth means better routes.** | **Enabled by default** | **1**               | **10,000 Kbps** (10 Mbps)                           |
+| **K2** 📉   | **Load**             | Represents how busy the link is (a value between **1-255**). **Higher load means worse performance.** | _Disabled by default_     | **0**               | **1/255** (minimal load, indicates low traffic)      |
+| **K3** ⏳   | ++ **Delay** (DLY)   | The cumulative delay (measured in **tens of microseconds**) along the path. **Lower delay is better.** | **Enabled by default** | **1**               | **1000 microseconds** (1 millisecond)               |
+| **K4** ✅   | **Reliability**      | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_     | **0**               | **255/255** (maximum reliability, perfect link)     |
+| **K5** 📦   | **MTU**              | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_     | **0**               | **1500 bytes** (standard Ethernet MTU)              |
+
+
+
+
+
 ## 📋 **IP Addressing Table**  
 
 | 🖥️ **Device** | 🌐 **Interface** | 🏷️ **IP Address** | 🧮 **Subnet Mask** | 🛜 **Network Address (CIDR)** |
