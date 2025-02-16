@@ -77,7 +77,7 @@ This setup consists of **eight routers** (R1 to R8) connected in a **ring topolo
 
   
 
-## Routing Topology: `Init Configuration`
+## 🏁🔄⚙️ Routing Topology: `Init Configuration`
 
 This configuration solely establishes IP addressing for each router’s interfaces and their respective subnets. 
 
@@ -85,7 +85,7 @@ This configuration solely establishes IP addressing for each router’s interfac
 
 The following setup ensures all routers have their interfaces configured and operational, providing a foundation for future any routing protocol deployment:
 
-### Init Setup: `Router 1`
+### ⚙️ Init Setup: `Router 1`
 
 ````py
 ! ## ROUTER 1
@@ -122,162 +122,7 @@ show ip interface brief
 
 ````
 
-### Init Setup: `Router 2`
-
-````py
-! ## ROUTER 2
-!
-enable
-configure terminal
-!
-hostname R2
-!
-! ## WAN SIDE
-!
-interface fa 0/0
-ip address 10.2.0.1 255.255.255.252
-no shutdown
-exit
-!
-interface fa 0/1
-ip address 10.1.0.2 255.255.255.252
-no shutdown
-exit
-!
-!
-! ## LAN SIDE
-!
-interface fa 1/1
-ip address 192.168.2.1 255.255.255.0
-no shutdown
-end
-!
-write memory
-!
-show ip interface brief
-!
-
-````
-
-### Init Setup: `Router 3`
-
-````py
-! ## ROUTER 3
-!
-enable
-configure terminal
-!
-hostname R3
-!
-! ## INTERNET
-!
-interface fa 1/0
-ip address 200.1.1.1 255.255.255.252
-no shutdown
-exit
-!
-! ## WAN SIDE
-!
-interface fa 0/0
-ip address 10.3.0.1 255.255.255.252
-no shutdown
-exit
-!
-interface fa 0/1
-ip address 10.2.0.2 255.255.255.252
-no shutdown
-exit
-!
-!
-! ## LAN SIDE
-!
-interface fa 1/1
-ip address 192.168.3.1 255.255.255.0
-no shutdown
-end
-!
-write memory
-!
-show ip interface brief
-!
-
-````
-
-### Init Setup: `Router 4`
-
-````py
-! ## ROUTER 4
-!
-enable
-configure terminal
-!
-hostname R4
-!
-! ## WAN SIDE
-!
-interface fa 0/0
-ip address 10.4.0.1 255.255.255.252
-no shutdown
-exit
-!
-interface fa 0/1
-ip address 10.3.0.2 255.255.255.252
-no shutdown
-exit
-!
-!
-! ## LAN SIDE
-!
-interface fa 1/1
-ip address 192.168.4.1 255.255.255.0
-no shutdown
-end
-!
-write memory
-!
-show ip interface brief
-!
-
-````
-
-### Init Setup: `Router 5`
-
-````py
-! ## ROUTER 5
-!
-enable
-configure terminal
-!
-hostname R5
-!
-! ## WAN SIDE
-!
-interface fa 0/0
-ip address 10.5.0.1 255.255.255.252
-no shutdown
-exit
-!
-interface fa 0/1
-ip address 10.4.0.2 255.255.255.252
-no shutdown
-exit
-!
-!
-! ## LAN SIDE
-!
-interface fa 1/1
-ip address 192.168.5.1 255.255.255.0
-no shutdown
-end
-!
-write memory
-!
-show ip interface brief
-!
-
-````
-
-### Init Setup: `Router WAN (Internet)`
+### ⚙️ Init Setup: `Router WAN (Internet)`
 
 ````py
 ! ## ROUTER WAN (Internet)
@@ -319,8 +164,48 @@ show ip interface brief
 
 ````
 
+### ⚙️ Init Setup: `VPC (Virtual PC's)`
 
-## ⚙️ **EIGRP Configuration**
+````py
+## VPC CONFIGURATION:
+
+### VPC1
+ip 192.168.1.100 255.255.255.0 192.168.1.1
+save
+
+### VPC2
+ip 192.168.2.100 255.255.255.0 192.168.2.1
+save
+
+### VPC3
+ip 192.168.3.100 255.255.255.0 192.168.3.1
+save
+
+### VPC4
+ip 192.168.4.100 255.255.255.0 192.168.4.1
+save
+
+### VPC5
+ip 192.168.5.100 255.255.255.0 192.168.5.1
+save
+
+### VPC6
+ip 192.168.6.100 255.255.255.0 192.168.6.1
+save
+
+### VPC7
+ip 192.168.7.100 255.255.255.0 192.168.7.1
+save
+
+### VPC8
+ip 192.168.8.100 255.255.255.0 192.168.8.1
+save
+
+````
+
+
+
+## 🚀🔄⚙️ **EIGRP Configuration**
 
 ### ⚙️✅ **Basic EIGRP Configuration Steps:**
 
@@ -395,7 +280,7 @@ To ensure a stable and predictable network, we will follow these fundamental ste
 2. Disable automatic route summarization.
 3. Enable EIGRP on relevant interfaces.
 4. Suppress EIGRP messages on LAN-facing interfaces.
-5.  Advertise a default route if required.
+5. Advertise a default route if required.
 6. Implement manual route summarization when needed.
 
 In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in the setup:
@@ -823,39 +708,3 @@ tracert 8.8.8.8
 
 
 
-````py
-## VPC CONFIGURATION:
-
-### VPC1
-ip 192.168.1.100 255.255.255.0 192.168.1.1
-save
-
-### VPC2
-ip 192.168.2.100 255.255.255.0 192.168.2.1
-save
-
-### VPC3
-ip 192.168.3.100 255.255.255.0 192.168.3.1
-save
-
-### VPC4
-ip 192.168.4.100 255.255.255.0 192.168.4.1
-save
-
-### VPC5
-ip 192.168.5.100 255.255.255.0 192.168.5.1
-save
-
-### VPC6
-ip 192.168.6.100 255.255.255.0 192.168.6.1
-save
-
-### VPC7
-ip 192.168.7.100 255.255.255.0 192.168.7.1
-save
-
-### VPC8
-ip 192.168.8.100 255.255.255.0 192.168.8.1
-save
-
-````
