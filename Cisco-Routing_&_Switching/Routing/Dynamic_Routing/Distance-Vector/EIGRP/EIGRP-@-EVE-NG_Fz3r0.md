@@ -90,9 +90,7 @@ This configuration solely establishes IP addressing for each router’s interfac
 
 The following setup ensures all routers have their interfaces configured and operational, providing a foundation for future any routing protocol deployment:
 
-### ⚙️ Init Setup: `Router 4`
-
-### ⚙️ Init Setup: `Router 5`
+### ⚙️ Init Setup: `Router 1`
 
 ````py
 ! ################
@@ -280,8 +278,6 @@ show ip interface brief
 
 ````
 
-
-
 ### ⚙️ Init Setup: `Router 5`
 
 ````py
@@ -341,7 +337,6 @@ show ip interface brief
 
 ````
 
-
 ### ⚙️ Init Setup: `Router 6`
 
 ````py
@@ -388,7 +383,6 @@ show ip interface brief
 
 
 ````
-
 
 ### ⚙️ Init Setup: `Router 7`
 
@@ -437,7 +431,6 @@ show ip interface brief
 
 ````
 
-
 ### ⚙️ Init Setup: `Router 8`
 
 ````py
@@ -485,18 +478,6 @@ show ip interface brief
 
 ````
 
-
-
-
-
-
-
-
-
-
-
-
-
 ### ⚙️ Init Setup: `Router WAN (Internet)`
 
 ````py
@@ -541,47 +522,6 @@ exit
 !
 ! ## SAVE & CHECK CONFIGS
 !
-write memory
-!
-show ip interface brief
-!
-
-
-
-
-
-
-! ## ROUTER WAN (Internet)
-!
-enable
-configure terminal
-!
-hostname R-WAN
-!
-! ## No sumarize
-!
-! no sumarize
-!
-! ## WAN SIDE
-!
-interface fa 0/0
-ip address 200.1.1.2 255.255.255.252
-no shutdown
-exit
-!
-! ## Loopback Interface (Simulating Google)
-!
-interface Loopback0
-ip address 8.8.8.8 255.255.255.255
-exit
-!
-! ! ## Default Route (To reach EIGRP network (next hop interface))
-!
-ip route 0.0.0.0 0.0.0.0 200.1.1.1
-!
-! ## Save & Check Configuration
-!
-end
 write memory
 !
 show ip interface brief
