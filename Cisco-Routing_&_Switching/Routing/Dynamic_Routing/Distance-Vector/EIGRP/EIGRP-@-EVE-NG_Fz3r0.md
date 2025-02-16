@@ -38,7 +38,7 @@ This setup consists of **eight routers** (R1 to R8) connected in a **ring topolo
 
 | Device    | Interface | IP Address   | Subnet Mask      | Network Address with CIDR |
 |-----------|-----------|--------------|------------------|---------------------------|
-| **R1**    | Fa0/0     | 10.1.0.1      | 255.255.255.252 | 10.1.0.0/30               |
+| **R1**    | Eth0/0     | 10.1.0.1      | 255.255.255.252 | 10.1.0.0/30               |
 |           | Fa0/1     | 10.5.0.2      | 255.255.255.252 | 10.5.0.0/30               |
 |           | Fa1/1     | 192.168.1.1   | 255.255.255.0   | 192.168.1.0/24            |
 | **R2**    | Fa0/0     | 10.2.0.1      | 255.255.255.252 | 10.2.0.0/30               |
@@ -75,6 +75,11 @@ This setup consists of **eight routers** (R1 to R8) connected in a **ring topolo
 - `PC-7 (Site-E)` :: 192.168.7.100/24
 - `PC-8 (Site-E)` :: 192.168.8.100/24
 
+
+
+
+
+
   
 
 ## 🏁🔄⚙️ Routing Topology: `Init Configuration`
@@ -85,42 +90,227 @@ This configuration solely establishes IP addressing for each router’s interfac
 
 The following setup ensures all routers have their interfaces configured and operational, providing a foundation for future any routing protocol deployment:
 
-### ⚙️ Init Setup: `Router 1`
+### ⚙️ Init Setup: `Router 4`
+
+### ⚙️ Init Setup: `Router 5`
 
 ````py
-! ## ROUTER 1
+! ################
+! ##  ROUTER 1  ##
+! ################
 !
 enable
 configure terminal
 !
 hostname R1
 !
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
 ! ## WAN SIDE
 !
-interface fa 0/0
+interface ethernet 0/0
 ip address 10.1.0.1 255.255.255.252
 no shutdown
 exit
 !
-interface fa 0/1
-ip address 10.5.0.2 255.255.255.252
+interface ethernet 0/1
+ip address 10.8.0.2 255.255.255.252
 no shutdown
 exit
 !
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
 ! ## LAN SIDE
 !
-interface fa 1/1
+interface ethernet 0/3
 ip address 192.168.1.1 255.255.255.0
 no shutdown
 end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
 !
 write memory
 !
 show ip interface brief
 !
 
+
 ````
+
+### ⚙️ Init Setup: `Router 2`
+
+````py
+! ################
+! ##  ROUTER 2  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R2
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.2.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.1.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+### ⚙️ Init Setup: `Router 3`
+
+````py
+! ################
+! ##  ROUTER 3  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.2.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.1.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.2.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### ⚙️ Init Setup: `Router 5`
+
+````py
+! ################
+! ##  ROUTER 5  ##
+! ################
+!
+enable
+configure terminal
+!
+hostname R5
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## WAN SIDE
+!
+interface ethernet 0/0
+ip address 10.5.0.1 255.255.255.252
+no shutdown
+exit
+!
+interface ethernet 0/1
+ip address 10.4.0.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LAN SIDE
+!
+interface ethernet 0/3
+ip address 192.168.5.1 255.255.255.0
+no shutdown
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### ⚙️ Init Setup: `Router WAN (Internet)`
 
