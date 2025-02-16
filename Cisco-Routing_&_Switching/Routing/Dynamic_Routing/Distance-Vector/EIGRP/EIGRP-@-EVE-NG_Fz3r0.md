@@ -767,17 +767,139 @@ write memory
 
 ```
 
+### **R2 Configuration:**
 
+```py
+! #######################################
+! ##  ROUTER 2 :: EIGRP CONFIGURATION  ##
+! #######################################
+!
+enable
+configure terminal
+!
+hostname R2
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 1: Set Autonomous System (AS)
+router eigrp 666
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 2: Disable automatic summarization.
+no auto-summary
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 3: Enable EIGRP & Messages on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
+!     # enable EIGRP on any interface with an IP address that falls within the 10.2.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.1.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
+network 10.2.0.0 0.0.0.3
+network 10.1.0.0 0.0.0.3
+!
+!     ## LAN:
+!     # Enables EIGRP on interfaces in the 192.168.2.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.2.0 to 192.168.2.255"
+network 192.168.2.0 0.0.0.255
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+passive-interface ethernet 0/3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! 6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Exit & Save Configurations
+end
+write memory
+!
+!
 
+```
 
+### **R3 Configuration:**
 
+```py
+! #######################################
+! ##  ROUTER 3 :: EIGRP CONFIGURATION  ##
+! #######################################
+!
+enable
+configure terminal
+!
+hostname R3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 1: Set Autonomous System (AS)
+router eigrp 666
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 2: Disable automatic summarization.
+no auto-summary
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 3: Enable EIGRP & Messages on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
+!     # enable EIGRP on any interface with an IP address that falls within the 10.3.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.2.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
+network 10.3.0.0 0.0.0.3
+network 10.2.0.0 0.0.0.3
+!
+!     ## LAN:
+!     # Enables EIGRP on interfaces in the 192.168.3.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.3.0 to 192.168.3.255"
+network 192.168.3.0 0.0.0.255
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+passive-interface ethernet 0/3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! 6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Exit & Save Configurations
+end
+write memory
+!
+!
 
-
-
-
-
-
-
+```
 
 
 
@@ -849,11 +971,275 @@ write memory
 ```
 
 
+### **R5 Configuration:**
+
+```py
+! #######################################
+! ##  ROUTER 5 :: EIGRP CONFIGURATION  ##
+! #######################################
+!
+enable
+configure terminal
+!
+hostname R5
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 1: Set Autonomous System (AS)
+router eigrp 666
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 2: Disable automatic summarization.
+no auto-summary
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 3: Enable EIGRP & Messages on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
+!     # enable EIGRP on any interface with an IP address that falls within the 10.5.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.4.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
+network 10.5.0.0 0.0.0.3
+network 10.4.0.0 0.0.0.3
+!
+!     ## LAN:
+!     # Enables EIGRP on interfaces in the 192.168.5.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.5.0 to 192.168.5.255"
+network 192.168.5.0 0.0.0.255
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+passive-interface ethernet 0/3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! 6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Exit & Save Configurations
+end
+write memory
+!
+!
+
+```
+
+### **R6 Configuration:**
+
+```py
+! #######################################
+! ##  ROUTER 6 :: EIGRP CONFIGURATION  ##
+! #######################################
+!
+enable
+configure terminal
+!
+hostname R6
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 1: Set Autonomous System (AS)
+router eigrp 666
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 2: Disable automatic summarization.
+no auto-summary
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 3: Enable EIGRP & Messages on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
+!     # enable EIGRP on any interface with an IP address that falls within the 10.6.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.5.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
+network 10.6.0.0 0.0.0.3
+network 10.5.0.0 0.0.0.3
+!
+!     ## LAN:
+!     # Enables EIGRP on interfaces in the 192.168.6.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.6.0 to 192.168.6.255"
+network 192.168.6.0 0.0.0.255
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+passive-interface ethernet 0/3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! 6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Exit & Save Configurations
+end
+write memory
+!
+!
+
+```
 
 
+### **R7 Configuration:**
+
+```py
+! #######################################
+! ##  ROUTER 7 :: EIGRP CONFIGURATION  ##
+! #######################################
+!
+enable
+configure terminal
+!
+hostname R7
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 1: Set Autonomous System (AS)
+router eigrp 666
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 2: Disable automatic summarization.
+no auto-summary
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 3: Enable EIGRP & Messages on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
+!     # enable EIGRP on any interface with an IP address that falls within the 10.7.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.6.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
+network 10.7.0.0 0.0.0.3
+network 10.6.0.0 0.0.0.3
+!
+!     ## LAN:
+!     # Enables EIGRP on interfaces in the 192.168.7.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.7.0 to 192.168.7.255"
+network 192.168.7.0 0.0.0.255
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+passive-interface ethernet 0/3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! 6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Exit & Save Configurations
+end
+write memory
+!
+!
+
+```
 
 
+### **R8 Configuration:**
 
+```py
+! #######################################
+! ##  ROUTER 8 :: EIGRP CONFIGURATION  ##
+! #######################################
+!
+enable
+configure terminal
+!
+hostname R8
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 1: Set Autonomous System (AS)
+router eigrp 666
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 2: Disable automatic summarization.
+no auto-summary
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 3: Enable EIGRP & Messages on each Interface (except WAN/Internet if available)
+!
+!     ## WAN:
+!     # enable EIGRP on any interface with an IP address that falls within the 10.8.0.0/30 subnet.
+!     # enable EIGRP on any interface with an IP address that falls within the 10.7.0.0/30 subnet.
+!         # IMPORTANT: EIGRP can be used with wildcard or subnet mask, it will recognize both. 
+!         # 0.0.0.3 → This is a wildcard mask, which works as the inverse of a subnet mask.
+!         # 0.0.0.3 means: "Only match the first 30 bits of the IP address."
+!           #   - This corresponds to a /30 subnet (255.255.255.252).
+!           #   - A /30 subnet supports two usable hosts (typically used for point-to-point links).
+network 10.8.0.0 0.0.0.3
+network 10.7.0.0 0.0.0.3
+!
+!     ## LAN:
+!     # Enables EIGRP on interfaces in the 192.168.8.0/24 subnet.
+!         # 0.0.0.255 → Wildcard mask meaning "Match any IP in the range 192.168.8.0 to 192.168.8.255"
+network 192.168.8.0 0.0.0.255
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 4: Disable EIGRP messaging on LAN access interfaces (Switches/PCs).
+passive-interface ethernet 0/3
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Step 5: Inject a default route in the border router (if there is a WAN/Internet connection)
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! 6. # Step 6: Manually summarize routes when needed.
+! NOT NEEDED!!!
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! # Exit & Save Configurations
+end
+write memory
+!
+!
+
+```
 
 
 
