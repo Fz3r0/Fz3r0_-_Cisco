@@ -292,13 +292,10 @@ hostname R5
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
-! ## INTERNET @ ISP :: IPROUTE (DEFAULT ROUTE)
+! ## INTERNET / ISP
 !
 interface ethernet 1/0
-! # Interface IP
 ip address 123.123.123.1 255.255.255.252
-! # Default Route @ ISP (next hop interface)
-ip route 0.0.0.0 0.0.0.0 123.123.123.2
 no shutdown
 exit
 !
@@ -323,6 +320,14 @@ exit
 interface ethernet 0/3
 ip address 192.168.5.1 255.255.255.0
 no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ ISP :: IPROUTE (DEFAULT ROUTE)
+!
+! # Default Route @ ISP (next hop interface)
+ip route 0.0.0.0 0.0.0.0 123.123.123.2
 end
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -332,6 +337,10 @@ end
 write memory
 !
 show ip interface brief
+! 
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+show ip route
 !
 
 
@@ -478,27 +487,24 @@ show ip interface brief
 
 ````
 
-### ⚙️ Init Setup: `Router WAN (Internet)`
+### ⚙️ Init Setup: `Router ISP (Internet)`
 
 ````py
 ! ##################
-! ##  ROUTER WAN  ##
+! ##  ROUTER ISP  ##
 ! ##################
 !
 enable
 configure terminal
 !
-hostname R-WAN
+hostname R-ISP
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
 ! ## INTERNET @ R4 :: IPROUTE (DEFAULT ROUTE)
 !
 interface ethernet 0/0
-! # Interface IP
 ip address 123.123.123.2 255.255.255.252
-! # Default Route @ R4 (next hop interface)
-ip route 0.0.0.0 0.0.0.0 123.123.123.1
 no shutdown
 exit
 !
@@ -508,15 +514,21 @@ exit
 !
 ! # Google  DNS
 interface Loopback0
-ip address 8.8.8.8. 255.255.255.255
-no shutdown
+ip address 8.8.8.8 255.255.255.255
 exit
 !
 ! # Cloudflare DNS
 interface Loopback1
-ip address 1.1.1.1. 255.255.255.255
-no shutdown
+ip address 1.1.1.1 255.255.255.255
 exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ R4 :: IPROUTE (DEFAULT ROUTE)
+!
+! # Default Route @ R4 (next hop interface)
+ip route 0.0.0.0 0.0.0.0 123.123.123.1
+end
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
@@ -525,6 +537,10 @@ exit
 write memory
 !
 show ip interface brief
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+show ip route
 !
 
 
