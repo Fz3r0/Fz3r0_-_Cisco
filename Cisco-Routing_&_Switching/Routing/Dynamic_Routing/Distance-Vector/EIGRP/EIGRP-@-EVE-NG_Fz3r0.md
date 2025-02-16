@@ -526,13 +526,13 @@ exit
 ! ## LOOPBACK INTERFACES
 !
 ! # Google  DNS
-interface loopback 0
+interface Loopback0
 ip address 8.8.8.8. 255.255.255.255
 no shutdown
 exit
 !
 ! # Cloudflare DNS
-interface loopback 1
+interface Loopback1
 ip address 1.1.1.1. 255.255.255.255
 no shutdown
 exit
