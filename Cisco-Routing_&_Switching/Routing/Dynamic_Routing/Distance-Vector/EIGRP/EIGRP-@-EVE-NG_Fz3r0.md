@@ -1301,8 +1301,8 @@ enable
 configure terminal
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-!     ## SELECT INTERFACE:
-interface fa 0/0
+!     ## SELECT INTERFACE (both interfaces at same time):
+interface range ethernet 0/0-1
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !     ## MODIFY HELLO MESSAGE:
@@ -1323,8 +1323,17 @@ end
 !
 write memory
 !
-show run interface fa 0/0
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
+show run interface ethernet 0/0
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+show run interface ethernet 0/1
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+
 
 ````
 
