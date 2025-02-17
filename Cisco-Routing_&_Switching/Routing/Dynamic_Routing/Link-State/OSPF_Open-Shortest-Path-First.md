@@ -1204,6 +1204,13 @@ tracert 8.8.8.8
 ````
 
 
+# Cheatsheet
+
+![image](https://github.com/user-attachments/assets/87b03950-89c1-44f2-b5c2-c62359bab36e)
+
+---
+
+![image](https://github.com/user-attachments/assets/fc025835-ee93-4cba-97e5-1b660f02c4fe)
 
 
 
