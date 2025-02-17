@@ -1387,6 +1387,9 @@ show ip route
 show run | se router eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+show ip eigrp topology all-links
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ! # Check load balance for 0.0.0.0/0 (Internet) :: Router 8 = load balance
 show ip cef 0.0.0.0/0
 !
