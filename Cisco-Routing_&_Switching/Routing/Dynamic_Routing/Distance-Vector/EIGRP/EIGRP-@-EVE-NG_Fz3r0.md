@@ -699,7 +699,7 @@ To ensure a stable and predictable network, we will follow these fundamental ste
 
 In this example, we will configure EIGRP between five routers (R1 to R5) in the ring topology, as defined in the setup:
 
-### **R1 Configuration:**
+### ⚙️ **R1 Configuration:**
 
 ```py
 ! #######################################
@@ -766,7 +766,7 @@ write memory
 
 ```
 
-### **R2 Configuration:**
+### ⚙️ **R2 Configuration:**
 
 ```py
 ! #######################################
@@ -833,7 +833,7 @@ write memory
 
 ```
 
-### **R3 Configuration:**
+### ⚙️ **R3 Configuration:**
 
 ```py
 ! #######################################
@@ -900,7 +900,7 @@ write memory
 
 ```
 
-### **R4 Configuration:**
+### ⚙️ **R4 Configuration:**
 
 ```py
 ! #######################################
@@ -969,8 +969,7 @@ write memory
 
 ```
 
-
-### **R5 Configuration:**
+### ⚙️ **R5 Configuration:**
 
 ```py
 ! #######################################
@@ -1037,7 +1036,7 @@ write memory
 
 ```
 
-### **R6 Configuration:**
+### ⚙️ **R6 Configuration:**
 
 ```py
 ! #######################################
@@ -1104,8 +1103,7 @@ write memory
 
 ```
 
-
-### **R7 Configuration:**
+### ⚙️ **R7 Configuration:**
 
 ```py
 ! #######################################
@@ -1172,8 +1170,7 @@ write memory
 
 ```
 
-
-### **R8 Configuration:**
+### ⚙️ **R8 Configuration:**
 
 ```py
 ! #######################################
@@ -1239,6 +1236,31 @@ write memory
 !
 
 ```
+
+
+## EIGRP Load Balancing (Equal Metrics)
+
+- **Equal Metrics**: EIGRP performs load balancing when multiple routes have **identical metrics** and **administrative distance**.
+
+![image](https://github.com/user-attachments/assets/cc6e9b28-08ba-42e6-a403-b6f3b20838b7)
+  
+### Example from Router 8:
+
+- **Routes for 0.0.0.0/0**:
+
+  - `10.7.0.1` (via Ethernet0/1)
+  - `10.8.0.2` (via Ethernet0/0)
+  
+- **Metric**: Both routes have the same metric (`384000`).
+- **Administrative Distance**: Both routes have the same EIGRP distance (`170`).
+
+
+
+### EIGRP Behavior:
+
+- **Load Balancing**: Since both routes have the same metric and distance, EIGRP distributes the outbound traffic equally between them.
+- **Ping Test**: `ping` requests and responses alternate between `10.7.0.1` and `10.8.0.2`, indicating successful load balancing.
+- **By Default**: EIGRP allows up to 4 equal-cost routes to be used in load balancing.
 
 
 
@@ -1354,6 +1376,8 @@ show run | se router eigrp
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 ! # Check load balance for 0.0.0.0/0 (Internet) :: Router 8 = load balance
 show ip cef 0.0.0.0/0
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
 ! # Check route to 0.0.0.0/0 (Internet) :: Router 8 = 2 routes same metric
 show ip route 0.0.0.0
