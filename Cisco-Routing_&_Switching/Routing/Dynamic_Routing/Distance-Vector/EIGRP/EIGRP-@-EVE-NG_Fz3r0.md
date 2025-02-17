@@ -278,6 +278,15 @@ hostname R4
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
+! ## INTERNET / ISP
+!
+interface ethernet 1/0
+ip address 123.123.123.1 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
 ! ## WAN SIDE
 !
 interface ethernet 0/0
@@ -297,6 +306,14 @@ exit
 interface ethernet 0/3
 ip address 192.168.4.1 255.255.255.0
 no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ ISP :: IPROUTE (DEFAULT ROUTE)
+!
+! # Default Route @ ISP (next hop interface)
+ip route 0.0.0.0 0.0.0.0 123.123.123.2
 end
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -325,15 +342,6 @@ hostname R5
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
-! ## INTERNET / ISP
-!
-interface ethernet 1/0
-ip address 123.123.123.1 255.255.255.252
-no shutdown
-exit
-!
-! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-!
 ! ## WAN SIDE
 !
 interface ethernet 0/0
@@ -354,16 +362,6 @@ interface ethernet 0/3
 ip address 192.168.5.1 255.255.255.0
 no shutdown
 exit
-!
-! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-!
-! ## INTERNET @ ISP :: IPROUTE (DEFAULT ROUTE)
-!
-! # Default Route @ ISP (next hop interface)
-ip route 0.0.0.0 0.0.0.0 123.123.123.2
-end
-!
-! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !
 ! ## SAVE & CHECK CONFIGS
 !
