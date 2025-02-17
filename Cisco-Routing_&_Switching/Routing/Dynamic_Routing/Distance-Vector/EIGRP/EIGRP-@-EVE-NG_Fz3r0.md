@@ -1250,8 +1250,8 @@ write memory
 
   - `10.7.0.1` (via Ethernet0/1)
   - `10.8.0.2` (via Ethernet0/0)
-  
-- **Metric**: Both routes have the same metric (`384000`).
+   
+- **Metric**: Both routes have the same metric (`384000` **FD :: Feasible Distance**).
 - **Administrative Distance**: Both routes have the same EIGRP distance (`170`).
 
 ![image](https://github.com/user-attachments/assets/ee737d36-fc52-40f0-a8b4-34f550ceb126)
