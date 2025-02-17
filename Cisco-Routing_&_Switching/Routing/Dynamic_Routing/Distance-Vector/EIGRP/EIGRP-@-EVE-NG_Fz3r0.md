@@ -1297,12 +1297,14 @@ Proper tuning ensures EIGRP adapts to various environments, from high-speed crit
 ````py
 ! ## EIGRP :: Optional Configurations :: Hello Message Customization
 !
+! ### Use in R1,R2,R3,R4,R2
+!
 enable
 configure terminal
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-!     ## SELECT INTERFACE (both interfaces at same time):
-interface range ethernet 0/0-1
+!     ## SELECT INTERFACE:
+interface fa 0/0
 !
 ! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 !     ## MODIFY HELLO MESSAGE:
@@ -1323,20 +1325,10 @@ end
 !
 write memory
 !
-show run interface ethernet 0/0
+show run interface fa 0/0
 !
-! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-!
-show run interface ethernet 0/1
-!
-!
-
 
 ````
-
-**Hello message customization results:**
-
-![image](https://github.com/user-attachments/assets/7811579b-9241-4d36-a771-66f57e6c4a2c)
 
 
 
