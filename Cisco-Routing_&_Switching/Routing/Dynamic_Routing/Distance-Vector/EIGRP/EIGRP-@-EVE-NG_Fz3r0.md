@@ -1314,6 +1314,18 @@ write memory
 
 ```
 
+### 📍 How Does EIGRP Choose a Route with Equal Metrics and NO-Load Balancing?
+
+If maximum-paths = 1 (No Load Balancing) and the route have equal metrics, EIGRP selects the best route based on these criteria:
+
+1. ✅ **Lowest Feasible Distance (FD)**  
+2. ✅ **First Route Learned (FIFO – First In, First Out)** *(Primary Rule)*  
+3. ✅ **Lowest Interface ID** *(Tiebreaker if routes arrive simultaneously)*  
+
+Note:
+
+- The **lowest interface ID** rule is more common in **OSPF** or **RIP**, where Router IDs or interface numbers break ties.  
+- **EIGRP uses FIFO** first and **only uses the interface ID as a secondary tiebreaker** if routes are truly simultaneous.
 
 ## EIGRP Load Balancing: `Unequal Metrics`
 
