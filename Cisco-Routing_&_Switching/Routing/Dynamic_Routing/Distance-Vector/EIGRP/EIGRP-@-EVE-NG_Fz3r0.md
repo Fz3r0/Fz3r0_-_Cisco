@@ -1263,8 +1263,11 @@ write memory
 - **Ping Test**: `ping` requests and responses alternate between `10.7.0.1` and `10.8.0.2`, indicating successful load balancing.
 - **By Default**: EIGRP allows up to 4 equal-cost routes to be used in load balancing.
 
+If ping is sent from R8 (same distance, metric, hops) it will balance each packet:
 
+![image](https://github.com/user-attachments/assets/d584810c-847a-4f5b-90de-0f0ab569f389)
 
+If ping is sent from PC8 (same distance, metric, hops) it will balance IP session, all pings will be sent and receive using same interface:
 
 
 
