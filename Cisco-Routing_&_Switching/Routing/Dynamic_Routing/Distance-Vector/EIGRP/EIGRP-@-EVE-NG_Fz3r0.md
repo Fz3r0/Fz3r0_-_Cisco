@@ -583,34 +583,42 @@ show ip route
 ## VPC CONFIGURATION:
 
 ### VPC1
+set pcname VPC1
 ip 192.168.1.100 255.255.255.0 192.168.1.1
 save
 
 ### VPC2
+set pcname VPC2
 ip 192.168.2.100 255.255.255.0 192.168.2.1
 save
 
 ### VPC3
+set pcname VPC3
 ip 192.168.3.100 255.255.255.0 192.168.3.1
 save
 
 ### VPC4
+set pcname VPC4
 ip 192.168.4.100 255.255.255.0 192.168.4.1
 save
 
 ### VPC5
+set pcname VPC5
 ip 192.168.5.100 255.255.255.0 192.168.5.1
 save
 
 ### VPC6
+set pcname VPC6
 ip 192.168.6.100 255.255.255.0 192.168.6.1
 save
 
 ### VPC7
+set pcname VPC7
 ip 192.168.7.100 255.255.255.0 192.168.7.1
 save
 
 ### VPC8
+set pcname VPC8
 ip 192.168.8.100 255.255.255.0 192.168.8.1
 save
 
