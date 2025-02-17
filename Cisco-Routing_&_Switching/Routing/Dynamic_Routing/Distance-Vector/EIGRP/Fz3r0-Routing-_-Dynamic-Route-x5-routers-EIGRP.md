@@ -1068,6 +1068,9 @@ tracert 8.8.8.8
 
 
 
+# Cheatsheet
+
+![image](https://github.com/user-attachments/assets/a80dbeab-b993-4790-afc3-1cdc35353081)
 
 
 
