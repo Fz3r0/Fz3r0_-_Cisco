@@ -665,7 +665,8 @@ save
 - ⚖️ **Modify K-values (default weights).**  
 
   - **Purpose:** Adjusts how EIGRP calculates the best path using different metrics like bandwidth, delay, reliability, and load.  
-  - **Use case:** Tweaking K-values can prioritize certain paths based on delay instead of bandwidth, or ignore reliability/load in path selection. ⚠️ **Must be consistent across all routers** to avoid neighbor mismatches.
+  - **Use case:** Tweaking K-values can prioritize certain paths based on delay instead of bandwidth, or ignore reliability/load in path selection. <br><br>
+      - ⚠️ **Must be consistent across ALL routers** _(eg. ALL routers involved in eigrp 666)_ to avoid neighbor mismatches.
 
 - 🔢 **Set the maximum number of hops (default: 100).**  
 
