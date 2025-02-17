@@ -154,6 +154,8 @@ EIGRP may not be the best choice when:
 | **👋 Hello**      | 5          | Sent periodically (**default = 5 seconds**) to maintain and establish neighbor relationships. It includes information about the router and its capabilities. | Multicast              | Unreliable         | 5          | N/A                 |
 | **✅ ACK**        | 8          | Acknowledgment message sent to confirm the receipt of routing updates, queries, or replies.           | Unicast                | Unreliable         | 5          | N/A                 |
 
+![image](https://github.com/user-attachments/assets/15b3dd04-d28f-42fd-ae8f-c5c5fd2b244b)
+
 - `Reliable` means the message is guaranteed to reach its destination, and the sender knows when it has been received.
 - `Unreliable` means there's no guarantee the message will reach the destination, and the sender doesn't know if it was received.
 - `Opcode` is a number that identifies the type of EIGRP message being sent. Each type of message (Update, Query, Reply, Hello/ACK) has a specific opcode number to distinguish it from others.
