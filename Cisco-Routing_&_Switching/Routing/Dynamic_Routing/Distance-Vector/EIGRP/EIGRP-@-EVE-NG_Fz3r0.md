@@ -1359,8 +1359,16 @@ show ip route
 show run | se router eigrp
 !
 !=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-debug eigrp packet
+! # Check load balance for 0.0.0.0/0 (Internet) :: Router 8 = load balance
+show ip cef 0.0.0.0/0
 !
+! # Check route to 0.0.0.0/0 (Internet) :: Router 8 = 2 routes same metric
+show ip route 0.0.0.0
+!
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+! # Debug EIGRP:
+!debug eigrp packet
+!no debug eigrp packet
 !
 
 
