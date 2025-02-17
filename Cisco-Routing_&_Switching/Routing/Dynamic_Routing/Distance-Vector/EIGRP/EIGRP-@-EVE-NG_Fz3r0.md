@@ -1239,7 +1239,11 @@ write memory
 ```
 
 
-## EIGRP Load Balancing (Equal Metrics)
+## EIGRP Load Balancing: `Equal Metrics`
+
+EIGRP will automatically load balance over 2 or more paths if the Feasible Distance is equal between the available paths. You can change the maxim paths it will load balance with the command `maximum-paths` from router configuration mode. _(You can also load balance over unequal paths by changing the variance. The variance is a multiplier of the Feasible Distance. If you have two paths, one with a FD of 2 and one with and FD of 6 and the variance is set to 3, you will load balance over the two paths (2*3=6))_.
+
+**You can check the MAXIMUM PATHS and VARIANCE settings by using the command `show ip protocols`**
 
 - **Equal Metrics**: EIGRP performs load balancing when multiple routes have **identical metrics** and **administrative distance**.
 
@@ -1311,7 +1315,11 @@ write memory
 ```
 
 
+## EIGRP Load Balancing: `Unequal Metrics`
 
+EIGRP and most other IGPs automatically load balance over equal cost links. Just as we saw in last example. 
+
+The difficulty comes when trying to load balance across Unequal cost paths in EIGRP. That's when you have to set the `variance`. **Variance** is kind of like a multiplier for determining how "bad" a route can be compared to the FD of the current successor
 
 
 
