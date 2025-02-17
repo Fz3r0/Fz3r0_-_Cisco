@@ -1269,6 +1269,8 @@ If ping is sent from R8 (same distance, metric, hops) it will balance each packe
 
 If ping is sent from PC8 (same distance, metric, hops) it will balance IP session, all pings will be sent and receive using same interface:
 
+![image](https://github.com/user-attachments/assets/fa0d46c4-d5e1-4570-8077-7eb734ef763d)
+
 
 
 
