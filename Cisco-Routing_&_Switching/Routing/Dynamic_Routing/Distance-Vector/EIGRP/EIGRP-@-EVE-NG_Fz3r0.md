@@ -1254,6 +1254,7 @@ write memory
 - **Metric**: Both routes have the same metric (`384000`).
 - **Administrative Distance**: Both routes have the same EIGRP distance (`170`).
 
+![image](https://github.com/user-attachments/assets/ee737d36-fc52-40f0-a8b4-34f550ceb126)
 
 
 ### EIGRP Behavior:
