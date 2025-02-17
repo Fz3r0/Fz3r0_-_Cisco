@@ -1290,7 +1290,7 @@ While EIGRP works efficiently with its default settings, certain adjustments can
 
 Proper tuning ensures EIGRP adapts to various environments, from high-speed critical networks to large-scale enterprise deployments.
 
-### EIGRP Optional Configuration: `Hello Message Timers`
+### ⌛ EIGRP Optional Configuration: `Hello Message Timers`
 
 - **This must be done on both sides, e.g., `R5` & `R4`, as they need to be consistent on the same link**
 
