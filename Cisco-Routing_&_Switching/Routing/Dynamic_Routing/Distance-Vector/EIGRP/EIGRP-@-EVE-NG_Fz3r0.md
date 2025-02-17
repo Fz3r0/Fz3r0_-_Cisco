@@ -1257,6 +1257,7 @@ write memory
 
 ![image](https://github.com/user-attachments/assets/ee737d36-fc52-40f0-a8b4-34f550ceb126)
 
+![image](https://github.com/user-attachments/assets/f8611da1-d522-4dc7-89e5-6d7ae97d0307)
 
 ### EIGRP Behavior:
 
