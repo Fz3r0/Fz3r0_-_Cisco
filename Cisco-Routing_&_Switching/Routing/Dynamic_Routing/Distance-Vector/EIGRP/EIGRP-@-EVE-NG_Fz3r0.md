@@ -1297,8 +1297,6 @@ Proper tuning ensures EIGRP adapts to various environments, from high-speed crit
 ````py
 ! ## EIGRP :: Optional Configurations :: Hello Message Customization
 !
-! ### Use in R1,R2,R3,R4,R2
-!
 enable
 configure terminal
 !
@@ -1330,11 +1328,8 @@ show run interface fa 0/0
 
 ````
 
-
-
-
-
-
+**Hello message customization results:**
+![image](https://github.com/user-attachments/assets/7811579b-9241-4d36-a771-66f57e6c4a2c)
 
 
 
