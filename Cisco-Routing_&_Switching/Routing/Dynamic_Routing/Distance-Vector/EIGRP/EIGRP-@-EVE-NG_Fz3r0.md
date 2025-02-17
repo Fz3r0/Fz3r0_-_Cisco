@@ -23,9 +23,6 @@ This lab focuses on configuring and validating EIGRP (Enhanced Interior Gateway 
 
 - [Fz3r0 :: EVE NG :: **8 Router Ring (BEFORE ANY ROUTING) : `EIGRP`**](https://github.com/user-attachments/files/18816617/Fz3r0-8-Router-Ring-BEFORE-ANY-ROUTING.zip)
 
-
-
-
 ## Dynamic Routing Topology: `Fz3r0 Default 5 Ring Router Topology`
 
 This is a network topology consisting of **8 internal routers** (R1 to R8) and one **ISP router** simulating Internet access.  
@@ -41,7 +38,7 @@ This is a network topology consisting of **8 internal routers** (R1 to R8) and o
 
 ![image](https://github.com/user-attachments/assets/45f94b26-d9c6-4929-9f24-ab75c9190e05)
 
-**Weights:**
+---
 
 ### ⚙ **EIGRP Metric Components: `K-values`**  
 
@@ -57,10 +54,6 @@ This is a network topology consisting of **8 internal routers** (R1 to R8) and o
 | **K4** ✅   | **Reliability**      | A number between **1-255**, where **255 means 100% reliability** (fewer errors). | _Disabled by default_     | **0**               | **255/255** (maximum reliability, perfect link)     |
 | **K5** 📦   | **MTU**              | **Maximum Transmission Unit** size. **Not used in EIGRP calculations** (set to 0). | _Disabled by default_     | **0**               | **1500 bytes** (standard Ethernet MTU)              |
 
-
-
-
-
 ## 📋 **IP Addressing Table**  
 
 | 🖥️ **Device** | 🌐 **Interface** | 🏷️ **IP Address** | 🧮 **Subnet Mask** | 🛜 **Network Address (CIDR)** |
@@ -74,11 +67,11 @@ This is a network topology consisting of **8 internal routers** (R1 to R8) and o
 | **R3**       | Eth0/0         | 10.3.0.1         | 255.255.255.252 | 10.3.0.0/30              |
 |              | Eth0/1         | 10.2.0.2         | 255.255.255.252 | 10.2.0.0/30              |
 |              | Eth0/3         | 192.168.3.1      | 255.255.255.0   | 192.168.3.0/24           |
-| **R4**       | Eth0/0         | 10.4.0.1         | 255.255.255.252 | 10.4.0.0/30              |
+| **R4 (ISP)** | Eth1/0         | 123.123.123.1    | 255.255.255.252 | 123.123.123.0/30         |
+|              | Eth0/0         | 10.4.0.1         | 255.255.255.252 | 10.4.0.0/30              |
 |              | Eth0/1         | 10.3.0.2         | 255.255.255.252 | 10.3.0.0/30              |
 |              | Eth0/3         | 192.168.4.1      | 255.255.255.0   | 192.168.4.0/24           |
-| **R5 (ISP)** | Eth1/0         | 123.123.123.1    | 255.255.255.252 | 123.123.123.0/30         |
-|              | Eth0/0         | 10.5.0.1         | 255.255.255.252 | 10.5.0.0/30              |
+| **R5**       | Eth0/0         | 10.5.0.1         | 255.255.255.252 | 10.5.0.0/30              |
 |              | Eth0/1         | 10.4.0.2         | 255.255.255.252 | 10.4.0.0/30              |
 |              | Eth0/3         | 192.168.5.1      | 255.255.255.0   | 192.168.5.0/24           |
 | **R6**       | Eth0/0         | 10.6.0.1         | 255.255.255.252 | 10.6.0.0/30              |
