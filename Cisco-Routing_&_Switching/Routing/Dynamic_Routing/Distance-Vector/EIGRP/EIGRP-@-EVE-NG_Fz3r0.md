@@ -1273,7 +1273,22 @@ If ping is sent from PC8 (same distance, metric, hops) it will balance IP sessio
 
 ![image](https://github.com/user-attachments/assets/fa0d46c4-d5e1-4570-8077-7eb734ef763d)
 
+---
 
+### Changing Maximum-Path (for load balancing)
+
+- El default y mejor práctica es 4 (Solo un ISP podría cambiar esto, pero un ISP no usaría EIGRP)
+
+````
+enable
+configure terminal
+
+route eigrp 666
+maximum-paths 4
+end
+
+write memory
+````
 
 
 
