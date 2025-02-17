@@ -1275,22 +1275,40 @@ If ping is sent from PC8 (same distance, metric, hops) it will balance IP sessio
 
 ---
 
-### Changing Maximum-Path (for load balancing)
+### ⚖️ EIGRP: `maximum-paths`**
 
-- El default y mejor práctica es 4 (Solo un ISP podría cambiar esto, pero un ISP no usaría EIGRP)
+- **`maximum-paths`** defines how many equal-cost routes EIGRP can use simultaneously.
+- By **default**, it's **4 routes** (Cisco Best Practice).
 
-````
+Changing Maximum Paths effects:
+
+- **Increasing** it (e.g., `maximum-paths 8`): Rarely useful unless multiple equal-cost routes exist.
+- **Reducing** it (e.g., `maximum-paths 1`): Disables load balancing, using only one route.
+
+### 💡 **Why is Keeping `maximum-paths` at 4 Recommended?**
+
+- ✅ **Cisco Best Practice:** 4 is optimal for redundancy and performance.  
+- ✅ **Efficient CPU Use:** More than 4 routes can be inefficient.  
+- ✅ **High Availability:** Multiple routes ensure failover protection.  
+- ✅ **Traffic Stability:** Prevents asymmetric routing and TCP out-of-order issues.
+
+**Recommended Configuration on R8:**
+
+```py
+! ## Changing Maximum Paths @ eigrp 666
+!
 enable
 configure terminal
-
-route eigrp 666
+!
+router eigrp 666
 maximum-paths 4
 end
-
+!
 write memory
-````
+!
 
 
+```
 
 
 
