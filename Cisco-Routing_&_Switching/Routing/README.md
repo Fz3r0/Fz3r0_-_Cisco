@@ -122,11 +122,24 @@ Esta tabla detalla las diferencias clave entre los distintos **Routing Protocols
 
 
 
+
+
+
+## Administrative Distance
+
+![image](https://github.com/user-attachments/assets/da08d869-af14-481a-829a-815b5e5a89f6)
+
+https://www.networkurge.com/2020/04/administrative-distance-of-ip-routing.html
+
+
+
+
 ## Resources
 
 - https://edukedar.com/routing-protocols/#gsc.tab=0
 - https://www.baeldung.com/cs/routing-igp-egp-protocols
 - https://en.wikipedia.org/wiki/Routing_protocol#Routed_protocols
+- https://www.networkurge.com/2020/04/administrative-distance-of-ip-routing.html
 
 
 
