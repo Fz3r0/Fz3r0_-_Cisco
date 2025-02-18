@@ -120,8 +120,6 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 - A router can belong to multiple areas, but if only 1 area is used it's must be the Area 0 (Backbone).
 
 
-![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
-
 ### 🩻 OSPF Area 0 (Backbone)
 
 - When all routers are within a single area (Area 0), they share a complete **Link-State Database (LSDB)**, they will be "BD Full" (Full Database). 
@@ -137,7 +135,7 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 - **Area Border Routers (ABRs)** connect different areas and maintain separate LSDBs for each area.  
 - ABRs must be **powerful routers** because they handle multiple databases and route summarization.
 
----
+![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
 
 ### 🧩 OSPF Router Types and Features by Area
 
@@ -147,8 +145,6 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 | 🟡 **Internal Router (IR)** | All interfaces are in the same OSPF area. |
 | 🔵 **Area Border Router (ABR)** | Connects two or more OSPF areas. Maintains multiple LSDBs. |
 | 🟣 **Autonomous System Boundary Router (ASBR)** | Connects OSPF to other routing protocols (e.g., EIGRP, BGP, RIP). |
-
----
 
 ### 🌉 OSPF Area Types
 
