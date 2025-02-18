@@ -33,16 +33,63 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 |---------|---------------------|
 | **Protocol Number** | `89` |
 | **Standard** | Open standard (OSPF v2 RFC 2328 for IPv4, OSPF v3 RFC 5340 for IPv6) |
-| **Type** | Link-State |
+| **Type** | Link-State (Using Bandwidthi) |
 | **Algorithm** | Dijkstra’s Shortest Path First (SPF) |
 | **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |
 | **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
-| **Administrative Distance (AD)** | **Internal:** `110` → Routes within the same OSPF area. <br> **External:** `170` → Routes redistributed from other protocols (EIGRP, RIP, etc.). <br> **Summary:** `5` → Manually configured summary routes (trusted due to admin configuration). |
+| **Administrative Distance (AD)** | `110` |
 | **Multicast IP (SPF)** | `224.0.0.5` |
 | **Multicast IP (DR/BDR)** | `224.0.0.6` |
 | **Multicast MAC (SPF)** | `01:00:5E:00:00:05` |
 | **Multicast MAC (DR/BDR)** | `01:00:5E:00:00:06` |
 | **Equal Cost Multipath (ECMP)** | **Default:** `4`, **Maximum:** `32` |
+
+**Notes:**
+
+- Type: Link-State from bandwidth: se refiere a que el router busca por la ruta con el mejor "estado", hay diferentes "states" como lo es el bandwidth, el delay, nivel de errores, MTU, carga, confiabilidad, etc... OSPF al ser link.state utiliza solo uno de esos estados y es el ancho de banda.
+- SPF & databases: SPF lo que hace es guardar bases de datos con la informacion de TODOS los routers que están participando en OSPF de la red, guarda la información tanto del router como de todas sus rutas, decide cual es el mejor camino comparando los routers que tiene en su base de datos. 
+
+
+
+## 🌐 OSPF: P2P vs Multi-Access Networks 
+
+### 🔄 **Key Differences:**
+
+- **↔️ Point-to-Point (P2P) Networks:**
+
+  - Direct router-to-router communication.
+  - OSPF messages use multicast IP address `224.0.0.5` (Layer 3) and multicast MAC address `01:00:5E:00:00:05` (Layer 2).
+  - Simple 1-to-1 communication. 
+
+![image](https://github.com/user-attachments/assets/da47ca2b-b373-4895-a846-788096180701)
+  
+- **🔀 Multi-Access Networks (e.g., Using eth Switch to connect various routers):**
+
+  - OSPF messages use a "one-to-many" model, where multiple routers share the same network.
+  - Requires a **Designated Router (DR)** to manage communication, reducing overhead. 🧑‍💼
+  - DR centralizes OSPF exchanges to minimize unnecessary message flooding. ⚙️
+
+![image](https://github.com/user-attachments/assets/5e9d181a-87cf-4625-ab5e-fa6dad9a9785)
+
+### **Roles:**
+
+| **Role**                | **Description**                                                                                      |
+|-------------------------|------------------------------------------------------------------------------------------------------|
+| **🏆 Designated Router (DR)** | Manages OSPF exchanges in multi-access networks, acting as the central point for OSPF communication.  |
+| **🛡️ Backup DR (BDR)**    | A standby router that takes over if the DR fails, ensuring continuous OSPF operations. |
+
+### **Multicast Communication 🔊:**
+
+- **📡 P2P Communication:**
+  - Multicast to `224.0.0.5` for direct router communication.
+
+- **🔄 Multi-Access Communication:**
+  - DR sends OSPF updates to other routers using multicast, centralizing control.
+
+
+
+
+
 
 
 
