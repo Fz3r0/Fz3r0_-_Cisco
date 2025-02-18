@@ -295,7 +295,8 @@ OSPF may not be the best choice when:
 
 ### Frame Exchange
 
-![image](https://github.com/user-attachments/assets/f2fbd6c4-92aa-4217-a69f-066fa8d346c9)
+![image](https://github.com/user-attachments/assets/ead52c1b-363b-4468-bd11-defdfef74b5c)
+
 
 
 
