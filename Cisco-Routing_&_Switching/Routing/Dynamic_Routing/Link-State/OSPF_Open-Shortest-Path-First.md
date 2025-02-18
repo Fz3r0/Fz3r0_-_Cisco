@@ -123,7 +123,8 @@ Algo elemental y de hecho una gran caracteritica de OSPF son las "OSPF Areas"
 
 ### OSPF Areas 
 
-- Siempre se debe iniciar con el area 0 mejor conocida como backbone
+- Siempre se debe iniciar con el area 0 mejor conocida como "backbone"
+- Ahora en cada area los routers solo guardaran la BD de los routers en su area
 
 ![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
 
