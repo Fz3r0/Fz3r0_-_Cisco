@@ -108,32 +108,57 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 
 
 
-## OSPF: Areas
 
-Algo elemental y de hecho una gran caracteritica de OSPF son las "OSPF Areas" 
 
-- Cada router debe pertenecer minimo a un area, puede pertenecer a mas de una, pero forzosamente minimo debe perteencer a una (Area 0 / Backbone). 
 
-### OSPF Area 0
+## 🌐 OSPF: Areas
 
-- Cuando todos los routers pertenencen a una sola area (area 0), van a ser "BD Full", es decir, tendran la base de datos de cada uno de los routers de toda el area, osea todos!
-- CAUTION!!! aqui el prolema es que si existiriera una red muy grande de muchos routers, todos guardarían ifnormacion de todos, por ejemplo una red de 100 routers. Esto haría las bases de datos enormen e inmanejables, para esto se necesitarian mas areas....
+Open Shortest Path First (OSPF) is a link-state routing protocol that divides networks into areas to optimize routing and reduce overhead. 
 
-![image](https://github.com/user-attachments/assets/ea339a48-dd40-4da6-b850-d2a024ad3e39)
-
-### OSPF Areas 
-
-- Siempre se debe iniciar con el area 0 mejor conocida como "backbone"
-- Ahora en cada area los routers solo guardaran la BD de los routers en su area (excepto por el ABR que tendra la BD de ambas areas colindantes, este debe ser un router reobusto por obvias razones)
-
-Tabla de features:
-
-Backbone
-OSPF BD
-ABR
+- Each router must belong to at least one OSPF area.  
+- The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
+- A router can belong to multiple areas, but if only 1 area is used it's must be the Area 0 (Backbone).
 
 
 ![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
+
+### 🩻 OSPF Area 0 (Backbone)
+
+- When all routers are within a single area (Area 0), they share a complete **Link-State Database (LSDB)**, they will be "BD Full" (Full Database). 
+- This means they will have the complete database of every single router in the area (Area 0)
+- 💀 **Warning!!!:** In large networks (e.g., 100 routers), a single area can lead to a huge LSDB, increasing CPU and memory usage.  
+- Solution: **Divide the network into multiple areas** to reduce overhead.
+
+![image](https://github.com/user-attachments/assets/ea339a48-dd40-4da6-b850-d2a024ad3e39)
+
+### 🦴 OSPF Multi-Area Design
+
+- All areas must connect to Area 0 (Backbone).  
+- **Area Border Routers (ABRs)** connect different areas and maintain separate LSDBs for each area.  
+- ABRs must be **powerful routers** because they handle multiple databases and route summarization.
+
+---
+
+### 🧩 OSPF Router Types and Features by Area
+
+| 🛡️ Router Type        | 📝 Description |
+|-----------------------|---------------|
+| 🟠 **Backbone Router (BR)** | Router with at least one interface in Area 0. |
+| 🟡 **Internal Router (IR)** | All interfaces are in the same OSPF area. |
+| 🔵 **Area Border Router (ABR)** | Connects two or more OSPF areas. Maintains multiple LSDBs. |
+| 🟣 **Autonomous System Boundary Router (ASBR)** | Connects OSPF to other routing protocols (e.g., EIGRP, BGP, RIP). |
+
+---
+
+### 🌉 OSPF Area Types
+
+| 🧩 Area Type       | 📝 Description |
+|--------------------|---------------|
+| **Backbone Area (Area 0)** | Core of the OSPF network. All other areas must connect here. |
+| **Standard Area**  | Typical OSPF area with full routing information. |
+| **Stub Area**      | Blocks external routes, reducing overhead. |
+| **Totally Stubby Area** | Blocks both external and inter-area routes, only default route is allowed. |
+| **NSSA (Not-So-Stubby Area)** | Allows external routes (from ASBR) but still reduces overhead. |
 
 
 
