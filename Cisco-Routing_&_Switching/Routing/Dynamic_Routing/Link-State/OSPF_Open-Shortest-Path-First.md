@@ -107,13 +107,47 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 
 
 
-## 🌐 OSPF: Ecual Cost Multipath (ECMP / Load Balancing)
 
-Cuando OSPF tiene multiploes rutas pàra llegar al mismo destino, y ambas trutas tienen el mismo ancho de banda, OSPF es capaz de hacer un load balancing donde tecnicamente se pod´ria dividir el trafico 50/50 entre ambas rutas. 
+## OSPF: Areas
 
-- Por defecto el balance de carga puede ser hasta de 4 enlaces, pero se puede subir hasta un maximo de 32 (en la vida real practicamente nunca se vera un router con 32 enlaces con una misma metrica que vayan a un mismo destino...)
+Algo elemental y de hecho una gran caracteritica de OSPF son las "OSPF Areas" 
 
-![image](https://github.com/user-attachments/assets/210d952d-603f-4c57-8598-1d09043e7d80)
+- Cada router debe pertenecer minimo a un area, puede pertenecer a mas de una, pero forzosamente minimo debe perteencer a una (Area 0 / Backbone). 
+
+### OSPF Area 0
+
+- Cuando todos los routers pertenencen a una sola area (area 0), van a ser "BD Full", es decir, tendran la base de datos de cada uno de los routers de toda el area, osea todos!
+- CAUTION!!! aqui el prolema es que si existiriera una red muy grande de muchos routers, todos guardarían ifnormacion de todos, por ejemplo una red de 100 routers. Esto haría las bases de datos enormen e inmanejables, para esto se necesitarian mas areas....
+
+![image](https://github.com/user-attachments/assets/ea339a48-dd40-4da6-b850-d2a024ad3e39)
+
+### OSPF Areas 
+
+- Siempre se debe iniciar con el area 0 mejor conocida como backbone
+
+![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1296,6 +1330,7 @@ tracert 8.8.8.8
 # 📚🗂️🎥 Resources
 
 - [Distance Vector VS Link State](https://www.routexp.com/2020/03/routing-basics-distance-vector-vs-link.html)
+- [OSPF a fondo](https://youtu.be/Izm-8BQLRiI?si=TgYYhEefuvJQMJFY)
   
 ---
 
