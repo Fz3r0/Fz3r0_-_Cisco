@@ -91,17 +91,16 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 
 When OSPF has multiple equal-cost routes to the same destination, and both (or more) paths have the same bandwidth, OSPF can perform **load balancing**. Technically, the traffic could be divided 50/50 between the two routes, optimizing resource utilization. 
 
-## 🌐 OSPF: Equal-Cost MultiPath (ECMP / Load Balancing)
+| 🚀 Feature / Scenario     | 📝 Description                                                                             |
+|-----------------------|-------------------------------------------------------------------------------------------------|
+| 🔄 Load Balancing     | Splits traffic across multiple equal-cost paths for better bandwidth use and redundancy.       |
+| ⚡ Maximum Paths      | Supports up to 4 paths by default, configurable up to 32 (32 are not seen in real-world scenarios).                                       |
+| 🔧 Route Calculation  | Installs routes only if they have identical costs.                                              |
+| 🛡️ Redundancy        | Provides automatic failover by rerouting traffic when a path fails.                            |
+| 📊 Load Distribution  | Prevents congestion by spreading traffic over multiple links.                                   |
+| 🧑‍💻 Router Behavior   | Uses methods like round-robin or hashing to distribute traffic over equal-cost routes.         |
+| 🔍 Limitations        | Older hardware may not support ECMP, or may have lower path limits.                            |
 
-| 🚀 ECMP in OSPF               | 📝 Description                                                                                 | 🌎 Real-World Example                                          |
-|-----------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------|
-| 🔄 Load Balancing     | Splits traffic across multiple equal-cost paths for better bandwidth use and redundancy.         | Data center routers balancing traffic across redundant links.  |
-| ⚡ Maximum Paths      | Supports up to 4 paths by default, configurable up to 32.                                        | ISP backbone routers using multiple fiber paths.              |
-| 🔧 Route Calculation  | Installs routes only if they have identical costs.                                                | OSPF balancing routes through two identical MPLS circuits.    |
-| 🛡️ Redundancy        | Provides automatic failover by rerouting traffic when a path fails.                            | Enterprise networks ensuring uptime during link failures.      |
-| 📊 Load Distribution  | Prevents congestion by spreading traffic over multiple links.                                    | E-commerce platforms managing peak traffic loads.              |
-| 🧑‍💻 Router Behavior   | Uses methods like round-robin or hashing to distribute traffic over equal-cost routes.         | Cloud providers routing traffic across multiple WAN links.    |
-| 🔍 Limitations        | Older hardware may not support ECMP, or may have lower path limits.                            | Legacy routers in small offices lacking ECMP support.         |
 
 ![image](https://github.com/user-attachments/assets/210d952d-603f-4c57-8598-1d09043e7d80)
 
