@@ -104,13 +104,13 @@ Several protocols facilitate VLAN operation and scalability:
 
 
 
+---
+
+super huint de la manda: `show vlan internal usage` hay switches viejso que usan una vlan para algo internamente como el catañlyst 4503
 
 
 
-
-
-
-
+---
 
 
 
