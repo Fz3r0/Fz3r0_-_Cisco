@@ -603,8 +603,8 @@ exit
 ! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
 interface ethernet 1/0
 description TRUNK_LINK_SW1<->SW2
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
 switchport trunk allowed vlan 10,20,50,99
 switchport trunk native vlan 99
 end
@@ -615,7 +615,9 @@ write memory
 !
 show vlan
 !
-
+!
+show interfaces trunk
+!
 ````
 
 
@@ -664,8 +666,8 @@ exit
 ! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
 interface ethernet 1/0
 description TRUNK_LINK_SW1<->SW2
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
 switchport trunk allowed vlan 10,20,50,99
 switchport trunk native vlan 99
 end
@@ -676,6 +678,9 @@ write memory
 !
 show vlan
 !
+!
+show interfaces trunk
+!
 
 ````
 
@@ -684,45 +689,47 @@ show vlan
 ````py
 ## VPC CONFIGURATION:
 
-### VPC-1 (HR Department)
+### VPC-1 
 set pcname VPC-1
 ip 192.168.10.1 255.255.255.0
 save
 
-### VPC-2 (HR Department)
+### VPC-2 
 set pcname VPC-2
 ip 192.168.10.2 255.255.255.0
 save
 
-### VPC-3 (IT Department)
+### VPC-3 
 set pcname VPC-3
 ip 192.168.20.1 255.255.255.0
 save
 
-### VPC-4 (IT Department)
+### VPC-4
 set pcname VPC-4
 ip 192.168.20.2 255.255.255.0
 save
 
-### VPC-5 (HR Department)
+### VPC-5 
 set pcname VPC-5
 ip 192.168.10.3 255.255.255.0
 save
 
-### VPC-6 (HR Department)
+### VPC-6 
 set pcname VPC-6
 ip 192.168.10.4 255.255.255.0
 save
 
-### VPC-7 (IT Department)
+### VPC-7
 set pcname VPC-7
 ip 192.168.20.3 255.255.255.0
 save
 
-### VPC-8 (IT Department)
+### VPC-8 
 set pcname VPC-8
 ip 192.168.20.4 255.255.255.0
 save
+
+
 ````
 
 
@@ -804,8 +811,9 @@ name VLAN-99-NATIVE-TRUNK
 !
 interface ethernet 1/0
 description TRUNK_LINK_SW1<->SW2
-switchport mode trunk
 switchport trunk encapsulation dot1q
+switchport mode trunk
+
 switchport trunk allowed vlan 10,20,50,99
 switchport trunk native vlan 99
 no shutdown
