@@ -449,9 +449,7 @@ save
 
 
 
-## 📞 Switch-Based Network (Trunk VLANs)  
-
-
+## 🔀 Switch-Based Network (Trunk VLANs)  
 
 ### 📝 **How It Works**  
 
@@ -468,7 +466,97 @@ save
 - VLAN 20 (BRAVO) → IT Department (PCs & Laptops) = Trunk Allowed VLAN
 - VLAN 99 (NATIVE) → Native VLAN (For 802.1q Trunk encapsulation) = Trunk Native VLAN
 
-### 🛠 Switch-1 Configuration 
+
+
+
+Understanding these differences ensures that **you can confidently configure VLAN trunks across any network environment**, regardless of the **vendor or standard**. 🚀🔥  
+
+
+
+
+
+
+
+
+
+## 🔀 **Switch-Based Network (Trunk VLANs - 802.1Q)**  
+
+### 📝 **How It Works**  
+
+In this configuration, we're dealing with **VLAN trunking** using the **802.1Q encapsulation** protocol. This allows multiple VLANs to travel over a single link between switches. A **trunk link** is created between two switches, and multiple VLANs are allowed to pass through this trunk. To make this work, the trunk uses **802.1Q encapsulation**, which tags each frame with the VLAN ID to keep traffic isolated and maintain VLAN segmentation.
+
+- **802.1Q** allows multiple VLANs to share a single physical link by tagging Ethernet frames with VLAN identifiers.
+- The **native VLAN** is the default VLAN used for untagged traffic on the trunk link.
+- The trunk link allows us to specify which VLANs are allowed to traverse the link, improving network performance and security.
+
+### 🌍 **Real-World Example**
+
+In a **typical enterprise setup**, VLAN trunking is used to allow communication between different parts of the network. For instance:
+
+- **VLAN 10 (ALFA)** → HR Department (PCs & Laptops)
+- **VLAN 20 (BRAVO)** → IT Department (PCs & Laptops)
+- **VLAN 99 (NATIVE)** → Native VLAN (used for 802.1Q trunk encapsulation)
+
+This setup ensures that traffic from different VLANs can flow between switches without leaking into other VLANs, while untagged frames (typically for management or legacy devices) go through the native VLAN.
+
+### 📌 **Example VLAN Setup**:
+
+- **VLAN 10 (ALFA)** for the HR Department.
+- **VLAN 20 (BRAVO)** for the IT Department.
+- **VLAN 50 (VOICE)** for Voice over IP (VoIP) services.
+- **VLAN 99 (NATIVE)** as the Native VLAN for trunk links.
+
+---
+
+
+### 🔍 VLANs & Trunks: 802.1Q vs ISL vs Tagged/Untagged VLANs**  
+
+In modern networking, VLANs (Virtual Local Area Networks) are **essential for traffic segmentation**, security, and scalability. However, different **vendors and standards** have implemented VLAN trunking in **different ways**, leading to various **encapsulation methods and configurations**.  
+
+Understanding different trunking concepts:
+
+- 🌎 Different Vendors, Different Methods – Not all networks use Cisco switches. Juniper, HP, Ruckus/Brocade, Arista, and Extreme handle VLAN trunking differently, so knowing their approach is crucial for compatibility.
+- 🔗 Avoid Misconfigurations & VLAN Leaks – Each vendor uses 802.1Q, ISL, or Tagged/Untagged VLANs differently. Misunderstanding these can cause trunk failures, connectivity issues, or VLAN leaks.
+- 🏢 Legacy vs Modern Networks – Older Cisco networks may still use ISL, while modern setups rely on 802.1Q. Meanwhile, non-Cisco vendors replace Trunk & Allowed VLANs with Tagged/Untagged VLANs for trunking.
+
+**⚠️ Best Practice:** While it is possible to mix different vendors, models, and VLAN trunking methods, the **best practice is to standardize on a single vendor, model series, and VLAN trunking method whenever possible**. Even if configured correctly, mixing different vendors can introduce firmware bugs, hidden incompatibilities, or unexpected behavior that may cause network instability.
+
+
+| **Feature**              | **802.1Q (Dot1Q)** 🌐 | **ISL (Inter-Switch Link)** 🔗 | **Tagged/Untagged (Non-Cisco Vendors)** 🎭 |
+|--------------------------|----------------------|------------------------|--------------------------------|
+| **Standard**            | IEEE **802.1Q** (Industry Standard) | Cisco Proprietary | Vendor-Specific (Implemented Differently by Juniper, Ruckus/Brocade, HP, etc.) |
+| **Vendor**              | Multi-vendor (Cisco, Juniper, HP, Arista, etc.) | Cisco-only | Used by non-Cisco vendors (Ruckus/Brocade, HP, Extreme, Juniper, etc.) |
+| **Year Introduced**     | **1998** | **Mid-1990s** | **Varies by vendor** |
+| **Layer**               | **Layer 2 (Data Link)** | **Layer 2 (Data Link)** | **Layer 2 (Data Link)** |
+| **Encapsulation Method** | Inserts a **4-byte VLAN tag** into the Ethernet frame | **Encapsulates the entire Ethernet frame** with a **26-byte header** + **4-byte trailer** | Uses **Tagged VLANs** for trunk-like behavior & **Untagged VLANs** for default/native traffic |
+| **VLAN ID Range**       | **1-4094** (12-bit VLAN field) | **1-1005** (10-bit VLAN field) | **1-4094**, varies by vendor |
+| **Native VLAN Support** | ✅ **Yes** (Native VLAN traffic is sent untagged) | ❌ **No** (All frames are encapsulated, no native VLAN concept) | ✅ **Yes**, but called **Untagged VLAN** instead of Native VLAN |
+| **Frame Size Overhead** | **4 bytes** added to the Ethernet frame | **30 bytes** added (high overhead) | **Tagged VLANs add 4 bytes**, **Untagged VLANs remain at 1518 bytes** |
+| **Maximum Frame Size**  | **1522 bytes** (1518 + 4-byte VLAN tag) | **1548 bytes** (1518 + 30-byte ISL encapsulation) | **Tagged: 1522 bytes**, **Untagged: 1518 bytes** |
+| **MTU Impact**          | Slight increase due to **4-byte tag** | Significant due to **30-byte encapsulation** | Same as **802.1Q** (depends on whether frames are tagged) |
+| **Trunking Support**    | ✅ **Yes** (Industry standard for multi-VLAN links) | ✅ **Yes** (Only between Cisco devices) | ✅ **Yes**, but implemented differently per vendor |
+| **How VLANs Are Assigned** | Uses **Access Ports (1 VLAN)** and **Trunk Ports (Multiple VLANs)** | Uses **Trunk Ports Only** (Every frame is encapsulated) | Uses **Untagged VLAN (Similar to Native VLAN)** + **Tagged VLANs (Similar to Allowed VLANs in Cisco)** |
+| **Interoperability**    | ✅ **Vendor-neutral, works across all major vendors** | ❌ **Cisco-only (Not supported by other vendors)** | ✅ **Vendor-specific implementations, but interoperable with 802.1Q** |
+| **Real-World Scenario** | A **Cisco switch** communicating with a **Juniper or HP switch** over a trunk link | **Legacy Cisco networks** using older switches with ISL support | **Ruckus/Brocade, HP, and Juniper switches** use **Untagged VLAN** for default traffic & **Tagged VLANs** for multi-VLAN links |
+| **Current Adoption**    | ⭐⭐⭐⭐⭐ (Industry Standard, Most Common) | ⭐ (Deprecated, replaced by 802.1Q) | ⭐⭐⭐⭐ (Common in non-Cisco environments) |
+
+
+1️⃣ **802.1Q (Cisco & Multi-Vendor Standard)**
+   - Uses **Native VLAN** for untagged traffic.  
+   - Uses **Allowed VLANs** for tagged VLANs on trunk ports.  
+   - **Industry standard, works across vendors** (Cisco, Juniper, HP, etc.).  
+
+2️⃣ **ISL (Cisco Proprietary)**
+   - Encapsulates entire Ethernet frame (**High Overhead, Deprecated**).  
+   - **Cisco-only** and replaced by **802.1Q** in modern networks.  
+
+3️⃣ **Tagged/Untagged VLANs (Ruckus, Brocade, HP, Juniper)**
+   - **Untagged VLAN** = Default VLAN (Similar to Cisco’s Native VLAN).  
+   - **Tagged VLANs** = VLANs allowed through the trunk (Similar to Cisco’s Allowed VLANs).  
+   - **Different syntax, but functionally similar to Cisco trunking**.  
+
+
+#### 🛠 Switch-1 Configuration 
 
 ````py
 !## SWITCH 1 CONFIGURATION:
@@ -639,6 +727,139 @@ save
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🔀 Switch-Based Network (Trunk VLANs using VTP)
+
+### 📝 **How It Works**
+
+VTP (VLAN Trunking Protocol) allows switches to share VLAN information. It simplifies network management by enabling a centralized VLAN configuration on one switch (VTP Server), which then propagates to other switches (VTP Clients) in the same domain.
+
+- **VTP does not directly depend on encapsulation (ISL or 802.1Q); its main function is to propagate VLANs between the switches in the network.** So, VTP mostly use a traditional 802.1q VLAN/Trunk base config, and share that config to other switches in the network (VTP domain)
+
+**VTP Switch modes:**
+
+- **VTP Server**: The switch where VLANs are created and managed. The VLAN information is propagated to all other switches in the VTP domain.
+- **VTP Client**: Switches that receive VLAN information from the VTP server but cannot modify the VLAN database.
+
+The VTP domain name and password (if configured) must match across all switches in the same VTP domain.
+
+### 🌍 Real-World Example
+
+📌 Example VLAN Setup:
+
+- **VLAN 10 (ALFA)** for the HR Department.
+- **VLAN 20 (BRAVO)** for the IT Department.
+- **VLAN 50 (VOICE)** for Voice over IP (VoIP) services.
+- **VLAN 99 (NATIVE)** as the Native VLAN for trunk links.
+
+### 🛠 Switch-1 Configuration
+
+```py
+!## SWITCH 1 CONFIGURATION (VTP Mode Server):
+!
+! ### Initialize the Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### Configure VTP Domain:
+! # Ensure the VTP domain is the same on all switches
+vtp domain Fz3r0_VTP_Domain
+!
+! ### Configure VTP Mode (Server Mode):
+! # In this mode, VLANs are created and propagated
+vtp mode server
+!
+! ### Set VTP Password (optional but recommended):
+! # The password must be the same on all switches for security
+vtp password p4SSw0rd
+!
+! ### Create VLANs (these VLANs will be propagated):
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Configure Trunk Port (802.1Q encapsulation):
+!
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+no shutdown
+exit
+end
+!
+! ### Save & Check Config:
+!
+write memory
+!
+show vtp status
+!
+!
+
+````
+
+### 🛠 Switch-2 Configuration
+
+````py
+!## SWITCH 2 CONFIGURATION (VTP Mode Client):
+!
+! ### Initialize the Switch:
+!
+enable
+configure terminal
+hostname SW-2
+!
+! ### Configure VTP Domain:
+! # Ensure the VTP domain is the same on all switches
+vtp domain Fz3r0_VTP_Domain
+!
+! ### Configure VTP Mode (Client Mode):
+! # This switch only receives VLANs from the Server and cannot modify them
+vtp mode client
+!
+! ### Set VTP Password (must match with server password):
+! # The password must be the same on all switches for security
+vtp password p4SSw0rd
+!
+! ### Configure Trunk Port (802.1Q encapsulation):
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+no shutdown
+exit
+!
+end
+!
+! ### Save Configuration:
+write memory
+!
+
+````
 
 
 
