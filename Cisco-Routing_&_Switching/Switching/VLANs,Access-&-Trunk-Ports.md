@@ -622,17 +622,17 @@ name VLAN-99-NATIVE-TRUNK
 ! ### Assign VLANs to Access Interfaces:
 !
 interface range ethernet 0/0-1
-description VLAN-10-ALFA
+description VLAN-20-BRAVO
 switchport mode access
-switchport access vlan 10
+switchport access vlan 20
 switchport voice vlan 50
 no shutdown
 exit
 !
 interface range ethernet 0/2-3
-description VLAN-20-BRAVO
+description VLAN-10-ALFA
 switchport mode access
-switchport access vlan 20
+switchport access vlan 10
 switchport voice vlan 50
 no shutdown
 exit
