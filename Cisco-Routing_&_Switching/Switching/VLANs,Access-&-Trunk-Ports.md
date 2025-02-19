@@ -121,6 +121,8 @@ This section covers **basic VLAN configurations** for different network scenario
 
 ## **🔗 NO VLAN used: `Peer-to-Peer (PC to PC Direct Connection)`**  
 
+![image](https://github.com/user-attachments/assets/5ea9c2af-2298-4188-b675-c5e58ef9746c)
+
 ### 📝 Peer-to-Peer: **`How It Works`**  
 
 - Two PCs are **directly connected** using an Ethernet cable.  
@@ -152,6 +154,8 @@ save
 
 ## 🔄 Hub-Based Network
 
+![image](https://github.com/user-attachments/assets/ddb6c424-205b-4f12-8c1c-9038a46c897a)
+
 ### 📝 Hub: How It Works
 
 - A hub is used to connect multiple PCs, but it still behaves like a single collision domain.
@@ -179,84 +183,82 @@ set pcname VPC-2
 ip 192.168.0.2 255.255.255.0
 save
 
-### VPC-3
-set pcname VPC-3
-ip 192.168.0.3 255.255.255.0
-save
 
-### VPC-4
-set pcname VPC-4
-ip 192.168.0.4 255.255.255.0
-save
 ````
 
 
 
+## 🖧 Switch-Based Network (Access VLANs)
 
+### 📝 How It Works
 
+- A Layer 2 switch introduces VLAN segmentation, creating separate broadcast domains.
+- Each VLAN operates as its own isolated network unless a router or Layer 3 switch enables inter-VLAN communication.
+- Devices within the same VLAN can communicate, but different VLANs cannot without additional configuration.
 
+### 🌍 Real-World Example
 
-## Peer-to-Peer (PC to PC)
+Used in enterprise networks to separate departments, such as:
 
-No switches or hubs used, its a direct connection that in the past needed crossover cables (now you can also use staight)
+- VLAN 10 (ALFA) = HR Department
+- VLAN 20 (BRAVO) = IT Department
+- VLAN 69 (CHARLY) = Management-VLAN
 
-Solo se necesita crear una IP que sea del mismo rango y subnet en ambos lados ejemplo 192.168.0.1/24 para PC-A y 192.168.0.2/24, no es necesario gateway nisiuqiera ya que solo es capa 2. 
-
-ejemplo:
-
-### PC-1 & PC-2 (vPC) configuration
+🛠 Switch Configuration (Cisco Example)
 
 ````py
-## VPC CONFIGURATION:
-
-### VPC-1
-set pcname VPC-1
-ip 192.168.0.1 255.255.255.0
-save
-
-### VPC-2
-set pcname VPC-2
-ip 192.168.0.2 255.255.255.0
-save
+!## SWITCH CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/1-2
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+no shutdown
+exit
+!
+interface range ethernet 0/3-4
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+no shutdown
+exit
+!
+! ### Save & Verify Configuration:
+!
+show vlan
+write memory
+!
+!
 ````
 
-## Hub 
-
-Si se usa un hub seguira siendo el mismo collision domain para todas las PCs, es como si fuera un P2P pero de 2 o mas dispositivos, sin segmentan ni separar el trafico, todos se escuchas
-
-Solo se necesita crear una IP que sea del mismo rango y subnet en ambos lados ejemplo 192.168.0.1/24 para PC-A y 192.168.0.2/24, no es necesario gateway nisiuqiera ya que solo es capa 2. 
-
-El hub es plano y no se necesita hacer nada, solo conectar las PCs
 
 
-ejemplo:
-
-### PC-1 & PC-2 (vPC) configuration
 
 
-````py
-## VPC CONFIGURATION:
 
-### VPC-1
-set pcname VPC-1
-ip 192.168.0.1 255.255.255.0
-save
 
-### VPC-2
-set pcname VPC-2
-ip 192.168.0.2 255.255.255.0
-save
 
-### VPC-3
-set pcname VPC-3
-ip 192.168.0.3 255.255.255.0
-save
 
-### VPC-4
-set pcname VPC-4
-ip 192.168.0.4 255.255.255.0
-save
-````
+
+
+
+
+
 
 ## Switch: Access
 
