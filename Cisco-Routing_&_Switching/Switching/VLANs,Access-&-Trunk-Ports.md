@@ -293,8 +293,6 @@ save
 
 
 
-
-
 ## 📞 Switch-Based Network (Access VLANs + Voice VLANs)  
 
 ![image](https://github.com/user-attachments/assets/9a2b9d66-0544-4794-9404-b482beba27af)  
@@ -449,14 +447,77 @@ save
 
 
 
+## 📞 Switch-Based Network (Trunk VLANs)  
+
+
+
+### 📝 **How It Works**  
 
 
 
 
+### 🌍 Real-World Example
 
 
 
+📌 Example VLAN Setup:
 
+- VLAN 10 (ALFA) → HR Department (PCs & Laptops) = Trunk Allowed VLAN
+- VLAN 20 (BRAVO) → IT Department (PCs & Laptops) = Trunk Allowed VLAN
+- VLAN 99 (NATIVE) → Native VLAN (For 802.1q Trunk encapsulation) = Trunk Native VLAN
+
+
+````py
+!## SWITCH CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 99
+name VLAN-99-NATIVE_(TRUNK)
+exit
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-1
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+no shutdown
+exit
+!
+interface range ethernet 0/2-3
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+no shutdown
+exit
+!
+! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
+!
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport mode trunk
+
+!
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+
+````
 
 
 
