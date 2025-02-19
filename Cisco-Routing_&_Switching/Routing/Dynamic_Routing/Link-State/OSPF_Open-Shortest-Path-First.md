@@ -252,29 +252,29 @@ OSPF utilizes **two primary databases** and their corresponding tables, while th
 | 2️⃣ **Link-State DB (LSDB)** | **Topology Table** | Stores the complete OSPF network topology for the area the router belongs to. Contains all routers and their links. | `show ip ospf database` |
 | 3️⃣ **Forwarding DB**        | **Routing Table** | Contains the best paths computed by SPF from the Link-State Database. These are the actual routes used for packet forwarding. | `show ip route ospf` |
 
-## 🔍 Understanding Each Database
+### 🔍 Understanding Each Database
 
-### 1️⃣ **Adjacency Database (Neighbor Table)**
+1️⃣ **Adjacency Database (Neighbor Table)**
 
 - Tracks all OSPF neighbors that have successfully formed an adjacency.
 - Ensures that routers have at least a two-way communication before exchanging LSAs.
 - Can be inspected using `show ip ospf neighbor`.
 
-### 2️⃣ **Link-State Database (LSDB) (Topology Table)**
+2️⃣ **Link-State Database (LSDB) (Topology Table)**
 
 - Contains detailed information about all OSPF routers, links, and network topology.
 - Every router in the same area maintains an identical LSDB.
 - Used by the SPF algorithm to compute the best paths.
 - Viewable with `show ip ospf database`.
 
-### 3️⃣ **Forwarding Database (Routing Table)**
+3️⃣ **Forwarding Database (Routing Table)**
 
 - The **Routing Table** lists the best routes selected by SPF from the LSDB.
 - This is the final product of OSPF’s path calculations.
 - Unlike the LSDB, which stores all possible paths, this table only includes the **best routes**.
 - Can be viewed using `show ip route ospf`.
 
-## 🧐 Key Observations
+🧐 **Key Observations**
 
 - **Not all paths from the LSDB make it into the Routing Table**—only the best routes computed by SPF.
 - The **Topology Table (LSDB) retains information about every router and link**, even those not selected for forwarding.
