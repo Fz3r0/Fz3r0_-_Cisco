@@ -961,6 +961,12 @@ Many modern firewalls, like FortiGate, Palo Alto, and Cisco ASA, are essentially
 ```
 !## ROUTER CONFIGURATION: ROUTER ON A STICK
 !
+!    # IMPORTANT NOTES!!!
+!    # - The Native VLAN does not require an IP address because its primary function is to handle untagged traffic on an 802.1Q trunk.
+!    # - The "encapsulation dot1Q 1 native" command is used on cisco router to a associate a subinterface to a VLAN, configured as Native on the Switch. (default is using automatic/dynamic VLAN)
+!    #   * The other VLANs (non native) does not need to be tagged as "native" in the encapsulation.
+!    # - If "ip routing" is not enabled, the router will not perform inter-VLAN routing. Devices in different VLANs will not be able to communicate with each other, as the router will not forward packets between VLANs.
+!
 ! ### Initialize Router:
 !
 enable
@@ -974,8 +980,7 @@ interface ethernet 0/0
  no shutdown
 !
 ! ### Create Sub-interfaces for VLANs:
-!    # The "encapsulation dot1Q 1 native" command is used on cisco router to a associate a subinterface to a VLAN, configured as Native on the Switch.
-!    # The other VLAN does not need to be tagged as "native" in the encapsulation.
+
 !
 !
 interface ethernet 0/0.10
@@ -1012,15 +1017,12 @@ ip routing
 !
 ! ### Save Configuration:
 !
+end
 write memory
 !
 ! ### Verify Configurations:
 !
 show ip interface brief
-!
-show vlan
-!
-show interfaces trunk
 !
 !
 
