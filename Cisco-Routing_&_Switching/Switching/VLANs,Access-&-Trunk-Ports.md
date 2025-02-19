@@ -449,31 +449,6 @@ save
 
 
 
-## 🔀 Switch-Based Network (Trunk VLANs)  
-
-### 📝 **How It Works**  
-
-
-
-
-### 🌍 Real-World Example
-
-
-
-📌 Example VLAN Setup:
-
-- VLAN 10 (ALFA) → HR Department (PCs & Laptops) = Trunk Allowed VLAN
-- VLAN 20 (BRAVO) → IT Department (PCs & Laptops) = Trunk Allowed VLAN
-- VLAN 99 (NATIVE) → Native VLAN (For 802.1q Trunk encapsulation) = Trunk Native VLAN
-
-
-
-
-Understanding these differences ensures that **you can confidently configure VLAN trunks across any network environment**, regardless of the **vendor or standard**. 🚀🔥  
-
-
-
-
 
 
 
@@ -481,7 +456,8 @@ Understanding these differences ensures that **you can confidently configure VLA
 
 ## 🔀 **Switch-Based Network (Trunk VLANs - 802.1Q)**  
 
-![image](https://github.com/user-attachments/assets/1f59cc79-8220-4cb3-a163-2fefdba74fae)
+![image](https://github.com/user-attachments/assets/e374db23-c049-4271-96ff-a3efe6ef2821)
+
 
 ### 📝 **How It Works**  
 
