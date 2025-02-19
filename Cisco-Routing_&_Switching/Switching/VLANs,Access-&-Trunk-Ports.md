@@ -730,7 +730,7 @@ save
 
 ## 🌐 **Router on a Stick + InterVLAN Routing + (802.1Q Trunking)**
 
-![image](https://github.com/user-attachments/assets/122c5282-b8af-49d0-a718-999c4827f1ac)
+![image](https://github.com/user-attachments/assets/eb441dbb-09aa-4024-a0b5-1d06ba2eecca)
 
 ### 📝 **What is a Router on a Stick?**
 
