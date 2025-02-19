@@ -456,7 +456,7 @@ save
 
 ## 🔀 **Switch-Based Network (Trunk VLANs - 802.1Q)**  
 
-![image](https://github.com/user-attachments/assets/e374db23-c049-4271-96ff-a3efe6ef2821)
+![image](https://github.com/user-attachments/assets/f517bee4-8057-4aaa-9e7c-ff01f40b1c16)
 
 
 ### 📝 **How It Works**  
@@ -725,7 +725,60 @@ save
 
 
 
-## 🔀 Switch-Based Network (Trunk VLANs using VTP)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🔀 VTP for automatic VLAN Database sharing
 
 ### 📝 **How It Works**
 
