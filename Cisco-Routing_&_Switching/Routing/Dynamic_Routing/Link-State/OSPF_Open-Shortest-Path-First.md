@@ -305,19 +305,42 @@ OSPF utilizes **two primary databases** and their corresponding tables, while th
 
 
 
-# 📡 OSPF: **OSPF Messages & Types**
+# 📡 OSPF: **Message Types & Functions**  
 
-| **Message Type**     | **Description**                                                                                     | **Transmission**       | **Reliability**    | **Opcode** | **Sequence Number** |
-|----------------------|-----------------------------------------------------------------------------------------------------|------------------------|--------------------|------------|---------------------|
-| **👋 Hello**          | Sent periodically (**default = 10 seconds**) to discover and maintain neighbor relationships.       | Multicast              | Unreliable         | N/A        | N/A                 |
-| **🗣️ Database Description (DBD)** | Sent to exchange summary information about the LSDB between neighbors.                                | Unicast                | Reliable           | N/A        | Assigned            |
-| **📜 Link-State Request (LSR)**  | Sent to request more detailed information about specific LSAs from neighbors.                         | Unicast                | Reliable           | N/A        | Assigned            |
-| **📑 Link-State Update (LSU)**   | Sent to provide detailed LSA information to neighbors in response to an LSR.                        | Unicast or Multicast   | Reliable           | N/A        | Assigned            |
-| **✅ Link-State Acknowledgment (LSAck)** | Sent to acknowledge the receipt of LSUs.                                                           | Unicast                | Unreliable         | N/A        | N/A                 |
+OSPF relies on five message types for **neighbor discovery, topology exchange, and route calculation**. 
+
+Each message includes a **header** with:  
+
+- **OSPF Version**  
+- **Message Type**  
+- **Packet Length**  
+- **Source OSPF Router ID**  
+- **Area ID**  
+- **Authentication Data**  
+
+### 📨 **OSPF Message Types & Details**  
+
+| **Message Type**                      | **Type** | **Purpose & Key Information**                                                                                                                                  | **Transmission Method**    | **Reliability**   | **Sequence Number** |
+|---------------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------|-------------------|---------------------|
+| **👋 Hello** | `1` | - Sent **every 10 seconds** (default) to establish and maintain neighbor relationships. <br> - Includes the **subnet mask** (not the IP address) of the network where OSPF is enabled. <br> - Contains: **Router Priority, Hello Interval, Designated Router (DR), Backup Designated Router (BDR), and other parameters**. | **Multicast (224.0.0.5)** | **Unreliable** | N/A |
+| **🗣️ Database Description (DBD)** | `2` | - Used to summarize the **Link-State Database (LSDB)** when establishing adjacency. <br> - Contains the **known network topology** of the sending router. <br> - Important fields: <br> &nbsp; &nbsp; 🔹 **Init (1)** → First message, may be multiple. <br> &nbsp; &nbsp; 🔹 **More (1)** → More messages will follow. <br> &nbsp; &nbsp; 🔹 **Master (1)** → Indicates the router initiating the exchange. <br> - After the first message, subsequent messages contain actual **Link-State Advertisements (LSAs)**. | **Unicast** | **Reliable** | **Assigned** |
+| **📜 Link-State Request (LSR)** | `3` | - Sent to request specific **LSAs** from a neighbor. <br> - Initiates **prefix exchange** between routers. <br> - Effectively asks: **"Send me an update with the prefixes you know"** (e.g., LAN subnets each router has learned). | **Unicast** | **Reliable** | **Assigned** |
+| **📑 Link-State Update (LSU)** | `4` | - Sent in response to an LSR, carrying detailed **LSAs**. <br> - Contains the **known prefixes, their links, the router ID announcing them, and any enabled OSPF features**. <br> - Used to propagate topology changes across the OSPF area. | **Unicast & Multicast (224.0.0.5, 224.0.0.6)** | **Reliable** | **Assigned** |
+| **✅ Link-State Acknowledgment (LSAck)** | `5` | - Confirms receipt of LSUs. <br> - Prevents unnecessary retransmissions. | **Unicast** | **Unreliable** | N/A |
+
+
+### 🛠 **OSPF Message Flow Example**  
+
+1️⃣ **Hello** messages are exchanged to discover neighbors.  
+2️⃣ Routers send **DBD** messages to compare topology knowledge.  
+3️⃣ If a router needs more details, it sends an **LSR**.  
+4️⃣ The requested information is provided in an **LSU**.  
+5️⃣ The receiving router sends an **LSAck** to confirm.  
+
+This structured process ensures **efficient, loop-free, and scalable** routing across OSPF-enabled networks. 🌎🚀
 
 - `Reliable` means the message is guaranteed to reach its destination, and the sender knows when it has been received.
 - `Unreliable` means there's no guarantee the message will reach the destination, and the sender doesn't know if it was received.
-- `Opcode` is not directly applicable in OSPF as the messages are categorized by their type and functionality, unlike EIGRP, which assigns specific opcodes to each message.
 - `Sequence Number`: OSPF messages use sequence numbers in the LSU and LSR to track and ensure the correct order and acknowledgment of link-state advertisements.
 
 ### Hello Message
@@ -331,6 +354,15 @@ OSPF utilizes **two primary databases** and their corresponding tables, while th
         - The default hold time is 4 times the Hello interval (e.g., 10 sec Hello = 40 sec Hold Time).
         - If the hold time expires, the router considers the neighbor down and starts recalculating routes.
         - OSPF will then search for alternative routes in the LSDB to maintain network stability.
+
+### OSPF LSA Types
+
+
+
+
+
+
+
 
 ### Frame Exchange
 
