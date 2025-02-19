@@ -972,19 +972,6 @@ show interfaces trunk
 ````
 
 
-
-
-### 🛠 **Switch-1 Configuration (Updated for Router-on-a-Stick)**
-
-```
-!## SWITCH 1 CONFIGURATION (UPDATED FOR ROUTER-ON-A-STICK):
-!
-
-```
-
-
-
-
 ### 🛠 VPC Configuration 
 
 - **PCs must now configure their gateway to enable the router to perform inter-VLAN routing. The gateway address should match the IP of the sub-interface assigned to each VLAN.**
@@ -1056,6 +1043,349 @@ save
 
 
 
+
+
+## 🌐 **Router on a Stick + Internet/ISP + (802.1Q Trunking)**
+
+![image](https://github.com/user-attachments/assets/eb441dbb-09aa-4024-a0b5-1d06ba2eecca)
+
+
+In this example a connection to an ISP is simulated with the router "INTERNET"
+
+
+
+### 📌 **Router Configuration (Router-on-a-Stick + Default Route)**
+
+```py
+!## ROUTER CONFIGURATION: ROUTER ON A STICK + DEFAULT ROUTE
+!
+!    # IMPORTANT NOTES!!!
+!    # - The Native VLAN does not require an IP address because its primary function is to handle untagged traffic on an 802.1Q trunk.
+!    # - The "encapsulation dot1Q 1 native" command is used on cisco router to a associate a subinterface to a VLAN, configured as Native on the Switch. (default is using automatic/dynamic VLAN)
+!    #   * The other VLANs (non native) does not need to be tagged as "native" in the encapsulation.
+!    # - If "ip routing" is not enabled, the router will not perform inter-VLAN routing and devices in different VLANs will not be able to communicate with each other (but can connect to Internet or be manually routed). 
+!    #          For static routing, routing is manually configured using the ip route command, and ip routing is not required to be manually enabled.
+!    #          However, for dynamic routing (such as EIGRP or OSPF), once the protocol is configured, ip routing is implicitly enabled to allow the router to exchange and process routing information.
+!
+! ### Initialize Router:
+!
+enable
+configure terminal
+hostname R1
+!
+! ### Enable Trunking on Router Interface:
+!
+interface ethernet 0/0
+ description Trunk Link to SW-1
+ no shutdown
+!
+! ### Create Sub-interfaces for VLANs:
+!
+interface ethernet 0/0.10
+ description VLAN 10 - ALFA
+ encapsulation dot1Q 10
+ ip address 192.168.10.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.20
+ description VLAN 20 - BRAVO
+ encapsulation dot1Q 20
+ ip address 192.168.20.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.50
+ description VLAN 50 - VOICE
+ encapsulation dot1Q 50
+ ip address 192.168.50.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.99
+ description VLAN 99 - NATIVE VLAN
+ encapsulation dot1Q 99 native
+ no ip address
+ no shutdown
+ exit
+!
+! ### Create Interface for ISP connection
+!
+interface ethernet 0/3
+ description WAN (ROUTER -> ISP)
+ ip address 123.123.123.1 255.255.255.252
+ no shutdown
+ exit
+!
+! # Inject a default route in the border router to get Internet
+ip route 0.0.0.0 0.0.0.0 123.123.123.2
+!
+! ### Save Configuration:
+!
+end
+write memory
+!
+! ### Verify Configurations:
+!
+show ip interface brief
+!
+!
+
+
+```
+
+### 📌 **Internet Router Configuration (Default Route)**
+
+````py
+! ##################
+! ##  ROUTER ISP  ##
+! ##################
+!
+enable
+configure terminal
+!
+hostname R-ISP
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ R4 :: IPROUTE (DEFAULT ROUTE)
+!
+interface ethernet 0/0
+ip address 123.123.123.2 255.255.255.252
+no shutdown
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## LOOPBACK INTERFACES
+!
+! # Google  DNS
+interface Loopback0
+ip address 8.8.8.8 255.255.255.255
+exit
+!
+! # Cloudflare DNS
+interface Loopback1
+ip address 1.1.1.1 255.255.255.255
+exit
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## INTERNET @ R4 :: IPROUTE (DEFAULT ROUTE)
+!
+! # Default Route @ R4 (next hop interface)
+ip route 0.0.0.0 0.0.0.0 123.123.123.1
+end
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+! ## SAVE & CHECK CONFIGS
+!
+write memory
+!
+show ip interface brief
+!
+! =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!
+show ip route
+!
+
+
+````
+
+
+
+#### 🛠 Switch-1 Configuration 
+
+````py
+!## SWITCH 1 CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-1
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 0/2-3
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+exit
+!
+! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
+!
+! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+no shutdown
+exit
+!
+! # TRUNK BETWEEN SWITCH 1 ROUTER (ROUTER-ON-A-STICK)
+interface ethernet 1/3
+description TRUNK_LINK_TO_ROUTER
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+no shutdown
+end
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+!
+show interfaces trunk
+!
+
+
+````
+
+
+### 🛠 Switch-2 Configuration 
+
+````py
+!## SWITCH 2 CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-2
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-1
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 0/2-3
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
+!
+! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+end
+!
+write memory
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+!
+show interfaces trunk
+!
+
+````
+
+
+### 🛠 VPC Configuration 
+
+- **PCs must now configure their gateway to enable the router to perform inter-VLAN routing. The gateway address should match the IP of the sub-interface assigned to each VLAN.**
+
+````py
+## VPC CONFIGURATION:
+
+### VPC-1 
+set pcname VPC-1
+ip 192.168.10.1 255.255.255.0 192.168.10.254
+save
+
+### VPC-2 
+set pcname VPC-2
+ip 192.168.10.2 255.255.255.0 192.168.10.254
+save
+
+### VPC-3 
+set pcname VPC-3
+ip 192.168.20.1 255.255.255.0 192.168.20.254
+save
+
+### VPC-4
+set pcname VPC-4
+ip 192.168.20.2 255.255.255.0 192.168.20.254
+save
+
+### VPC-5 
+set pcname VPC-5
+ip 192.168.20.3 255.255.255.0 192.168.20.254
+save
+
+### VPC-6 
+set pcname VPC-6
+ip 192.168.20.4 255.255.255.0 192.168.20.254
+save
+
+### VPC-7
+set pcname VPC-7
+ip 192.168.10.3 255.255.255.0 192.168.10.254
+save
+
+### VPC-8 
+set pcname VPC-8
+ip 192.168.10.4 255.255.255.0 192.168.10.254
+save
+
+
+````
 
 
 
