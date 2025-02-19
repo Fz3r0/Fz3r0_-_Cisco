@@ -27,6 +27,34 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 - **Classless Protocol**: OSPF supports VLSM (Variable Length Subnet Mask) and CIDR (Classless Inter-Domain Routing).
 - **Hierarchical Design**: OSPF supports areas to minimize the size of the routing tables and to scale more efficiently.
 
+## 🌐 **Why Use OSPF?**
+
+OSPF is a robust and efficient routing protocol designed to scale in larger networks. It is ideal for complex enterprise networks and service provider environments.
+
+- **Efficient Routing Updates**: OSPF minimizes the amount of traffic exchanged between routers by sending updates only when there are changes in the topology.
+- **Faster Convergence**: OSPF converges much faster compared to distance-vector protocols like RIP.
+- **Hierarchical Structure**: By using areas, OSPF can scale in large networks with fewer routing updates and smaller routing tables.
+
+### 🌟 **OSPF is ideal for:**
+
+- Large enterprise networks
+- Networks requiring fast convergence
+- Environments with multiple routers and subnets
+
+### 🛠️ **Examples:**
+
+- **Large Enterprise Networks**: In networks with hundreds or thousands of routers, OSPF's ability to divide the network into areas helps reduce the size of the routing tables and optimize traffic flow.
+- **Data Centers**: For highly scalable networks, OSPF ensures that the routing topology remains efficient even as the network grows.
+
+### 🚫 **When NOT to Use OSPF?**
+
+OSPF may not be the best choice when:
+
+- **Small networks**: In small, simple networks, a protocol like **RIP** or even **static routing** might suffice as they are easier to configure and maintain.
+- **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
+
+
+
 ## ⚙️ **OSPF Features**
 
 | Feature | Value / Description |
@@ -48,6 +76,37 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 
 - Type: Link-State from bandwidth: se refiere a que el router busca por la ruta con el mejor "estado", hay diferentes "states" como lo es el bandwidth, el delay, nivel de errores, MTU, carga, confiabilidad, etc... OSPF al ser link.state utiliza solo uno de esos estados y es el ancho de banda.
 - SPF & databases: SPF lo que hace es guardar bases de datos con la informacion de TODOS los routers que están participando en OSPF de la red, guarda la información tanto del router como de todas sus rutas, decide cual es el mejor camino comparando los routers que tiene en su base de datos. 
+
+
+
+
+## 🔄 **OSPF Operation**
+
+| Operation                                   | Description                                                                 |
+|-------------------------------------------|-----------------------------------------------------------------------------|
+| **Hello Protocol**                         | OSPF uses HELLO packets to establish and maintain neighbor relationships.   |
+| **Uses Areas for Scalability**             | OSPF divides large networks into areas to reduce routing table size and improve efficiency. |
+| **Link-State Advertisements (LSAs)**       | OSPF routers exchange LSAs to share information about the network topology. |
+| **Uses Dijkstra's Algorithm**              | OSPF uses the SPF (Shortest Path First) algorithm to calculate the best paths. |
+| **Flooding of LSAs**                       | OSPF floods LSAs throughout the network to ensure all routers have updated information. |
+| **Supports Multiple Routing Tables**       | OSPF can support multiple routing tables for different address families (e.g., IPv4, IPv6). |
+| **Hierarchical Design with Areas**         | OSPF’s hierarchical structure allows dividing networks into areas to minimize routing overhead. |
+| **Supports Equal-Cost Multipath (ECMP)**   | OSPF can support up to 16 equal-cost paths for load balancing. |
+
+⭕ **OSPF Neighbor & Link-State Database (LSDB):**
+
+- **Neighbor Table:** Stores information about OSPF neighbors, including their state and interface details.
+- **Link-State Database (LSDB):** Maintains all the Link-State Advertisements (LSAs) received from neighbors, representing the entire network topology. This is used to build the OSPF routing table.
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -87,6 +146,16 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
   - DR sends OSPF updates to other routers using multicast, centralizing control.
 
 
+
+
+
+
+
+
+
+
+
+
 ## 🌐 OSPF: Equal-Cost MultiPath (ECMP / Load Balancing)
 
 When OSPF has multiple equal-cost routes to the same destination, and both (or more) paths have the same bandwidth, OSPF can perform **load balancing**. Technically, the traffic could be divided 50/50 between the two routes, optimizing resource utilization. 
@@ -103,6 +172,8 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 
 
 ![image](https://github.com/user-attachments/assets/210d952d-603f-4c57-8598-1d09043e7d80)
+
+
 
 
 
@@ -161,8 +232,11 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 
 
 
+## OSPF: Databases
 
+- BD: Adjacency DB - Table: Neigbor Table - lista todos lso vecinos con los que el router establece comunicacion bidireccional / puede lsitarse con el comando `show ip ospf neighbor`
 
+-  Link-State DB - Table: Tpology Table - lista la infgomracion de todos los routers de la red / puede ser vista utilizando el comando `show ip ospf database`
 
 
 
@@ -184,118 +258,8 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 
 
 
-## 🌐 Distance Vector VS Link-State
 
-When discussing routing protocols, two major categories come up: **Distance Vector** and **Link-State**. Both have distinct methods of determining the best path through a network, and understanding the differences is crucial.
-
-### 🔄 What is Link-State?
-
-**OSPF** is considered a **Link-State** protocol
-
-- Unlike Distance Vector protocols (such as RIP), Link-State focuses on the **state of the links** rather than the distance.
-- The key factor it considers when determining the best path is **`Bandwidth (BW)`** value. (_EIGRP can use up to 5 values, including bandwidth, while OSPF only uses bandwidth. That's why EIGRP has a lower Administrative Distance (AD) than OSPF._)  
-- This means that if there are two possible paths, it will prefer the one with the highest total bandwidth, even if it has more physical hops.
-
-![image](https://github.com/user-attachments/assets/876ec9eb-db13-4eb9-8174-097fb1b22e06)
-
-OSPF is considered a **Link State / Dynamic Routing** protocol, it means that **each router in a network keeps an updated map of the entire network in a database, including each router and each route of the network**. 
-
-- When a change occurs, like a new route or a failure, routers share this updated information with all others, so every router has the same view of the network.
-- This helps routers calculate the best paths efficiently and react quickly to changes.
-
-### 🛠️ Key Characteristics of Link-State Protocols:
-
-| Feature                  | Link-State                                 |
-|--------------------------|--------------------------------------------|
-| **Routing Updates**       | Immediate updates sent to all routers in the network |
-| **Network Knowledge**     | Full (routers have a complete map of the network) |
-| **Convergence Time**      | Faster than Distance Vector                |
-| **Loop Prevention**       | Uses SPF (Shortest Path First) algorithm to calculate best paths |
-| **Example Protocols**     | OSPF, IS-IS                               |
-
-**NOTE:** EIGRP is considered a **Distance Vector** protocol because it relies on routing-by-rumor, meaning routers exchange information only with their directly connected neighbors rather than having a complete network topology like OSPF. However, it's called **Hybrid** because it incorporates **Link-State-like** features, for example: Supporting advanced metrics (weights K1-K5) for better path selection.
-
-### 🔄 What is Distance Vector?
-
-- Unlike Link-State protocols (such as OSPF), Distance Vector focuses on **hop count or cumulative distance** rather than the state of links.  
-- The key factor it considers when determining the best path is **the total metric** (e.g., hop count in RIP or composite metric in EIGRP).  
-- Distance Vector protocols rely on **"routing-by-rumor"**, meaning routers exchange information only with their directly connected neighbors rather than maintaining a full network topology.  
-
-![image](https://github.com/user-attachments/assets/1026df31-adaf-45b8-a9b7-cb6aec0eb24f)
-
-RIP is a classic **Distance Vector / Dynamic Routing** protocol, which means:  
-
-- Each router only knows the **next-hop and cost** to reach a destination but does not have a complete network view.  
-- Routers periodically send updates to their **direct neighbors**, which propagate throughout the network.  
-- **Slower convergence** and **prone to routing loops**, mitigated by features like **split horizon, route poisoning, and hold-down timers**.  
-
-### 🛠️ Key Characteristics of Distance Vector Protocols:  
-
-| Feature | Distance Vector |
-|---------|----------------|
-| **Routing Updates** | Periodic updates to neighbors only |
-| **Network Knowledge** | Limited (routers only know next-hop info) |
-| **Convergence Time** | Slower than Link-State |
-| **Loop Prevention** | Split horizon, route poisoning, hold-down timers |
-| **Example Protocols** | RIP, EIGRP (Hybrid) |
-
-**NOTE:** EIGRP is technically a **Distance Vector protocol**, but it includes **Link-State-like optimizations**, such as advanced metric calculations (**K-values**) and topology tables, which is why it's called **Hybrid**.
-
-
-## 🌐 **Why Use OSPF?**
-
-OSPF is a robust and efficient routing protocol designed to scale in larger networks. It is ideal for complex enterprise networks and service provider environments.
-
-- **Efficient Routing Updates**: OSPF minimizes the amount of traffic exchanged between routers by sending updates only when there are changes in the topology.
-- **Faster Convergence**: OSPF converges much faster compared to distance-vector protocols like RIP.
-- **Hierarchical Structure**: By using areas, OSPF can scale in large networks with fewer routing updates and smaller routing tables.
-
-### 🌟 **OSPF is ideal for:**
-
-- Large enterprise networks
-- Networks requiring fast convergence
-- Environments with multiple routers and subnets
-
-### 🛠️ **Examples:**
-
-- **Large Enterprise Networks**: In networks with hundreds or thousands of routers, OSPF's ability to divide the network into areas helps reduce the size of the routing tables and optimize traffic flow.
-- **Data Centers**: For highly scalable networks, OSPF ensures that the routing topology remains efficient even as the network grows.
-
-### 🚫 **When NOT to Use OSPF?**
-
-OSPF may not be the best choice when:
-
-- **Small networks**: In small, simple networks, a protocol like **RIP** or even **static routing** might suffice as they are easier to configure and maintain.
-- **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
-
-
-
-
-
-## 🔄 **OSPF Operation**
-
-| Operation                                   | Description                                                                 |
-|-------------------------------------------|-----------------------------------------------------------------------------|
-| **Hello Protocol**                         | OSPF uses HELLO packets to establish and maintain neighbor relationships.   |
-| **Uses Areas for Scalability**             | OSPF divides large networks into areas to reduce routing table size and improve efficiency. |
-| **Link-State Advertisements (LSAs)**       | OSPF routers exchange LSAs to share information about the network topology. |
-| **Uses Dijkstra's Algorithm**              | OSPF uses the SPF (Shortest Path First) algorithm to calculate the best paths. |
-| **Flooding of LSAs**                       | OSPF floods LSAs throughout the network to ensure all routers have updated information. |
-| **Supports Multiple Routing Tables**       | OSPF can support multiple routing tables for different address families (e.g., IPv4, IPv6). |
-| **Hierarchical Design with Areas**         | OSPF’s hierarchical structure allows dividing networks into areas to minimize routing overhead. |
-| **Supports Equal-Cost Multipath (ECMP)**   | OSPF can support up to 16 equal-cost paths for load balancing. |
-
-⭕ **OSPF Neighbor & Link-State Database (LSDB):**
-
-- **Neighbor Table:** Stores information about OSPF neighbors, including their state and interface details.
-- **Link-State Database (LSDB):** Maintains all the Link-State Advertisements (LSAs) received from neighbors, representing the entire network topology. This is used to build the OSPF routing table.
-
-
-
-
-
-
-## 📡 **OSPF Message Types**
+# 📡 OSPF: **OSPF Messages & Types**
 
 | **Message Type**     | **Description**                                                                                     | **Transmission**       | **Reliability**    | **Opcode** | **Sequence Number** |
 |----------------------|-----------------------------------------------------------------------------------------------------|------------------------|--------------------|------------|---------------------|
@@ -1327,6 +1291,21 @@ show run | se router eigrp
 debug eigrp packet
 !
 !
+
+
+
+
+
+
+
+
+
+
+Validacion
+
+`show ip ospf neighbor`
+`show ip ospf database`
+`show ip route ospf`
 
 
 ````
