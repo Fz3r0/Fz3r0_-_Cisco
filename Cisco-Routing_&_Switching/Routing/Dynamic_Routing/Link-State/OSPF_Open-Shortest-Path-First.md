@@ -232,11 +232,57 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 
 
 
-## OSPF: Databases
 
-- BD: Adjacency DB - Table: Neigbor Table - lista todos lso vecinos con los que el router establece comunicacion bidireccional / puede lsitarse con el comando `show ip ospf neighbor`
 
--  Link-State DB - Table: Tpology Table - lista la infgomracion de todos los routers de la red / puede ser vista utilizando el comando `show ip ospf database`
+
+
+
+
+## 🌐 OSPF: Databases & Tables
+
+OSPF maintains multiple databases to ensure efficient and reliable routing. These databases work together using the **Shortest Path First (SPF) algorithm** to build the best possible routing paths.
+
+## 🗂 OSPF Databases & Corresponding Tables
+
+OSPF utilizes **two primary databases** and their corresponding tables, while the third, **Forwarding Database (Routing Table)**, is ultimately derived from the **Link-State Database (LSDB)**.
+
+| **Database (DB)**        | **Table**         | **Purpose** | **Command to View** |
+|--------------------------|------------------|------------|---------------------|
+| 1️⃣ **Adjacency DB**         | **Neighbor Table** | Lists all directly connected OSPF neighbors that have established bidirectional communication. | `show ip ospf neighbor` |
+| 2️⃣ **Link-State DB (LSDB)** | **Topology Table** | Stores the complete OSPF network topology for the area the router belongs to. Contains all routers and their links. | `show ip ospf database` |
+| 3️⃣ **Forwarding DB**        | **Routing Table** | Contains the best paths computed by SPF from the Link-State Database. These are the actual routes used for packet forwarding. | `show ip route ospf` |
+
+## 🔍 Understanding Each Database
+
+### 1️⃣ **Adjacency Database (Neighbor Table)**
+
+- Tracks all OSPF neighbors that have successfully formed an adjacency.
+- Ensures that routers have at least a two-way communication before exchanging LSAs.
+- Can be inspected using `show ip ospf neighbor`.
+
+### 2️⃣ **Link-State Database (LSDB) (Topology Table)**
+
+- Contains detailed information about all OSPF routers, links, and network topology.
+- Every router in the same area maintains an identical LSDB.
+- Used by the SPF algorithm to compute the best paths.
+- Viewable with `show ip ospf database`.
+
+### 3️⃣ **Forwarding Database (Routing Table)**
+
+- The **Routing Table** lists the best routes selected by SPF from the LSDB.
+- This is the final product of OSPF’s path calculations.
+- Unlike the LSDB, which stores all possible paths, this table only includes the **best routes**.
+- Can be viewed using `show ip route ospf`.
+
+## 🧐 Key Observations
+
+- **Not all paths from the LSDB make it into the Routing Table**—only the best routes computed by SPF.
+- The **Topology Table (LSDB) retains information about every router and link**, even those not selected for forwarding.
+- If a route is missing from the Routing Table, it may still be seen in the **Topology Table**.
+
+✅ **Pro Tip:** If a route isn't appearing in the Routing Table, check the **Topology Table** (`show ip ospf database`) to see if it's present but not selected as the best path.
+
+
 
 
 
