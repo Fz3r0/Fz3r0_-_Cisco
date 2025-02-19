@@ -1085,7 +1085,8 @@ switchport trunk encapsulation dot1q
 switchport mode trunk
 switchport trunk allowed vlan 10,20,50,99
 switchport trunk native vlan 99
-end
+no shutdown
+exit
 !
 ! # TRUNK BETWEEN SWITCH 1 ROUTER (ROUTER-ON-A-STICK)
 interface ethernet 1/3
@@ -1095,6 +1096,7 @@ switchport mode trunk
 switchport trunk allowed vlan 10,20,50,99
 switchport trunk native vlan 99
 no shutdown
+end
 !
 ! ### Save & Verify Configuration:
 !
