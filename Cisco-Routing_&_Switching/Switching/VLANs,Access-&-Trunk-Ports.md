@@ -190,6 +190,8 @@ save
 
 ## 🖧 Switch-Based Network (Access VLANs)
 
+![image](https://github.com/user-attachments/assets/6fe90d9d-96a6-4356-a808-77daae9bec30)
+
 ### 📝 How It Works
 
 - A Layer 2 switch introduces VLAN segmentation, creating separate broadcast domains.
@@ -204,7 +206,7 @@ Used in enterprise networks to separate departments, such as:
 - VLAN 20 (BRAVO) = IT Department
 - VLAN 69 (CHARLY) = Management-VLAN
 
-🛠 Switch Configuration (Cisco Example)
+### 🛠 Switch Configuration 
 
 ````py
 !## SWITCH CONFIGURATION:
@@ -224,30 +226,57 @@ name VLAN-20-BRAVO
 !
 ! ### Assign VLANs to Access Interfaces:
 !
-interface range ethernet 0/1-2
+interface range ethernet 0/0-1
 description VLAN-10-ALFA
 switchport mode access
 switchport access vlan 10
 no shutdown
 exit
 !
-interface range ethernet 0/3-4
+interface range ethernet 0/2-3
 description VLAN-20-BRAVO
 switchport mode access
 switchport access vlan 20
 no shutdown
-exit
+end
 !
 ! ### Save & Verify Configuration:
 !
-show vlan
 write memory
 !
+show vlan
 !
+
+
 ````
 
+### 🛠 **PC Configuration (vPC Example)**  
+
+````
+## VPC CONFIGURATION:
+
+### VPC-1
+set pcname VPC-1
+ip 192.168.10.1 255.255.255.0
+save
+
+### VPC-2
+set pcname VPC-2
+ip 192.168.10.2 255.255.255.0
+save
+
+### VPC-3
+set pcname VPC-3
+ip 192.168.20.1 255.255.255.0
+save
+
+### VPC-4
+set pcname VPC-4
+ip 192.168.20.2 255.255.255.0
+save
 
 
+````
 
 
 
