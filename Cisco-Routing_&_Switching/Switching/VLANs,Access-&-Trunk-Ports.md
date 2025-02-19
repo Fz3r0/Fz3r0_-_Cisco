@@ -481,6 +481,8 @@ Understanding these differences ensures that **you can confidently configure VLA
 
 ## 🔀 **Switch-Based Network (Trunk VLANs - 802.1Q)**  
 
+![image](https://github.com/user-attachments/assets/1f59cc79-8220-4cb3-a163-2fefdba74fae)
+
 ### 📝 **How It Works**  
 
 In this configuration, we're dealing with **VLAN trunking** using the **802.1Q encapsulation** protocol. This allows multiple VLANs to travel over a single link between switches. A **trunk link** is created between two switches, and multiple VLANs are allowed to pass through this trunk. To make this work, the trunk uses **802.1Q encapsulation**, which tags each frame with the VLAN ID to keep traffic isolated and maintain VLAN segmentation.
