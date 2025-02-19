@@ -936,7 +936,7 @@ save
 
 ## 🌐 **Router on a Stick Configuration (802.1Q Trunking)**
 
-![image](https://github.com/user-attachments/assets/ca110901-ccb3-4879-9ac5-d133b05dee4b)
+![image](https://github.com/user-attachments/assets/c9024ddc-fec9-42d1-9139-6d6df7b535b2)
 
 ### 📝 **What is a Router on a Stick?**
 
@@ -982,8 +982,6 @@ interface ethernet 0/0
  no shutdown
 !
 ! ### Create Sub-interfaces for VLANs:
-
-!
 !
 interface ethernet 0/0.10
  description VLAN 10 - ALFA
