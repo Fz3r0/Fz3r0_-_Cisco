@@ -723,6 +723,378 @@ save
 
 
 
+## 🔀 **Switch-Based Network (Trunk VLANs - 802.1Q)**  
+
+![image](https://github.com/user-attachments/assets/f517bee4-8057-4aaa-9e7c-ff01f40b1c16)
+
+
+### 📝 **How It Works**  
+
+In this configuration, we're dealing with **VLAN trunking** using the **802.1Q encapsulation** protocol. This allows multiple VLANs to travel over a single link between switches. A **trunk link** is created between two switches, and multiple VLANs are allowed to pass through this trunk. To make this work, the trunk uses **802.1Q encapsulation**, which tags each frame with the VLAN ID to keep traffic isolated and maintain VLAN segmentation.
+
+- **802.1Q** allows multiple VLANs to share a single physical link by tagging Ethernet frames with VLAN identifiers.
+- The **native VLAN** is the default VLAN used for untagged traffic on the trunk link.
+- The trunk link allows us to specify which VLANs are allowed to traverse the link, improving network performance and security.
+
+### 🌍 **Real-World Example**
+
+In a **typical enterprise setup**, VLAN trunking is used to allow communication between different parts of the network. For instance:
+
+- **VLAN 10 (ALFA)** → HR Department (PCs & Laptops)
+- **VLAN 20 (BRAVO)** → IT Department (PCs & Laptops)
+- **VLAN 99 (NATIVE)** → Native VLAN (used for 802.1Q trunk encapsulation)
+
+---
+
+
+#### 🛠 Switch-1 Configuration 
+
+````py
+!## SWITCH 1 CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-1
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 0/2-3
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+exit
+!
+! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
+!
+! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+end
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+!
+show interfaces trunk
+!
+````
+
+
+### 🛠 Switch-2 Configuration 
+
+````py
+!## SWITCH 2 CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-2
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-1
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 0/2-3
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
+!
+! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+end
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+!
+show interfaces trunk
+!
+
+````
+
+### 🛠 VPC Configuration 
+
+````py
+## VPC CONFIGURATION:
+
+### VPC-1 
+set pcname VPC-1
+ip 192.168.10.1 255.255.255.0
+save
+
+### VPC-2 
+set pcname VPC-2
+ip 192.168.10.2 255.255.255.0
+save
+
+### VPC-3 
+set pcname VPC-3
+ip 192.168.20.1 255.255.255.0
+save
+
+### VPC-4
+set pcname VPC-4
+ip 192.168.20.2 255.255.255.0
+save
+
+### VPC-5 
+set pcname VPC-5
+ip 192.168.20.3 255.255.255.0
+save
+
+### VPC-6 
+set pcname VPC-6
+ip 192.168.20.4 255.255.255.0
+save
+
+### VPC-7
+set pcname VPC-7
+ip 192.168.10.3 255.255.255.0
+save
+
+### VPC-8 
+set pcname VPC-8
+ip 192.168.10.4 255.255.255.0
+save
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🌐 **Router on a Stick Configuration (802.1Q Trunking)**
+
+![image](https://github.com/user-attachments/assets/68ad46f2-8fec-475f-ab5b-4715e6d4fc12)
+
+### 📝 **What is a Router on a Stick?**
+
+A **Router on a Stick** is a network design where a single physical interface on a router is used to route traffic between multiple VLANs. This is achieved using **sub-interfaces** and **802.1Q trunking**. Each VLAN has a corresponding sub-interface on the router, allowing it to provide inter-VLAN routing.
+
+This Router-on-a-Stick setup ensures efficient VLAN segmentation while providing inter-VLAN communication through the router. 
+
+- The router is connected to the **switch via a trunk link**.
+- Each VLAN is assigned a **sub-interface** on the router.
+- The **router acts as the default gateway** for devices in each VLAN.
+
+This setup is commonly used in small-to-medium-sized networks where a **Layer 3 switch is not available** to handle inter-VLAN routing.
+
+### 🌍 **Real-World Example**
+
+The Router-on-a-Stick method is one of the most widely used inter-VLAN routing solutions, especially in environments where a Layer 3 switch is not available or where routing is managed externally. While enterprise networks often use Layer 3 switches, many small-to-medium-sized businesses, branch offices, and even large-scale deployments rely on this method—sometimes unknowingly.
+
+Many modern firewalls, like FortiGate, Palo Alto, and Cisco ASA, are essentially performing a Router-on-a-Stick function when they handle inter-VLAN routing via sub-interfaces. The only difference is that they add security policies and inspection on top of the routing process. However, any firewall or router can act as the Router-on-a-Stick in a network, handling both inter-VLAN routing and external internet traffic.
+
+### 📌 **Router Configuration (Router-on-a-Stick)**
+
+```
+!## ROUTER CONFIGURATION: ROUTER ON A STICK
+!
+! ### Initialize Router:
+!
+enable
+configure terminal
+hostname R1
+!
+! ### Enable Trunking on Router Interface:
+!
+interface ethernet 0/0
+ description Trunk Link to SW-1
+ no shutdown
+!
+! ### Create Sub-interfaces for VLANs:
+!    # The "encapsulation dot1Q 1 native" command is used on cisco router to a associate a subinterface to a VLAN, configured as Native on the Switch.
+!    # The other VLAN does not need to be tagged as "native" in the encapsulation.
+!
+!
+interface ethernet 0/0.10
+ description VLAN 10 - ALFA
+ encapsulation dot1Q 10
+ ip address 192.168.10.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.20
+ description VLAN 20 - BRAVO
+ encapsulation dot1Q 20
+ ip address 192.168.20.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.50
+ description VLAN 50 - VOICE
+ encapsulation dot1Q 50
+ ip address 192.168.50.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.99
+ description VLAN 99 - NATIVE VLAN
+ encapsulation dot1Q 99 native
+ no ip address
+ no shutdown
+ exit
+!
+! ### Enable Routing:
+!
+ip routing
+!
+! ### Save Configuration:
+!
+write memory
+!
+! ### Verify Configurations:
+!
+show ip interface brief
+!
+show vlan
+!
+show interfaces trunk
+!
+!
+
+
+```
+
+---
+
+### 🛠 **Switch-1 Configuration (Updated for Router-on-a-Stick)**
+
+```
+!## SWITCH 1 CONFIGURATION (UPDATED FOR ROUTER-ON-A-STICK):
+!
+! ### Create Trunk Port for Router Connection:
+!
+interface ethernet 1/3
+ description TRUNK_LINK_TO_ROUTER
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 10,20,50,99
+ switchport trunk native vlan 99
+ no shutdown
+!
+write memory
+```
+
+---
+
+### 📌 **How It Works in This Topology**
+
+1. **Router Interface (Ethernet 1/3) is Trunked**: The router connects to **Switch-1** via interface **Ethernet 1/3**, which operates as an **802.1Q trunk**.
+2. **Sub-Interfaces Handle VLAN Traffic**: The router has **sub-interfaces** for each VLAN (10, 20, 50, and 99). Each sub-interface is assigned an **IP address** that serves as the **default gateway** for its VLAN.
+3. **Inter-VLAN Routing Occurs on the Router**: Traffic between VLANs is **routed via the router**, allowing devices in VLAN 10 to communicate with VLAN 20 and VLAN 50.
+4. **Native VLAN (99) is Configured**: VLAN 99 is assigned as the **native VLAN**, ensuring compatibility with the **switch’s trunk configuration**.
+
+---
+
+### 🖧 **Real-World Application**
+
+This **Router-on-a-Stick** method is useful when a **Layer 3 switch is not available** or when routing is handled externally. It's a cost-effective solution for small businesses and **branch offices** that require VLAN segmentation **without a dedicated Layer 3 switch**.
+
+#### ✅ **Advantages:**
+- **Cost-efficient:** Eliminates the need for an expensive **Layer 3 switch**.
+- **Simple to configure:** Uses a single router interface for multiple VLANs.
+- **Effective for small networks:** Ideal for environments where VLAN segmentation is needed but traffic volume is manageable.
+
+#### ❌ **Disadvantages:**
+- **Potential bottleneck:** Since all VLAN traffic passes through a **single router interface**, high traffic volumes may create congestion.
+- **Limited scalability:** Not ideal for large-scale networks where VLAN traffic is high.
+
+---
+
+This **Router-on-a-Stick** setup ensures efficient VLAN segmentation while providing **inter-VLAN communication** through the router. 🚀
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
