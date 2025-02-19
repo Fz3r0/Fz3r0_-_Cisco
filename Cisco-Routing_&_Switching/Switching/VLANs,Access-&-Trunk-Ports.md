@@ -347,6 +347,8 @@ vlan 10
 name VLAN-10-ALFA
 vlan 20
 name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
 !
 ! ### Assign VLANs to Access Interfaces:
 !
@@ -466,9 +468,10 @@ save
 - VLAN 20 (BRAVO) → IT Department (PCs & Laptops) = Trunk Allowed VLAN
 - VLAN 99 (NATIVE) → Native VLAN (For 802.1q Trunk encapsulation) = Trunk Native VLAN
 
+### 🛠 Switch-1 Configuration 
 
 ````py
-!## SWITCH CONFIGURATION:
+!## SWITCH 1 CONFIGURATION:
 !
 ! ### Initialize Switch:
 !
@@ -482,9 +485,10 @@ vlan 10
 name VLAN-10-ALFA
 vlan 20
 name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
 vlan 99
-name VLAN-99-NATIVE_(TRUNK)
-exit
+name VLAN-99-NATIVE-TRUNK
 !
 ! ### Assign VLANs to Access Interfaces:
 !
@@ -492,6 +496,7 @@ interface range ethernet 0/0-1
 description VLAN-10-ALFA
 switchport mode access
 switchport access vlan 10
+switchport voice vlan 50
 no shutdown
 exit
 !
@@ -499,16 +504,20 @@ interface range ethernet 0/2-3
 description VLAN-20-BRAVO
 switchport mode access
 switchport access vlan 20
+switchport voice vlan 50
 no shutdown
 exit
 !
 ! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
 !
+! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
 interface ethernet 1/0
 description TRUNK_LINK_SW1<->SW2
 switchport mode trunk
-
-!
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+end
 !
 ! ### Save & Verify Configuration:
 !
@@ -520,9 +529,111 @@ show vlan
 ````
 
 
+### 🛠 Switch-2 Configuration 
 
+````py
+!## SWITCH 2 CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-2
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 50
+name VLAN-50-VOICE
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-1
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 0/2-3
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+exit
+!
+! ### Create Trunk Port & Assign Native VLAN & Allowed VLANs
+!
+! # TRUNK BETWEEN SWITCH 1 & SWITCH 2:
+interface ethernet 1/0
+description TRUNK_LINK_SW1<->SW2
+switchport mode trunk
+switchport trunk encapsulation dot1q
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+end
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
 
+````
 
+### 🛠 VPC Configuration 
+
+````py
+## VPC CONFIGURATION:
+
+### VPC-1 (HR Department)
+set pcname VPC-1
+ip 192.168.10.1 255.255.255.0
+save
+
+### VPC-2 (HR Department)
+set pcname VPC-2
+ip 192.168.10.2 255.255.255.0
+save
+
+### VPC-3 (IT Department)
+set pcname VPC-3
+ip 192.168.20.1 255.255.255.0
+save
+
+### VPC-4 (IT Department)
+set pcname VPC-4
+ip 192.168.20.2 255.255.255.0
+save
+
+### VPC-5 (HR Department)
+set pcname VPC-5
+ip 192.168.10.3 255.255.255.0
+save
+
+### VPC-6 (HR Department)
+set pcname VPC-6
+ip 192.168.10.4 255.255.255.0
+save
+
+### VPC-7 (IT Department)
+set pcname VPC-7
+ip 192.168.20.3 255.255.255.0
+save
+
+### VPC-8 (IT Department)
+set pcname VPC-8
+ip 192.168.20.4 255.255.255.0
+save
+````
 
 
 
