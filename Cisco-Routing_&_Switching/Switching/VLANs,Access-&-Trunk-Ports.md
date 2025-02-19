@@ -934,9 +934,9 @@ save
 
 
 
-## 🌐 **Router on a Stick Configuration (802.1Q Trunking)**
+## 🌐 **Router on a Stick + InterVLAN Routing + (802.1Q Trunking)**
 
-![image](https://github.com/user-attachments/assets/c9024ddc-fec9-42d1-9139-6d6df7b535b2)
+![image](https://github.com/user-attachments/assets/122c5282-b8af-49d0-a718-999c4827f1ac)
 
 ### 📝 **What is a Router on a Stick?**
 
@@ -967,7 +967,9 @@ Many modern firewalls, like FortiGate, Palo Alto, and Cisco ASA, are essentially
 !    # - The Native VLAN does not require an IP address because its primary function is to handle untagged traffic on an 802.1Q trunk.
 !    # - The "encapsulation dot1Q 1 native" command is used on cisco router to a associate a subinterface to a VLAN, configured as Native on the Switch. (default is using automatic/dynamic VLAN)
 !    #   * The other VLANs (non native) does not need to be tagged as "native" in the encapsulation.
-!    # - If "ip routing" is not enabled, the router will not perform inter-VLAN routing. Devices in different VLANs will not be able to communicate with each other, as the router will not forward packets between VLANs.
+!    # - If "ip routing" is not enabled, the router will not perform inter-VLAN routing and devices in different VLANs will not be able to communicate with each other (but can connect to Internet or be manually routed). 
+!    #          For static routing, routing is manually configured using the ip route command, and ip routing is not required to be manually enabled.
+!    #          However, for dynamic routing (such as EIGRP or OSPF), once the protocol is configured, ip routing is implicitly enabled to allow the router to exchange and process routing information.
 !
 ! ### Initialize Router:
 !
@@ -1011,7 +1013,7 @@ interface ethernet 0/0.99
  no shutdown
  exit
 !
-! ### Enable Routing:
+! ### Enable Routing / >>> InterVLAN Routing <<<
 !
 ip routing
 !
