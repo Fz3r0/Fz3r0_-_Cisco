@@ -104,6 +104,16 @@ Several protocols facilitate VLAN operation and scalability:
 
 
 
+
+
+
+
+
+
+
+
+
+
 ---
 
 super huint de la manda: `show vlan internal usage` hay switches viejso que usan una vlan para algo internamente como el catañlyst 4503
@@ -223,6 +233,7 @@ vlan 10
 name VLAN-10-ALFA
 vlan 20
 name VLAN-20-BRAVO
+exit
 !
 ! ### Assign VLANs to Access Interfaces:
 !
@@ -277,6 +288,304 @@ save
 
 
 ````
+
+
+
+
+
+
+
+## 📞 Switch-Based Network (Access VLANs + Voice VLANs)  
+
+![image](https://github.com/user-attachments/assets/9a2b9d66-0544-4794-9404-b482beba27af)  
+
+## 📝 **How It Works**  
+
+- A **Layer 2 switch** introduces **VLAN segmentation**, creating separate **broadcast domains**.  
+- Unlike a regular **Access VLAN**, a **Voice VLAN** allows two VLANs to be configured on the same **port**:  
+  - **Data VLAN** → For PCs or workstations.  
+  - **Voice VLAN** → Dedicated for **VoIP traffic** (IP Phones).  
+- This setup behaves like a **"mini trunk"**, separating both types of traffic while maintaining **one access VLAN** for data.  
+- Devices in the **same VLAN can communicate**, but different VLANs require **inter-VLAN routing**.  
+- The **Voice VLAN remains consistent** across all access ports, ensuring IP Phones can always communicate regardless of the assigned **Data VLAN**.  
+
+**Example of Dual VLAN Configuration on an Access Port**:
+
+```py
+! # Data VLAN (Access)
+switchport access vlan 10
+! # Voice VLAN 
+switchport voice vlan 50
+```
+
+![image](https://github.com/user-attachments/assets/1c4f344a-65a2-40b4-9b7f-d67c4aa90054)
+
+### 🌍 Real-World Example
+
+Used in enterprise networks where VoIP (Voice over IP) must be logically separated from regular data traffic.
+
+- **By assigning a dedicated Voice VLAN, network administrators prioritize VoIP traffic (using QoS), ensuring clear and uninterrupted voice communication.**
+
+📌 Example VLAN Setup:
+
+- VLAN 10 (ALFA) → HR Department (PCs & Laptops)
+- VLAN 20 (BRAVO) → IT Department (PCs & Laptops)
+- VLAN 50 (ECHO) → Voice VLAN (IP Phones for all departments)
+
+### 🛠 Switch Configuration 
+
+````py
+!## SWITCH CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range fa 0/1-2
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range fa 0/3-4
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+end
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+
+
+````
+
+### 🛠 VPC Configuration 
+
+````py
+## VPC CONFIGURATION:
+
+### VPC-1 (HR Department)
+set pcname VPC-1
+ip 192.168.10.1 255.255.255.0
+save
+
+### VPC-2 (HR Department)
+set pcname VPC-2
+ip 192.168.10.2 255.255.255.0
+save
+
+### VPC-3 (IT Department)
+set pcname VPC-3
+ip 192.168.20.1 255.255.255.0
+save
+
+### VPC-4 (IT Department)
+set pcname VPC-4
+ip 192.168.20.2 255.255.255.0
+save
+````
+
+
+### 🛠 VoIP Phone  Configuration 
+
+````py
+## VOIP PHONE CONFIGURATION: (*VoIP Phones usually uses DHCP)
+
+### VoIP-Phone-1
+set pcname IP-PHONE
+ip 192.168.50.1 255.255.255.0
+save
+
+### VoIP-Phone-2
+set pcname IP-PHONE
+ip 192.168.50.2 255.255.255.0
+save
+
+### VoIP-Phone-3
+set pcname IP-PHONE
+ip 192.168.50.3 255.255.255.0
+save
+
+### VoIP-Phone-4
+set pcname IP-PHONE
+ip 192.168.50.4 255.255.255.0
+save
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🖧 Switch-Based Network (Access VLANs + Voice VLANs)
+
+![image](https://github.com/user-attachments/assets/9a2b9d66-0544-4794-9404-b482beba27af)
+
+### 📝 How It Works
+
+- A Layer 2 switch introduces VLAN segmentation, creating separate broadcast domains, (eg, 2 VLANs for access (PCs) 1 VLAN for VoIP.)
+- Each VLAN operates as its own isolated network unless a router or Layer 3 switch enables inter-VLAN communication.
+- La gran diferencia con una access es que no solo lleva 1 vlan en el link, sino 2, es como una "mini trunk" con ambas vlans separadas su trafico y pudiendo usar la de datos como acceso. 
+- Devices within the same VLAN can communicate, but different VLANs cannot without additional configuration. Data VLANs comminicate with data vlans, and voice vlan can communicate with the voice vlan, no importa que sea diferente la vlan de acceso mientras siempore se respeta la misma de voice
+
+En realidad se pueden configurar 2 al mismo tiempo y se ve algo asi: 
+
+````py
+! # Data VLAN (Access)
+switchport access vlan 10
+! # Voice VLAN 
+switchport voice vlan 50
+````
+
+![image](https://github.com/user-attachments/assets/1c4f344a-65a2-40b4-9b7f-d67c4aa90054)
+
+### 🌍 Real-World Example
+
+Used in enterprise networks to separate departments, such as:
+
+- VLAN 10 (ALFA) = HR Department
+- VLAN 20 (BRAVO) = IT Department
+- VLAN 50 (ECHO) = Voice VLAN
+
+### 🛠 Switch Configuration 
+
+````py
+!## SWITCH CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW-1
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range fa 0/1-2
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range fa 0/3-4
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+end
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+
+
+````
+
+### 🛠 **PC Configuration (vPC Example)**  
+
+````
+## VPC CONFIGURATION:
+
+### VPC-1
+set pcname VPC-1
+ip 192.168.10.1 255.255.255.0
+save
+
+### VPC-2
+set pcname VPC-2
+ip 192.168.10.2 255.255.255.0
+save
+
+### VPC-3
+set pcname VPC-3
+ip 192.168.20.1 255.255.255.0
+save
+
+### VPC-4
+set pcname VPC-4
+ip 192.168.20.2 255.255.255.0
+save
+
+
+````
+
+
 
 
 
