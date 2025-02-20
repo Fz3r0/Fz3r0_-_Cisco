@@ -1062,8 +1062,9 @@ save
 
 
 
-## 🌐 **Router on a Stick + Internet/ISP + (802.1Q Trunking)**
+## 🌐 **Router on a Stick + Internet/ISP Default Route + NAT**
 
+![image](https://github.com/user-attachments/assets/61eb7309-8539-4f93-8b9d-724cd8dbf67a)
 
 
 
