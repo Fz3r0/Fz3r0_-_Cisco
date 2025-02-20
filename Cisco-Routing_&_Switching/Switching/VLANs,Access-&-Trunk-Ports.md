@@ -1047,14 +1047,14 @@ save
 
 ## 🌐 **Router on a Stick + Internet/ISP + (802.1Q Trunking)**
 
-![image](https://github.com/user-attachments/assets/eb441dbb-09aa-4024-a0b5-1d06ba2eecca)
+
 
 
 In this example a connection to an ISP is simulated with the router "INTERNET"
 
 
 
-### 📌 **Router Configuration (Router-on-a-Stick + Default Route)**
+### 📌 Router on a Stick + Internet/ISP: `Router 1 Config`
 
 ```py
 !## ROUTER CONFIGURATION: ROUTER ON A STICK + DEFAULT ROUTE
@@ -1134,7 +1134,7 @@ show ip interface brief
 
 ```
 
-### 📌 **Internet Router Configuration (Default Route)**
+### 📌 Router on a Stick + Internet/ISP: `ISP Router Config`
 
 ````py
 ! ##################
@@ -1195,7 +1195,7 @@ show ip route
 
 
 
-#### 🛠 Switch-1 Configuration 
+### 🛠 Router on a Stick + Internet/ISP: `Switch-1 Config`
 
 ````py
 !## SWITCH 1 CONFIGURATION:
@@ -1270,8 +1270,7 @@ show interfaces trunk
 
 ````
 
-
-### 🛠 Switch-2 Configuration 
+### 🛠 Router on a Stick + Internet/ISP: `Switch-2 Config`
 
 ````py
 !## SWITCH 2 CONFIGURATION:
