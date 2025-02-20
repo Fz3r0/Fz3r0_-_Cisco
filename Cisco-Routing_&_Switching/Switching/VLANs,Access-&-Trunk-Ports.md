@@ -1154,14 +1154,15 @@ interface ethernet 0/0.20
 !
 interface ethernet 0/0.50
  ip nat inside
+exit
 !
-! Create an access list to define which networks will be translated (private IPs)
-access-list 1 permit 192.168.10.0 0.0.0.255
-access-list 1 permit 192.168.20.0 0.0.0.255
-access-list 1 permit 192.168.50.0 0.0.0.255
+! Create an access list to define which networks will be translated (private IPs) (ACL 1-99 private ACL)
+access-list 69 permit 192.168.10.0 0.0.0.255
+access-list 69 permit 192.168.20.0 0.0.0.255
+access-list 69 permit 192.168.50.0 0.0.0.255
 !
 ! Configure NAT overload (PAT) to translate multiple private IPs into the public IP of R1
-ip nat inside source list 1 interface ethernet 0/3 overload
+ip nat inside source list 69 interface ethernet 0/3 overload
 !
 !
 ! # Inject a default route in the border router to get Internet
