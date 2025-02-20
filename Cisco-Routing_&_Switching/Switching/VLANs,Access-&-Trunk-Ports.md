@@ -1073,6 +1073,8 @@ In this example a connection to an ISP is simulated with the router "INTERNET"
 
 ### 📌 Router on a Stick + Internet/ISP: `Router 1 Config`
 
+- PAra salir a internet real hay que agregar NAT, aqui repsonden sin nat porque son unas loopback conectadas directo el router, pero en realidad estan salidendo con IP proivada, se debe convertir a publica!!!!! recuerda la caída en razon!!!!!!!
+
 ```py
 !## ROUTER CONFIGURATION: ROUTER ON A STICK + DEFAULT ROUTE
 !
@@ -1134,8 +1136,36 @@ interface ethernet 0/3
  no shutdown
  exit
 !
+! ## NAT @ LAN IP translation -> WAN public IP
+!
+! # NAT to translate private IP to Public IP using a socket
+!
+! Enable NAT on the WAN interface (towards the ISP)
+interface ethernet 0/3
+ ip nat outside
+!
+! # Enable NAT on the LAN interfaces (VLAN subinterfaces)
+interface ethernet 0/0.10
+ ip nat inside
+!
+interface ethernet 0/0.20
+ ip nat inside
+!
+interface ethernet 0/0.50
+ ip nat inside
+!
+! Create an access list to define which networks will be translated (private IPs)
+access-list 1 permit 192.168.10.0 0.0.0.255
+access-list 1 permit 192.168.20.0 0.0.0.255
+access-list 1 permit 192.168.50.0 0.0.0.255
+!
+! Configure NAT overload (PAT) to translate multiple private IPs into the public IP of R1
+ip nat inside source list 1 interface ethernet 0/3 overload
+!
+!
 ! # Inject a default route in the border router to get Internet
 ip route 0.0.0.0 0.0.0.0 123.123.123.2
+!
 !
 ! ### Save Configuration:
 !
