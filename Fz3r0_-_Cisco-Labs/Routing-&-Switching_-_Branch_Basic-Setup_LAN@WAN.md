@@ -68,27 +68,58 @@ configure terminal
 !
 hostname RT1-MDF1-B1L0-F0
 !
+banner motd #
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+             Fz3r0 @ Cisco CCNA/CCNP Labs
+           
+             Twitter : @Fz3r0_Ops
+             Github  : github.com/Fz3r0
+
+             Device  : RT1-MDF1-B1L0-F0
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+#
+!
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### Enable Trunking on Router Interface:
+! ### 2. Interface 0/0 Configuration: From Router <--> To Switch
 !
 interface ethernet 0/0
- description Trunk Link to SW-1
- no shutdown
+   description Trunk Link to LAN (Switch)
+   no shutdown
 !
-! ### Create Sub-interfaces for VLANs:
+! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+!
+! ### 2.1 Create Sub-interfaces on Interface for VLANs:
 !
 interface ethernet 0/0.10
- description VLAN 10 - ALFA
- encapsulation dot1Q 10
- ip address 192.168.10.254 255.255.255.0
+   description VLAN 10 - ALFA
+   encapsulation dot1Q 10
+      ip address 10.10.0.1 255.255.0.0
+   no shutdown
+exit
+!
+interface ethernet 0/0.20
+   description VLAN 20 - BRAVO
+   encapsulation dot1Q 20
+      ip address 10.10.0.1 255.255.0.0
+   no shutdown
+exit
+!
+interface ethernet 0/0.30
+ description VLAN 20 - BRAVO
+ encapsulation dot1Q 20
+   ip address 10.10.0.1 255.255.0.0
  no shutdown
  exit
 !
-interface ethernet 0/0.20
+interface ethernet 0/0.40
  description VLAN 20 - BRAVO
  encapsulation dot1Q 20
- ip address 192.168.20.254 255.255.255.0
+   ip address 10.10.0.1 255.255.0.0
  no shutdown
  exit
 !
@@ -99,6 +130,16 @@ interface ethernet 0/0.50
  no shutdown
  exit
 !
+interface ethernet 0/0.66
+ description VLAN 20 - BRAVO
+ encapsulation dot1Q 20
+   ip address 10.10.0.1 255.255.0.0
+ no shutdown
+ exit
+
+
+!
+!
 interface ethernet 0/0.99
  description VLAN 99 - NATIVE VLAN
  encapsulation dot1Q 99 native
@@ -106,29 +147,31 @@ interface ethernet 0/0.99
  no shutdown
  exit
 !
-! ### Create Interface for ISP connection
+!
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 2. Interface 0/3 Configuration: From Router (LAN) <--> To ISP (WAN)
 !
 interface ethernet 0/3
- description WAN (ROUTER -> ISP)
+ description WAN (From: ROUTER -> To: ISP)
  ip address 123.123.123.1 255.255.255.252
  no shutdown
  exit
 !
-! ## NAT @ LAN IP translation -> WAN public IP
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! # NAT to translate private IP to Public IP using a socket
+! ### 3. NAT: Translate Local Private Subnets (VLANs) to WAN public IP
 !
-! Enable NAT on the WAN interface (towards the ISP)
+! # Enable NAT on the WAN interface (WAN: towards the ISP / Outside)
 interface ethernet 0/3
- ip nat outside
+   ip nat outside
 !
-! # Enable NAT on the LAN interfaces (VLAN subinterfaces)
+! # Enable NAT on the LAN interfaces (LAN: VLAN subinterfaces / Inside)
 interface ethernet 0/0.10
- ip nat inside
-!
+   ip nat inside
 interface ethernet 0/0.20
  ip nat inside
-!
 interface ethernet 0/0.50
  ip nat inside
 exit
@@ -138,25 +181,67 @@ access-list 69 permit 192.168.10.0 0.0.0.255
 access-list 69 permit 192.168.20.0 0.0.0.255
 access-list 69 permit 192.168.50.0 0.0.0.255
 !
-! Configure NAT overload (PAT) to translate multiple private IPs into the public IP of R1
+! # Configure NAT overload (PAT) to translate multiple private IPs into the public IP of R1
 ip nat inside source list 69 interface ethernet 0/3 overload
 !
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! # Inject a default route in the border router to get Internet
+! ### 3. Dedault Route: Inject a default route in the LAN border router to get Internet
+!
 ip route 0.0.0.0 0.0.0.0 123.123.123.2
 !
 !
-! ### Save Configuration:
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 7. Secure Login & SSH Configuration:
+!
+ip domain-name Fz3r0.domain
+crypto key generate rsa general-keys modulus 2048
+!
+username fz3r0 privilege 15 secret cisco.12345
+!
+enable secret fz3r0.12345
+service password-encryption
+security passwords min-length 10
+login block-for 120 attempts 3 within 60
+!
+line console 0
+   password fz3r0.12345
+   login local
+   logging synchronous
+   exec-timeout 5 30
+exit
+!
+line aux 0
+   privilege level 1
+   transport input none
+   transport output none
+   login local
+   no exec
+exit
+!
+line vty 0 4
+   transport input ssh
+   login local
+   logging synchronous
+   exec-timeout 5 30
+exit
+!
+ip ssh version 2
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 9. Save & Reload
 !
 end
 write memory
 !
-! ### Verify Configurations:
-!
-show ip interface brief
-!
-!
+reload
+yes
 
+
+!
+!
 
 ```
 
