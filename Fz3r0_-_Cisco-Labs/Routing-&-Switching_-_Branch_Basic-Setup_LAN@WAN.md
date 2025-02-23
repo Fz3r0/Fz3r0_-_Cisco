@@ -49,6 +49,130 @@ Result: `RT1-MDF1-B1L0-F0`
 
 ### RT1 :: (Router 1) :: `RT1-MDF1-B1L0-F0`
 
+```py
+!
+! ############################
+! ## ROUTER 1 CONFIGURATION ##
+! ############################
+!
+
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 1. Initialize Router:
+!
+enable
+configure terminal
+!
+hostname RT1-MDF1-B1L0-F0
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### Enable Trunking on Router Interface:
+!
+interface ethernet 0/0
+ description Trunk Link to SW-1
+ no shutdown
+!
+! ### Create Sub-interfaces for VLANs:
+!
+interface ethernet 0/0.10
+ description VLAN 10 - ALFA
+ encapsulation dot1Q 10
+ ip address 192.168.10.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.20
+ description VLAN 20 - BRAVO
+ encapsulation dot1Q 20
+ ip address 192.168.20.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.50
+ description VLAN 50 - VOICE
+ encapsulation dot1Q 50
+ ip address 192.168.50.254 255.255.255.0
+ no shutdown
+ exit
+!
+interface ethernet 0/0.99
+ description VLAN 99 - NATIVE VLAN
+ encapsulation dot1Q 99 native
+ no ip address
+ no shutdown
+ exit
+!
+! ### Create Interface for ISP connection
+!
+interface ethernet 0/3
+ description WAN (ROUTER -> ISP)
+ ip address 123.123.123.1 255.255.255.252
+ no shutdown
+ exit
+!
+! ## NAT @ LAN IP translation -> WAN public IP
+!
+! # NAT to translate private IP to Public IP using a socket
+!
+! Enable NAT on the WAN interface (towards the ISP)
+interface ethernet 0/3
+ ip nat outside
+!
+! # Enable NAT on the LAN interfaces (VLAN subinterfaces)
+interface ethernet 0/0.10
+ ip nat inside
+!
+interface ethernet 0/0.20
+ ip nat inside
+!
+interface ethernet 0/0.50
+ ip nat inside
+exit
+!
+! Create an access list to define which networks will be translated (private IPs) (ACL 1-99 private ACL)
+access-list 69 permit 192.168.10.0 0.0.0.255
+access-list 69 permit 192.168.20.0 0.0.0.255
+access-list 69 permit 192.168.50.0 0.0.0.255
+!
+! Configure NAT overload (PAT) to translate multiple private IPs into the public IP of R1
+ip nat inside source list 69 interface ethernet 0/3 overload
+!
+!
+! # Inject a default route in the border router to get Internet
+ip route 0.0.0.0 0.0.0.0 123.123.123.2
+!
+!
+! ### Save Configuration:
+!
+end
+write memory
+!
+! ### Verify Configurations:
+!
+show ip interface brief
+!
+!
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Configuration: `Switches`
 
 ### SW1 :: (Switch 1 - Core/Distribution) :: `SW1-MDF1-B1L0-F0`
