@@ -68,18 +68,16 @@ configure terminal
 hostname RT1-MDF1-B1L0-F0
 !
 banner motd #
-
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
+             
              Fz3r0 @ Cisco CCNA/CCNP Labs
            
              Twitter : @Fz3r0_Ops
              Github  : github.com/Fz3r0
-
+             
              Device  : RT1-MDF1-B1L0-F0
-
+             
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 #
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -90,7 +88,7 @@ interface ethernet 0/0
    description Trunk Link to LAN (Switch)
    no shutdown
 !
-! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !
 ! ### 2.1 Create Sub-interfaces on Interface for VLANs:
 !
@@ -190,7 +188,7 @@ ip nat inside source list 69 interface ethernet 0/3 overload
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 4. Dedault Route: Inject a default route in the LAN border router to get Internet
+! ### 4. Default Route: Inject a default route in the LAN border router to get Internet
 !
 ip route 0.0.0.0 0.0.0.0 123.123.123.2
 !
@@ -198,16 +196,24 @@ ip route 0.0.0.0 0.0.0.0 123.123.123.2
 !
 ! ### 5. Secure Login & SSH Configuration:
 !
+! # Create Access List to only Permit VLAN 66 to access SSH
+access-list 666 permit tcp 10.66.0.0 0.0.255.255 any eq 22
+access-list 666 deny ip any any
+!
+! # Add domain to generate RSA key
 ip domain-name Fz3r0.domain
 crypto key generate rsa general-keys modulus 2048
 !
+! # Admin user + password
 username fz3r0 privilege 15 secret cisco.12345
 !
+! # Enable CLI password
 enable secret fz3r0.12345
 service password-encryption
 security passwords min-length 10
 login block-for 120 attempts 3 within 60
 !
+! # Console port password
 line console 0
    password fz3r0.12345
    login local
@@ -215,6 +221,7 @@ line console 0
    exec-timeout 5 30
 exit
 !
+! # AUX port = OFF
 line aux 0
    privilege level 1
    transport input none
@@ -223,13 +230,16 @@ line aux 0
    no exec
 exit
 !
+! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet 66)
 line vty 0 4
-   transport input ssh
-   login local
-   logging synchronous
-   exec-timeout 5 30
+    access-class 666 in
+    transport input ssh
+    login local
+    logging synchronous
+    exec-timeout 5 30
 exit
 !
+! # SSH Version
 ip ssh version 2
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -242,9 +252,6 @@ write memory
 reload
 yes
 
-
-!
-!
 
 ```
 
