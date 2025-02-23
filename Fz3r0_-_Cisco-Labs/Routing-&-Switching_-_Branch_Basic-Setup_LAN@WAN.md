@@ -342,11 +342,23 @@ ip ssh version 2
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 9. Save & Verify Configuration:
+! ### 9. Save & Reload
 !
 end
 write memory
 !
+reload
+yes
+
+
+!
+!
+
+````
+
+
+
+````
 ! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 !
 show vlan
@@ -362,10 +374,7 @@ show ip interface brief
 show running-config | include ssh
 !
 !
-
-
 ````
-
 
 
 RT1-MDF1-B1L0-F0   - 10.66.0.1/16 (Gateway)
