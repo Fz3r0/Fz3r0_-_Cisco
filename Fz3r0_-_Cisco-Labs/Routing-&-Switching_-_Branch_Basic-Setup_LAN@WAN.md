@@ -311,13 +311,13 @@ crypto key generate rsa general-keys modulus 2048
 !
 username fz3r0 privilege 15 secret cisco.12345
 !
-enable secret fz3r012345
+enable secret fz3r0.12345
 service password-encryption
 security passwords min-length 10
 login block-for 120 attempts 3 within 60
 !
 line console 0
-   password fz3r012345
+   password fz3r0.12345
    login local
    logging synchronous
    exec-timeout 5 30
@@ -355,6 +355,24 @@ yes
 !
 
 ````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
