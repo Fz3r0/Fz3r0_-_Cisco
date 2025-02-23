@@ -50,6 +50,93 @@ Result: `RT1-MDF1-B1L0-F0`
 
 ## Configuration: `Routers`
 
+### ISP :: (Router ISP) :: `ISP`
+
+```py
+!
+! ################
+! ## ROUTER ISP ##
+! ################
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 1. Initialize Router:
+!
+enable
+configure terminal
+!
+hostname ISP
+!
+banner motd #
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+             
+             Fz3r0 @ Cisco CCNA/CCNP Labs
+           
+             Twitter : @Fz3r0_OPs
+             Github  : github.com/Fz3r0
+             
+             Device  : ISP
+             
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+#
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ## 1. Configure Interface: e0/0 ISP <--> Branch LAN 
+!
+interface ethernet 0/0
+ip address 123.123.123.2 255.255.255.252
+no shutdown
+exit
+!
+! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+!
+! ## 1.1 Default Route: ISP To -> LAN R1
+!
+ip route 0.0.0.0 0.0.0.0 123.123.123.1
+exit
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ## 2. Configure Interface: e0/3 ISP <--> Internet (DHCP)
+!
+interface ethernet 0/3
+   ip address dhcp
+   no shutdown
+exit
+!
+! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+!
+! ## 2.1 Default Route: ISP To -> Internet (VMware Virtual Interface NAT)
+!
+ip route 0.0.0.0 0.0.0.0 192.168.30.2
+exit
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ## LOOPBACK INTERFACES
+!
+! # ISP DNS simulation
+interface Loopback0
+ip address 69.69.69.69 255.255.255.255
+exit
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 9. Save & Reload
+!
+end
+write memory
+!
+reload
+yes
+
+
+```
+
+---
+
+
 ### RT1 :: (Router 1) :: `RT1-MDF1-B1L0-F0`
 
 ```py
@@ -260,92 +347,10 @@ yes
 ```
 
 
----
 
 
-### ISP :: (Router ISP) :: `ISP`
-
-```py
-!
-! ################
-! ## ROUTER ISP ##
-! ################
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 1. Initialize Router:
-!
-enable
-configure terminal
-!
-hostname ISP
-!
-banner motd #
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-             
-             Fz3r0 @ Cisco CCNA/CCNP Labs
-           
-             Twitter : @Fz3r0_OPs
-             Github  : github.com/Fz3r0
-             
-             Device  : ISP
-             
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-#
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ## 1. Configure Interface: e0/0 ISP <--> Branch LAN 
-!
-interface ethernet 0/0
-ip address 123.123.123.2 255.255.255.252
-no shutdown
-exit
-!
-! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-!
-! ## 1.1 Default Route: ISP To -> LAN R1
-!
-ip route 0.0.0.0 0.0.0.0 123.123.123.1
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ## 2. Configure Interface: e0/3 ISP <--> Internet (DHCP)
-!
-interface ethernet 0/3
-   ip address dhcp
-   no shutdown
-exit
-!
-! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-!
-! ## 2.1 Default Route: ISP To -> Internet (VMware Virtual Interface NAT)
-!
-ip route 0.0.0.0 0.0.0.0 192.168.30.2
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ## LOOPBACK INTERFACES
-!
-! # ISP DNS simulation
-interface Loopback0
-ip address 69.69.69.69 255.255.255.255
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 9. Save & Reload
-!
-end
-write memory
-!
-reload
-yes
 
 
-```
 
 
 
