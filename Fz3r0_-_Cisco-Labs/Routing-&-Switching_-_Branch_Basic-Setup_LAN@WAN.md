@@ -58,7 +58,6 @@ Result: `RT1-MDF1-B1L0-F0`
 ! ## ROUTER 1 CONFIGURATION ##
 ! ############################
 !
-
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
 ! ### 1. Initialize Router:
@@ -105,53 +104,49 @@ exit
 interface ethernet 0/0.20
    description VLAN 20 - BRAVO
    encapsulation dot1Q 20
-      ip address 10.10.0.1 255.255.0.0
+      ip address 10.20.0.1 255.255.0.0
    no shutdown
 exit
 !
 interface ethernet 0/0.30
- description VLAN 20 - BRAVO
- encapsulation dot1Q 20
-   ip address 10.10.0.1 255.255.0.0
- no shutdown
- exit
+   description VLAN 30 - BRAVO
+   encapsulation dot1Q 30
+      ip address 10.30.0.1 255.255.0.0
+   no shutdown
+exit
 !
 interface ethernet 0/0.40
- description VLAN 20 - BRAVO
- encapsulation dot1Q 20
-   ip address 10.10.0.1 255.255.0.0
- no shutdown
- exit
+   description VLAN 40 - BRAVO
+   encapsulation dot1Q 40
+      ip address 10.40.0.1 255.255.0.0
+   no shutdown
+exit
 !
 interface ethernet 0/0.50
- description VLAN 50 - VOICE
- encapsulation dot1Q 50
- ip address 192.168.50.254 255.255.255.0
- no shutdown
- exit
+   description VLAN 50 - VOICE
+   encapsulation dot1Q 50
+      ip address 10.50.0.1 255.255.0.0
+   no shutdown
+exit
 !
 interface ethernet 0/0.66
- description VLAN 20 - BRAVO
- encapsulation dot1Q 20
-   ip address 10.10.0.1 255.255.0.0
- no shutdown
- exit
-
-
+   description VLAN 66 - BRAVO
+   encapsulation dot1Q 66
+      ip address 10.66.0.1 255.255.0.0
+   no shutdown
+exit
 !
 !
 interface ethernet 0/0.99
- description VLAN 99 - NATIVE VLAN
- encapsulation dot1Q 99 native
- no ip address
- no shutdown
- exit
-!
-!
+   description VLAN 99 - NATIVE VLAN
+   encapsulation dot1Q 99 native
+      no ip address
+   no shutdown
+exit
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 2. Interface 0/3 Configuration: From Router (LAN) <--> To ISP (WAN)
+! ### 3. Interface 0/3 Configuration: From Router (LAN) <--> To ISP (WAN)
 !
 interface ethernet 0/3
  description WAN (From: ROUTER -> To: ISP)
@@ -171,29 +166,38 @@ interface ethernet 0/3
 interface ethernet 0/0.10
    ip nat inside
 interface ethernet 0/0.20
- ip nat inside
+   ip nat inside
+interface ethernet 0/0.30
+   ip nat inside
+interface ethernet 0/0.40
+   ip nat inside
 interface ethernet 0/0.50
- ip nat inside
+   ip nat inside
+interface ethernet 0/0.66
+   ip nat inside
 exit
 !
 ! Create an access list to define which networks will be translated (private IPs) (ACL 1-99 private ACL)
-access-list 69 permit 192.168.10.0 0.0.0.255
-access-list 69 permit 192.168.20.0 0.0.0.255
-access-list 69 permit 192.168.50.0 0.0.0.255
+access-list 69 permit 10.10.0.0 0.0.255.255
+access-list 69 permit 10.20.0.0 0.0.255.255
+access-list 69 permit 10.30.0.0 0.0.255.255
+access-list 69 permit 10.40.0.0 0.0.255.255
+access-list 69 permit 10.50.0.0 0.0.255.255
+access-list 69 permit 10.66.0.0 0.0.255.255
 !
 ! # Configure NAT overload (PAT) to translate multiple private IPs into the public IP of R1
 ip nat inside source list 69 interface ethernet 0/3 overload
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 3. Dedault Route: Inject a default route in the LAN border router to get Internet
+! ### 4. Dedault Route: Inject a default route in the LAN border router to get Internet
 !
 ip route 0.0.0.0 0.0.0.0 123.123.123.2
 !
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 7. Secure Login & SSH Configuration:
+! ### 5. Secure Login & SSH Configuration:
 !
 ip domain-name Fz3r0.domain
 crypto key generate rsa general-keys modulus 2048
@@ -231,7 +235,7 @@ ip ssh version 2
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 9. Save & Reload
+! ### 6. Save & Reload
 !
 end
 write memory
