@@ -192,9 +192,30 @@ configure terminal
 !
 hostname SW1-MDF1-B1L0-F0
 !
+banner motd #
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+             Fz3r0 @ Cisco CCNA/CCNP Labs
+           
+             Twitter : @Fz3r0_Ops
+             Github  : github.com/Fz3r0
+
+             Device  : SW1-MDF1-B1L0-F0
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+#
+!
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 2. LAN Creation & Naming:
+! ### 2. Disable Unnecessary Services:
+!
+no ip domain-lookup
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 3. LAN Creation & Naming:
 !
 vlan 10
    name VLAN-10-ALFA
@@ -213,7 +234,7 @@ vlan 99
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 3. Create Access Interfaces + Assign Access & Voice VLANs:
+! ### 4. Create Access Interfaces + Assign Access & Voice VLANs:
 !
 interface range ethernet 0/0-3
    description VLAN-10-ALFA
@@ -257,7 +278,7 @@ exit
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 4. Create Trunk Interfaces + Assign Native VLAN & Allowed VLANs:
+! ### 5. Create Trunk Interfaces + Assign Native VLAN & Allowed VLANs:
 !
 interface range ethernet 4/0-3
    description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
@@ -270,7 +291,57 @@ exit
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 5. Save & Verify Configuration:
+! ### 6. Create Management SVI:
+!
+interface vlan 66
+   description MANAGEMENT_SVI-VLAN66
+   ip address 10.66.0.10 255.255.255.0
+   no shutdown
+exit
+!
+ip default-gateway 10.66.0.1
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 7. Secure Login & SSH Configuration:
+!
+ip domain-name Fz3r0.domain
+crypto key generate rsa general-keys modulus 2048
+!
+username fz3r0 privilege 15 secret cisco.12345
+!
+enable secret fz3r012345
+service password-encryption
+security passwords min-length 10
+login block-for 120 attempts 3 within 60
+!
+line console 0
+   password fz3r012345
+   login local
+   logging synchronous
+   exec-timeout 5 30
+exit
+!
+line aux 0
+   privilege level 1
+   transport input none
+   transport output none
+   login local
+   no exec
+exit
+!
+line vty 0 4
+   transport input ssh
+   login local
+   logging synchronous
+   exec-timeout 5 30
+exit
+!
+ip ssh version 2
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 9. Save & Verify Configuration:
 !
 write memory
 !
@@ -284,124 +355,9 @@ show interfaces trunk
 !
 ! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 !
+show ip interface brief
 !
-
-
-````
-
-
-
-
-
-
-### SW2 :: (Switch 2 - Access) :: `SW2-IDF1-B2L1-F0`
-
-````py
-!
-! ############################
-! ## SWITCH 2 CONFIGURATION ##
-! ############################
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 1. Initialize Switch:
-!
-enable
-configure terminal
-!
-hostname SW2-IDF1-B2L1-F0
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 2. LAN Creation & Naming:
-!
-vlan 10
-   name VLAN-10-ALFA
-vlan 20
-   name VLAN-20-BRAVO
-vlan 30
-   name VLAN-30-CHARLY
-vlan 40
-   name VLAN-40-DELTA
-vlan 50
-   name VLAN-50-VOICE
-vlan 66
-   name VLAN-66-MANAGEMENT
-vlan 99
-   name VLAN-99-NATIVE-TRUNK
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 3. Create Access Interfaces + Assign Access & Voice VLANs:
-!
-interface range ethernet 0/0-3
-   description VLAN-10-ALFA
-      switchport mode access
-      switchport access vlan 10
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 1/0-3
-   description VLAN-20-BRAVO
-      switchport mode access
-      switchport access vlan 20
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 2/0-3
-   description VLAN-30-CHARLY
-      switchport mode access
-      switchport access vlan 30
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 3/0-2
-   description VLAN-40-DELTA
-      switchport mode access
-      switchport access vlan 40
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface ethernet 3/3
-   description VLAN-66-MANAGEMENT
-      switchport mode access
-      switchport access vlan 66
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 4. Create Trunk Interfaces + Assign Native VLAN & Allowed VLANs:
-!
-interface range ethernet 4/0-3
-   description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
-      switchport trunk encapsulation dot1q
-      switchport mode trunk
-      switchport trunk allowed vlan 10,20,30,40,50,66
-      switchport trunk native vlan 99
-   no shutdown
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 5. Save & Verify Configuration:
-!
-write memory
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-show vlan
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-show interfaces trunk
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+show running-config | include ssh
 !
 !
 
@@ -410,239 +366,12 @@ show interfaces trunk
 
 
 
-
-### SW3 :: (Switch 3 - Access) :: `SW3-IDF2-B3L1-F0`
-
-````py
-!
-! ############################
-! ## SWITCH 3 CONFIGURATION ##
-! ############################
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 1. Initialize Switch:
-!
-enable
-configure terminal
-!
-hostname SW3-IDF2-B3L1-F0
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 2. LAN Creation & Naming:
-!
-vlan 10
-   name VLAN-10-ALFA
-vlan 20
-   name VLAN-20-BRAVO
-vlan 30
-   name VLAN-30-CHARLY
-vlan 40
-   name VLAN-40-DELTA
-vlan 50
-   name VLAN-50-VOICE
-vlan 66
-   name VLAN-66-MANAGEMENT
-vlan 99
-   name VLAN-99-NATIVE-TRUNK
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 3. Create Access Interfaces + Assign Access & Voice VLANs:
-!
-interface range ethernet 0/0-3
-   description VLAN-10-ALFA
-      switchport mode access
-      switchport access vlan 10
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 1/0-3
-   description VLAN-20-BRAVO
-      switchport mode access
-      switchport access vlan 20
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 2/0-3
-   description VLAN-30-CHARLY
-      switchport mode access
-      switchport access vlan 30
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 3/0-2
-   description VLAN-40-DELTA
-      switchport mode access
-      switchport access vlan 40
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface ethernet 3/3
-   description VLAN-66-MANAGEMENT
-      switchport mode access
-      switchport access vlan 66
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 4. Create Trunk Interfaces + Assign Native VLAN & Allowed VLANs:
-!
-interface range ethernet 4/0-3
-   description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
-      switchport trunk encapsulation dot1q
-      switchport mode trunk
-      switchport trunk allowed vlan 10,20,30,40,50,66
-      switchport trunk native vlan 99
-   no shutdown
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 5. Save & Verify Configuration:
-!
-write memory
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-show vlan
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-show interfaces trunk
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-!
-
-
-````
-
-
-
-### SW4 :: (Switch 4 - Access) :: `SW4-IDF3-B3L3-F0`
-
-````py
-!
-! ############################
-! ## SWITCH 4 CONFIGURATION ##
-! ############################
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 1. Initialize Switch:
-!
-enable
-configure terminal
-!
-hostname SW4-IDF3-B3L3-F0
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 2. LAN Creation & Naming:
-!
-vlan 10
-   name VLAN-10-ALFA
-vlan 20
-   name VLAN-20-BRAVO
-vlan 30
-   name VLAN-30-CHARLY
-vlan 40
-   name VLAN-40-DELTA
-vlan 50
-   name VLAN-50-VOICE
-vlan 66
-   name VLAN-66-MANAGEMENT
-vlan 99
-   name VLAN-99-NATIVE-TRUNK
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 3. Create Access Interfaces + Assign Access & Voice VLANs:
-!
-interface range ethernet 0/0-3
-   description VLAN-10-ALFA
-      switchport mode access
-      switchport access vlan 10
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 1/0-3
-   description VLAN-20-BRAVO
-      switchport mode access
-      switchport access vlan 20
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 2/0-3
-   description VLAN-30-CHARLY
-      switchport mode access
-      switchport access vlan 30
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface range ethernet 3/0-2
-   description VLAN-40-DELTA
-      switchport mode access
-      switchport access vlan 40
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-interface ethernet 3/3
-   description VLAN-66-MANAGEMENT
-      switchport mode access
-      switchport access vlan 66
-      switchport voice vlan 50
-   no shutdown
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 4. Create Trunk Interfaces + Assign Native VLAN & Allowed VLANs:
-!
-interface range ethernet 4/0-3
-   description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
-      switchport trunk encapsulation dot1q
-      switchport mode trunk
-      switchport trunk allowed vlan 10,20,30,40,50,66
-      switchport trunk native vlan 99
-   no shutdown
-exit
-!
-! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-!
-! ### 5. Save & Verify Configuration:
-!
-write memory
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-show vlan
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-show interfaces trunk
-!
-! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-!
-!
-
-
-````
-
-
-
+RT1-MDF1-B1L0-F0   - 10.66.0.1/16 (Gateway)
+SW1-MDF1-B1L0-F0  - 10.66.0.10/16
+SW2-IDF1-B2L1-F0   - 10.66.0.11/16
+SW3-IDF2-B3L1-F0   - 10.66.0.12/16
+SW4-IDF3-B3L3-F0  - 10.66.0.13/16
+Fz3r0-ADMIN-PC       -  10.66.0.100/16
 
 
 
