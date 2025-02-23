@@ -42,12 +42,14 @@ Result: `RT1-MDF1-B1L0-F0`
 
 
 
-## Configuration
+# Configuration
 
 
-
+## Configuration: `Routers`
 
 ### RT1 :: (Router 1) :: `RT1-MDF1-B1L0-F0`
+
+## Configuration: `Switches`
 
 ### SW1 :: (Switch 1 - Core/Distribution) :: `SW1-MDF1-B1L0-F0`
 
@@ -164,6 +166,12 @@ show interfaces trunk
 
 
 
+
+
+
+
+
+## Configuration: `Hosts`
 
 
 
