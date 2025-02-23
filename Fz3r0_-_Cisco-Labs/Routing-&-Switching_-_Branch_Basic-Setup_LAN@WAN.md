@@ -121,27 +121,26 @@ exit
 !
 ! ### TRUNK PORT CREATION
 !
-interface ethernet 1/0
+interface range ethernet 4/0-3
 description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
 switchport trunk encapsulation dot1q
 switchport mode trunk
-switchport trunk allowed vlan 10,20,50,99
+switchport trunk allowed vlan 10,20,30,40,50,66
 switchport trunk native vlan 99
 no shutdown
 exit
 !
-
-!
 ! ### Save & Verify Configuration:
 !
 write memory
+!
 !
 show vlan
 !
 !
 show interfaces trunk
 !
-
+!
 
 
 ````
