@@ -52,15 +52,22 @@ Result: `RT1-MDF1-B1L0-F0`
 ### SW1 :: (Switch 1 - Core/Distribution) :: `SW1-MDF1-B1L0-F0`
 
 ````py
-!## SWITCH 1 CONFIGURATION:
 !
-! ### Initialize Switch:
+! ############################
+! ## SWITCH 1 CONFIGURATION ##
+! ############################
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 1. Initialize Switch:
 !
 enable
 configure terminal
 hostname SW1-MDF1-B1L0-F0
 !
-! ### VLAN Creation & Naming:
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 2. LAN Creation & Naming:
 !
 vlan 10
 name VLAN-10-ALFA
@@ -77,7 +84,9 @@ name VLAN-66-MANAGEMENT
 vlan 99
 name VLAN-99-NATIVE-TRUNK
 !
-! ### Assign VLANs to Access Interfaces:
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 3. Create Access Interfaces + Assign Access & Voice VLANs:
 !
 interface range ethernet 0/0-3
 description VLAN-10-ALFA
@@ -119,7 +128,9 @@ switchport voice vlan 50
 no shutdown
 exit
 !
-! ### TRUNK PORT CREATION
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 4. Create Trunk Interfaces + Assign Native VLAN & Allowed VLANs:
 !
 interface range ethernet 4/0-3
 description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
@@ -130,15 +141,21 @@ switchport trunk native vlan 99
 no shutdown
 exit
 !
-! ### Save & Verify Configuration:
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 5. Save & Verify Configuration:
 !
 write memory
 !
+! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 !
 show vlan
 !
+! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 !
 show interfaces trunk
+!
+! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 !
 !
 
