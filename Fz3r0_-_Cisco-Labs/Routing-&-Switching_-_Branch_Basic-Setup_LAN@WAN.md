@@ -149,10 +149,10 @@ exit
 ! ### 3. Interface 0/3 Configuration: From Router (LAN) <--> To ISP (WAN)
 !
 interface ethernet 0/3
- description WAN (From: ROUTER -> To: ISP)
- ip address 123.123.123.1 255.255.255.252
- no shutdown
- exit
+   description WAN (From: ROUTER -> To: ISP)
+      ip address 123.123.123.1 255.255.255.252
+   no shutdown
+exit
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
@@ -177,7 +177,7 @@ interface ethernet 0/0.66
    ip nat inside
 exit
 !
-! Create an access list to define which networks will be translated (private IPs) (ACL 1-99 private ACL)
+! # Create an access list to define which networks will be translated (private IPs) (ACL 1-99 private ACL)
 access-list 69 permit 10.10.0.0 0.0.255.255
 access-list 69 permit 10.20.0.0 0.0.255.255
 access-list 69 permit 10.30.0.0 0.0.255.255
@@ -193,7 +193,6 @@ ip nat inside source list 69 interface ethernet 0/3 overload
 ! ### 4. Dedault Route: Inject a default route in the LAN border router to get Internet
 !
 ip route 0.0.0.0 0.0.0.0 123.123.123.2
-!
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
