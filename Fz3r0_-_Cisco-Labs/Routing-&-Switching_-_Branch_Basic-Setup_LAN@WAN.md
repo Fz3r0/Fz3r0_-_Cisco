@@ -231,6 +231,7 @@ vlan 66
    name VLAN-66-MANAGEMENT
 vlan 99
    name VLAN-99-NATIVE-TRUNK
+exit
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
