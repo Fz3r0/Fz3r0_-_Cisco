@@ -196,7 +196,7 @@ ip route 0.0.0.0 0.0.0.0 123.123.123.2
 !
 ! ### 5. Secure Login & SSH Configuration:
 !
-! # Create Access List to only Permit VLAN 66 to access SSH
+! # Create Access List to only Permit VLAN/Suvnet 66 to access SSH
 access-list 101 permit tcp 10.66.0.0 0.0.255.255 any eq 22
 access-list 101 deny ip any any
 !
@@ -230,7 +230,7 @@ line aux 0
    no exec
 exit
 !
-! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet 66)
+! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet/VLAN 66)
 line vty 0 4
     access-class 666 in
     transport input ssh
@@ -479,18 +479,26 @@ ip default-gateway 10.66.0.1
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
-! ### 7. Secure Login & SSH Configuration:
+! ### 8. Secure Login & SSH Configuration:
 !
+! # Create Access List to only Permit VLAN/Suvnet 66 to access SSH
+access-list 101 permit tcp 10.66.0.0 0.0.255.255 any eq 22
+access-list 101 deny ip any any
+!
+! # Add domain to generate RSA key
 ip domain-name Fz3r0.domain
 crypto key generate rsa general-keys modulus 2048
 !
+! # Admin user + password
 username fz3r0 privilege 15 secret cisco.12345
 !
+! # Enable CLI password
 enable secret fz3r0.12345
 service password-encryption
 security passwords min-length 10
 login block-for 120 attempts 3 within 60
 !
+! # Console port password
 line console 0
    password fz3r0.12345
    login local
@@ -498,6 +506,7 @@ line console 0
    exec-timeout 5 30
 exit
 !
+! # AUX port = OFF
 line aux 0
    privilege level 1
    transport input none
@@ -506,13 +515,16 @@ line aux 0
    no exec
 exit
 !
+! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet/VLAN 66)
 line vty 0 4
-   transport input ssh
-   login local
-   logging synchronous
-   exec-timeout 5 30
+    access-class 666 in
+    transport input ssh
+    login local
+    logging synchronous
+    exec-timeout 5 30
 exit
 !
+! # SSH Version
 ip ssh version 2
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
