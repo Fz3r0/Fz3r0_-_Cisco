@@ -51,6 +51,103 @@ Result: `RT1-MDF1-B1L0-F0`
 
 ### SW1 :: (Switch 1 - Core/Distribution) :: `SW1-MDF1-B1L0-F0`
 
+````py
+!## SWITCH 1 CONFIGURATION:
+!
+! ### Initialize Switch:
+!
+enable
+configure terminal
+hostname SW1-MDF1-B1L0-F0
+!
+! ### VLAN Creation & Naming:
+!
+vlan 10
+name VLAN-10-ALFA
+vlan 20
+name VLAN-20-BRAVO
+vlan 30
+name VLAN-30-CHARLY
+vlan 40
+name VLAN-40-DELTA
+vlan 50
+name VLAN-50-VOICE
+vlan 66
+name VLAN-66-MANAGEMENT
+vlan 99
+name VLAN-99-NATIVE-TRUNK
+!
+! ### Assign VLANs to Access Interfaces:
+!
+interface range ethernet 0/0-3
+description VLAN-10-ALFA
+switchport mode access
+switchport access vlan 10
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 1/0-3
+description VLAN-20-BRAVO
+switchport mode access
+switchport access vlan 20
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 2/0-3
+description VLAN-30-CHARLY
+switchport mode access
+switchport access vlan 30
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface range ethernet 3/0-2
+description VLAN-40-DELTA
+switchport mode access
+switchport access vlan 40
+switchport voice vlan 50
+no shutdown
+exit
+!
+interface ethernet 3/3
+description VLAN-66-MANAGEMENT
+switchport mode access
+switchport access vlan 66
+switchport voice vlan 50
+no shutdown
+exit
+!
+! ### TRUNK PORT CREATION
+!
+interface ethernet 1/0
+description TRUNK_LINK_(VLANS-10,20,30,40,50,66(n=99))
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport trunk allowed vlan 10,20,50,99
+switchport trunk native vlan 99
+no shutdown
+exit
+!
+
+!
+! ### Save & Verify Configuration:
+!
+write memory
+!
+show vlan
+!
+!
+show interfaces trunk
+!
+
+
+
+````
+
+
+
 
 
 
@@ -60,6 +157,205 @@ SW2-IDF1-F0-B2L1    - 10.66.0.11/16
 SW3-IDF2-F0-B3L1    - 10.66.0.12/16
 SW4-IDF3-F0-B3L3    - 10.66.0.13/16
 Fz3r0-ADMIN-PC       -  10.66.0.100/16
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+                 IP ADDRESSING & VLAN TABLE
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+NETWORKS:
+
+VLAN 10 - 10.10.0.0/16 - ALFA         
+VLAN 20 - 10.20.0.0/16 - BRAVO     
+VLAN 30 - 10.30.0.0/16 - CHARLY   
+VLAN 40 - 10.40.0.0/16 - DELTA
+VLAN 50 - 10.50.0.0/16 - VOICE                   
+VLAN 66 - 10.66.0.0/16 - MANAGEMENT
+VLAN 99 -  (N/A)            - NATIVE(TRUNK)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+HOSTS:
+
+RT1-MDF1-F0-B1L0   - 10.66.0.1/16 (Gateway)
+SW1-MDF1-F0-B1L0  - 10.66.0.10/16
+SW2-IDF1-F0-B2L1    - 10.66.0.11/16
+SW3-IDF2-F0-B3L1    - 10.66.0.12/16
+SW4-IDF3-F0-B3L3    - 10.66.0.13/16
+Fz3r0-ADMIN-PC       -  10.66.0.100/16
+ALFA VLAN10             - 10.10.0.101 - 254 (DHCP pool)
+BRAVO VLAN20         - 10.20.0.101 - 254 (DHCP pool)
+CHARLY VLAN30       - 10.30.0.101 - 254 (DHCP pool)
+DELTA VLAN40          - 10.40.0.101 - 254 (DHCP pool)
+VOICE (VoIP)             - 10.50.0.101 - 100 (DHCP pool)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+       ROUTER CONFIG
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e0/0
+SUB-INTERFACES (VLANS)
+e0/0.10 ::  192.168.10.1/24
+e0/0.20 ::  192.168.20.1/24
+e0/0.30 ::  192.168.30.1/24
+e0/0.40 ::  192.168.40.1/24
+e0/0.50 ::  192.168.50.1/24
+e0/0.66 ::  192.168.66.1/24
+e0/0.99 ::  (Native / No IP)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e0/3
+123.123.123.1/30 (Edge)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+DEFAULT ROUTE @ WAN
+0.0.0.0/24 (ALL)
+@ 123.123.123.2 (ISP e0/0)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+NAT@ WAN
+nat from inside (LAN)
+@ e0/3 (WAN) overload
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+     ISP ROUTER CONFIG
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e0/3
+123.123.123.2/30 (@ Branch)
+- - - - - - - - - - - - - - - - - - - - - -
+DEFAULT ROUTE @ Branch
+0.0.0.0/0 (ALL)
+@ 123.123.123.1 (RT1 e0/3)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e3/3
+1.0.0.1/30 (@ Internet)
+- - - - - - - - - - - - - - - - - - - - - -
+DEFAULT ROUTE @ Internet
+0.0.0.0/0 (ALL)
+@ 1.0.0.2/30 (RT1 e0/3)
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+
+
+
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+       SWITCH CONFIG
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACES :: e4/1-3
+TRUNK SWITCHPORT
+Native(Untagged) : VLAN 99
+Allowed(Tagged)  : VLAN 10
+Allowed(Tagged)  : VLAN 20
+Allowed(Tagged)  : VLAN 30
+Allowed(Tagged)  : VLAN 40
+Allowed(Tagged)  : VLAN 50
+Allowed(Tagged)  : VLAN 66
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e0/0-3
+ACCESS SWITCHPORT
+Access (ALFA)     : VLAN 10
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e1/0-3
+ACCESS SWITCHPORT
+Access (BRAVO)  : VLAN 20
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e2/0-3
+ACCESS SWITCHPORT
+Access (ALFA)     : VLAN 30
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: e3/0-2
+ACCESS SWITCHPORT
+Access (ALFA)     : VLAN 40
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE :: ALL ACCESS
+VOICE VLAN
+Voice (VOICE)     : VLAN 50
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+INTERFACE     :: e3/3
+ACCESS SWITCHPORT
+Access (MGMT)  : VLAN 66
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+SVI (MGMT) :: VLAN 66
+IP   : : 10.66.0.xxx/24
+GW :: 10.66.0.1
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+
+
+
+
+
+
+
+
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+       ADMINISTRATION
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+DEVICES CREDENTIALS
+fz3r0
+cisco.12345
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+GATEWAY
+10.66.0.1/24
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+SSH
+VTY 1-2
+- - - - - - - - - - - - - - - - - - - - - -
+Telnet = OFF
+HTTP  = ON
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
