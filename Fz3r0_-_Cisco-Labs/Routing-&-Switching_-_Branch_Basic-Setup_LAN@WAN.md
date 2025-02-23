@@ -37,6 +37,9 @@ Result: `RT1-MDF1-B1L0-F0`
 
 
 
+## VMware Virtual Interfaces
+
+![image](https://github.com/user-attachments/assets/acc53fe8-4366-439c-8340-768c1adf1416)
 
 
 
