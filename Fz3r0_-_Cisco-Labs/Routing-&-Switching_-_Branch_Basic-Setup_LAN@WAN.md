@@ -197,8 +197,8 @@ ip route 0.0.0.0 0.0.0.0 123.123.123.2
 ! ### 5. Secure Login & SSH Configuration:
 !
 ! # Create Access List to only Permit VLAN 66 to access SSH
-access-list 666 permit tcp 10.66.0.0 0.0.255.255 any eq 22
-access-list 666 deny ip any any
+access-list 101 permit tcp 10.66.0.0 0.0.255.255 any eq 22
+access-list 101 deny ip any any
 !
 ! # Add domain to generate RSA key
 ip domain-name Fz3r0.domain
