@@ -72,7 +72,7 @@ banner motd #
              
              Fz3r0 @ Cisco CCNA/CCNP Labs
            
-             Twitter : @Fz3r0_Ops
+             Twitter : @Fz3r0_OPs
              Github  : github.com/Fz3r0
              
              Device  : RT1-MDF1-B1L0-F0
@@ -296,7 +296,7 @@ banner motd #
 
              Fz3r0 @ Cisco CCNA/CCNP Labs
            
-             Twitter : @Fz3r0_Ops
+             Twitter : @Fz3r0_OPs
              Github  : github.com/Fz3r0
 
              Device  : SW1-MDF1-B1L0-F0
@@ -453,6 +453,17 @@ yes
 !
 
 ````
+
+
+
+
+
+
+
+
+
+
+
 
 
 
