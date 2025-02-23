@@ -345,6 +345,7 @@ ip ssh version 2
 ! ### 9. Save & Verify Configuration:
 !
 write memory
+end
 !
 ! # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 !
