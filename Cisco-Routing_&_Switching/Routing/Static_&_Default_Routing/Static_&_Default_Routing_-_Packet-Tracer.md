@@ -276,6 +276,8 @@ tracert 192.168.1.100
 
 Default routing is used when a router does not have a specific route for a destination, for example a simple route from "Site-XYZ" to the Internet. It forwards all unknown traffic to a designated next-hop router. This method is beneficial for simplifying routing in networks with a single exit point, reducing the need for multiple static routes. 
 
+- **While technically possible to configure multiple "default routes" on a device, it is generally not recommended as it can lead to connectivity issues and unpredictable routing behavior, as a device can only have one active default route at a time; most network setups should only have a single default route for optimal functionality. ONLY ONE DEFAULT ROUTE PER SERVER SHOULD BE CONFIGURED, NO MATTER THE NUMBER OF INTERFACES**
+
 ## Default Routing: Topology 
 
 In this lab, we implement a default route on the edge routers to direct all traffic through the central router.
