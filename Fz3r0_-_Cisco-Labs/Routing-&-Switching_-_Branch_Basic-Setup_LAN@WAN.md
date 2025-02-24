@@ -555,7 +555,7 @@ exit
 !
 interface vlan 66
    description MANAGEMENT_SVI-VLAN66
-   ip address 10.66.0.10 255.255.255.0
+   ip address 10.66.0.10 255.255.0.0
    no shutdown
 exit
 !
