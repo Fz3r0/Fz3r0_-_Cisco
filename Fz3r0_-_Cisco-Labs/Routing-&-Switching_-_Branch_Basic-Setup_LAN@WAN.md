@@ -281,61 +281,66 @@ ip route 0.0.0.0 0.0.0.0 123.123.123.2
 !
 ! ### 5. DHCP Configuration: Create DHCP Server and Pools for VLANs 10,20,30,40,50,66
 !
-! # Exclude addresses already used by static addresses (Router, Services, Switches, Hosts, etc)
-ip dhcp excluded-address 10.10.0.1 10.10.0.10
-ip dhcp excluded-address 10.20.0.1 10.20.0.10
-ip dhcp excluded-address 10.30.0.1 10.30.0.10
-ip dhcp excluded-address 10.40.0.1 10.40.0.10
-ip dhcp excluded-address 10.50.0.1 10.50.0.10
-ip dhcp excluded-address 10.66.0.1 10.66.0.200
+! # Exclude addresses from Pool (RANGE) :: Used by static addresses (Router, Services, Switches, Hosts, etc)
+ip dhcp excluded-address 10.10.0.1   10.10.0.99
+ip dhcp excluded-address 10.10.0.250 10.10.0.254
 !
-! # DHCP Pool for VLAN 10 - ALPHA (Range from 10.10.0.100 to 10.10.0.250) / Lease = 16hrs
+ip dhcp excluded-address 10.20.0.1   10.20.0.99
+ip dhcp excluded-address 10.20.0.250 10.20.0.254
+!
+ip dhcp excluded-address 10.30.0.1   10.30.0.99
+ip dhcp excluded-address 10.30.0.250 10.40.0.254
+!
+ip dhcp excluded-address 10.40.0.1   10.40.0.99
+ip dhcp excluded-address 10.40.0.250 10.40.0.254
+!
+ip dhcp excluded-address 10.50.0.1   10.50.0.99
+ip dhcp excluded-address 10.50.0.250 10.50.0.254
+!
+ip dhcp excluded-address 10.66.0.1   10.66.0.200
+ip dhcp excluded-address 10.66.0.250 10.66.0.254
+!
+! # DHCP Pool for VLAN 10 - ALPHA (Range from 10.10.0.100 to 10.10.0.250 / Lease = 1 day
 ip dhcp pool VLAN10
    network 10.10.0.0 255.255.0.0
    default-router 10.10.0.1
    dns-server 8.8.8.8 1.1.1.1
-   address 10.10.0.100 10.10.0.250
-   lease 960
+   lease 1
 !
-! # DHCP Pool for VLAN 20 - BRAVO (Range from 10.20.0.100 to 10.20.0.250) / Lease = 16hrs
+! # DHCP Pool for VLAN 20 - BRAVO (Range from 10.20.0.100 to 10.20.0.250) / Lease = 1 day
 ip dhcp pool VLAN20
    network 10.20.0.0 255.255.0.0
    default-router 10.20.0.1
    dns-server 8.8.8.8 1.1.1.1
-   address 10.20.0.100 10.20.0.250
-   lease 960
+   lease 1
 !
-! # DHCP Pool for VLAN 30 - CHARLIE (Range from 10.30.0.100 to 10.30.0.250) / Lease = 16hrs
+! # DHCP Pool for VLAN 30 - CHARLIE (Range from 10.30.0.100 to 10.30.0.250) / Lease = 1 day
 ip dhcp pool VLAN30
    network 10.30.0.0 255.255.0.0
    default-router 10.30.0.1
    dns-server 8.8.8.8 1.1.1.1
-   address 10.30.0.100 10.30.0.250
-   lease 960
+   lease 1
 !
-! # DHCP Pool for VLAN 40 - DELTA (Range from 10.40.0.100 to 10.40.0.250) / Lease = 16hrs
+! # DHCP Pool for VLAN 40 - DELTA (Range from 10.40.0.100 to 10.40.0.250) / Lease = 1 day
 ip dhcp pool VLAN40
    network 10.40.0.0 255.255.0.0
    default-router 10.40.0.1
    dns-server 8.8.8.8 1.1.1.1
-   address 10.40.0.100 10.40.0.250
-   lease 960
+   lease 1
 !
-! # DHCP Pool for VLAN 50 - VOICE (Range from 10.50.0.100 to 10.50.0.250) / Lease = 16hrs
+! # DHCP Pool for VLAN 50 - VOICE (Range from 10.50.0.100 to 10.50.0.250) / Lease = 1 day
 ip dhcp pool VLAN50
    network 10.50.0.0 255.255.0.0
    default-router 10.50.0.1
    dns-server 8.8.8.8 1.1.1.1
-   address 10.50.0.100 10.50.0.250
-   lease 960
+   lease 1
 !
-! # DHCP Pool for VLAN 66 - MANAGEMENT (Range from 10.66.0.200 to 10.66.0.250) / Lease = 16hrs
+! # DHCP Pool for VLAN 66 - MANAGEMENT (Range from 10.66.0.200 to 10.66.0.250) / Lease = 1 day
 ip dhcp pool VLAN66
    network 10.66.0.0 255.255.0.0
    default-router 10.66.0.1
    dns-server 8.8.8.8 1.1.1.1
-   address 10.66.0.200 10.66.0.250
-   lease 960
+   lease 1
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
@@ -377,7 +382,7 @@ exit
 !
 ! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet/VLAN 66)
 line vty 0 4
-    access-class 666 in
+    access-class 101 in
     transport input ssh
     login local
     logging synchronous
@@ -596,7 +601,7 @@ exit
 !
 ! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet/VLAN 66)
 line vty 0 4
-    access-class 666 in
+    access-class 101 in
     transport input ssh
     login local
     logging synchronous
