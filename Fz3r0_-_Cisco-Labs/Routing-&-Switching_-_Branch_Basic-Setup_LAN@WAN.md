@@ -346,10 +346,6 @@ ip dhcp pool VLAN66
 !
 ! ### 6. Secure Login & SSH Configuration:
 !
-! # Create Access List to only Permit VLAN/Suvnet 66 to access SSH
-access-list 101 permit tcp 10.66.0.0 0.0.255.255 any eq 22
-access-list 101 deny ip any any
-!
 ! # Add domain to generate RSA key
 ip domain-name Fz3r0.domain
 crypto key generate rsa general-keys modulus 2048
@@ -382,7 +378,6 @@ exit
 !
 ! # VTY: Five simultaneous remote connections 0 to 5 / Using ACL:666 (Only Subnet/VLAN 66)
 line vty 0 4
-    access-class 101 in
     transport input ssh
     login local
     logging synchronous
