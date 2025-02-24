@@ -1,4 +1,4 @@
 
 
-Cisco IOS XE Packet Capture Made Easy:
+Cisco IOS XE Packet Capture Made Easy (save local on device, export on tftp):
 - https://www.youtube.com/watch?v=5ppEIzilUsc
