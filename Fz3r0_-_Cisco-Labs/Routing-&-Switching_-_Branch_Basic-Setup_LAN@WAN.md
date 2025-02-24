@@ -50,13 +50,13 @@ Result: `RT1-MDF1-B1L0-F0`
 
 ## Configuration: `Routers`
 
-### ISP :: (Router ISP) :: `ISP`
+### ISP1 :: (Router ISP 1) :: `ISP1`
 
 ```py
 !
-! ################
-! ## ROUTER ISP ##
-! ################
+! ##################
+! ## ROUTER ISP 1 ##
+! ##################
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
@@ -65,7 +65,7 @@ Result: `RT1-MDF1-B1L0-F0`
 enable
 configure terminal
 !
-hostname ISP
+hostname ISP1
 !
 banner motd #
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -75,7 +75,7 @@ banner motd #
              Twitter : @Fz3r0_OPs
              Github  : github.com/Fz3r0
              
-             Device  : ISP
+             Device  : ISP1
              
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 #
@@ -91,9 +91,96 @@ exit
 !
 ! # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 !
-! ## 1.1 Default Route: ISP To -> LAN R1
+! ## 1.1 Default Route: ISP1 To -> LAN R1
 !
 ip route 0.0.0.0 0.0.0.0 123.123.123.1
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ## 1. Configure Interface: e1/0 ISP1 <--> ISP2 :: BGP Routing 
+!
+interface Ethernet1/0
+   description BGP ISP1 <--> ISP2
+      ip address 1.0.0.2 255.255.255.252
+   no shutdown
+exit
+!
+router bgp 65002
+network 1.0.0.0 mask 255.255.255.252
+neighbor 1.0.0.1 remote-as 65001
+neighbor 1.0.0.1 update-source Ethernet1/0
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ## LOOPBACK INTERFACES
+!
+! # ISP DNS1 simulation
+interface Loopback0
+ip address 68.68.68.68 255.255.255.255
+exit
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 9. Save & Reload
+!
+end
+write memory
+!
+reload
+yes
+
+
+```
+
+---
+
+
+### ISP2 :: (Router ISP 2) :: `ISP2`
+
+
+```py
+!
+! ##################
+! ## ROUTER ISP 2 ##
+! ##################
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ### 1. Initialize Router:
+!
+enable
+configure terminal
+!
+hostname ISP2
+!
+banner motd #
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+             
+             Fz3r0 @ Cisco CCNA/CCNP Labs
+           
+             Twitter : @Fz3r0_OPs
+             Github  : github.com/Fz3r0
+             
+             Device  : ISP1
+             
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+#
+!
+! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+!
+! ## 1. Configure Interface: e1/0 ISP1 <--> ISP2 :: BGP Routing 
+!
+interface ethernet 1/0
+   description BGP ISP1 <--> ISP2
+      ip address 1.0.0.1 255.255.255.252
+   no shutdown
+exit
+!
+router bgp 65001
+network 1.0.0.0 mask 255.255.255.252
+neighbor 1.0.0.2 remote-as 65002
+neighbor 1.0.0.2 update-source ethernet 1/0
+exit
 !
 ! # =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 !
@@ -114,7 +201,7 @@ ip route 0.0.0.0 0.0.0.0 192.168.30.2
 !
 ! ## LOOPBACK INTERFACES
 !
-! # ISP DNS simulation
+! # ISP DNS2 simulation
 interface Loopback0
 ip address 69.69.69.69 255.255.255.255
 exit
@@ -133,6 +220,26 @@ yes
 ```
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### RT1 :: (Router 1) :: `RT1-MDF1-B1L0-F0`
