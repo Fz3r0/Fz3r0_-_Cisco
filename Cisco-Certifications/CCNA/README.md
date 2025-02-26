@@ -16,6 +16,7 @@ https://u.cisco.com/paths/248?utm_campaign=ccna&utm_source=blog&utm_medium=blog-
 - https://www.youtube.com/@rickgraziani6055/playlists
 - https://www.youtube.com/watch?v=9GciaJ7NazU&list=PLCDpf1W6pOhq3vi0DH0BudJZY7i2c4ePy
 - https://www.youtube.com/watch?v=hY1sXBt-CQY&list=PLvUOx2WG6R7N5mUWwB-_YLWEkk491XqKx
+- https://www.youtube.com/playlist?list=PL9aktFItFNdOjoG3yepVhrE_VozG15Cj1
 
 
 ## Cheatsheets
