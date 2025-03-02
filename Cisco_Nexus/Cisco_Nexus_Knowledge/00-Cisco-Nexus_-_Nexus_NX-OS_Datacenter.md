@@ -316,6 +316,7 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 # 📚🗂️🎥 Resources
 
 - https://youtu.be/lADK3STwwAM?si=LBcn1JuF76icjXqN
+- https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
 - https://www.analysisman.com/2020/10/cisco-nxos-commands.html
 - https://blogs.cisco.com/networking/cisco-silicon-applications
 - [Storage Area Network | Network Basics](https://www.youtube.com/watch?v=Pu4b8K0BQ9Y)
