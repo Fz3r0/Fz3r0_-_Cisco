@@ -98,8 +98,6 @@ Cisco Nexus switches are purpose-built for **data centers**, addressing challeng
 
 
 
-## East-West vs. North-South Traffic Flow in Networking
-
 ## 🌐 East-West vs. North-South Traffic  
 
 In networking, traffic flows **within** the data center (**East-West**) or **to/from** external networks (**North-South**). 
