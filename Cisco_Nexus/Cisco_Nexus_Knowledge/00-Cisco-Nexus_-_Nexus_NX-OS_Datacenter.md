@@ -263,7 +263,7 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 
 
 
-# Lead & Spine Architecture
+# Leaf & Spine Architecture
 
 
 
