@@ -122,54 +122,45 @@ In networking, traffic flows **within** the data center (**East-West**) or **to/
 ![image](https://github.com/user-attachments/assets/9b1200f3-adb2-4700-8cfb-abbae7f36acc)
 
 
-![image](https://github.com/user-attachments/assets/7da945f1-e2ca-4e49-b6cb-00a2104a809c)
 
 
 
-# NX-OS (Nexus Operating System)
+# 🌐 NX-OS (Nexus Operating System)
 
-- **NX-OS (Nexus Operating System)** is the operating system that powers Cisco Nexus switches.
-- It is based on a **Linux kernel** and is specifically optimized for **data center environments**.
-- NX-OS supports advanced Layer 2 and Layer 3 networking features while also providing capabilities for **Storage Area Networks (SANs)**.  
+**NX-OS** is the operating system powering Cisco Nexus switches, designed and optimized for **data centers**. It supports advanced **Layer 2 and Layer 3** features and capabilities for **Storage Area Networks (SANs)**.
+
+![image](https://github.com/user-attachments/assets/463aee42-256f-418b-9f89-6edd5d3bda21)
+
+### 🔑 NX-OS Key Characteristics:
+
+| **Characteristic**       | **Details**                                            |
+|--------------------------|--------------------------------------------------------|
+| **🛠 Stability & Modularity** | Robust and reliable for mission-critical workloads.  |
+| **🔄 Dual Functionality**    | Operates in **LAN** (Cisco IOS-like) or **SAN** (Fibre Channel) modes. |
+| **🔒 High Availability**     | Features like **ISSU** (In-Service Software Upgrades) & redundancy. |
+
+### ⚡ NX-OS Features:
+
+| **Feature**                     | **Details**                                              |
+|----------------------------------|----------------------------------------------------------|
+| **🐧 Linux Kernel**              | Provides stability, modularity, and reliability.         |
+| **📸 Unified Image**             | One OS image for all Nexus models simplifies updates.    |
+| **🌐 LAN Mode**                  | Supports **VLANs**, **OSPF**, **BGP**, and more for LAN. |
+| **💾 SAN Mode**                  | Specially designed for Fibre Channel & FCoE in storage networks. |
+| **⚙️ Feature Activation**        | Services like OSPF/BGP are off by default, enabling efficient resource use. |
+| **🔄 High Availability**         | ISSU for seamless upgrades & redundancy support.        |
+| **🌍 Leaf-Spine Support**        | VXLAN & BGP EVPN for scalable, east-west traffic management. |
+
 
 ![image](https://github.com/user-attachments/assets/463aee42-256f-418b-9f89-6edd5d3bda21)
 
 ![image](https://github.com/user-attachments/assets/41c7d898-1668-4cd1-b89b-92fc21402d3e)
 
-### **NX-OS: Key characteristics:**
-
-- **Stability and Modularity**: A robust OS designed for mission-critical workloads.  
-- **Dual Functionality**: Operates in **LAN** mode (similar to Cisco IOS) or **SAN** mode (SAN-OS, used in MDS platforms for Fibre Channel networking).  
-- **High Availability**: Offers advanced features like In-Service Software Upgrades (ISSU) and redundancy mechanisms.  
-
 ![image](https://github.com/user-attachments/assets/854f237e-2b87-4ced-9ba1-b24d944ebd3d)
 
-### **NX-OS: Features:**
 
-1. **Linux-Based Kernel**:  
-   - Provides stability, modularity, and reliability.  
 
-2. **Unified Image**:  
-   - A single OS image supports all Nexus models, simplifying updates and management.  
 
-3. **LAN and SAN Modes**:  
-   - **NX-OS for LAN**: Features like VLANs, static routes, OSPF, and BGP.  
-   - **SAN-OS for MDS**: Specialized for Storage Area Networks with support for Fibre Channel (FC) and Fibre Channel over Ethernet (FCoE).  
-
-4. **Feature Activation**:  
-   - Services like OSPF, BGP, and VRF are **off by default** to optimize system resources.  
-   - Activating them:  
-     - Reserves memory.  
-     - Builds necessary databases.  
-     - Ensures efficient resource use.  
-
-5. **High Availability**:  
-   - **In-Service Software Upgrades (ISSU)** for seamless updates.  
-   - Redundant supervisor modules for seamless failover.  
-
-6. **Support for Leaf-Spine Architectures**:  
-   - Protocols like VXLAN and BGP EVPN enable scalable, multi-tenant environments.  
-   - Designed for efficient east-west traffic management.  
 
 
 
@@ -262,6 +253,9 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 | **Cisco MDS**          | Dedicated SAN switches for managing high-speed storage traffic.              | Interconnect servers and storage devices in a SAN.         |
 | **10GbE FCoE Cable**   | Fiber optic cables designed for 10Gb Ethernet speeds to carry FCoE traffic.   | Convergence of data and storage networks over Ethernet.    |
 | **Cisco Nexus 7000**   | Modular switches that can handle both LAN and SAN traffic with additional MDS modules. | Large-scale, converged datacenter environments.            |
+
+
+
 
 ---
 
