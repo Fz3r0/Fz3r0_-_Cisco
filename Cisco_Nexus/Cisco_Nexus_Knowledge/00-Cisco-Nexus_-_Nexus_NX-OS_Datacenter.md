@@ -162,6 +162,34 @@ In networking, traffic flows **within** the data center (**East-West**) or **to/
 
 
 
+# Cisco Nexus Switch Series Comparison 🌐🚀
+
+| **Nexus Series**               | **Form Factor**      | **Ports**                                  | **Role in Network**  | **Speed/Capability**                     | **Use Case**                               |
+|---------------------------------|----------------------|--------------------------------------------|----------------------|------------------------------------------|--------------------------------------------|
+| **Nexus 9200**                  | 🧩 Fixed (Compact 1RU) | 48 Base-T + QSFP28 ports                   | 🔌 Access Layer       | 1RU, 0.696 Tbps, 10/25/40/100GE options  | 🏢 Small enterprise or branch office access   |
+| **Nexus 9300 1/10GBaseT**       | 📦 Fixed (1RU)        | 1/10 Gigabit Ethernet (Base-T)             | 🔌 Access Layer       | 1/10G Base-T, 40/100 Gig uplinks         | 🖥️ Office network with 10G access and uplinks |
+| **Nexus 9300 1/10/25/50 GE**    | 📦 Fixed (1RU)        | 1/10/25/50GE SFP-based, 40/100 Gig uplinks | 🔄 Access/Aggregation | 1/10/25/50GE, 40/100 Gig uplinks         | 🔝 High-speed aggregation for campus/core    |
+| **Nexus 9300 40/100 GE**        | 📦 Fixed (1RU)        | 40GE QSFP+ ports                           | 🔄 Aggregation/Spine  | 40 Gigabit QSFP+, High density           | 🏙️ Spine layer for data centers, high traffic |
+| **Nexus 9300 400 GE**           | 📦 Fixed (1RU)        | 400 Gigabit Ethernet ports (QSFP-DD)       | 🧑‍💻 Spine/Aggregation | 400GE, backwards compatible with 100/40GE | ⚡ High-performance backbone for data centers|
+| **Nexus 9400**                  | 🛠️ Modular (Chassis) | Up to 128x 100/200G or 64x 400G ports      | 🔄 Spine/Aggregation  | 400G, modular chassis                    | 🌍 Large-scale aggregation in data centers   |
+| **Nexus 9500**                  | 🛠️ Modular (Chassis) | 1/10/40/100/400 GE ports (varies by module)| 🔄 Spine/Aggregation  | Modular chassis with high flexibility    | ☁️ Cloud data centers, large networks        |
+| **Nexus 9800**                  | 🛠️ Modular (Chassis) | Up to 36x 400G ports (varies by card)      | 🔄 Spine/Aggregation  | 100/400GE support, high density          | 🚀 High-density data centers, cloud services |
+
+![image](https://github.com/user-attachments/assets/1567d39b-a324-4c02-8ad5-7c9c3c1526f0)
+
+![image](https://github.com/user-attachments/assets/4a92f693-c61e-40b2-bc3e-33de5194eeeb)
+
+![image](https://github.com/user-attachments/assets/91cc6bb5-96be-4e90-bbf0-a66582b87498)
+
+
+
+
+
+
+
+
+
+
 
 
 
