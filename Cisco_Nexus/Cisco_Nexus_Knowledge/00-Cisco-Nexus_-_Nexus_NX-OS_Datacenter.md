@@ -311,6 +311,7 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 
 # 📚🗂️🎥 Resources
 
+- https://www.youtube.com/watch?v=bSiriF8kM7E&list=PLxyr0C_3Ton2-AsrD2iMdQ1mV4bqae8kv
 - https://youtu.be/lADK3STwwAM?si=LBcn1JuF76icjXqN
 - https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
 - https://www.cisco.com/c/en/us/products/switches/nexus-9000-series-switches/models-comparison.html
