@@ -23,7 +23,7 @@ Cisco Nexus is a family of **high-performance switches** specifically designed f
 
 The Nexus platform stands out for its **scalability, low-latency architecture, and high availability (HA)**, providing a robust and flexible infrastructure for mission-critical networks. Powered by NX-OS, a modular and highly programmable operating system, engineers can leverage advanced capabilities such as automation, segmentation, and enhanced security.
 
-![image](https://github.com/user-attachments/assets/f9d7426c-db46-4d22-b042-2bf2e0d34afc)
+![image](https://github.com/user-attachments/assets/a3d1efa8-d13b-4baf-b632-ed7eb07abf54)
 
 For an **enterprise network engineer**, understanding **data center networking** is essential. Ensuring server connectivity within these environments is a key responsibility, especially for large organizations that manage their own data center infrastructure to support branch offices and critical applications.
 
