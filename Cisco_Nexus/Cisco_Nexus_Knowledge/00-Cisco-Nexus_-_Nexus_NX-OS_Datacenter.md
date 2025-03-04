@@ -15,9 +15,17 @@
 
 # 📝❓📄 `Index`
 
-- 
+- ⚡ Cisco Nexus - High-Performance Switches
+    - 🌐 `East-West Traffic` vs. `North-South Traffic`  
+    - 🌐 Cisco Nexus: `Switch Series Comparison`
+- 🚀 Cisco Nexus: `Why for Data Centers?
+    - 🌍 `Data Center` vs. `Traditional Tree Network Architecture`  
+    - ⚔️ `Cisco Nexus (Data Center)` vs. `Cisco Catalyst (Enterprise/Branch)`  
+-⚡ Cisco Nexus: `ASICs - Specialized Hardware for Efficiency`  
 
-# ⚡ Cisco Nexus: `Introduction`
+
+
+# ⚡ Cisco Nexus - High-Performance Switches
 
 Cisco Nexus is a family of **high-performance switches** specifically designed for **modern data centers**. These switches are optimized to handle the growing challenges of **virtualization, cloud computing, and massive east-west traffic**, ensuring exceptional performance in enterprise and service provider environments.
 
@@ -31,7 +39,26 @@ Powered by **NX-OS**, a modular and highly programmable operating system, engine
 
 For an **enterprise network engineer**, understanding **data center networking** is essential. Ensuring server connectivity within these environments is a key responsibility, especially for large organizations that manage their own data center infrastructure to support branch offices and critical applications.
 
-## 🌐 Cisco Nexus: `Switch Series Comparison`
+### 🌐 `East-West Traffic` vs. `North-South Traffic`  
+
+In networking, traffic flows **within** the data center (**East-West**) or **to/from** external networks (**North-South**). 
+
+- ⚡ **East-West**: Traffic that occurs **within a data center**. Is lateral (server-to-server)
+- 🔝 **North-South**: Flow of data **into and out of the data center**. Connects to external clients, cloud, internet, etc.  
+
+| 🔍 **Aspect**         | 🔄 **East-West Traffic**               | 🔼🔽 **North-South Traffic**          |  
+|------------------------|----------------------------------------|---------------------------------------|  
+| 📍 **Direction**       | 🔄 Lateral (server to server)         | 🔼 Outbound / 🔽 Inbound              |  
+| ⚙️ **Example**        | 🔗 Web server ↔ DB server              | 🌎 User browsing the internet        |  
+| 🚦 **Primary Flow**   | ⚡ Internal data flow within the data center | 🌍 External connectivity to/from resources |  
+| 🔒 **Security**       | 🛡 Critical for lateral attack prevention | 🔐 Focused on perimeter security     |  
+
+💡 **Spine-Leaf** enhances East-West traffic, while **firewalls** and **perimeter security** protect North-South traffic. 🚀
+
+
+![image](https://github.com/user-attachments/assets/9b1200f3-adb2-4700-8cfb-abbae7f36acc)
+
+### 🌐 Cisco Nexus: `Switch Series Comparison`
 
 | **Nexus Series**               | **Form Factor**      | **Ports**                                  | **Role in Network**  | **Speed/Capability**                     | **Use Case**                               |
 |---------------------------------|----------------------|--------------------------------------------|----------------------|------------------------------------------|--------------------------------------------|
@@ -120,26 +147,7 @@ The ASIC is basically a CPU that is not a general purpose CPU but is a CPU for m
 
 
 
-## 🌐 `East-West Traffic` vs. `North-South Traffic`  
 
-In networking, traffic flows **within** the data center (**East-West**) or **to/from** external networks (**North-South**). 
-
-- ⚡ **East-West**: Traffic that occurs **within a data center**. Is lateral (server-to-server)
-- 🔝 **North-South**: Flow of data **into and out of the data center**. Connects to external clients, cloud, internet, etc.  
-
-### 🔥 Quick Comparison  
-
-| 🔍 **Aspect**         | 🔄 **East-West Traffic**               | 🔼🔽 **North-South Traffic**          |  
-|------------------------|----------------------------------------|---------------------------------------|  
-| 📍 **Direction**       | 🔄 Lateral (server to server)         | 🔼 Outbound / 🔽 Inbound              |  
-| ⚙️ **Example**        | 🔗 Web server ↔ DB server              | 🌎 User browsing the internet        |  
-| 🚦 **Primary Flow**   | ⚡ Internal data flow within the data center | 🌍 External connectivity to/from resources |  
-| 🔒 **Security**       | 🛡 Critical for lateral attack prevention | 🔐 Focused on perimeter security     |  
-
-💡 **Spine-Leaf** enhances East-West traffic, while **firewalls** and **perimeter security** protect North-South traffic. 🚀
-
-
-![image](https://github.com/user-attachments/assets/9b1200f3-adb2-4700-8cfb-abbae7f36acc)
 
 
 ## 🌐 NX-OS (Nexus Operating System)
