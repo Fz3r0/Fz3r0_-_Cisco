@@ -11,6 +11,9 @@ El objetivo del **Dynamic Routing** es garantizar una comunicación eficiente en
 - ✅ No es necesario configurar manualmente cada ruta, como en **Static Routing**.  
 - ✅ Los routers pueden anunciar cambios en la red y reaccionar ante fallos en los enlaces.  
 
+
+
+
 ## 🔹 Tipos de Routing Protocols  
 
 ![image](https://github.com/user-attachments/assets/921edaf0-8c3c-4160-947b-32bd2f60e78e)
@@ -213,7 +216,9 @@ Esta tabla detalla las diferencias clave entre los distintos **Routing Protocols
 
 https://www.networkurge.com/2020/04/administrative-distance-of-ip-routing.html
 
+to add: administrative distance: https://www.internetworks.in/2023/06/what-is-administrative-distance-how-to.html
 
+![image](https://github.com/user-attachments/assets/03c78e70-994d-4cfa-b6e4-89e5c2c63a08)
 
 
 ## Resources
