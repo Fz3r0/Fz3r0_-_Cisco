@@ -128,7 +128,7 @@ OSPF may not be the best choice when:
   - Requires a **Designated Router (DR)** to manage communication, reducing overhead. 🧑‍💼
   - DR centralizes OSPF exchanges to minimize unnecessary message flooding. ⚙️
 
-![image](https://github.com/user-attachments/assets/5e9d181a-87cf-4625-ab5e-fa6dad9a9785)
+![image](https://github.com/user-attachments/assets/bc5e304e-8cea-41c5-ab3f-780e23610f83)
 
 ### **Roles:**
 
