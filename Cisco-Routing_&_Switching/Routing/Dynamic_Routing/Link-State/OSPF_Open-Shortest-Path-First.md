@@ -15,17 +15,17 @@
 
 # 📖 OSPF (Open Shortest Path First)
 
-**Open Shortest Path First (OSPF)** is a link-state routing protocol used to find the best path for packets as they pass through a set of connected networks. It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
+**Open Shortest Path First (OSPF)** is a **link-state** routing protocol used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
 
 - OSPF was developed in 1987 by the IETF (Internet Engineering Task Force) as a solution to the limitations of RIP.
-- The first OSPF RFC, RFC 1131, was released in 1989.
-- It was later superseded by RFC 2328 in 1998, which is the widely implemented version today.
+- The first OSPF - RFC 1131, was released in 1989.
+- It was later superseded by OSPFv2 - RFC 2328 in 1998, which is the widely implemented version today.
 - OSPFv3, defined in RFC 5340, introduced support for IPv6.
 
 OSPF is an open standard and is not proprietary. It is supported by all major networking vendors like Cisco, Juniper, and others.
 
 - **Classless Protocol**: OSPF supports VLSM (Variable Length Subnet Mask) and CIDR (Classless Inter-Domain Routing).
-- **Hierarchical Design**: OSPF supports areas to minimize the size of the routing tables and to scale more efficiently.
+- **Hierarchical Design**: OSPF supports areas _(OSPF Areas)_ to minimize the size of the routing tables and to scale more efficiently.
 
 ## 🌐 **Why Use OSPF?**
 
@@ -55,48 +55,48 @@ OSPF may not be the best choice when:
 
 
 
-## ⚙️ **OSPF Features**
+## ⚙️🚀 OSPF Features  
 
-| Feature | Value / Description |
-|---------|---------------------|
-| **Protocol Number** | `89` |
-| **Standard** | Open standard (OSPF v2 RFC 2328 for IPv4, OSPF v3 RFC 5340 for IPv6) |
-| **Type** | Link-State (Using Bandwidthi) |
-| **Algorithm** | Dijkstra’s Shortest Path First (SPF) |
-| **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |
-| **Metric Calculation** | OSPF uses **cost** as its metric, which is based on the bandwidth of the link (lower cost = faster link). |
-| **Administrative Distance (AD)** | `110` |
-| **Multicast IP (SPF)** | `224.0.0.5` |
-| **Multicast IP (DR/BDR)** | `224.0.0.6` |
-| **Multicast MAC (SPF)** | `01:00:5E:00:00:05` |
-| **Multicast MAC (DR/BDR)** | `01:00:5E:00:00:06` |
-| **Equal Cost Multipath (ECMP)** | **Default:** `4`, **Maximum:** `32` |
+| 🏷️ Feature | 📌 Value / Description |  
+|------------|---------------------|  
+| 🔢 **Protocol Number** | `89` |  
+| 📖 **Standard** | Open standard (**OSPFv2** – RFC 2328 for IPv4, **OSPFv3** – RFC 5340 for IPv6) |  
+| 🔍 **Type** | Link-State (Uses **bandwidth** for metric calculation) |  
+| 🧮 **Algorithm** | Dijkstra’s **Shortest Path First (SPF)** |  
+| 🌐 **Protocol Support** | Supports **IPv4** (RFC 2328) and **IPv6** (RFC 5340) |  
+| ⚖️ **Metric Calculation** | OSPF uses **cost** as its metric, which is based on **link bandwidth** (lower cost = faster link). |  
+| 🎛️ **Administrative Distance (AD)** | `110` |  
+| 📡 **Multicast IP (SPF updates)** | `224.0.0.5` |  
+| 📡 **Multicast IP (DR/BDR updates)** | `224.0.0.6` |  
+| 🔗 **Multicast MAC (SPF updates)** | `01:00:5E:00:00:05` |  
+| 🔗 **Multicast MAC (DR/BDR updates)** | `01:00:5E:00:00:06` |  
+| 🔄 **Equal Cost Multipath (ECMP)** | **Default:** `4`, **Maximum:** `32` |  
 
-**Notes:**
+### 📝 Notes  
 
-- Type: Link-State from bandwidth: se refiere a que el router busca por la ruta con el mejor "estado", hay diferentes "states" como lo es el bandwidth, el delay, nivel de errores, MTU, carga, confiabilidad, etc... OSPF al ser link.state utiliza solo uno de esos estados y es el ancho de banda.
-- SPF & databases: SPF lo que hace es guardar bases de datos con la informacion de TODOS los routers que están participando en OSPF de la red, guarda la información tanto del router como de todas sus rutas, decide cual es el mejor camino comparando los routers que tiene en su base de datos. 
-
-
+- **🔍 Link-State & Bandwidth:** OSPF determines the best path based on **link state**. While other protocols may consider multiple factors like **delay, error rate, MTU, load, and reliability**, OSPF uses **only bandwidth** to calculate the cost of a route.  
+- **📂 SPF Algorithm & Databases:** OSPF **builds and maintains a database** containing information about **all routers** participating in OSPF within the network. It stores both router details and available routes, using **Dijkstra’s SPF algorithm** to determine the most efficient path based on its database.  
 
 
-## 🔄 **OSPF Operation**
 
-| Operation                                   | Description                                                                 |
-|-------------------------------------------|-----------------------------------------------------------------------------|
-| **Hello Protocol**                         | OSPF uses HELLO packets to establish and maintain neighbor relationships.   |
-| **Uses Areas for Scalability**             | OSPF divides large networks into areas to reduce routing table size and improve efficiency. |
-| **Link-State Advertisements (LSAs)**       | OSPF routers exchange LSAs to share information about the network topology. |
-| **Uses Dijkstra's Algorithm**              | OSPF uses the SPF (Shortest Path First) algorithm to calculate the best paths. |
-| **Flooding of LSAs**                       | OSPF floods LSAs throughout the network to ensure all routers have updated information. |
-| **Supports Multiple Routing Tables**       | OSPF can support multiple routing tables for different address families (e.g., IPv4, IPv6). |
-| **Hierarchical Design with Areas**         | OSPF’s hierarchical structure allows dividing networks into areas to minimize routing overhead. |
-| **Supports Equal-Cost Multipath (ECMP)**   | OSPF can support up to 16 equal-cost paths for load balancing. |
+## 🔄🚦 OSPF Operation  
+
+| ⚙️ Operation | 📌 Description |  
+|-------------|---------------------------------------------------------------------|  
+| 👋 **Hello Protocol** | Uses **HELLO packets** to establish and maintain neighbor relationships. |  
+| 🌍 **Uses Areas for Scalability** | Divides large networks into **areas** to reduce routing table size and improve efficiency. |  
+| 🔄 **Link-State Advertisements (LSAs)** | Routers exchange **LSAs** to share information about the network topology. |  
+| 🏆 **Uses Dijkstra's Algorithm** | Uses the **SPF (Shortest Path First) algorithm** to calculate the best paths. |  
+| 🌊 **Flooding of LSAs** | LSAs are **flooded** throughout the network to ensure all routers have updated information. |  
+| 📂 **Supports Multiple Routing Tables** | Can support multiple **routing tables** for different address families (e.g., IPv4, IPv6). |  
+| 🏛️ **Hierarchical Design with Areas** | The **hierarchical structure** allows networks to be divided into areas, minimizing routing overhead. |  
+| ⚖️ **Supports Equal-Cost Multipath (ECMP)** | Supports up to **16 equal-cost paths** for load balancing. |  
+
 
 ⭕ **OSPF Neighbor & Link-State Database (LSDB):**
 
-- **Neighbor Table:** Stores information about OSPF neighbors, including their state and interface details.
-- **Link-State Database (LSDB):** Maintains all the Link-State Advertisements (LSAs) received from neighbors, representing the entire network topology. This is used to build the OSPF routing table.
+- 📖 **Neighbor Table:** Stores information about OSPF neighbors, including their state and interface details.
+- 📂 **Link-State Database (LSDB):** Maintains all the Link-State Advertisements (LSAs) received from neighbors, representing the entire network topology. This is used to build the OSPF routing table.
 
 
 
@@ -182,14 +182,12 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 
 
 
-## 🌐 OSPF: Areas
+# 🌐 OSPF: Areas
 
 Open Shortest Path First (OSPF) is a link-state routing protocol that divides networks into areas to optimize routing and reduce overhead. 
 
-- Each router must belong to at least one OSPF area.  
-- The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
-- A router can belong to multiple areas, but if only 1 area is used it's must be the Area 0 (Backbone).
-
+- Each router must belong to at least one OSPF area. The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
+- A router can belong to multiple areas, but if only 1 area is used it's must be the **Area 0 (Backbone)**.
 
 ### 🩻 OSPF Area 0 (Backbone)
 
@@ -638,13 +636,23 @@ consider increasing the **reference bandwidth** (`auto-cost reference-bandwidth`
 
 
 
-# ⚙️ EIGRP Configuration @ `Packet Tracer`
+# ⚙️ OSPF Configuration @ `EVE-NG`
 
-This lab focuses on configuring and validating EIGRP (Enhanced Interior Gateway Routing Protocol) in a five-router ring topology using Cisco Packet Tracer. 
+This lab focuses on configuring and validating OSPF () in a x ring topology using EVE-NG. 
 
 ## Lab Files
 
 - [Download Cisco Packet Tracer Fz3r0 Labs :: **Dynamic Route x5 Routers : `EIGRP`**]()
+
+
+
+
+
+
+
+
+
+
 
 ## Dynamic Routing Topology: `Fz3r0 Default 5 Ring Router Topology`
 
