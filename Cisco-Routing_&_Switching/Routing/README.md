@@ -220,6 +220,7 @@ to add: administrative distance: https://www.internetworks.in/2023/06/what-is-ad
 
 ![image](https://github.com/user-attachments/assets/03c78e70-994d-4cfa-b6e4-89e5c2c63a08)
 
+![image](https://github.com/user-attachments/assets/3215ae18-1d18-4b26-ae31-6837ee8d1fc1)
 
 ## Resources
 
