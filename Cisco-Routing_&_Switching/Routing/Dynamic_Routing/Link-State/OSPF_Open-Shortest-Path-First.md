@@ -22,7 +22,7 @@
 - It was later superseded by OSPFv2 - RFC 2328 in 1998, which is the widely implemented version today.
 - OSPFv3, defined in RFC 5340, introduced support for IPv6.
 
-<span align="center"> <p align="center"> ![image](https://github.com/user-attachments/assets/864dc06c-8b7f-4390-a44a-0a1281d26e46) </p> </span> 
+<p align="center"> <img src="https://github.com/user-attachments/assets/864dc06c-8b7f-4390-a44a-0a1281d26e46" height="300"> 
 
 OSPF is an open standard and is not proprietary. It is supported by all major networking vendors like Cisco, Juniper, and others.
 
