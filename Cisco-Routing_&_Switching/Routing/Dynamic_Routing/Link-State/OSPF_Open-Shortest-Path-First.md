@@ -184,9 +184,14 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 
 ## 🌐 OSPF: `OSPF Areas`
 
-OSPF divides networks into areas to optimize routing and reduce overhead. 
+OSPF is a very scalable routing protocol. Its design supports scalability by using a concept called OSPF Area. By dividing a large monolith network into multiple smaller areas, the protocol reduces complexity, limits routing table size, and minimizes the impact of network changes. 
 
-- Each router **must belong to at least one OSPF area**.
+- **OSPF divides networks into areas to optimize routing and reduce overhead.**
+
+It is very important to understand from the beginning that the **OSPF Area is an interface property!!!**. 
+
+- **Every interface that participates in the routing process exists in an Area.** 
+- Each router (interface) **must belong to at least one OSPF area**.
 - The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
 - A router can belong to multiple areas, but **if only 1 area is used it's must be the Area 0 (Backbone)**.
 
@@ -211,10 +216,28 @@ OSPF divides networks into areas to optimize routing and reduce overhead.
 
 | 🛡️ Router Type        | 📝 Description |
 |-----------------------|---------------|
-| 🟠 **Backbone Router (BR)** | Router with at least one interface in Area 0. |
-| 🟡 **Internal Router (IR)** | All interfaces are in the same OSPF area. |
+| 🟠 **Backbone Router (BR)** | Router with **at least one interface in backbone area (Area 0)**. |
+| 🟡 **Internal Router (IR)** | All interfaces are in the **same non-backbone area**. |
 | 🔵 **Area Border Router (ABR)** | Connects two or more OSPF areas. Maintains multiple LSDBs. |
 | 🟣 **Autonomous System Boundary Router (ASBR)** | Connects OSPF to other routing protocols (e.g., EIGRP, BGP, RIP). |
+
+#### 🟡 IR - Internal Router
+
+An internal router is one whose directly connected interfaces are all assigned to the same non-backbone area. For example, routers R1 through R5 are all internal routers. 
+
+![image](https://github.com/user-attachments/assets/5906db0e-0673-4ec7-a063-cc9b45f8069e)
+
+- `R1` is internal to **area 34**.
+- `R2` and `R3` are internal routers to **area 25**. 
+- `R4` and `R5` are internal to **area 5**. 
+
+**Internal routers have a single link-state database (LSDB)** because they belong to only one area. 
+
+- `R1` has **only one LSDB** where it stores **all LSAs flooded in Area 34**.
+
+![image](https://github.com/user-attachments/assets/046733f1-1409-4d68-8054-aedd741a80ed)
+
+Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that the device is internal to **Area 34**.
 
 ### 🌉 OSPF Area Types
 
