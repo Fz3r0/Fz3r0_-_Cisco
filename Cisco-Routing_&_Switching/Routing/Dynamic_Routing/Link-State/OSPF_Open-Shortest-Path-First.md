@@ -13,7 +13,7 @@
 
 <br>
 
-# 📖 OSPF (Open Shortest Path First)
+# 🌐🔄🖧 OSPF (Open Shortest Path First)
 
 **Open Shortest Path First (OSPF)** is a **link-state** routing protocol used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
 
@@ -29,7 +29,7 @@ OSPF is an open standard and is not proprietary. It is supported by all major ne
 - **Classless Protocol**: OSPF supports VLSM (Variable Length Subnet Mask) and CIDR (Classless Inter-Domain Routing).
 - **Hierarchical Design**: OSPF supports areas _(OSPF Areas)_ to minimize the size of the routing tables and to scale more efficiently.
 
-## 🌐 **Why Use OSPF?**
+## ❓ **Why Use OSPF?**
 
 OSPF is a robust and efficient routing protocol designed to scale in larger networks. It is ideal for complex enterprise networks and service provider environments.
 
@@ -37,13 +37,13 @@ OSPF is a robust and efficient routing protocol designed to scale in larger netw
 - **Faster Convergence**: OSPF converges much faster compared to distance-vector protocols like RIP.
 - **Hierarchical Structure**: By using areas, OSPF can scale in large networks with fewer routing updates and smaller routing tables.
 
-### 🌟 **OSPF is ideal for:**
+### ✅ **OSPF is ideal for:**
 
 - Large enterprise networks
 - Networks requiring fast convergence
 - Environments with multiple routers and subnets
 
-### 🛠️ **Examples:**
+**Examples:**
 
 - **Large Enterprise Networks**: In networks with hundreds or thousands of routers, OSPF's ability to divide the network into areas helps reduce the size of the routing tables and optimize traffic flow.
 - **Data Centers**: For highly scalable networks, OSPF ensures that the routing topology remains efficient even as the network grows.
@@ -112,7 +112,7 @@ OSPF may not be the best choice when:
 
 
 
-## 🌐 OSPF: `Point-to-Point` vs `Multi-Access` Networks 
+## ↔️🔀 OSPF: `Point-to-Point` vs `Multi-Access` Networks 
 
 Here are the key differences between `Point-to-Point` & `Multi-Access` design for an OSPF network:
 
@@ -214,12 +214,26 @@ It is very important to understand from the beginning that the **OSPF Area is an
 
 ### 🧩 OSPF Router Types and Features by Area
 
-| 🛡️ Router Type        | 📝 Description |
-|-----------------------|---------------|
-| 🟠 **Backbone Router (BR)** | Router with **at least one interface in backbone area (Area 0)**. |
-| 🟡 **Internal Router (IR)** | All interfaces are in the **same non-backbone area**. |
-| 🔵 **Area Border Router (ABR)** | Connects two or more OSPF areas. Maintains multiple LSDBs. |
-| 🟣 **Autonomous System Boundary Router (ASBR)** | Connects OSPF to other routing protocols (e.g., EIGRP, BGP, RIP). |
+| 🔠 **Acronym** | 🔄 **Router Role** | ❓ **Description** |
+|--------------|------------------------------|-------------------------------------------|
+| 🟠 **BR** | **Backbone Router** | Router with **at least one interface in backbone area (Area 0)**. |
+| 🟡 **IR** | **Internal Router** | All interfaces are in the **same non-backbone area**. |
+| 🔵 **ABR** | **Area Border Router** | **Connects two or more OSPF areas**. Maintains multiple LSDBs. |
+| 🟣 **ASBR** | **Autonomous System Boundary Router** | Connects **OSPF to other routing protocols** _(eg. EIGRP, BGP, RIP)._ |
+| 🏆 **DR** | **Designated Router** | _Only for multi-access networks._ Manages OSPF exchanges, acting as the central point for OSPF communication. |
+| 🛡️ **BDR** | **Backup Designated Router** |  _Only for multi-access networks._ A standby router that takes over if the DR fails, ensuring continuous OSPF operations. |
+
+### 🌉 OSPF Area Types
+
+| 🧩 **Area Type** | 📝 **Description** |
+|--------------------|-----------------------------------------------|
+| 🌍 **Backbone Area (Area 0)** | Core of the OSPF network. All other areas must connect here. |
+| 📌 **Standard Area** | Typical OSPF area with full routing information. |
+| 🚧 **Stub Area** | Blocks external routes, reducing overhead. |
+| 🚫 **Totally Stubby Area** | Blocks both external and inter-area routes, only default route is allowed. |
+| 🔀 **NSSA (Not-So-Stubby Area)** | Allows external routes (from ASBR) but still reduces overhead. |
+
+---
 
 #### 🟡 IR - Internal Router
 
@@ -239,15 +253,8 @@ An internal router is one whose directly connected interfaces are all assigned t
 
 Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that the device is internal to **Area 34**.
 
-### 🌉 OSPF Area Types
 
-| 🧩 Area Type       | 📝 Description |
-|--------------------|---------------|
-| **Backbone Area (Area 0)** | Core of the OSPF network. All other areas must connect here. |
-| **Standard Area**  | Typical OSPF area with full routing information. |
-| **Stub Area**      | Blocks external routes, reducing overhead. |
-| **Totally Stubby Area** | Blocks both external and inter-area routes, only default route is allowed. |
-| **NSSA (Not-So-Stubby Area)** | Allows external routes (from ASBR) but still reduces overhead. |
+
 
 ![image](https://github.com/user-attachments/assets/da383b56-64d0-4239-83fe-5a67c2d81a0d)
 
