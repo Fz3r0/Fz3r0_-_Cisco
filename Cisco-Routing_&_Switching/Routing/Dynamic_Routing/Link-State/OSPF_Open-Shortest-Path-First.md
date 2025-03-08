@@ -212,6 +212,8 @@ It is very important to understand from the beginning that the **OSPF Area is an
 
 ![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
 
+---
+
 ### 🧩 OSPF Router Types and Features by Area
 
 | 🔠 **Acronym** | 🔄 **Router Role** | ❓ **Description** |
@@ -232,6 +234,8 @@ It is very important to understand from the beginning that the **OSPF Area is an
 | 🚧 **Stub Area** | Blocks external routes, reducing overhead. |
 | 🚫 **Totally Stubby Area** | Blocks both external and inter-area routes, only default route is allowed. |
 | 🔀 **NSSA (Not-So-Stubby Area)** | Allows external routes (from ASBR) but still reduces overhead. |
+
+![image](https://github.com/user-attachments/assets/da383b56-64d0-4239-83fe-5a67c2d81a0d)
 
 ---
 
@@ -256,7 +260,7 @@ Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that t
 
 
 
-![image](https://github.com/user-attachments/assets/da383b56-64d0-4239-83fe-5a67c2d81a0d)
+
 
 
 
