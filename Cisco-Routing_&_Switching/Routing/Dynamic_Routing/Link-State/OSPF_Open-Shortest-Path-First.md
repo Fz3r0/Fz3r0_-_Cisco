@@ -182,19 +182,20 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 
 
 
-# 🌐 OSPF: Areas
+## 🌐 OSPF: `OSPF Areas`
 
-Open Shortest Path First (OSPF) is a link-state routing protocol that divides networks into areas to optimize routing and reduce overhead. 
+OSPF divides networks into areas to optimize routing and reduce overhead. 
 
-- Each router must belong to at least one OSPF area. The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
-- A router can belong to multiple areas, but if only 1 area is used it's must be the **Area 0 (Backbone)**.
+- Each router **must belong to at least one OSPF area**.
+- The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
+- A router can belong to multiple areas, but **if only 1 area is used it's must be the Area 0 (Backbone)**.
 
-### 🩻 OSPF Area 0 (Backbone)
+### 🩻 Area 0 (Backbone)
 
-- When all routers are within a single area (Area 0), they share a complete **Link-State Database (LSDB)**, they will be "BD Full" (Full Database). 
+- When all routers are within a single area (Area 0), they share a complete **Link-State Database (LSDB)**, they will be **"BD Full" (Full Database)**. 
 - This means they will have the complete database of every single router in the area (Area 0)
-- 💀 **Warning!!!:** In large networks (e.g., 100 routers), a single area can lead to a huge LSDB, increasing CPU and memory usage.  
-- Solution: **Divide the network into multiple areas** to reduce overhead.
+- ⚠️ **Warning!!!:** In large networks (eg. 100 routers), a single area can lead to a huge LSDB, increasing CPU and memory usage.  
+- ✅ **Solution:** Divide the network into multiple areas to reduce overhead.
 
 ![image](https://github.com/user-attachments/assets/ea339a48-dd40-4da6-b850-d2a024ad3e39)
 
@@ -224,6 +225,8 @@ Open Shortest Path First (OSPF) is a link-state routing protocol that divides ne
 | **Stub Area**      | Blocks external routes, reducing overhead. |
 | **Totally Stubby Area** | Blocks both external and inter-area routes, only default route is allowed. |
 | **NSSA (Not-So-Stubby Area)** | Allows external routes (from ASBR) but still reduces overhead. |
+
+![image](https://github.com/user-attachments/assets/da383b56-64d0-4239-83fe-5a67c2d81a0d)
 
 
 
@@ -1427,6 +1430,7 @@ tracert 8.8.8.8
 - [Distance Vector VS Link State](https://www.routexp.com/2020/03/routing-basics-distance-vector-vs-link.html)
 - [OSPF a fondo](https://youtu.be/Izm-8BQLRiI?si=TgYYhEefuvJQMJFY)
 - [OSPF animado](https://www.youtube.com/watch?v=Zi1imlhYhFI)
+- [Multi-Area OSPF - Design Terms](https://www.networkacademy.io/ccna/ospf/multi-area-ospf-design-terms)
   
 ---
 
