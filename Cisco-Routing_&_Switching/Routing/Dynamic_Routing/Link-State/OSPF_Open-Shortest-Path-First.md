@@ -112,40 +112,38 @@ OSPF may not be the best choice when:
 
 
 
-## 🌐 OSPF: P2P vs Multi-Access Networks 
+## 🌐 OSPF: `Point-to-Point` vs `Multi-Access` Networks 
 
-### 🔄 **Key Differences:**
+Here are the key differences between `Point-to-Point` & `Multi-Access` design for an OSPF network:
 
-- **↔️ Point-to-Point (P2P) Networks:**
+### **↔️ Point-to-Point (P2P) Networks**
 
-  - Direct router-to-router communication.
-  - OSPF messages use multicast IP address `224.0.0.5` (Layer 3) and multicast MAC address `01:00:5E:00:00:05` (Layer 2).
-  - Simple 1-to-1 communication. 
+- Direct router-to-router communication.
+- OSPF messages use multicast IP address `224.0.0.5` (Layer 3) and multicast MAC address `01:00:5E:00:00:05` (Layer 2).
+- Simple 1-to-1 communication. 
 
-![image](https://github.com/user-attachments/assets/da47ca2b-b373-4895-a846-788096180701)
-  
-- **🔀 Multi-Access Networks (e.g., Using eth Switch to connect various routers):**
+<p align="center"> <img src="https://github.com/user-attachments/assets/da47ca2b-b373-4895-a846-788096180701"> 
 
-  - OSPF messages use a "one-to-many" model, where multiple routers share the same network.
-  - Requires a **Designated Router (DR)** to manage communication, reducing overhead. 🧑‍💼
-  - DR centralizes OSPF exchanges to minimize unnecessary message flooding. ⚙️
+### **🔀 Multi-Access Networks (eg. Using Eth Switch to connect various routers):**
 
-![image](https://github.com/user-attachments/assets/bc5e304e-8cea-41c5-ab3f-780e23610f83)
+- OSPF messages use a "one-to-many" model, where multiple routers share the same network.
+- Requires a **Designated Router (DR)** to manage communication, reducing overhead. 
+- DR centralizes OSPF exchanges to minimize unnecessary message flooding.
 
-### **Roles:**
+<p align="center"> <img src="https://github.com/user-attachments/assets/bc5e304e-8cea-41c5-ab3f-780e23610f83"> 
+
+#### **Router Roles in Multi-Access Networks:**
 
 | **Role**                | **Description**                                                                                      |
 |-------------------------|------------------------------------------------------------------------------------------------------|
 | **🏆 Designated Router (DR)** | Manages OSPF exchanges in multi-access networks, acting as the central point for OSPF communication.  |
 | **🛡️ Backup DR (BDR)**    | A standby router that takes over if the DR fails, ensuring continuous OSPF operations. |
 
-### **Multicast Communication 🔊:**
+### 🔊 **Multicast Communication:**
 
-- **📡 P2P Communication:**
-  - Multicast to `224.0.0.5` for direct router communication.
-
-- **🔄 Multi-Access Communication:**
-  - DR sends OSPF updates to other routers using multicast, centralizing control.
+- **📡 P2P Communication:** Multicast to `224.0.0.5` for direct router communication.
+  
+- **🔄 Multi-Access Communication:** DR sends OSPF updates to other routers using multicast, centralizing control.
 
 
 
