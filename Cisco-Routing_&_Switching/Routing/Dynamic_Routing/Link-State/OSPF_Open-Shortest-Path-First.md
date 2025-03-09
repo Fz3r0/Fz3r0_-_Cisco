@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Dynamic Routing` `OSPF` `Link State` `Packet Tracer` `CCNA` `CCNP` `Cisco`
+#### Keywords: `Routing` `Dynamic Routing` `Link State` `OSPF` `Open Shortest Path First` `Packet Tracer` `EVE-NG` `CCNA` `CCNP` `Cisco`
 
 ---
 
@@ -15,7 +15,7 @@
 
 # 🌐🔄🖧 OSPF (Open Shortest Path First)
 
-**Open Shortest Path First (OSPF)** is a **link-state** routing protocol used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
+**Open Shortest Path First (OSPF)** is a **link-state** routing protocol for Internet Protocol (IP) networks used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It uses a link state routing (LSR) algorithm and falls into the group of interior gateway protocols (IGPs), operating within a single autonomous system (AS). It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
 
 - OSPF was developed in 1987 by the IETF (Internet Engineering Task Force) as a solution to the limitations of RIP.
 - The first OSPF - RFC 1131, was released in 1989.
@@ -50,11 +50,8 @@ OSPF is a robust and efficient routing protocol designed to scale in larger netw
 
 ### 🚫 **When NOT to Use OSPF?**
 
-OSPF may not be the best choice when:
-
 - **Small networks**: In small, simple networks, a protocol like **RIP** or even **static routing** might suffice as they are easier to configure and maintain.
 - **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
-
 
 
 ## ⚙️🚀 OSPF Features  
@@ -195,9 +192,28 @@ It is very important to understand from the beginning that the **OSPF Area is an
 - The first and most crucial area tu be used is **Area 0**, known as the **Backbone Area**.  
 - A router can belong to multiple areas, but **if only 1 area is used it's must be the Area 0 (Backbone)**.
 
+Areas are identified by 32-bit numbers, expressed either: 
+
+- Simply in decimal
+- Often in the same octet-based dot-decimal notation used for IPv4 addresses.
+
+The area identifiers are commonly written in the dot-decimal notation, familiar from IPv4 addressing. However, they are not IP addresses and may duplicate, without conflict, any IPv4 address. By convention, backbone area is always **area 0 (zero), or 0.0.0.0**, it represents the core or backbone area of an OSPF network. While the identifications of other areas may be chosen at will, administrators often select the IP address of a main router in an area as the area identifier. These can be represented in **decimal (1, 2, 3, etc.)** or in **dot-decimal notation (0.0.0.1, 0.0.0.2, etc.)**. The area identifiers for IPv6 implementations (OSPFv3) also use 32-bit identifiers written in the same notation. 
+
+- When dotted formatting is omitted, most implementations expand **area 1** to the area identifier **0.0.0.1**, but some have been known to expand it as **1.0.0.0**.
+
+### 🔹 **Common OSPF Area Numbering Methods**  
+
+| 🔠 **Method** | 📌 **Example** | 📝 **Description** |
+|-------------|---------------|-------------------|
+| 1️⃣ **Simple Decimal** | `Area 0`, `Area 1`, `Area 2` | The most common method, using sequential numbers. |
+| 2️⃣ **Dot-Decimal Notation** | `0.0.0.0`, `0.0.0.1`, `0.0.0.2` | More structured, avoiding IP conflicts. |
+| 3️⃣ **Geographic-Based** | `Area 10 (North America)`, `Area 20 (Europe)` | Useful for multinational companies or large networks. |
+| 4️⃣ **Router-Based ID** | `Area 192.168.10.1`, `Area 10.1.1.1` | Uses a router’s IP as the area number (less common, can be confusing). |
+
+
 ### 🩻 Area 0 (Backbone)
 
-- When all routers are within a single area (Area 0), they share a complete **Link-State Database (LSDB)**, they will be **"BD Full" (Full Database)**. 
+- When all routers are within a single area (Area 0 or 0.0.0.0), they share a complete **Link-State Database (LSDB)**, they will be **"BD Full" (Full Database)**. 
 - This means they will have the complete database of every single router in the area (Area 0)
 - ⚠️ **Warning!!!:** In large networks (eg. 100 routers), a single area can lead to a huge LSDB, increasing CPU and memory usage.  
 - ✅ **Solution:** Divide the network into multiple areas to reduce overhead.
@@ -229,13 +245,24 @@ It is very important to understand from the beginning that the **OSPF Area is an
 
 ### 🌉 OSPF Area Types
 
-| 🧩 **Area Type** | 📝 **Description** |
-|--------------------|-----------------------------------------------|
-| 🌍 **Backbone Area (Area 0)** | Core of the OSPF network. All other areas must connect here. |
-| 📌 **Standard Area** | Typical OSPF area with full routing information. |
-| 🚧 **Stub Area** | Blocks external routes, reducing overhead. |
-| 🚫 **Totally Stubby Area** | Blocks both external and inter-area routes, only default route is allowed. |
-| 🔀 **NSSA (Not-So-Stubby Area)** | Allows external routes (from ASBR) but still reduces overhead. |
+OSPF defines multiple area types to optimize routing and minimize unnecessary routing updates in large networks.
+
+| 🧩 **Area Type** | 📝 **Description** | 📜 **LSA Filtering** |
+|--------------------|-----------------------------------------------|--------------------|
+| 🌍 **Backbone Area (Area 0 / 0.0.0.0)** | The **core** of the OSPF network. All other areas must connect to it, either **directly or via a virtual link**. | No filtering (All LSAs allowed). |
+| 📌 **Regular Area** | A standard **non-backbone area** that allows all **OSPF LSAs (1-5)** and exchanges full routing information. | No filtering (All LSAs allowed). |
+| 🚧 **Stub Area** | Blocks **external routes (Type-5 LSAs)**, reducing overhead. Instead, a **default route (0.0.0.0) is injected by the ABR**. | ✅ Blocks **Type-5 LSAs** (External routes) |
+| 🚫 **Totally Stubby Area (TSA)** | A **vendor-specific** extension (Cisco, Juniper, etc.) that blocks **both external (Type-5) and inter-area (Type-3, Type-4) routes**, allowing only a **default route** from the ABR. | ✅ Blocks **Type-3, Type-4, Type-5 LSAs** |
+| 🔀 **Not-So-Stubby Area (NSSA)** | Like a stub area, but **allows external routes from ASBRs inside the area**. External routes are **converted from Type-7 to Type-5 LSAs by the ABR** and propagated into other areas. **However, NSSA still cannot receive Type-5 LSAs from other areas.** | ✅ Blocks **Type-5 LSAs (from other areas)** 🔄 **Converts Type-7 to Type-5 at ABR** |
+| 🚧 **Totally NSSA (Cisco proprietary)** | Like NSSA but **also blocks inter-area routes (Type-3, Type-4 LSAs)**, allowing only **Type-7 from ASBR and a default route from the ABR**. | ✅ Blocks **Type-3, Type-4, Type-5 LSAs** 🔄 **Converts Type-7 to Type-5 at ABR** |
+| 🌉 **Transit Area** | Used in **virtual links** when an area **connects two separate OSPF areas** but is **not stubby in any way** (must allow Type-3 LSAs). | No filtering (All LSAs allowed). |
+
+- ✅ **All areas must connect to Area 0**—either directly or via **virtual links**.  
+- ✅ **Stub and Totally Stubby Areas** improve performance by filtering unnecessary routes.  
+- ✅ **NSSA & Totally NSSA** allow external routes but still limit unnecessary routing updates.  
+- ✅ **Transit Areas** allow OSPF traffic to pass through but cannot be stubby.  
+
+📌 **Cisco, Juniper, Huawei, and other vendors support Totally Stubby and NSSA Totally Stubby Areas, even though they are not in the OSPF RFC.** 
 
 ---
 
