@@ -1495,6 +1495,7 @@ tracert 8.8.8.8
 - [OSPF a fondo](https://youtu.be/Izm-8BQLRiI?si=TgYYhEefuvJQMJFY)
 - [OSPF animado](https://www.youtube.com/watch?v=Zi1imlhYhFI)
 - [Multi-Area OSPF - Design Terms](https://www.networkacademy.io/ccna/ospf/multi-area-ospf-design-terms)
+- [OSPF (Wikipedia)](https://en.wikipedia.org/wiki/Open_Shortest_Path_First)
   
 ---
 
