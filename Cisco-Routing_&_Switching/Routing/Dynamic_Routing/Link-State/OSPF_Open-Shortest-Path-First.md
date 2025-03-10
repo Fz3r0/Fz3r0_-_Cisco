@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Routing` `Dynamic Routing` `Link State` `OSPF` `Open Shortest Path First` `Packet Tracer` `EVE-NG` `CCNA` `CCNP` `Cisco`
+#### Keywords: `Routing` `Dynamic Routing` `LSR` `Link State` `IGP` `Interior Gateway Protocol` `OSPF` `OSPFv2` `OSPFv3` `Open Shortest Path First` `RFC 1131` `RFC 2328` `RFC 5340` `Packet Tracer` `EVE-NG` `CCNA` `CCNP` `Cisco`
 
 ---
 
@@ -15,7 +15,7 @@
 
 # 🌐🔄🖧 OSPF (Open Shortest Path First)
 
-**Open Shortest Path First (OSPF)** is a **link-state** routing protocol for Internet Protocol (IP) networks used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It uses a link state routing (LSR) algorithm and falls into the group of interior gateway protocols (IGPs), operating within a single autonomous system (AS). It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
+**Open Shortest Path First (OSPF)** is a **link-state** routing protocol for Internet Protocol (IP) networks used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It uses a **Link State Routing (LSR)** algorithm and falls into the group of **Interior Gateway Protocols (IGPs)**, operating within a single autonomous system (AS). It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
 
 - OSPF was developed in 1987 by the IETF (Internet Engineering Task Force) as a solution to the limitations of RIP.
 - The first OSPF - RFC 1131, was released in 1989.
