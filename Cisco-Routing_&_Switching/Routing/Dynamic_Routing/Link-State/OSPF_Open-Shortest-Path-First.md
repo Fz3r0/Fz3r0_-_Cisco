@@ -48,9 +48,9 @@ OSPF is a robust and efficient routing protocol designed to scale in larger netw
 - **Large Enterprise Networks**: In networks with hundreds or thousands of routers, OSPF's ability to divide the network into areas helps reduce the size of the routing tables and optimize traffic flow.
 - **Data Centers**: For highly scalable networks, OSPF ensures that the routing topology remains efficient even as the network grows.
 
-### 🚫 **When NOT to Use OSPF?**
+### 🚫 **OSPF is NOT ideal for:**
 
-- **Small networks**: In small, simple networks, a protocol like **RIP** or even **static routing** might suffice as they are easier to configure and maintain.
+- **Small networks**: In small, simple networks, a protocol like **RIP** or even **Static Routing** might suffice as they are easier to configure and maintain.
 - **Simple, low-overhead solution**: If you don’t need the scalability or flexibility of OSPF, **RIP** (Routing Information Protocol) might be a simpler, more appropriate option.
 
 
