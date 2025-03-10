@@ -288,10 +288,26 @@ Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that t
 
 ---
 
+#### 🟡 ABR - Area Border Router
 
+When a router has interfaces in one or more areas and at least one interface connected to the backbone area, it is called an Area Border Router (ABR). 
 
+![image](https://github.com/user-attachments/assets/0fce46be-d67a-4ed7-a4c5-134b4e0b0fa0)
 
+- eg1. `ABR1` is an ABR with interfaces in **Area 0**, **Area 34**, and **Area 25**. 
+- eg2. `ABR2` is also an ABR with interfaces in **Area 0** and **Area 5.5.5.5**. 
 
+It is essential to remember that a router must be connected to Area 0 (the backbone) to be considered an ABR. For example, if ABR1 loses connection to the backbone area, it won't provide connectivity between Areas 25 and 34 even though its interfaces are up/up in both areas.
+
+![image](https://github.com/user-attachments/assets/c582c23b-9a91-49d6-a82e-fc17ab86861a)
+
+Notice that ABR1 has LSAs Type 1,2, and 3 for all the areas it connects to - 0, 25, and 34.
+
+This can also be checked using the following command:
+
+![image](https://github.com/user-attachments/assets/761dc3c9-98bb-4d3b-b19d-403c67d0a9d5)
+
+It clearly shows that the `ABR1` has **three LSDB databases** and the number of LSAs inside each database.
 
 
 
