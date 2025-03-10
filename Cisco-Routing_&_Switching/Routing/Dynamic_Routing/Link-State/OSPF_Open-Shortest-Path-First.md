@@ -13,6 +13,17 @@
 
 <br>
 
+# 📑📚📖`Index`
+
+- [**OSPF (Open Shortest Path First)**]()
+    - [Why Use OSPF?]()
+    - [OSPF is ideal for]()
+    - [OSPF is NOT ideal for]() <br> <br>
+- [**OSPF Features**]()
+- [**OSPF Operation**]()
+
+
+
 # 🌐🔄🖧 OSPF (Open Shortest Path First)
 
 **Open Shortest Path First (OSPF)** is a **link-state** routing protocol for Internet Protocol (IP) networks used to find the best path for packets _(based on the **bandwidth** of the link)_ as they pass through a set of connected networks. It uses a **Link State Routing (LSR)** algorithm and falls into the group of **Interior Gateway Protocols (IGPs)**, operating within a single autonomous system (AS). It was developed to overcome the limitations of earlier distance-vector protocols like RIP (Routing Information Protocol).
