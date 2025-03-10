@@ -7,7 +7,7 @@
 
 ---
  
-#### Keywords: `Routing` `Dynamic Routing` `LSR` `Link State` `IGP` `Interior Gateway Protocol` `OSPF` `OSPFv2` `OSPFv3` `Open Shortest Path First` `RFC 1131` `RFC 2328` `RFC 5340` `Packet Tracer` `EVE-NG` `CCNA` `CCNP` `Cisco`
+#### **Keywords**: `Routing` `Dynamic Routing` `LSR` `Link State` `IGP` `Interior Gateway Protocol` `OSPF` `OSPFv2` `OSPFv3` `Open Shortest Path First` `RFC 1131` `RFC 2328` `RFC 5340` `Packet Tracer` `EVE-NG` `CCNA` `CCNP` `Cisco`
 
 ---
 
