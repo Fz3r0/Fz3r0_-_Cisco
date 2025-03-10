@@ -18,7 +18,7 @@
 - [**OSPF (Open Shortest Path First)**]()
     - [Why Use OSPF?]()
     - [OSPF is ideal for]()
-    - [OSPF is NOT ideal for]() <br> <br>
+    - [OSPF is NOT ideal for]() 
 - [**OSPF Features**]()
 - [**OSPF Operation**]()
 
