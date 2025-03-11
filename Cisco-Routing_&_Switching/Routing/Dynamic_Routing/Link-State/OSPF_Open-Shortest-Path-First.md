@@ -322,6 +322,29 @@ This can also be checked using the following command:
 
 It clearly shows that the `ABR1` has **three LSDB databases** and the number of LSAs inside each database.
 
+---
+
+#### 🟡 BR - Backbone Router
+
+A router that is **internal to Area 0** is considered a **backbone router**. 
+
+- **All interfaces of a backbone device are assigned only to area 0.**
+
+![image](https://github.com/user-attachments/assets/62867517-bf3f-4a10-98cd-a36c7b298865)
+
+For example, devices BB1 and BB2 are considered backbone routers. They have only a single link-state database (LSDB).
+
+---
+
+#### 🟡 ASBR - Autonomous System Border Routers
+
+
+
+
+
+
+
+
 
 
 
