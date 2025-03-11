@@ -338,7 +338,13 @@ For example, devices BB1 and BB2 are considered backbone routers. They have only
 
 #### 🟡 ASBR - Autonomous System Border Routers
 
+When a router **redistributes another routing protocol into the OSPF domain**, it is called an **Autonomous System Border Router (ASBR)**. 
 
+An **ASBR connects to multiple Autonomous Systems (AS)** and exchanges routing information between them. Hence, the **ASBR runs OSPF and another routing protocol or routing process** of the same protocol (eg. OSPF & BGP).
+
+![image](https://github.com/user-attachments/assets/1e0b272c-622d-4289-a143-7550923a53e5)
+
+For example, ASBR1 redistributes BGP into OSPF. Every router within the network knows how to reach the ASBR, which runs BGP and knows how to reach external networks. 
 
 
 
