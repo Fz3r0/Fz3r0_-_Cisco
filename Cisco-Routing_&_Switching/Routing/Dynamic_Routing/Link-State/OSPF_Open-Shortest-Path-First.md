@@ -295,7 +295,9 @@ An internal router is one whose directly connected interfaces are all assigned t
 
 ![image](https://github.com/user-attachments/assets/046733f1-1409-4d68-8054-aedd741a80ed)
 
-Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that the device is internal to **Area 34**.
+Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that the device is internal to **Area 34**:
+
+![image](https://github.com/user-attachments/assets/f71ff7e6-ea77-4789-9047-e267d3dc227d)
 
 ---
 
