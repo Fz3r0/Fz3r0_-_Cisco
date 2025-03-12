@@ -17,9 +17,7 @@
 
 **[Black screen. Silence. Suddenly, streams of neon-green code flood the void like a digital torrent.]**  
 
-**_Signal detected... Decoding..._**
-
-**[SYNTHETIC VOICE]:** *"Network instability detected... Routing convergence failing... Autonomous systems collapsing..."*  
+**[SYNTHETIC VOICE]:** *"Network instability detected... Routing convergence failing... Autonomous systems collapse imminent..."*  
 
 *[A crimson flash illuminates the dark. A lone figure stands before a glowing network hologram. Packets of data swirl like embers in the void.]*  
 
@@ -41,7 +39,11 @@
 
 </div>
 
+<div align="right">
+
 _By Fz3r0 💀🎩_
+
+</div>
 
 <br> <br>
 
