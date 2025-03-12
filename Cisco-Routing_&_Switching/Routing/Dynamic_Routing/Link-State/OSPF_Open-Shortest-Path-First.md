@@ -19,27 +19,29 @@
 
 **_Signal detected... Decoding..._**
 
-📟 **[SYNTHETIC VOICE]:** *"Network instability detected... Routing convergence failing... Autonomous systems collapsing..."*  
+**[SYNTHETIC VOICE]:** *"Network instability detected... Routing convergence failing... Autonomous systems collapsing..."*  
 
 *[A crimson flash illuminates the dark. A lone figure stands before a glowing network hologram. Packets of data swirl like embers in the void.]*  
 
 *[Zoom into a virtual router—its interface ignites, protocols recalculating at the speed of light.]*  
 
-🛠 **"Link-state packets flooding the grid… LSA propagation expanding… The backbone ignites."**  
+**"Link-state packets flooding the grid… LSA propagation expanding… The backbone ignites."**  
 
-🧩 *[Routers link, glowing lines weave a living, breathing network.]*  
+*[Routers link, glowing lines weave a living, breathing network.]*  
 
-👁 **"It sees. It adapts. It converges. And it never stops."**  
+**"It sees. It adapts. It converges. And it never stops."**  
 
-🔥 **"HE is the backbone. HE is the protocol. HE... is OSPF."**  
+**"HE is the backbone. HE is the protocol. HE... is OSPF."**  
 
-🎵 *[A distorted bass rumbles. Data pulses. Routers hum to life. The screen fades to black.]*  
+*[A distorted bass rumbles. Data pulses. Routers hum to life. The screen fades to black.]*  
 
-🚀 *[Final message flickers in glowing green:]*  
+*[Final message flickers in glowing green:]*  
 
-🟢 **_OSPF ACTIVE... SYSTEM ONLINE... ALL SYSTEMS GO_**  
+**_OSPF ACTIVE... SYSTEM ONLINE... ALL SYSTEMS GO_**  
 
 </div>
+
+_By Fz3r0 💀🎩_
 
 <br> <br>
 
