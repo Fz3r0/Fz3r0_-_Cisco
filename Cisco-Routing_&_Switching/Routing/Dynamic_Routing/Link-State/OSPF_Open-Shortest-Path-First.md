@@ -179,7 +179,8 @@ When OSPF has multiple equal-cost routes to the same destination, and both (or m
 | 🔍 Limitations        | Older hardware may not support ECMP, or may have lower path limits.                            |
 
 
-![image](https://github.com/user-attachments/assets/210d952d-603f-4c57-8598-1d09043e7d80)
+<p align="center"> <img src="https://github.com/user-attachments/assets/210d952d-603f-4c57-8598-1d09043e7d80"> 
+
 
 
 
@@ -229,7 +230,7 @@ The area identifiers are commonly written in the dot-decimal notation, familiar 
 - ⚠️ **Warning!!!:** In large networks (eg. 100 routers), a single area can lead to a huge LSDB, increasing CPU and memory usage.  
 - ✅ **Solution:** Divide the network into multiple areas to reduce overhead.
 
-![image](https://github.com/user-attachments/assets/ea339a48-dd40-4da6-b850-d2a024ad3e39)
+<p align="center"> <img src="https://github.com/user-attachments/assets/ea339a48-dd40-4da6-b850-d2a024ad3e39"> 
 
 ### 🦴 OSPF Multi-Area Design
 
@@ -237,7 +238,9 @@ The area identifiers are commonly written in the dot-decimal notation, familiar 
 - **Area Border Routers (ABRs)** connect different areas and maintain separate LSDBs for each area.  
 - ABRs must be **powerful routers** because they handle multiple databases and route summarization.
 
-![image](https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab)
+<p align="center"> <img src="https://github.com/user-attachments/assets/366df1d2-83c6-4676-a358-45d2c6b4f9ab"> 
+
+
 
 ---
 
