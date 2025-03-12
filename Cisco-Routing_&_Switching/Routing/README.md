@@ -200,6 +200,8 @@ Esta tabla detalla las diferencias clave entre los distintos **Routing Protocols
 - **Para ISPs y redes de alto tráfico**, **IS-IS** o **BGP** son esenciales.  
 - **BGP es el estándar en Internet**, pero **no es necesario** en redes privadas a menos que se manejen múltiples **Autonomous Systems**.
 
+![image](https://github.com/user-attachments/assets/5dec0984-1971-4373-9245-ea527927445e)
+
 
 ## CCNA Routing CheatSheet
 
