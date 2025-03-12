@@ -250,10 +250,10 @@ The area identifiers are commonly written in the dot-decimal notation, familiar 
 
 | 🔠 **Acronym** | 🔄 **Router Role** | ❓ **Description** |
 |--------------|------------------------------|-------------------------------------------|
-| 🟠 **BR** | **Backbone Router** | Router with **at least one interface in backbone area (Area 0)**. |
+| 🟢 **BR** | **Backbone Router** | Router with **at least one interface in backbone area (Area 0)**. |
 | 🟡 **IR** | **Internal Router** | All interfaces are in the **same non-backbone area**. |
-| 🔵 **ABR** | **Area Border Router** | **Connects two or more OSPF areas**. Maintains multiple LSDBs. |
-| 🟣 **ASBR** | **Autonomous System Boundary Router** | Connects **OSPF to other routing protocols** _(eg. EIGRP, BGP, RIP)._ |
+| ⚫ **ABR** | **Area Border Router** | **Connects two or more OSPF areas**. Maintains multiple LSDBs. |
+| ⚪ **ASBR** | **Autonomous System Boundary Router** | Connects **OSPF to other routing protocols** _(eg. EIGRP, BGP, RIP)._ |
 | 🏆 **DR** | **Designated Router** | _Only for multi-access networks._ Manages OSPF exchanges, acting as the central point for OSPF communication. |
 | 🛡️ **BDR** | **Backup Designated Router** |  _Only for multi-access networks._ A standby router that takes over if the DR fails, ensuring continuous OSPF operations. |
 
@@ -263,7 +263,7 @@ OSPF defines multiple area types to optimize routing and minimize unnecessary ro
 
 | 🧩 **Area Type** | 📝 **Description** | 📜 **LSA Filtering** |
 |--------------------|-----------------------------------------------|--------------------|
-| 🌍 **Backbone Area (Area 0 / 0.0.0.0)** | The **core** of the OSPF network. All other areas must connect to it, either **directly or via a virtual link**. | No filtering (All LSAs allowed). |
+| 🩻 **Backbone Area (Area 0 / 0.0.0.0)** | The **core** of the OSPF network. All other areas must connect to it, either **directly or via a virtual link**. | No filtering (All LSAs allowed). |
 | 📌 **Regular Area** | A standard **non-backbone area** that allows all **OSPF LSAs (1-5)** and exchanges full routing information. | No filtering (All LSAs allowed). |
 | 🚧 **Stub Area** | Blocks **external routes (Type-5 LSAs)**, reducing overhead. Instead, a **default route (0.0.0.0) is injected by the ABR**. | ✅ Blocks **Type-5 LSAs** (External routes) |
 | 🚫 **Totally Stubby Area (TSA)** | A **vendor-specific** extension (Cisco, Juniper, etc.) that blocks **both external (Type-5) and inter-area (Type-3, Type-4) routes**, allowing only a **default route** from the ABR. | ✅ Blocks **Type-3, Type-4, Type-5 LSAs** |
@@ -304,7 +304,7 @@ Notice that all LSAs (Types 1, 2, and 3) are in **Area 34**. This implies that t
 
 ---
 
-#### 🟡 ABR - Area Border Router
+#### ⚫ ABR - Area Border Router
 
 When a router has interfaces in one or more areas and at least one interface connected to the backbone area, it is called an Area Border Router (ABR). 
 
@@ -327,7 +327,7 @@ It clearly shows that the `ABR1` has **three LSDB databases** and the number of 
 
 ---
 
-#### 🟡 BR - Backbone Router
+#### 🟢 BR - Backbone Router
 
 A router that is **internal to Area 0** is considered a **backbone router**. 
 
@@ -339,7 +339,7 @@ For example, devices BB1 and BB2 are considered backbone routers. They have only
 
 ---
 
-#### 🟡 ASBR - Autonomous System Border Routers
+#### ⚪ ASBR - Autonomous System Border Routers
 
 When a router **redistributes another routing protocol into the OSPF domain**, it is called an **Autonomous System Border Router (ASBR)**. 
 
@@ -364,7 +364,7 @@ For example, ASBR1 redistributes BGP into OSPF. Every router within the network 
 
 
 
-## 🌐 OSPF: Databases & Tables
+## 🗂️ OSPF: Databases & Tables
 
 OSPF maintains multiple databases to ensure efficient and reliable routing. These databases work together using the **Shortest Path First (SPF) algorithm** to build the best possible routing paths.
 
