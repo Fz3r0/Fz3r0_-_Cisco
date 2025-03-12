@@ -35,7 +35,9 @@
 
 *[Final message flickers in glowing green:]*  
 
-**_OSPF ACTIVE... SYSTEM ONLINE... ALL SYSTEMS GO_**  
+**_OSPF ACTIVE..._** 
+**SYSTEM ONLINE..._** 
+**_ALL SYSTEMS GO!_**  
 
 </div>
 
