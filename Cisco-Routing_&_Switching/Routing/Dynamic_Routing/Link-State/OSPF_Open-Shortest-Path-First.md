@@ -27,7 +27,7 @@
 
 *[Routers link, glowing lines weave a living, breathing network.]*  
 
-**"It sees. It adapts. It converges. And it never stops. Fueled by relentless algorithms and mathematical precision"**  
+**"It sees. It adapts. It converges. And it never stops. Fueled by a relentless algorithm and mathematical precision"**  
 
 **"HE is the backbone. HE is the protocol. HE... is OSPF."**  
 
