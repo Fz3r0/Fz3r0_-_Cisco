@@ -36,7 +36,7 @@ Notas:
 - Todas las interfaces por default vienen como "routed" en nuxus 9k, es decir, no son capa 2
 - Todas las interfaces vienen como "shut down" (apagadas)
 
-````java
+````py
 
 !# NAMINGS
 !###########
