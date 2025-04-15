@@ -62,16 +62,17 @@ In networking, traffic flows **within** the data center (**East-West**) or **to/
 
 ### 🌐 Cisco Nexus: `Switch Series Comparison`
 
-| **Nexus Series**               | **Form Factor**      | **Ports**                                  | **Role in Network**  | **Speed/Capability**                     | **Use Case**                               |
-|---------------------------------|----------------------|--------------------------------------------|----------------------|------------------------------------------|--------------------------------------------|
-| **Nexus 9200**                  | 🧩 Fixed (Compact 1RU) | 48 Base-T + QSFP28 ports                   | 🔌 Access Layer       | 1RU, 0.696 Tbps, 10/25/40/100GE options  | 🏢 Small enterprise or branch office access   |
-| **Nexus 9300 1/10GBaseT**       | 📦 Fixed (1RU)        | 1/10 Gigabit Ethernet (Base-T)             | 🔌 Access Layer       | 1/10G Base-T, 40/100 Gig uplinks         | 🖥️ Office network with 10G access and uplinks |
-| **Nexus 9300 1/10/25/50 GE**    | 📦 Fixed (1RU)        | 1/10/25/50GE SFP-based, 40/100 Gig uplinks | 🔄 Access/Aggregation | 1/10/25/50GE, 40/100 Gig uplinks         | 🔝 High-speed aggregation for campus/core    |
-| **Nexus 9300 40/100 GE**        | 📦 Fixed (1RU)        | 40GE QSFP+ ports                           | 🔄 Aggregation/Spine  | 40 Gigabit QSFP+, High density           | 🏙️ Spine layer for data centers, high traffic |
-| **Nexus 9300 400 GE**           | 📦 Fixed (1RU)        | 400 Gigabit Ethernet ports (QSFP-DD)       | 🧑‍💻 Spine/Aggregation | 400GE, backwards compatible with 100/40GE | ⚡ High-performance backbone for data centers|
-| **Nexus 9400**                  | 🛠️ Modular (Chassis) | Up to 128x 100/200G or 64x 400G ports      | 🔄 Spine/Aggregation  | 400G, modular chassis                    | 🌍 Large-scale aggregation in data centers   |
-| **Nexus 9500**                  | 🛠️ Modular (Chassis) | 1/10/40/100/400 GE ports (varies by module)| 🔄 Spine/Aggregation  | Modular chassis with high flexibility    | ☁️ Cloud data centers, large networks        |
-| **Nexus 9800**                  | 🛠️ Modular (Chassis) | Up to 36x 400G ports (varies by card)      | 🔄 Spine/Aggregation  | 100/400GE support, high density          | 🚀 High-density data centers, cloud services |
+| **Nexus Series**               | **Form Factor**        | **Ports**                                      | **Role in Network**     | **Speed/Capability**                          | **Use Case**                                 |
+|-------------------------------|-------------------------|------------------------------------------------|--------------------------|------------------------------------------------|----------------------------------------------|
+| **Nexus 2000 (FEX)**          | 🔌 Fixed (1RU/2RU)       | Host Ports (1/10GE), Fabric Ports (10/40/100GE) | 🧩 Remote Line Card (FEX) | No control plane, uses parent’s ASICs         | 🗃️ Extends ports from parent Nexus switch     |
+| **Nexus 9200**                | 🧩 Fixed (Compact 1RU)   | 48 Base-T + QSFP28 uplinks                     | 🔌 Access Layer           | 0.696 Tbps, 10/25/40/100GE options             | 🏢 Small enterprise or branch office access   |
+| **Nexus 9300 1/10GBaseT**     | 📦 Fixed (1RU)          | 1/10 Gigabit Ethernet (Base-T) + QSFP uplinks | 🔌 Access Layer           | 1/10G Base-T, 40/100 Gig uplinks              | 🖥️ Office network with 10G access and uplinks |
+| **Nexus 9300 1/10/25/50 GE**  | 📦 Fixed (1RU)          | SFP+ ports, 1/10/25/50GE, 40/100G uplinks      | 🔄 Access / Aggregation   | Flexible uplinks, high throughput             | 🔝 High-speed leaf or collapsed core layer    |
+| **Nexus 9300 40/100 GE**      | 📦 Fixed (1RU)          | 40GE QSFP+ / 100GE QSFP28 ports               | 🔄 Spine / Aggregation    | High-density 40/100GE switching               | 🏙️ Spine switches for scalable DCs            |
+| **Nexus 9300 400 GE**         | 📦 Fixed (1RU)          | QSFP-DD ports (400GE)                         | 🧑‍💻 Spine / Aggregation    | 400GE, backward-compatible with 100/40GE      | ⚡ High-performance DC backbone                |
+| **Nexus 9400**                | 🛠️ Modular (Chassis)    | Up to 128x 100/200G or 64x 400G ports         | 🔄 Spine / Aggregation    | Fully modular, flexible line cards            | 🌐 Enterprise/core data center switching      |
+| **Nexus 9500**                | 🛠️ Modular (Chassis)    | Varies by module: 1/10/40/100/400GE           | 🔄 Spine / Aggregation    | High-density, highly scalable architecture    | ☁️ Cloud-scale deployments, mission-critical  |
+| **Nexus 9800**                | 🛠️ Modular (Chassis)    | Up to 36x 400G ports (varies by module)       | 🔄 Spine / Aggregation    | Ultra high-density 100/400GE switching        | 🚀 Hyperscale data centers and cloud cores    |
 
 ![image](https://github.com/user-attachments/assets/1567d39b-a324-4c02-8ad5-7c9c3c1526f0)
 
@@ -132,7 +133,7 @@ Key differences between Cisco Nexus (data center) and Cisco Catalyst 2960 (enter
 
 - ASIC chips are designed to handle network tasks like switching and routing directly in **hardware**, instead of using the main CPU and software. This makes everything much faster because hardware can process packets more efficiently than software running on a general-purpose processor. So, **Nexus switches handle tasks in hardware**, because the ASICs are doing the work instead of software. _(Basic Cisco Catalyst models, such as the 2960, 3750 or 9200 are good examples of software-based forwarding, where most packet processing relies on the CPU for general-purpose tasks.)_
 
-The ASIC is basically a CPU that is not a general purpose CPU but is a CPU for making switching decisions very quickly. It can't be used for much else. This is similar to a high-end graphics card that has a special CPU for graphics processing that wouldn't be good for general applications. Hence the name, **Application Specific Integrated Circuit**.
+The **ASIC is basically a CPU that is not a general purpose CPU** but **is a CPU only dedicated for making switching decisions very quickly**. It can't be used for much else. This is similar to a high-end graphics card that has a special CPU for graphics processing that wouldn't be good for general applications. Hence the name, **Application Specific Integrated Circuit**.
 
 ![image](https://github.com/user-attachments/assets/ef93b611-2f7b-41f3-9ff5-5f5180f68235)
 
