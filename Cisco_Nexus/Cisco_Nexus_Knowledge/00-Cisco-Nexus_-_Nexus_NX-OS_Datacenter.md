@@ -394,7 +394,9 @@ Leaf switches sit **below the Spine layer** and serve as the **connection point 
 - Devices like servers, firewalls, load balancers connect to Leafs.
 - **Leafs never connect to each other directly!!!**, this means: **All East-West traffic (server-to-server)** goes **through a Spine**.
 
-Some Leafs are **"Flex" switches**, like the **Cisco Nexus 2000 series**, which work as **Fabric Extenders (FEX)**.
+### Cisco Nexus 2000 series
+
+Some Leafs are **"Flex" switches**, like the **Cisco Nexus 2000 series**, which work as **Fabric Extenders (FEX)**. Cisco **Flex** architecture uses **Nexus 2000 Fabric Extenders (FEX)** as **remote line cards** of a parent Nexus switch (5000, 6000, or 7000). This allows for a **modular and scalable** design without adding full switches everywhere.
 
 - They act as **remote line cards** of a parent Nexus 5k/6k/7k chassis.
 - Although physically separate, they behave like if they were **inside the chassis**, extending the system’s modularity.
@@ -407,6 +409,11 @@ The Nexus 2000 has two types of ports:
 | **Host Interfaces** | Located on the **left side** of the switch. These are the majority of ports, used to connect **end devices** like servers or VMs. |
 | **Fabric Interfaces** | Located on the **right side**, these are uplink ports that connect to the **parent Nexus or Spine switches**. These carry all traffic upstream. |
 
+Fabric ports use high-speed connections like **Twinax cables** or fiber optics.
+
+- **Twinax** is a **short-range copper cable** used for connecting Nexus 2000 FEX to its parent switch (typically 1m to 5m).
+- Cost-effective alternative to fiber
+- Comes with **SFP+ DAC (Direct Attach Copper)** connectors
 
 
 
@@ -427,21 +434,6 @@ The Nexus 2000 has two types of ports:
 
 
 
-
-
-
-
-## 🔹 Key Benefits
-
-| Benefit              | Description                                                                 |
-|----------------------|-----------------------------------------------------------------------------|
-| **High bandwidth**    | Every Leaf connects to every Spine → consistent performance                 |
-| **Low latency**       | Short, predictable paths (usually only 2 hops: Leaf → Spine → Leaf)         |
-| **Scalability**       | Easy to add more Leafs or Spines as needed                                  |
-| **Redundancy**        | Multiple paths between every Leaf and Spine (ECMP supported)                |
-| **Deterministic**     | Network behavior is consistent regardless of where a workload is located    |
-
----
 
 ## 🔹 Equal-Cost Multi-Path (ECMP)
 
@@ -451,7 +443,7 @@ Because all Leaf switches connect to all Spine switches using **equal-cost links
 - **Fault tolerance**
 - **Faster convergence** during failures
 
----
+
 
 ## 🔹 Traffic Flow Examples
 
@@ -465,7 +457,9 @@ If Leaf is connected to a Border Leaf (Leaf with external uplink):
 
 Server A (Leaf 1) → Spine X → Leaf 3 (Border Leaf) → Internet
 
----
+
+
+
 
 ## 🔹 Typical Roles in Cisco Nexus
 
@@ -476,54 +470,19 @@ Server A (Leaf 1) → Spine X → Leaf 3 (Border Leaf) → Internet
 | **Border Leaf** | Leaf switch with external uplink (firewall, MPLS, Internet) |
 | **FEX (future)**| Nexus 2000 as remote line cards       |
 
----
-
-## ✅ Summary
-
-- **Leaf and Spine** is a scalable and high-speed network design for modern data centers.
-- Leafs connect to all Spines.
-- No Leaf-to-Leaf or Spine-to-Spine connections.
-- Equal-cost paths (ECMP) provide resilience and performance.
-- Cisco Nexus is a common platform for building Leaf/Spine with advanced features.
-
----
-
-Next: We'll dive into **FEX (Fabric Extenders)** and **Nexus Flex architecture**, which allow even more modular deployment using Nexus 2000s.
 
 
 
-## 🔹 What is Cisco Nexus Flex Architecture?
 
-Cisco **Flex** architecture uses **Nexus 2000 Fabric Extenders (FEX)** as **remote line cards** of a parent Nexus switch (5000, 6000, or 7000). This allows for a **modular and scalable** design without adding full switches everywhere.
 
-### Key Features:
-- Nexus 2000 has **no control plane** – it is managed by the parent switch
-- Extends ports closer to servers or racks
-- Simplifies management (FEX is configured through the parent)
-- Great for **Top-of-Rack (ToR)** deployments
 
-### FEX behaves like a "line card" inside the parent switch.
 
----
 
-## 🔹 Nexus 2000 - Port Types
 
-| Port Type          | Description                                                         |
-|--------------------|---------------------------------------------------------------------|
-| **Host Interfaces** | Connect to servers, storage, or endpoints (e.g., NICs on servers)  |
-| **Fabric Interfaces** | Connect to the parent Nexus switch via uplinks (10G/40G/100G)     |
 
-Fabric ports use high-speed connections like **Twinax cables** or fiber optics.
 
----
 
-## 🔹 Twinax Cables
 
-- **Twinax** is a **short-range copper cable** used for connecting Nexus 2000 FEX to its parent switch (typically 1m to 5m).
-- Cost-effective alternative to fiber
-- Comes with **SFP+ DAC (Direct Attach Copper)** connectors
-
----
 
 ## 🔹 High Availability in Cisco Nexus
 
