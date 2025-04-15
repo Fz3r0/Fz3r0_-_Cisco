@@ -47,7 +47,9 @@
 
 6. Disfrutar!!! Ya sale en EVE-NG
 
+OJO! Recomendable dejarlos con 8 gigas de RAM y no tocar eso:
 
+![image](https://github.com/user-attachments/assets/e4a8f15d-9d9d-490d-8373-1d1455d0add8)
 
 # Resources
 
