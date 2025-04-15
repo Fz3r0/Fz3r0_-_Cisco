@@ -30,8 +30,47 @@ We will be using this simple topology just for example:
 
 ## Help Commands: 
 
+Notas:
 
+- No existen los comandos enable/disable en nexus 9k
+- Todas las interfaces por default vienen como "routed" en nuxus 9k, es decir, no son capa 2
+- Todas las interfaces vienen como "shut down" (apagadas)
 
+````java
+
+!# NAMINGS
+!###########
+
+!# Change Switch Hostname
+hostname NXv9K-1
+
+!# BASICS
+!###########
+
+!#
+show running
+
+!#
+show interface status
+
+!# FEATURES
+!###########
+
+!# Show all apliable features
+feature ?
+
+!# Add interface VLAN feature
+feature interface-vlan
+
+!# IP ADDRESSING
+!###########
+
+interface ethernet 1/1
+no shutdown
+ip address 10.1.1.1/30
+exit
+
+````
 
 
 
