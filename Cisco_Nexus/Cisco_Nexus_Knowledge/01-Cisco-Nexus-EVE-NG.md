@@ -37,7 +37,16 @@
 
 - Entrar a EVE server pero ahora por SSH con las mismas credenciales `root/eve` puerto `22`
 
--  
+- Añadir permisos como dice la documentación de EVENG: https://www.eve-ng.net/index.php/documentation/howtos/howto-add-cisco-nexus-9000v-switch/
+
+    - agregar: `/opt/unetlab/wrappers/unl_wrapper -a fixpermissions` 
+
+![image](https://github.com/user-attachments/assets/6f6e7219-5a99-43d0-b330-4c9b82668efd)
+
+---
+
+6. Disfrutar!!! Ya sale en EVE-NG
+
 
 
 # Resources
