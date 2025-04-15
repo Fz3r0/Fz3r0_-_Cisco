@@ -34,6 +34,7 @@ The Nexus platform stands out for its **scalability, low-latency architecture, a
 Powered by **NX-OS**, a modular and highly programmable operating system, engineers can leverage advanced capabilities such as automation, segmentation, and enhanced security.
 
 - [**Cisco Nexus 9000 Series Compare**](https://www.cisco.com/c/en/us/products/switches/nexus-9000-series-switches/models-comparison.html)
+- [**Cisco Devices 3D model software**](https://m.kaon.com/c/cs)
 
 <span align="center"> <p align="center"> ![nexus1](https://github.com/user-attachments/assets/a3d1efa8-d13b-4baf-b632-ed7eb07abf54) </p> </span> 
 
