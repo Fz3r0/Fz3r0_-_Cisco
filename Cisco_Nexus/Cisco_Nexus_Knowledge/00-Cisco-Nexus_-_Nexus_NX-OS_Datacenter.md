@@ -348,19 +348,88 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 
 
 
-### Spine Switches
+## Spine Switches :: The Core Layer (Tier-2 or Tier-3)
+
+In a Leaf and Spine topology, **Spine switches act as the core or core+distribution layer** (depending on whether you're using a 2-tier or 3-tier design).
+
+Spines are the **top leaders** of the topology. All traffic from Leaf switches and downstream devices is **aggregated and routed through the Spine layer**.
+
+
+
+### Spine Responsibilities:
 
 - Think of them as the **backbone** of the network.
-- Every Leaf switch connects to **all Spines**.
-- They handle **inter-leaf** communication.
-- High-performance, **non-blocking** switches.
-- No devices (servers, storage, etc.) connect directly to Spines.
+- Provide **uplinks to external networks**: (MPLS, Internet, Remote sites, Branches, WAN Edges, SD-WAN routers)
+- No devices (servers, storage, etc.) connect directly to Spines!!!
+- **Every Leaf connects to every Spine**
+- They handle **"inter-leaf"** communication _(this means communication between leafs, because leafs are never connected together)_.
+- Central forwarding layer for all East-West and North-South traffic
+- High-speed, non-blocking switches with redundant paths
 
-### Leaf Switches
+### Dual Spine + Port-Channel + vPC
+
+Spine switches can work together as a **logical unit** using a **port-channel** (bundling 2 or more links) and configuring **vPC (Virtual Port Channel)**.
+
+In a design with 2 Spine switches (or more...), both should be **fully synchronized** and serve as **parallel core switch**. All Leaf switches below will connect to **both** Spines via uplinks.
+
+- **`vPC` allows two physical switches to appear as a **single logical switch** to connected devices**.
+
+This provides:
+
+- **Active/Active** forwarding
+- **No STP blocking**
+- Improved **redundancy** and **resiliency**
+
+
+
+
+
+
+
+## Leaf Switches :: The Access + Flex Layer
+
+Leaf switches sit **below the Spine layer** and serve as the **connection point for servers, storage, and service appliances**. 
 
 - Act as the **access layer**.
 - Devices like servers, firewalls, load balancers connect to Leafs.
-- Leafs never connect to each other directly, this means: **All East-West traffic (server-to-server)** goes **through a Spine**.
+- **Leafs never connect to each other directly!!!**, this means: **All East-West traffic (server-to-server)** goes **through a Spine**.
+
+Some Leafs are **"Flex" switches**, like the **Cisco Nexus 2000 series**, which work as **Fabric Extenders (FEX)**.
+
+- They act as **remote line cards** of a parent Nexus 5k/6k/7k chassis.
+- Although physically separate, they behave like if they were **inside the chassis**, extending the system’s modularity.
+- **Even though the Nexus 2000s (Flex Leafs) are connected to the Spine switches, they are logically part of the parent chassis (like a remote slot of the main switch)**
+
+The Nexus 2000 has two types of ports:
+
+| Port Type        | Description                                                                 |
+|------------------|-----------------------------------------------------------------------------|
+| **Host Interfaces** | Located on the **left side** of the switch. These are the majority of ports, used to connect **end devices** like servers or VMs. |
+| **Fabric Interfaces** | Located on the **right side**, these are uplink ports that connect to the **parent Nexus or Spine switches**. These carry all traffic upstream. |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 🔹 Key Benefits
 
