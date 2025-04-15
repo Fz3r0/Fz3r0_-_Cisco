@@ -6,11 +6,17 @@ https://youtu.be/4-JgE4oU7oI?si=LUhy-SZGBBI8hCwg
 - `nxosv9k` -	NX9K Cisco Nexus ( SATA best perf) `sataa`
 - `titanium` -	NXOS Titanium Cisco	`virtioa`
 
+---
+
 2. Encender EVE NG virtual y entrar por filezilla o WinSCP usando `root/eve` puerto `22`
+
+---
 
 3. Ir al directorio donde tengo mis imagenes: `Qemu image location is /opt/unetlab/addons/qemu/`
 
 ![image](https://github.com/user-attachments/assets/87658d75-bb61-4f4c-9712-d61fe3d06e5f)
+
+---
 
 4. Crear las 2 carpetaS junto con la verison que usaremos y cambiar el nombre del nexus:
 
@@ -26,4 +32,6 @@ https://youtu.be/4-JgE4oU7oI?si=LUhy-SZGBBI8hCwg
 
 ![image](https://github.com/user-attachments/assets/7fbf8792-1804-446c-a022-4624545b87f3)
 
+---
 
+5. Arreglar permisos (Fix permissions)
