@@ -8,6 +8,9 @@
 
 Hay 2 tipos de software y el NX-OS necesita los 2 par aarrancar!!!
 
+- Primero el Kernell (keckstart)
+- Luego el OS
+
 ![image](https://github.com/user-attachments/assets/4de677d8-edf6-4ed8-9e7a-53c025769327)
 
 
