@@ -58,9 +58,16 @@ OJO! Recomendable dejarlos con 8 gigas de RAM y no tocar eso:
 
 ![image](https://github.com/user-attachments/assets/e4a8f15d-9d9d-490d-8373-1d1455d0add8)
 
-Después de encender hay que esperar de 1 a 5 minutos dependiendo la versión, y ahora si, a disfrutar!!!
+Después de encender hay que esperar de 1 a 5 minutos dependiendo la versión:
 
 ![image](https://github.com/user-attachments/assets/e1822754-289c-4c45-84ac-67ab719686fe)
+
+En caso del Nexus 9k después de los 5 minutes de arranque para empezar de 0 lo mejor es seleccionar:
+
+- Provisioning: `skip`
+- Credenciales: `admin/(enter)`
+
+
 
 
 # Resources
