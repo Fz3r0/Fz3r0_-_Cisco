@@ -58,6 +58,11 @@ OJO! Recomendable dejarlos con 8 gigas de RAM y no tocar eso:
 
 ![image](https://github.com/user-attachments/assets/e4a8f15d-9d9d-490d-8373-1d1455d0add8)
 
+Después de encender hay que esperar de 1 a 5 minutos dependiendo la versión, y ahora si, a disfrutar!!!
+
+![image](https://github.com/user-attachments/assets/e1822754-289c-4c45-84ac-67ab719686fe)
+
+
 # Resources
 
 - https://youtu.be/4-JgE4oU7oI?si=LUhy-SZGBBI8hCwg
