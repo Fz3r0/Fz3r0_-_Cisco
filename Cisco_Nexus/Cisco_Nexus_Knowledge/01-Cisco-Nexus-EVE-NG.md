@@ -2,7 +2,7 @@
 ## Credenciales Default:
 
 - Nexus Titanium: `admin/admin`
-- Nexus 9k: `admin/admin`
+- Nexus 9k: `admin/(no password)`
 - EVE Server: `root/eve`
 - EVE Web: `admin/eve`
   
