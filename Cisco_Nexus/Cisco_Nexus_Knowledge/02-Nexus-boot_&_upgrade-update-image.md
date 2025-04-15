@@ -15,6 +15,7 @@ Hay 2 tipos de software y el NX-OS necesita los 2 par aarrancar!!!
 
 - (Los SMU son parches del sistema operatico)
 
+![image](https://github.com/user-attachments/assets/1a09bb7b-a1b4-466b-8fac-5a425e476a0f)
 
 
 
