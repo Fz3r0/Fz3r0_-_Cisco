@@ -17,13 +17,18 @@
 
 
 
-# ⚡ Cisco Nexus - High-Performance Switches
+# ⚡ Cisco Nexus - Help Commands
 
 
 
 
-## Cisco Nexus Model Review
+## Topology
 
+We will be using this simple topology just for example:
+
+![image](https://github.com/user-attachments/assets/01e77d1b-e113-405c-abfd-1612f39379c5)
+
+## Help Commands: 
 
 
 
@@ -44,13 +49,7 @@
 
 # 📚🗂️🎥 Resources
 
-- https://www.youtube.com/watch?v=bSiriF8kM7E&list=PLxyr0C_3Ton2-AsrD2iMdQ1mV4bqae8kv
-- https://youtu.be/lADK3STwwAM?si=LBcn1JuF76icjXqN
-- https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
-- https://www.cisco.com/c/en/us/products/switches/nexus-9000-series-switches/models-comparison.html
-- https://www.analysisman.com/2020/10/cisco-nxos-commands.html
-- https://blogs.cisco.com/networking/cisco-silicon-applications
-- [Storage Area Network | Network Basics](https://www.youtube.com/watch?v=Pu4b8K0BQ9Y)
+- https://www.youtube.com/watch?v=fdc912ReAE4
 
 
 
