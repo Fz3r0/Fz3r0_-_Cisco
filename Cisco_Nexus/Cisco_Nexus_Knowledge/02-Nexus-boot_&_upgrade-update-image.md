@@ -32,6 +32,9 @@ Hay 2 tipos de software y el NX-OS necesita los 2 par aarrancar!!!
 
 
 
+---
 
+## Resources
 
 - https://youtu.be/OkjhkyISoGs?si=kUmT4WgdXFGtAwea
+- https://www.youtube.com/watch?v=OkjhkyISoGs&t=262s
