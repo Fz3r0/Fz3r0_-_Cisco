@@ -156,6 +156,13 @@ The ASIC is basically a CPU that is not a general purpose CPU but is a CPU for m
 
 **NX-OS** is the operating system powering Cisco Nexus switches, designed and optimized for **data centers**. It supports advanced **Layer 2 and Layer 3** features and capabilities for **Storage Area Networks (SANs)**.
 
+NX-OS has two variants because Cisco designed it to serve two very different network environments: 
+
+1. LAN (used in Nexus switches for data centers)
+2. SAN (used in MDS switches for storage networks).
+
+While both are based on NX-OS, the SAN version—formerly called SAN-OS—is optimized for storage traffic and protocols like Fibre Channel, whereas the LAN version focuses on Ethernet, routing, and switching. They share the same core architecture but are tailored for their specific roles.
+
 ![image](https://github.com/user-attachments/assets/463aee42-256f-418b-9f89-6edd5d3bda21)
 
 ### 🔑 NX-OS Key Characteristics:
