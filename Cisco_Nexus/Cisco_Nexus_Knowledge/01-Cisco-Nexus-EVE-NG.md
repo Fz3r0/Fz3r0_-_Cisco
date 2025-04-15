@@ -1,4 +1,11 @@
 
+## Credenciales Default:
+
+- Nexus Titanium: `admin/admin`
+- Nexus 9k: `admin/admin`
+- EVE Server: `root/eve`
+- EVE Web: `admin/eve`
+  
 ---
 
 1. entrar a ver los naming del nexus a ve ng: https://www.eve-ng.net/index.php/documentation/qemu-image-namings/
