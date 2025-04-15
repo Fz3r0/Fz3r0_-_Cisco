@@ -70,12 +70,29 @@ no shutdown
 ip address 10.1.1.1/30
 exit
 
+!# DISCOVERY PROTOCOLS
+!###########
+cdp run
+lldp run
+
+
 ````
 
+````py
+!# BASIC EXAMPLE
+!###########
 
+hostname NXv9K-1
 
+interface ethernet 1/1
+no shutdown
+ip address 10.1.1.1/30
+exit
 
+cdp run
+lldp run
 
+````
 
 
 
