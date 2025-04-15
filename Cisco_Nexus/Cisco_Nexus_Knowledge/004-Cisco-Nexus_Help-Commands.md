@@ -59,7 +59,7 @@ show interface status
 !# Show all apliable features
 feature ?
 
-!# Add interface VLAN feature
+!# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
 feature interface-vlan
 
 !# IP ADDRESSING
@@ -82,7 +82,23 @@ lldp run
 !# BASIC EXAMPLE
 !###########
 
-hostname NXv9K-1
+!# NEXUS 9K
+
+hostname NXv7K-1
+
+feature interface-vlan
+
+interface ethernet 1/1
+no shutdown
+ip address 10.1.1.1/30
+exit
+
+cdp run
+lldp run
+
+!# NEXUS 7K
+
+hostname NXv7K-1
 
 interface ethernet 1/1
 no shutdown
