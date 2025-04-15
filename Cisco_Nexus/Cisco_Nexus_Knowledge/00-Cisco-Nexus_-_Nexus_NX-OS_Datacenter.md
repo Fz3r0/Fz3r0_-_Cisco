@@ -397,41 +397,6 @@ Leaf switches sit **below the Spine layer** and serve as the **connection point 
 
 In a **classic Leaf-Spine architecture**, Leaf switches **do NOT connect to each other**. All East–West traffic (server-to-server) **MUST go through a Spine switch** for consistency and scalability. However, there is one exception that is vPC Between Leafs
 
-
-
-### vPC Between Leafs
-
-Some Leaf switches **can be directly connected** to each other when forming a **vPC (Virtual Port Channel)** to support **dual-homed endpoints like servers or firewalls**. This means: THIS IS ONLY USED WHEN AN END-DEVICE LIKE A SERVER CAN SUPPORT vPC
-
-This is **not** full mesh—just a point-to-point connection between two Leafs acting as a **vPC pair**.
-
-| Scenario               | Leafs connected? | Purpose                                      |
-|------------------------|------------------|----------------------------------------------|
-| Standard Leaf-Spine    | ❌ No             | All traffic goes through Spine               |
-| vPC between Leafs      | ✅ Yes (pairwise) | Redundancy for dual-homed servers/firewalls  |
-
-✅ vPC keeps the Leaf-Spine model intact, only adding local L2 redundancy for specific devices.
-
-
-### Port-Channel (Po) between a Leaf and Spines 
-
-When a **Leaf switch connects to two Spine switches** using a **Port-Channel (Po)**, and those Spines are part of a **vPC (Virtual Port Channel)** pair, the Leaf sees them **as if they were a single logical switch**.
-
-**What happens physically:**
-
-- The Leaf has **two physical links**, one to **Spine A** and one to **Spine B**.
-- These two links are grouped into a single **Port-Channel (Po)** on the Leaf side.
-- On the Spine side, both Spines coordinate via vPC so the Leaf thinks it’s talking to just **one virtual switch**.
-
-**Benefits:**
-
-- **Link redundancy**: If one Spine or link fails, traffic still flows.
-- **Active/active forwarding**: Both links are used at the same time (no STP blocking).
-- **Simplified management**: One logical interface on the Leaf.
-
-
-
-
 ### Cisco Nexus 2000 series
 
 Some Leafs are **"Flex" switches**, like the **Cisco Nexus 2000 series**, which work as **Fabric Extenders (FEX)**. Cisco **Flex** architecture uses **Nexus 2000 Fabric Extenders (FEX)** as **remote line cards** of a parent Nexus switch (5000, 6000, or 7000). This allows for a **modular and scalable** design without adding full switches everywhere.
@@ -452,6 +417,60 @@ Fabric ports use high-speed connections like **Twinax cables** or fiber optics.
 - **Twinax** is a **short-range copper cable** used for connecting Nexus 2000 FEX to its parent switch (typically 1m to 5m).
 - Cost-effective alternative to fiber
 - Comes with **SFP+ DAC (Direct Attach Copper)** connectors
+
+
+
+### vPC Between Leafs
+
+Some Leaf switches **can be directly connected** to each other when forming a **vPC (Virtual Port Channel)** to support **dual-homed endpoints like servers or firewalls**. This means: THIS IS ONLY USED WHEN AN END-DEVICE LIKE A SERVER CAN SUPPORT vPC
+
+This is **not** full mesh—just a point-to-point connection between two Leafs acting as a **vPC pair**.
+
+| Scenario               | Leafs connected? | Purpose                                      |
+|------------------------|------------------|----------------------------------------------|
+| Standard Leaf-Spine    | ❌ No             | All traffic goes through Spine               |
+| vPC between Leafs      | ✅ Yes (pairwise) | Redundancy for dual-homed servers/firewalls  |
+
+✅ vPC keeps the Leaf-Spine model intact, only adding local L2 redundancy for specific devices.
+
+
+
+### Port-Channel (Po) between a Leaf and Spines 
+
+When a **Leaf switch connects to two Spine switches** using a **Port-Channel (Po)**, and those Spines are part of a **vPC (Virtual Port Channel)** pair, the Leaf sees them **as if they were a single logical switch**.
+
+![image](https://github.com/user-attachments/assets/9fea70e7-041c-4fdc-b9a0-784e8f84eb18)
+
+**What happens physically:**
+
+- The Leaf has **two physical links**, one to **Spine A** and one to **Spine B**.
+- These two links are grouped into a single **Port-Channel (Po)** on the Leaf side.
+- On the Spine side, both Spines coordinate via vPC so the Leaf thinks it’s talking to just **one virtual switch**.
+
+**Benefits:**
+
+- **Link redundancy**: If one Spine or link fails, traffic still flows.
+- **Active/active forwarding**: Both links are used at the same time (no STP blocking).
+- **Simplified management**: One logical interface on the Leaf.
+
+Just like a Leaf switch can connect to a pair of Spine switches using a Port-Channel, **servers or hosts can also form a Port-Channel** (eg. LAG using LACP) towards a pair of Leaf switches.
+
+![image](https://github.com/user-attachments/assets/18defa2b-880e-4d49-b018-6e56a7d89850)
+
+- This is commonly done using **dual-homed connections**, where each server NIC connects to a different Leaf, and the Leafs are configured as a **vPC pair**.
+- From the server’s point of view, it’s a single logical uplink, even though the connections go to two separate switches — similar to how FEX (Fabric Extenders) behave.
+
+### 🔄 High Availability Across the Fabric
+
+By combining **Port-Channels (Po)** between devices — from **server to Leafs** and from **Leafs to Spines** — the entire fabric gains:
+
+- High Availability (HA)
+- Redundant paths at every layer
+- Fast convergence and minimal disruption during failures
+
+This is one of the core strengths of Leaf-Spine architecture when paired with technologies like **vPC** and **ECMP**.
+
+
 
 
 
