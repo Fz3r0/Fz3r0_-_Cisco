@@ -62,6 +62,10 @@ feature ?
 !# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
 feature interface-vlan
 
+!# Add demo licence to test all features
+licence grace-period
+
+
 !# IP ADDRESSING
 !###########
 
@@ -78,39 +82,54 @@ lldp run
 
 ````
 
+## Basic Example tu use:
+
 ````py
 !# BASIC EXAMPLE
 !###########
 
-!# NEXUS 9K
-
-hostname NXv7K-1
-
-feature interface-vlan
-
-interface ethernet 1/1
-no shutdown
-ip address 10.1.1.1/30
-exit
-
-cdp run
-lldp run
-
 !# NEXUS 7K
 
 hostname NXv7K-1
+licence grace-period
 
-interface ethernet 1/1
+feature interface-vlan
+
+interface ethernet 2/1
 no shutdown
 ip address 10.1.1.1/30
 exit
 
 cdp run
 lldp run
+
+!# NEXUS 9K
+
+hostname NXv9K-1
+licence grace-period
+
+interface ethernet 1/1
+no shutdown
+ip address 10.1.1.2/30
+exit
+
+cdp enable
+lldp enable
+
+interface ethernet 1/1
+cdp enable
+lldp enable
+exit
 
 ````
 
 
+## Management interface configuration
+
+- El puerto management pertenece a la VRF management por defecto
+- Permite la administracion out of band
+- Debe tener una IP asignada
+- Debe existir una Default ROute dentro del conectexto de la VRF management
 
 
 
