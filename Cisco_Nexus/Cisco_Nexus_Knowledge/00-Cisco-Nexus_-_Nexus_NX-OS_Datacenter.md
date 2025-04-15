@@ -128,6 +128,8 @@ Key differences between Cisco Nexus (data center) and Cisco Catalyst 2960 (enter
 
 **ASICs (Application Specific Integrated Circuit)** in Nexus Switches are specialized hardware chips designed for ultra-fast packet processing, reducing latency and significantly boosting network performance. Unlike general-purpose CPUs, ASICs handle switching and routing at wire speed, ensuring high throughput for massive data flows while offloading tasks from the main CPU, allowing it to focus on control plane operations. This makes ASICs in networking similar to GPUs in graphics processing—purpose-built for efficiency and speed. 🚀🎯  
 
+- ASIC chips are designed to handle network tasks like switching and routing directly in **hardware**, instead of using the main CPU and software. This makes everything much faster because hardware can process packets more efficiently than software running on a general-purpose processor. So, **Nexus switches handle tasks in hardware**, because the ASICs are doing the work instead of software. _(Basic Cisco Catalyst models, such as the 2960, 3750 or 9200 are good examples of software-based forwarding, where most packet processing relies on the CPU for general-purpose tasks.)_
+
 The ASIC is basically a CPU that is not a general purpose CPU but is a CPU for making switching decisions very quickly. It can't be used for much else. This is similar to a high-end graphics card that has a special CPU for graphics processing that wouldn't be good for general applications. Hence the name, **Application Specific Integrated Circuit**.
 
 ![image](https://github.com/user-attachments/assets/ef93b611-2f7b-41f3-9ff5-5f5180f68235)
@@ -193,8 +195,37 @@ The ASIC is basically a CPU that is not a general purpose CPU but is a CPU for m
 
 
 
+## Feature Activation in NX-OS
 
+Cisco Nexus switches run **NX-OS**, a modular and lightweight operating system.
 
+Unlike traditional IOS, most features in NX-OS (like OSPF, BGP, VRF, etc.) are **disabled by default**. This design helps:
+
+- Optimize performance
+- Reduce memory and CPU usage
+- Improve stability and security
+
+Instead of loading all features by default, **NX-OS only runs the features you explicitly enable. This avoids wasting system resources on unused protocols**.
+
+### How to activate features?
+
+Instead of loading everything at once like in IOS, you manually activate features using commands. Use the `feature` command to activate protocols or functions, for example:
+
+````py
+feature ospf
+feature vrf
+feature bgp
+````
+
+Then you can use that fucnion, for example:
+
+````py
+!# Activation of OSPF feature:
+feature ospf
+
+!# OSPF command:
+router ospf 1
+````
 
 
 
