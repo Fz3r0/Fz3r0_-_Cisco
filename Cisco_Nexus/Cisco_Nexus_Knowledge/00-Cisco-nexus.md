@@ -83,6 +83,33 @@ In networking, traffic flows **within** the data center (**East-West**) or **to/
 
 
 
+## Cisco Nexus Model Review
+
+Many Cisco Nexus switches — such as the **5000 and 7000 series** — are **modular**, meaning they consist of a **chassis** and a set of interchangeable hardware modules ("cards") that can be installed based on design needs.
+
+| **Component**         | **Description**                                                                                   | **Example Details**                                                                 |
+|------------------------|---------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| 🧱 **Chassis**         | Physical frame that houses all modules and provides power, cooling, and backplane connectivity.  | Nexus 5K, 7K, and 9K modular series support multiple slot and power configurations. |
+| 📡 **Line Card**       | Provides physical interfaces for data traffic: copper/fiber, Ethernet, or SAN ports.             | 1G/10G/25G/40G/100G ports, Fibre Channel, FCoE, high-density QSFP cards.             |
+| 🧠 **Supervisor Card** | Control plane engine — handles routing, configuration, management, and protocols.                | Includes CPU, storage, mgmt port, console port. Always installed in pairs (active/standby). |
+| ⚡ **Power Supplies**  | Provide electrical power with redundancy (A/B feeds). Often hot-swappable.                        | Nexus 5K has 3 power modules; system can run on 1 but supports redundancy.           |
+| 🌬️ **Fan Modules**     | Ensure proper airflow and cooling; located at rear or top. Replaceable and cleanable.            | Hot-swappable trays; help maintain system availability and temperature.              |
+
+
+
+![image](https://github.com/user-attachments/assets/f4760ea4-a7e8-47c8-a478-bcaf454dd464)
+![image](https://github.com/user-attachments/assets/1b3dfe0d-48c8-488b-aaec-67c605589da3)
+
+
+
+
+
+
+
+
+
+
+
 ## 🚀 Cisco Nexus: `Why for Data Centers?`  
 
 Cisco Nexus switches are purpose-built for **data centers**, addressing challenges that traditional enterprise networks do not typically face.  
