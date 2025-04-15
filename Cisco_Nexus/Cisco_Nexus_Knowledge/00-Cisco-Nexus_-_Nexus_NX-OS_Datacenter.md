@@ -37,6 +37,8 @@ Powered by **NX-OS**, a modular and highly programmable operating system, engine
 
 <span align="center"> <p align="center"> ![nexus1](https://github.com/user-attachments/assets/a3d1efa8-d13b-4baf-b632-ed7eb07abf54) </p> </span> 
 
+
+
 For an **enterprise network engineer**, understanding **data center networking** is essential. Ensuring server connectivity within these environments is a key responsibility, especially for large organizations that manage their own data center infrastructure to support branch offices and critical applications.
 
 ### 🌐 `East-West Traffic` vs. `North-South Traffic`  
@@ -342,7 +344,7 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 
 **Leaf and Spine** is a modern network architecture used in data centers to improve scalability, speed, and redundancy. It replaces older 3-tier models (Core–Distribution–Access) with a **flat, high-performance topology**.
 
-<img src="https://github.com/user-attachments/assets/548c2d1c-e248-43d6-85bf-e2308b4500a2" height="500"> 
+<span align="center"> <img src="https://github.com/user-attachments/assets/548c2d1c-e248-43d6-85bf-e2308b4500a2" height="450"> </span>   
 
 ### Spine Switches
 
