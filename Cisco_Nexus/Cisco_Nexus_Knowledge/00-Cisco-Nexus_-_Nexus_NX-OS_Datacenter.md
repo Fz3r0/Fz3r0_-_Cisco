@@ -344,7 +344,9 @@ Imagine a large **datacenter** where multiple **application servers** need acces
 
 **Leaf and Spine** is a modern network architecture used in data centers to improve scalability, speed, and redundancy. It replaces older 3-tier models (Core–Distribution–Access) with a **flat, high-performance topology**.
 
-<span align="center"> <img src="https://github.com/user-attachments/assets/548c2d1c-e248-43d6-85bf-e2308b4500a2" height="450"> </span>   
+<span align="center"> <p align="center"> <img src="https://github.com/user-attachments/assets/548c2d1c-e248-43d6-85bf-e2308b4500a2" height="450"> </p> </span>   
+
+
 
 ### Spine Switches
 
