@@ -1,4 +1,3 @@
-https://youtu.be/4-JgE4oU7oI?si=LUhy-SZGBBI8hCwg
 
 ---
 
@@ -35,3 +34,13 @@ https://youtu.be/4-JgE4oU7oI?si=LUhy-SZGBBI8hCwg
 ---
 
 5. Arreglar permisos (Fix permissions)
+
+- Entrar a EVE server pero ahora por SSH con las mismas credenciales `root/eve` puerto `22`
+
+-  
+
+
+# Resources
+
+- https://youtu.be/4-JgE4oU7oI?si=LUhy-SZGBBI8hCwg
+- https://www.eve-ng.net/index.php/documentation/howtos/howto-add-cisco-nexus-9000v-switch/
