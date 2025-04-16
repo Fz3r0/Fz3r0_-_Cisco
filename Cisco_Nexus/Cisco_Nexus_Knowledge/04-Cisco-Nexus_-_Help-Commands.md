@@ -28,7 +28,7 @@ We will be using this simple topology just for example:
 
 ![image](https://github.com/user-attachments/assets/01e77d1b-e113-405c-abfd-1612f39379c5)
 
-## Help Commands: 
+## Basic Commands: 
 
 Notas:
 
@@ -153,7 +153,7 @@ no shutdown
 !
 ! ## Enter the management VRF context (used for OOB traffic separation):
 vrf context management
-! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the gateway
+! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the OOB router/gateway (eg. Cradlepoint)
 ip route 0.0.0.0/0 192.168.100.1
 !
 ! # Show all VRFs configured on the device
@@ -170,7 +170,7 @@ show running-config vrf management
 ````
 
 
-
+## Nexus Help Commands: 
 
 
 
