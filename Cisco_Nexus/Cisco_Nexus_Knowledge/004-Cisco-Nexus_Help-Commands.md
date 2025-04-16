@@ -139,6 +139,8 @@ end
 - Debe tener una IP asignada
 - Debe existir una Default ROute dentro del conectexto de la VRF management
 
+![image](https://github.com/user-attachments/assets/f30eb47b-a9e9-4c49-996c-513c16f1d648)
+
 
 
 
