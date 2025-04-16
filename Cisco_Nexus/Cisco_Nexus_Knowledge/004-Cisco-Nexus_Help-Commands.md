@@ -133,6 +133,7 @@ end
 
 ## Management interface configuration
 
+- El puerto management va conectado a un router out-of-band, por ejemplo un cradlepoint con un chip 5G LTE conectado completamente fuera de la red que comunmente se usa como MPLS, Internet, etc. 
 - El puerto management pertenece a la VRF management por defecto
 - Permite la administracion out of band
 - Debe tener una IP asignada
@@ -140,6 +141,33 @@ end
 
 ![image](https://github.com/user-attachments/assets/f30eb47b-a9e9-4c49-996c-513c16f1d648)
 
+````py
+
+!## Configure the out-of-band management interface
+!###################################################
+!
+! ## IP Addressing:
+interface management 0
+ip address 192.168.100.100/24
+no shutdown
+!
+! ## Enter the management VRF context (used for OOB traffic separation):
+vrf context management
+! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the gateway
+ip route 0.0.0.0/0 192.168.100.1
+!
+! # Show all VRFs configured on the device
+show vrf
+! # Show interfaces assigned to the 'management' VRF
+show vrf management interface
+! # Show running configuration specific to the 'management' VRF
+show running-config vrf management
+
+
+
+
+
+````
 
 
 
