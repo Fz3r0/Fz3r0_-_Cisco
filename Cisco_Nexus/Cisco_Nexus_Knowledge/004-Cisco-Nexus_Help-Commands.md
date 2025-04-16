@@ -86,40 +86,48 @@ lldp run
 
 ````py
 !# BASIC EXAMPLE
-!###########
+!#################################
 
+!######################
 !# NEXUS 7K
+!######################
 
+configure terminal
 hostname NXv7K-1
-licence grace-period
+username admin password Admin12345
+license grace-period
 
 feature interface-vlan
 
 interface ethernet 2/1
 no shutdown
 ip address 10.1.1.1/30
+cdp enable
 exit
 
-cdp run
-lldp run
+cdp enable
+end
 
+copy running-config startup-config
+
+!######################
 !# NEXUS 9K
+!######################
 
+configure terminal
 hostname NXv9K-1
-licence grace-period
+username admin password Admin12345
+license smart 
 
 interface ethernet 1/1
 no shutdown
 ip address 10.1.1.2/30
-exit
-
 cdp enable
-lldp enable
+end
 
-interface ethernet 1/1
-cdp enable
-lldp enable
-exit
+
+
+
 
 ````
 
