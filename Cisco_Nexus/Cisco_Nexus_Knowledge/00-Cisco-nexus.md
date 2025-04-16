@@ -601,6 +601,7 @@ This design allows replacing parts without taking the system down.
 - https://www.analysisman.com/2020/10/cisco-nxos-commands.html
 - https://blogs.cisco.com/networking/cisco-silicon-applications
 - [Storage Area Network | Network Basics](https://www.youtube.com/watch?v=Pu4b8K0BQ9Y)
+- [nexus 3d models](https://3dwarehouse.sketchup.com/model/bef13e428c6cd55551671562753435f/Cisco-Nexus-N7K-switch?hl=es)
 
 
 
