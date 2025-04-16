@@ -76,8 +76,7 @@ exit
 
 !# DISCOVERY PROTOCOLS
 !###########
-cdp run
-lldp run
+cdp enable
 
 
 ````
