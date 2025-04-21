@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `Help Commands`
+# 🧠🏗️🌐 Cisco Nexus: `Basic & Help Commands`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -17,7 +17,7 @@
 
 
 
-# ⚡ Cisco Nexus - Help Commands
+# ⚡ Cisco Nexus - Basic & Help Commands
 
 
 
@@ -128,6 +128,95 @@ licence grace-period
 license grace-period
 
 ````
+
+## Help Commands
+
+````py
+
+!###########
+!# WHERE
+!###########
+
+!# Muestra donde estoy ubicado en la CLI, osea dónde estoy configurando
+where
+
+!# Detalle del comando "where" (más información)
+where detail
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# VIEW CONFIGS
+!###########
+
+!# Ver la diferencia del running-config contra el startup-config
+show diff rollback-patch running-config startup-config
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# PUSH / POP
+!###########
+
+!# Crea un Check-point o CUE en la CLI para poder regresar posteriormente con un "pop"
+push
+
+!# Regresa al Check-point de CLI creado anteriormente con un "push"
+pop
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# DIRs
+!###########
+
+!# Muestra lo que hay en el fash de booteo
+dir bootflash:
+
+!# Muestra lo que hay en un archivo especifico
+dir backup-1
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# SHOW, PWD
+!###########
+
+!# MOVEMENT (like linux)
+pwd
+mkdir tech-support
+cd tech-support
+cd ..
+
+!# Muestra lo que hay en el archivo "X"
+show backup-1
+
+!# Genera el archivo tech-support para el TAC de cisco (!!!puede tardar hasta 10 minutos)
+show tech-support
+
+!# Genera el archivo tech-support para el TAC de cisco (mejor práctica)
+show tech-support > tech-support-10.10.2020
+
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# MOVES & FLASH
+!###########
+
+!# ">" Move a file (similar to linux)
+
+   - !# Create .txt running config on flash
+show running-config > backup-1
+
+
+
+
+````
+
+
+
+
 
 ## Basic Example tu use:
 
