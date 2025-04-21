@@ -63,17 +63,39 @@ hostname NXv9K-1
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!##########
-!# BASIC SHOW #
-!##########
+!#################
+!# USERS & ROLES #
+!#################
 
-!#
-show running
+!# Change Switch Hostname
+username fz3r0 password Cisco.12345
 
-!#
-show interface status
+!# Enable/Disable password strenght check (Capital+AlfaNumeric+10Chars)
+password strenght-check enable
+password strenght-check disable
+
+!# Check all user default available roles
+username fz3r0 role ?
+
+!# Set Full Privileges (Priv-15)
+username fz3r0 role network-admin
+
+!# Create customized roles (eg. permit commands)
+role name Fz3r0-Custom-Role
+rule 1 permit command show interface status
+rule 2 permit command show interface description
+rule 3 deny command show interface
+rule 4 deny command reload
+rule 5 deny command write memory
+
+!# Show roles descriptions
+show role name network-admin
+show role name Fz3r0-Custom-Role
+
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+
 
 !#################
 !# IP ADDRESSING #
@@ -138,6 +160,39 @@ licence grace-period
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+!##########################################
+!# SET DEFAULT SETTINGS
+!##########################################
+
+!# Set default settings for "X" interface
+default interface ethernet 1/1
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!##########################################
+!# CHECKPOINTS & ROLL-BACKS
+!##########################################
+
+!# Creates a checkpoint with a custom name
+checkpoint fz3r0-check-04212025
+
+!# Roll-back to a checkpoint
+rollback running config checkpoint fz3r0-check-04212025
+
+!# See the saved checkpoints
+show checkpoint 
+
+!# See the saved checkpoints list by name
+show checkpoint | include name
+
+!# See the details of saved checkpoints
+show checkpoint summary
+
+!# See the details of selected checkpoint configurations
+show checkpoint fz3r0-check-04212025
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 !###########
 !# LICENSES
 !###########
@@ -182,49 +237,24 @@ license smart register idtoken e128fa0bcc32ffaccd91ff0001
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!##########################################
-!# SET DEFAULT SETTINGS
-!##########################################
-
-!# Set default settings for "X" interface
-default interface ethernet 1/1
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-!##########################################
-!# CHECKPOINTS & ROLL-BACKS
-!##########################################
-
-!# Creates a checkpoint with a custom name
-checkpoint fz3r0-check-04212025
-
-!# Roll-back to a checkpoint
-rollback running config checkpoint fz3r0-check-04212025
-
-!# See the saved checkpoints
-show checkpoint 
-
-!# See the saved checkpoints list by name
-show checkpoint | include name
-
-!# See the details of saved checkpoints
-show checkpoint summary
-
-!# See the details of selected checkpoint configurations
-show checkpoint fz3r0-check-04212025
-
-
-
-
-
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ````
 
 ## Help Commands
 
 ````py
+!##########
+!# BASIC SHOW #
+!##########
+
+!#
+show running
+
+!#
+show interface status
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
 !###########
 !# WHERE
