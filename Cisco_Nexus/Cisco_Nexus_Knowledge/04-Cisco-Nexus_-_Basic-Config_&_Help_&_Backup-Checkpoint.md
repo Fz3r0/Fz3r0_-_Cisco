@@ -45,7 +45,12 @@ Management Interface Notes:
 - Debe tener una IP asignada
 - Debe existir una Default ROute dentro del conectexto de la VRF management
 
-## Basic Commands: 
+Rollback & Checkpoint Notes
+
+- A diferencia de IOS, en NX se puede crear un punto de retorno o checkpoint para poder hacer roll-backs más fácil.
+- Ejemplo, si yo hago un checkpoint, después hago 1203990123 páginas de configuración y algo salió mal, solo hago un roll-back y automáticamente regresaré el checkpoint. 
+
+## Basic Configurations & Commands: 
 
 ````py
 
@@ -59,7 +64,7 @@ hostname NXv9K-1
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !##########
-!# BASICS #
+!# BASIC SHOW #
 !##########
 
 !#
@@ -108,7 +113,10 @@ show running-config vrf management
 !# DISCOVERY PROTOCOLS #
 !#######################
 
+! # Enable CDP in exec line 
 cdp enable
+
+! # Enable CDP in selected interface
 interface ethernet 1/1
 cdp enable
 end
@@ -134,8 +142,48 @@ licence grace-period
 !# LICENCES
 !###########
 
-!# Enable Free test licence for 120 days
+!# Enable Free test licence for 120 days (enable features)
 license grace-period
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!##########################################
+!# SET DEFAULT SETTINGS
+!##########################################
+
+!# Set default settings for "X" interface
+default interface ethernet 1/1
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!##########################################
+!# CHECKPOINTS & ROLL-BACKS
+!##########################################
+
+!# Creates a checkpoint with a custom name
+checkpoint fz3r0-check-04212025
+
+!# Roll-back to a checkpoint
+rollback running config checkpoint fz3r0-check-04212025
+
+!# See the saved checkpoints
+show checkpoint 
+
+!# See the saved checkpoints list by name
+show checkpoint | include name
+
+!# See the details of saved checkpoints
+show checkpoint summary
+
+!# See the details of selected checkpoint configurations
+show checkpoint fz3r0-check-04212025
+
+
+
+
+
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ````
 
@@ -227,7 +275,14 @@ show running-config > backup-1
 
 
 
-## Backups & Checkpoints
+## Roll-Backs, Checkpoints & dEFAULT sETTINGS
+
+````
+
+!# Muestra lo que hay en el archivo "X"
+show backup-1
+
+````
 
 
 
@@ -292,48 +347,17 @@ copy running-config startup-config
 ````
 
 
-## Management interface configuration
 
 
-
-
-````py
-
-!## Configure the out-of-band management interface
-!###################################################
-!
-! ## IP Addressing:
-interface management 0
-ip address 192.168.100.100/24
-no shutdown
-!
-! ## Enter the management VRF context (used for OOB traffic separation):
-vrf context management
-! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the OOB router/gateway (eg. Cradlepoint)
-ip route 0.0.0.0/0 192.168.100.1
-!
-! # Show all VRFs configured on the device
-show vrf
-! # Show interfaces assigned to the 'management' VRF
-show vrf management interface
-! # Show running configuration specific to the 'management' VRF
-show running-config vrf management
-
-
-
-
-
-````
-
-
-## Nexus Help Commands: 
 
 
 
 
 # 📚🗂️🎥 Resources
 
+- https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
 - https://www.youtube.com/watch?v=fdc912ReAE4
+- https://youtu.be/oBJNkFhPpfU?si=BpyN82rV99dBf_cI
 
 
 
