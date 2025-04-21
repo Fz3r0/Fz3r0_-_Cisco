@@ -151,6 +151,9 @@ show license usage
 !# Check "X" license usage
 show license usage LAN_ENTERPRISE_SERVICES_PKG
 
+!# Check license status
+show license status
+
 !#---
 
 !# Install paid licenses (need Internet connection):
@@ -173,7 +176,8 @@ callhome
   exit
 exit
     !# 9. Register Cisco ID Token
-
+license smart register idtoken e128fa0bcc32ffaccd91ff0001
+    !# 10. Done! you can also check the license in the Smart Software Licensing Dashboard URL provided by Cisco 
 
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
