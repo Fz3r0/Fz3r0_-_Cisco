@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `Basic & Help Commands`
+# 🧠🏗️🌐 Cisco Nexus: `Basic Config, Help Commands, + Backup & Checkpoints`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -17,7 +17,7 @@
 
 
 
-# ⚡ Cisco Nexus - Basic & Help Commands
+# ⚡ Cisco Nexus - Basic Config, Help Commands, + Backup & Checkpoints
 
 
 
@@ -28,19 +28,29 @@ We will be using this simple topology just for example:
 
 ![image](https://github.com/user-attachments/assets/01e77d1b-e113-405c-abfd-1612f39379c5)
 
-## Basic Commands: 
+## Notes:
 
-Notas:
+Basic Notes:
 
 - No existen los comandos enable/disable en nexus 9k
 - El comando "show" se puede ejecutar donde sea (a diferenciade IOS que solo se puede en "enable")
 - Todas las interfaces por default vienen como "routed" en nuxus 9k, es decir, no son capa 2.
 - Todas las interfaces por default vienen como "disabled/shut down" (apagadas)
 
+Management Interface Notes: 
+
+- El puerto management va conectado a un router out-of-band, por ejemplo un cradlepoint con un chip 5G LTE conectado completamente fuera de la red que comunmente se usa como MPLS, Internet, etc. 
+- El puerto management pertenece a la VRF management por defecto
+- Permite la administracion out of band
+- Debe tener una IP asignada
+- Debe existir una Default ROute dentro del conectexto de la VRF management
+
+## Basic Commands: 
+
 ````py
 
 !###########
-!# NAMINGS
+!# NAMINGS #
 !###########
 
 !# Change Switch Hostname
@@ -48,9 +58,9 @@ hostname NXv9K-1
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########
-!# BASICS
-!###########
+!##########
+!# BASICS #
+!##########
 
 !#
 show running
@@ -60,9 +70,9 @@ show interface status
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########
-!# IP ADDRESSING
-!###########
+!#################
+!# IP ADDRESSING #
+!#################
 
 interface ethernet 1/1
 no shutdown
@@ -71,9 +81,9 @@ exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########
-!# Out-Of-Band (OOB) Management Interface
-!###########
+!##########################################
+!# Out-Of-Band (OOB) Management Interface #
+!##########################################
 !
 ! ## IP Addressing:
 interface management 0
@@ -94,9 +104,9 @@ show running-config vrf management
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########
-!# DISCOVERY PROTOCOLS
-!###########
+!#######################
+!# DISCOVERY PROTOCOLS #
+!#######################
 
 cdp enable
 interface ethernet 1/1
@@ -105,9 +115,9 @@ end
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########
-!# FEATURES
-!###########
+!############
+!# FEATURES #
+!############
 
 !# Show all apliable features (Port Channel, DHCP, BGP, BFD, LACP, Inter-VLAN, etc)
 feature ?
@@ -217,6 +227,13 @@ show running-config > backup-1
 
 
 
+## Backups & Checkpoints
+
+
+
+
+
+
 
 ## Basic Example tu use:
 
@@ -277,11 +294,7 @@ copy running-config startup-config
 
 ## Management interface configuration
 
-- El puerto management va conectado a un router out-of-band, por ejemplo un cradlepoint con un chip 5G LTE conectado completamente fuera de la red que comunmente se usa como MPLS, Internet, etc. 
-- El puerto management pertenece a la VRF management por defecto
-- Permite la administracion out of band
-- Debe tener una IP asignada
-- Debe existir una Default ROute dentro del conectexto de la VRF management
+
 
 
 ````py
