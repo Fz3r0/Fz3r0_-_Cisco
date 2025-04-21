@@ -19,6 +19,9 @@
 
 # ⚡ Cisco Nexus - Licencing
 
+![image](https://github.com/user-attachments/assets/cdeb32b0-ef1e-4119-b192-91ab41f65ad5)
+
+- 5 Tipo de licencias
 
 # 📚🗂️🎥 Resources
 
