@@ -139,11 +139,42 @@ licence grace-period
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !###########
-!# LICENCES
+!# LICENSES
 !###########
 
-!# Enable Free test licence for 120 days (enable features)
+!# Enable Free test license for 120 days (enable features)
 license grace-period
+
+!# Check all licenses usage
+show license usage
+
+!# Check "X" license usage
+show license usage LAN_ENTERPRISE_SERVICES_PKG
+
+!#---
+
+!# Install paid licenses (need Internet connection):
+
+    !# 1. Install smart license
+feature license smart
+    !# 2. Enable smart license
+license smart enable
+    !# 4. Enable DNS resolving
+ip domain-lookup 
+    !# 5. Add DNS to use (eg. Google DNS)
+ip name-server 8.8.8.8
+    !# 6. Check or Add a Default Route
+ip route 0.0.0.0/0 123.123.123.1
+    !# 7. Test ping to Cisco Tools
+ping tools.cisco.com
+    !# 8. Start callhome process (it calls Cisco's Mothership)
+callhome
+  transport http use-vrf default
+  exit
+exit
+    !# 9. Register Cisco ID Token
+
+
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
