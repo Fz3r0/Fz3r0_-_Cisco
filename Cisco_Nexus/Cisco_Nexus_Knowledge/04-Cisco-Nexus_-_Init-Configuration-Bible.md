@@ -422,6 +422,7 @@ copy running-config startup-config
 - https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
 - https://www.youtube.com/watch?v=fdc912ReAE4
 - https://youtu.be/oBJNkFhPpfU?si=BpyN82rV99dBf_cI
+- https://youtu.be/aPzNzvyv20A?si=1QMckKT0AjZHR1bm
 
 
 
