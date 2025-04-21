@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `Basic Config, Help Commands, + Backup & Checkpoints`
+# 🧠🏗️🌐 Cisco Nexus: `Fz3r0 :: Nexus Init Confioguration Bible`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -17,7 +17,7 @@
 
 
 
-# ⚡ Cisco Nexus - Basic Config, Help Commands, + Backup & Checkpoints
+# ⚡ Cisco Nexus - Fz3r0 :: Nexus Init Confioguration Bible
 
 
 
@@ -275,14 +275,13 @@ show running-config > backup-1
 
 
 
-## Roll-Backs, Checkpoints & dEFAULT sETTINGS
 
-````
 
-!# Muestra lo que hay en el archivo "X"
-show backup-1
 
-````
+
+
+
+
 
 
 
