@@ -33,17 +33,22 @@ We will be using this simple topology just for example:
 Notas:
 
 - No existen los comandos enable/disable en nexus 9k
-- Todas las interfaces por default vienen como "routed" en nuxus 9k, es decir, no son capa 2
-- Todas las interfaces vienen como "shut down" (apagadas)
+- El comando "show" se puede ejecutar donde sea (a diferenciade IOS que solo se puede en "enable")
+- Todas las interfaces por default vienen como "routed" en nuxus 9k, es decir, no son capa 2.
+- Todas las interfaces por default vienen como "disabled/shut down" (apagadas)
 
 ````py
 
+!###########
 !# NAMINGS
 !###########
 
 !# Change Switch Hostname
 hostname NXv9K-1
 
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
 !# BASICS
 !###########
 
@@ -53,19 +58,9 @@ show running
 !#
 show interface status
 
-!# FEATURES
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 !###########
-
-!# Show all apliable features
-feature ?
-
-!# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
-feature interface-vlan
-
-!# Add demo licence to test all features
-licence grace-period
-
-
 !# IP ADDRESSING
 !###########
 
@@ -74,10 +69,63 @@ no shutdown
 ip address 10.1.1.1/30
 exit
 
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# Out-Of-Band (OOB) Management Interface
+!###########
+!
+! ## IP Addressing:
+interface management 0
+ip address 192.168.100.100/24
+no shutdown
+!
+! ## Enter the management VRF context (used for OOB traffic separation):
+vrf context management
+! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the OOB router/gateway (eg. Cradlepoint)
+ip route 0.0.0.0/0 192.168.100.1
+!
+! # Show all VRFs configured on the device
+show vrf
+! # Show interfaces assigned to the 'management' VRF
+show vrf management interface
+! # Show running configuration specific to the 'management' VRF
+show running-config vrf management
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
 !# DISCOVERY PROTOCOLS
 !###########
-cdp enable
 
+cdp enable
+interface ethernet 1/1
+cdp enable
+end
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# FEATURES
+!###########
+
+!# Show all apliable features (Port Channel, DHCP, BGP, BFD, LACP, Inter-VLAN, etc)
+feature ?
+
+!# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
+feature interface-vlan
+
+!# Add demo licence to test all features
+licence grace-period
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########
+!# LICENCES
+!###########
+
+!# Enable Free test licence for 120 days
+license grace-period
 
 ````
 
@@ -109,6 +157,8 @@ end
 
 copy running-config startup-config
 
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 !######################
 !# NEXUS 9K
 !######################
@@ -122,7 +172,12 @@ interface ethernet 1/1
 no shutdown
 ip address 10.1.1.2/30
 cdp enable
+exit
+
+cdp enable
 end
+
+copy running-config startup-config
 
 
 
@@ -139,7 +194,6 @@ end
 - Debe tener una IP asignada
 - Debe existir una Default ROute dentro del conectexto de la VRF management
 
-![image](https://github.com/user-attachments/assets/f30eb47b-a9e9-4c49-996c-513c16f1d648)
 
 ````py
 
