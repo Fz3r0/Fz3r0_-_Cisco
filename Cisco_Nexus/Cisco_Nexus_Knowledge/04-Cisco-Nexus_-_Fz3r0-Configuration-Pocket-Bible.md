@@ -130,14 +130,19 @@ no shutdown
 ip address 192.168.10.1/24
 exit
 
-!# 3. Configure VTY additional security (Optional)
+!# 3. Configure VTY [additional security] (Optional)
 line vty
-session-limit
+   session-limit 5
+   exec-timeout 3
+exit
 
-
-
-
-
+!# 4. ACL for permit only certain remote IP Address [additional security] (Optional)
+ip access-list remote-access-users
+   permit ip host 192.168.10.100 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
