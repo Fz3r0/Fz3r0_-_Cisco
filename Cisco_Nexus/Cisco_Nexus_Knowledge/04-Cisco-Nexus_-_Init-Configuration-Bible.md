@@ -53,11 +53,27 @@ Rollback & Checkpoint Notes
 SSH & Telnet Notes
 
 - Para activar SSH es muy sencillo solo usar "feature ssh"
-- Pero para tener mayor seguridad, una vez activado el SSH lo mas recomendable es configurar cosas adicionales. 
+- Pero para tener mayor seguridad, una vez activado el SSH lo mas recomendable es configurar cosas adicionales.
+- A diferencia de IOS la VTY solo se selecciona a nivel general, no una por una (eg. "line vty" en lugar de "line vty 4")
 
 ## Basic Configurations & Commands: 
 
 ````py
+
+!############
+!# FEATURES #
+!############
+
+!# Show all apliable features (Port Channel, DHCP, BGP, BFD, LACP, Inter-VLAN, etc)
+feature ?
+
+!# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
+feature interface-vlan
+
+!# Add demo licence to test all features
+licence grace-period
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !###########
 !# NAMINGS #
@@ -103,17 +119,20 @@ show role name Fz3r0-Custom-Role
 !# TELNET & SSH #
 !################
 
-!# 1. Enable Telnet & SSH features
+!# 1. Enable Telnet & SSH features (Mandatory)
 license grace-period
 feature telnet
 feature ssh
 
-!# 2. Set an Admin Interface
+!# 2. Set an Admin Interface (Mandatory/Optional)
 interface ethernet 2/1
 no shutdown
 ip address 192.168.10.1/24
 exit
 
+!# 3. Configure VTY additional security (Optional)
+line vty
+session-limit
 
 
 
@@ -122,9 +141,9 @@ exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!#################
-!# IP ADDRESSING #
-!#################
+!###########################
+!# INTERFACE IP ADDRESSING #
+!###########################
 
 interface ethernet 1/1
 no shutdown
@@ -170,20 +189,7 @@ end
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!############
-!# FEATURES #
-!############
 
-!# Show all apliable features (Port Channel, DHCP, BGP, BFD, LACP, Inter-VLAN, etc)
-feature ?
-
-!# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
-feature interface-vlan
-
-!# Add demo licence to test all features
-licence grace-period
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !##########################################
 !# SET DEFAULT SETTINGS
