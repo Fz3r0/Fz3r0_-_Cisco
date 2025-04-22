@@ -50,6 +50,11 @@ Rollback & Checkpoint Notes
 - A diferencia de IOS, en NX se puede crear un punto de retorno o checkpoint para poder hacer roll-backs más fácil.
 - Ejemplo, si yo hago un checkpoint, después hago 1203990123 páginas de configuración y algo salió mal, solo hago un roll-back y automáticamente regresaré el checkpoint. 
 
+SSH & Telnet Notes
+
+- Para activar SSH es muy sencillo solo usar "feature ssh"
+- Pero para tener mayor seguridad, una vez activado el SSH lo mas recomendable es configurar cosas adicionales. 
+
 ## Basic Configurations & Commands: 
 
 ````py
@@ -92,10 +97,30 @@ rule 5 deny command write memory
 show role name network-admin
 show role name Fz3r0-Custom-Role
 
-
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+!################
+!# TELNET & SSH #
+!################
 
+!# 1. Enable Telnet & SSH features
+license grace-period
+feature telnet
+feature ssh
+
+!# 2. Set an Admin Interface
+interface ethernet 2/1
+no shutdown
+ip address 192.168.10.1/24
+exit
+
+
+
+
+
+
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !#################
 !# IP ADDRESSING #
@@ -252,6 +277,10 @@ show running
 
 !#
 show interface status
+
+!# Show connected users at the moment and VTYs used by each one
+show users
+
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
