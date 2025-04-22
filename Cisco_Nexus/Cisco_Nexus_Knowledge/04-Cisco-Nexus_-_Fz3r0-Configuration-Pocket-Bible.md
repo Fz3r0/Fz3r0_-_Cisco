@@ -28,20 +28,21 @@ We will be using this simple topology just for example:
 
 ![image](https://github.com/user-attachments/assets/01e77d1b-e113-405c-abfd-1612f39379c5)
 
-## Notes:
+## Cisco Nexus & NX-OS Notes:
 
 Basic Notes:
 
-- No existen los comandos enable/disable en nexus 9k
-- El comando "show" se puede ejecutar donde sea (a diferenciade IOS que solo se puede en "enable")
-- Todas las interfaces por default vienen como "routed" en nuxus 9k, es decir, no son capa 2.
+- No existen los comandos enable en nexus 9k (NX-OS) para cambiar ese nivel en CLI.
+- El comando "show" se puede ejecutar donde sea (a diferenciade IOS que solo se puede en el primer nivel de CLI o teniendo que usar "do")
+- Todas las interfaces por default vienen como "routed" layer 3 en nuxus 9k, es decir, no son el clásico capa 2 como en IOS/Catalyst.
 - Todas las interfaces por default vienen como "disabled/shut down" (apagadas)
 
 Management Interface Notes: 
 
-- El puerto management va conectado a un router out-of-band, por ejemplo un cradlepoint con un chip 5G LTE conectado completamente fuera de la red que comunmente se usa como MPLS, Internet, etc. 
+- El puerto management va conectado a un router out-of-band, por ejemplo un cradlepoint con un chip 5G LTE conectado completamente fuera de la red que comunmente se usa como MPLS, Internet, etc.
+- Todos los Nexus tienen un puerto Management, incluso los modulares que tienen los orquestadores en el centro. 
 - El puerto management pertenece a la VRF management por defecto
-- Permite la administracion out of band
+- Permite la administracion out of band OOB
 - Debe tener una IP asignada
 - Debe existir una Default ROute dentro del conectexto de la VRF management
 
@@ -53,8 +54,12 @@ Rollback & Checkpoint Notes
 SSH & Telnet Notes
 
 - Para activar SSH es muy sencillo solo usar "feature ssh"
-- Pero para tener mayor seguridad, una vez activado el SSH lo mas recomendable es configurar cosas adicionales.
+- Pero para tener mayor seguridad, una vez activado el SSH lo mas recomendable es configurar cosas adicionales como configs de VTY o ACLs.
 - A diferencia de IOS la VTY solo se selecciona a nivel general, no una por una (eg. "line vty" en lugar de "line vty 4")
+
+VLAN & Trunk Notes
+
+
 
 ## Basic Configurations & Commands: 
 
