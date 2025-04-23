@@ -59,6 +59,9 @@ SSH & Telnet Notes
 
 VLAN & Trunk Notes
 
+- Es practicamente igual la configuración de VLAN y Trunks como se hace en un Catalyst IOS
+- Los Nexus además de las VLANs reservadas clásicas, reserva para uso interno de la 3968 a la 4095 (Multicast, Online Diagnostic, ERSPAN, Satellite, Multicast VPC, etc)
+- En Catalyst una VLAN puede aprender MAC hasta topar con el limite de espacio de una MAC Address Table, en Nexus se puede poner un tope desde antes con el comando "mac address-table limit vlan 50 199" (la vlan 50 solo puede aprender 199 MACs)
 
 
 ## Basic Configurations & Commands: 
@@ -175,13 +178,81 @@ no shutdown
 vrf context management
 ! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the OOB router/gateway (eg. Cradlepoint)
 ip route 0.0.0.0/0 192.168.100.1
-!
+
+---
+
 ! # Show all VRFs configured on the device
 show vrf
 ! # Show interfaces assigned to the 'management' VRF
 show vrf management interface
 ! # Show running configuration specific to the 'management' VRF
 show running-config vrf management
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########################
+!# VLANs & TRUNKS
+!###########################
+
+!# VLAN Creation & Activation
+configure terminal
+vlan 50
+   state active
+   name VLAN50-BLUE
+exit
+
+!# VLAN De-activation
+configure terminal
+vlan 50
+   state suspended
+exit
+
+!# Access VLAN on interface "X"
+configure terminal
+interface ethernet 2/10
+   no shutdown
+   switchport mode access
+   switchport access vlan 50
+exit
+
+!# Access VLAN on interface tange "X to Y"
+configure terminal
+interface range ethernet 2/20-29
+   no shutdown
+   switchport mode access
+   switchport access vlan 50
+exit
+
+!# Trunk interface (vlan 99 & dot1q is optional)
+configure terminal
+vlan 99
+vlan dot1q tag native
+interface ethernet 2/1
+   no shutdown
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport allowed vlan 50,60,99
+exit
+
+---
+
+!# Limit MAC Address table learning
+mac address-table limit vlan 50 199
+
+---
+
+! # vlan & trunk show important commands
+show vlan
+show interface status
+show run interface ethernet 2/1
+show interface trunk
+
+! # Show VLANs reserved for internal uses (Cisco reserved VLANs)
+show vlan interal usage
+show system vlan reserved
+
+
+
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -199,11 +270,12 @@ end
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-
-
 !##########################################
 !# SET DEFAULT SETTINGS
 !##########################################
+
+!# Set all interfaces to Layer 2 (On Nexus all interfaces are L3 by default)
+system default switchport
 
 !# Set default settings for "X" interface
 default interface ethernet 1/1
@@ -468,6 +540,7 @@ copy running-config startup-config
 - https://www.youtube.com/watch?v=fdc912ReAE4
 - https://youtu.be/oBJNkFhPpfU?si=BpyN82rV99dBf_cI
 - https://youtu.be/aPzNzvyv20A?si=1QMckKT0AjZHR1bm
+- https://youtu.be/ieZkA7Ayc-4?si=XgsEx2Pz87hLBZM5
 
 
 
