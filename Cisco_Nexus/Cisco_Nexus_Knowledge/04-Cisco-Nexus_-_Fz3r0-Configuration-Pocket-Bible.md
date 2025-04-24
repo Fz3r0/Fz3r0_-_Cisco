@@ -370,12 +370,16 @@ interface ethernet 1/3
    lacp port-priority 39000
 exit
 
+!# Select load balance method for the Port Channel (src-dst is always good!)
+port-channel load-balance src-dst
+
 !# ---
 
 !# Port Channel Help Commands
 show port-channel
 show port-channel summary
 show interface status
+show port-channel load-balance
 
 !#######################
 !# DISCOVERY PROTOCOLS #
