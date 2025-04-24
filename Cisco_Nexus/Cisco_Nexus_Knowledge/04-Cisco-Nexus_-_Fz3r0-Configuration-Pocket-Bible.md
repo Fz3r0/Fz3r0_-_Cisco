@@ -64,6 +64,14 @@ VLAN & Trunk Notes
 - Los Nexus además de las VLANs reservadas clásicas, reserva para uso interno de la 3968 a la 4095 (Multicast, Online Diagnostic, ERSPAN, Satellite, Multicast VPC, etc)
 - En Catalyst una VLAN puede aprender MAC hasta topar con el limite de espacio de una MAC Address Table, en Nexus se puede poner un tope desde antes con el comando "mac address-table limit vlan 50 199" (la vlan 50 solo puede aprender 199 MACs)
 
+Port Profiles Notes
+
+- En Nexus se pueden crear "plantillas" de comandos que se repiten en varias interfaces.
+- Por ejemplo, si en 20 interfaces diferentes con exactamente la misma configuración, se puede crear el port profile para crearlo una sola vez y replicarlo en otras interfaces.
+- Lo mismo pasa si edito el port profile, todas las interfaces tomarían el cambio. 
+
+Port Channel LACP Notes
+
 
 ## Basic Configurations & Commands: 
 
@@ -252,10 +260,52 @@ show interface trunk
 show vlan interal usage
 show system vlan reserved
 
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+!###########################
+!# PORT PROFILE
+!###########################
 
+!# Check all available port profile options for interface type (ethernet, interface-vlan(SVI), port-channel)
+port-profile type ?
+
+!# Create Port Profile for a basic ethernet interface configuration
+port-profile type ethernet fz3r0-interfaces-access-10
+   description ACCESS-VLAN10-BLUE
+   no shutdown
+   switchport mode access
+   switchport access vlan 10
+   duplex full
+state enabled   
+exit
+
+!# Create Port Profile for a basic ethernet interface configuration + Using an inherit from other Port Profile (Adds both configs together)
+port-profile type ethernet fz3r0-interfaces-access-10-AND-speed100  
+   inherit port-profile fz3r0-interfaces-access-10
+   description ACCESS-VLAN10-BLUE-SPEED100
+   speed100
+state enabled 
+exit
+
+!# Add Port-Profile to interface range
+interface ethernet 1/1-2
+   inherit port-profile fz3r0-interfaces-access-10    
+exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!###########################
+!# PORT CHANNEL (LACP)
+!###########################
+
+
+
+
+
+
+
 
 !#######################
 !# DISCOVERY PROTOCOLS #
