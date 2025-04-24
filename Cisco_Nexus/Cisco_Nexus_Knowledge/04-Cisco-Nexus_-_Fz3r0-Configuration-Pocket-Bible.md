@@ -83,6 +83,10 @@ HSRP Notes
 
 - Pendiente!!!
 
+Spanning Tree Notes
+
+- Nexus solo soporta rapid-pvst (por default) y multiple (mst), es mejor utilizar RPVST por default. 
+
 ## Basic Configurations & Commands: 
 
 ````py
@@ -383,6 +387,33 @@ show port-channel
 show port-channel summary
 show interface status
 show port-channel load-balance
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!#######################
+!# SPANNINGTREE (R-PVSTP) #
+!#######################
+
+!# Activate R-PVSTP (per default is already active)
+spanning-tree mode rapid-pvst
+
+!# R-PVSTP set ROOT device (per VLAN!!!)
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30 root primary
+
+!# R-PVSTP port type = <<EDGE>> (for edge devices like PC/Access) - Activate Port Fast
+interface ethernet 1/3
+   spanning-tree port type edge
+exit
+
+!# R-PVSTP port type = <<NETWORK>> (for network devices Switch/Trunk) - Activate Bridge Assurance & BPDUs
+interface ethernet 1/5
+   spanning-tree port type network
+exit
+
+
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !#######################
 !# DISCOVERY PROTOCOLS #
