@@ -72,6 +72,13 @@ Port Profiles Notes
 
 Port Channel LACP Notes
 
+- Al igual que en IOS se trata se utilizar varios enlaces entre interfaces como si fuera uno solo, también se configura practicamente igual
+- Se pueden configurar de 2 a 16 enlaces y todos deben ser del mismo tipo, velocidad, etc.
+- Ninguno debe tener configuración (deben ser seteados a default al inicio de configuración de preferencia), o en caso contrario, todos deberían tener exactamente la misma configuración. 
+- PAGP ya no esta disnonible en Cisco, el estándar es LACP (active/passive), lo recomendado es siempre ponerlo en modo active.
+- Siempre los port channels deben ir de 2 en 2, por ejemplo 2,4,6,8, etc... esto porque si hay en números nones pensará uno está caído.
+- Para backup, si se puede usar un tercer link o un número non, ya que este estarña configurado como backup y solo entrará cuando un par realmente muera. 
+
 
 ## Basic Configurations & Commands: 
 
@@ -163,16 +170,43 @@ exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########################
-!# INTERFACE IP ADDRESSING #
-!###########################
+!##################################
+!# INTERFACE L3 / IP & ADDRESSING #
+!##################################
 
 interface ethernet 1/1
-no shutdown
-ip address 10.1.1.1/30
+    no shutdown
+    ip address 10.1.1.1/30
 exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!##############################
+!# INTERFACE L2 BASICS #
+!##############################
+
+#! Set interface to L2
+interface ethernet 1/1
+    switchport
+exit
+
+#! Basic Access Config
+interface ethernet 1/1
+   no shutdown
+   switchport
+   switchport mode access
+   switchport access vlan 10
+exit
+
+!# Basic Trunk Interface (vlan 99 & dot1q is optional)
+vlan 99
+vlan dot1q tag native
+interface ethernet 2/1
+   no shutdown
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport allowed vlan 50,60,99
+exit
 
 !##########################################
 !# Out-Of-Band (OOB) Management Interface #
@@ -294,18 +328,54 @@ exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 !###########################
 !# PORT CHANNEL (LACP)
 !###########################
 
+!# Create Port Channel Switch "A" interfaces ethernet 1/1-3 (TURN ON INTERFACES BEFORE PORT CHANNEL!)
+feature lacp
+default interface ethernet 1/1-2
+interface ethernet 1/1-2
+   no shutdown
+   switchport 
+   channel-group 1 mode active
+exit
 
+!# Configure the Port Channel created, just like a normal interface
+interface port-channel 1
+   description PORT-CHANNEL-TRUNK-LINK-1
+   no shutdown
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport allowed vlan 50,60,99   
+exit
 
+!# Create additional 3rd Port Channel connection & force it to add to existing Port Channel + Make it for backup only
+default interface ethernet 1/3
+interface ethernet 1/3
+   no shutdown
+   switchport 
+   #! Force the new interface to participate in already created port channel
+   channel-group 1 force mode active
+exit
+interface port-channel 1
+   #! Only 2 interfaces will be active on port channel (1 pair)
+   lacp max-bundle 2
+   #! Force 2 links to be always working, if a link fails all the Po will be taken down
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
 
+!# ---
 
-
-
+!# Port Channel Help Commands
+show port-channel
+show port-channel summary
+show interface status
 
 !#######################
 !# DISCOVERY PROTOCOLS #
@@ -330,6 +400,9 @@ system default switchport
 
 !# Set default settings for "X" interface
 default interface ethernet 1/1
+
+!# Set default settings for a range from "X" to "Z" interfaces
+default interface ethernet 1/1-3
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
