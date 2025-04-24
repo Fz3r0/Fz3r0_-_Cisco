@@ -79,6 +79,9 @@ Port Channel LACP Notes
 - Siempre los port channels deben ir de 2 en 2, por ejemplo 2,4,6,8, etc... esto porque si hay en números nones pensará uno está caído.
 - Para backup, si se puede usar un tercer link o un número non, ya que este estarña configurado como backup y solo entrará cuando un par realmente muera. 
 
+HSRP Notes
+
+- Pendiente!!!
 
 ## Basic Configurations & Commands: 
 
