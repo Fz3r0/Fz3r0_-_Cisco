@@ -397,17 +397,25 @@ show port-channel load-balance
 !# Activate R-PVSTP (per default is already active)
 spanning-tree mode rapid-pvst
 
-!# R-PVSTP set ROOT device (per VLAN!!!)
+!# R-PVSTP set ROOT device (ONLY ONE ROOT per VLAN/NETWORK!!!)
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,20,30 root primary
 
+!# R-PVSTP set SECONDARY device (ONLY ONE SECONDARY per VLAN/NETWORK!!!)
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30 root secondary
+
 !# R-PVSTP port type = <<EDGE>> (for edge devices like PC/Access) - Activate Port Fast
 interface ethernet 1/3
+   switchport
+   switchport mode access
    spanning-tree port type edge
 exit
 
 !# R-PVSTP port type = <<NETWORK>> (for network devices Switch/Trunk) - Activate Bridge Assurance & BPDUs
 interface ethernet 1/5
+   switchport
+   switchport mode trunk
    spanning-tree port type network
 exit
 
