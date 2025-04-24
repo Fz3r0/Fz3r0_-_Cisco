@@ -419,7 +419,18 @@ interface ethernet 1/5
    spanning-tree port type network
 exit
 
+!# R-PVSTP BPDUGUARD Security - Block Access Port if detects BPDUs (rogue switch)
+interface ethernet 1/1
+   switchport
+   switchport mode access
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
+exit
 
+!# ---
+
+!# PVRSTP Help Commands
+show spanning-tree
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
