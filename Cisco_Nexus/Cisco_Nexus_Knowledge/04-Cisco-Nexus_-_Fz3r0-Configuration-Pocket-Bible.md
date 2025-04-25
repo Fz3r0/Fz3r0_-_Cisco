@@ -122,8 +122,8 @@ hostname NXv9K-1
 username fz3r0 password Cisco.12345
 
 !# Enable/Disable password strenght check (Capital+AlfaNumeric+10Chars)
-password strenght-check enable
-password strenght-check disable
+password strength-check
+no password strength-check
 
 !# Check all user default available roles
 username fz3r0 role ?
@@ -180,12 +180,32 @@ exit
 !# INTERFACE L3 / IP & ADDRESSING #
 !##################################
 
+#! Set interface to L3 (default is L3 already)
 interface ethernet 1/1
-    no shutdown
-    ip address 10.1.1.1/30
+    no switchport
+exit
+
+interface ethernet 1/1
+   no shutdown
+   no switchport
+   description ** WAN-L3-INTERFACE **
+   ip address 123.123.123.2/30
 exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!##############################
+!# INTERFACE RANGE SELECTION
+!##############################
+
+#! Configure ONE interface
+interface ethernet 1/1
+
+#! Configure RANGE interfaces
+interface ethernet 1/1-4
+
+#! Configure DIFFERENT interfaces
+interface ethernet 1/1,1/6,1/8
 
 !##############################
 !# INTERFACE L2 BASICS #
@@ -200,6 +220,7 @@ exit
 interface ethernet 1/1
    no shutdown
    switchport
+   description ** LAN-L2-VLAN10-INTERFACE **
    switchport mode access
    switchport access vlan 10
 exit
@@ -207,7 +228,7 @@ exit
 !# Basic Trunk Interface (vlan 99 & dot1q is optional)
 vlan 99
 vlan dot1q tag native
-interface ethernet 2/1
+interface ethernet 1/1
    no shutdown
    switchport mode trunk
    switchport trunk native vlan 99
@@ -260,27 +281,24 @@ exit
 configure terminal
 interface ethernet 2/10
    no shutdown
-   switchport mode access
-   switchport access vlan 50
-exit
-
-!# Access VLAN on interface tange "X to Y"
-configure terminal
-interface range ethernet 2/20-29
-   no shutdown
+   description ** LAN-L2-ACCESS **
+   switchport
    switchport mode access
    switchport access vlan 50
 exit
 
 !# Trunk interface (vlan 99 & dot1q is optional)
-configure terminal
 vlan 99
-vlan dot1q tag native
-interface ethernet 2/1
+   name 99-TRUNK-NATIVE
+   vlan dot1q tag native
+interface ethernet1/4,ethernet1/7
    no shutdown
+   description ** LAN-L2-TRUNK **
+   switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport allowed vlan 50,60,99
+   switchport trunk allowed vlan 10,20,30,99
+   cdp enable
 exit
 
 ---
@@ -663,7 +681,7 @@ show running-config > backup-1
 
 configure terminal
 hostname NXv7K-1
-username admin password Admin12345
+username admin password Adm1n.C1sc0
 license grace-period
 
 feature interface-vlan
@@ -687,7 +705,7 @@ copy running-config startup-config
 
 configure terminal
 hostname NXv9K-1
-username admin password Admin12345
+username admin password Adm1n.C1sc0
 license smart 
 
 interface ethernet 1/1
@@ -743,7 +761,8 @@ exit
 
 interface ethernet 1/1
    no shutdown
-   description WAN-L3-INTERFACE
+   no switchport
+   description ** WAN-L3-INTERFACE **
    ip address 123.123.123.2/30
    cdp enable
 exit
@@ -776,9 +795,9 @@ exit
 !# Loopback Virtual interface for management or testing
 
 interface loopback0
- no shutdown
- description Simulated Management Loopback / Device IP Address
- ip address 192.168.30.11/32
+   no shutdown
+   description ** MGMT Loopback / Device IP Address **
+   ip address 192.168.30.11/32
 exit
 
 !# DEFAULT ROUTE TO WAN (DEFAULT GATEWAY @ INTERNET)
@@ -788,7 +807,7 @@ ip route 0.0.0.0/0 123.123.123.1
 !# SAVE CHECKPOINT & CONFIGURATION
 
 end
-checkpoint fz3r0-check-2025
+checkpoint fz3r0-check-2025-NX9-1
 copy running-config startup-config
 !
 !
