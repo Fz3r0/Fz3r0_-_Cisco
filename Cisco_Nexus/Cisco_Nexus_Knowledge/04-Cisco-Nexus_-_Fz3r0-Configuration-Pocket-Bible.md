@@ -957,6 +957,7 @@ interface ethernet 1/1
    no switchport
    description ** WAN-L3-INTERFACE **
    ip address 123.1.1.2/30
+   speed 1000
    duplex full
    cdp enable
 exit
@@ -1015,6 +1016,7 @@ interface ethernet1/4,ethernet1/7
    switchport mode trunk
    switchport trunk native vlan 99
    switchport trunk allowed vlan 10,20,30,99
+   speed 1000
    duplex full
    cdp enable
 exit
@@ -1026,14 +1028,6 @@ feature ssh
 line vty
    session-limit 5
    exec-timeout 3
-exit
-
-!# Loopback Virtual interface for management or testing
-
-interface loopback0
-   no shutdown
-   description ** MGMT Loopback / Device IP Address **
-   ip address 192.168.30.11/32
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -1106,6 +1100,7 @@ interface ethernet1/5
    switchport
    switchport mode acess
    switchport access vlan 10
+   speed 1000
    duplex full
    cdp enable
 exit
@@ -1116,6 +1111,7 @@ interface ethernet1/6
    switchport
    switchport mode acess
    switchport access vlan 20
+   speed 1000
    duplex full
    cdp enable
 exit
@@ -1126,6 +1122,7 @@ interface ethernet1/7
    switchport
    switchport mode acess
    switchport access vlan 30
+   speed 1000
    duplex full
    cdp enable
 exit
