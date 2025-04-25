@@ -826,6 +826,7 @@ no ip domain-lookup
 interface Ethernet 0/0
  description *** Simulated PC Interface ***
  ip address 192.168.10.101 255.255.255.0
+ duplex full
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
@@ -859,6 +860,7 @@ no ip domain-lookup
 interface GigabitEthernet0/0
  description *** Simulated PC Interface ***
  ip address 192.168.20.101 255.255.255.0
+ duplex full
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
@@ -892,6 +894,7 @@ no ip domain-lookup
 interface GigabitEthernet0/0
  description *** Simulated PC Interface ***
  ip address 192.168.30.101 255.255.255.0
+ duplex full
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
@@ -925,6 +928,7 @@ no ip domain-lookup
 interface GigabitEthernet0/0
  description *** Simulated PC Interface ***
  ip address 192.168.10.102 255.255.255.0
+ duplex full
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
@@ -958,6 +962,7 @@ no ip domain-lookup
 interface GigabitEthernet0/0
  description *** Simulated PC Interface ***
  ip address 192.168.20.102 255.255.255.0
+ duplex full
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
@@ -991,6 +996,7 @@ no ip domain-lookup
 interface GigabitEthernet0/0
  description *** Simulated PC Interface ***
  ip address 192.168.30.102 255.255.255.0
+ duplex full
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
