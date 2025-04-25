@@ -1105,7 +1105,7 @@ exit
 
 #! Create Default Route to ISP/WAN
 
-ip route 0.0.0.0/0 123.1.1.1
+ip route 0.0.0.0/0 123.2.2.1
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
