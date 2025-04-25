@@ -708,7 +708,7 @@ exit
 interface ethernet 1/1
    no shutdown
    no switchport
-   description ** WAN-L3-INTERFACE **
+   description ** L3-WAN-GATEWAY **
    ip address 123.123.123.2/30
    duplex full
    cdp enable
@@ -722,7 +722,7 @@ vlan 99
 
 interface ethernet1/4,ethernet1/7
    no shutdown
-   description ** LAN-L2-TRUNK **
+   description ** L2-TRUNK-NATIVE99 **
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
@@ -766,8 +766,6 @@ copy running-config startup-config
 
 
 
-
-
 ## Switch NX9-2
 
 ````py
@@ -807,7 +805,7 @@ vlan 99
 
 interface ethernet1/4
    no shutdown
-   description ** LAN-L2-TRUNK **
+   description ** L2-TRUNK-NATIVE99 **
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
@@ -820,7 +818,7 @@ exit
 
 interface ethernet1/5
    no shutdown
-   description ** LAN-L2-TRUNK **
+   description ** L2-ACCESS-VLAN10-BLUE **
    switchport
    switchport mode acess
    switchport access vlan 10
@@ -828,8 +826,34 @@ interface ethernet1/5
    cdp enable
 exit
 
+interface ethernet1/6
+   no shutdown
+   description ** L2-ACCESS-VLAN20-RED **
+   switchport
+   switchport mode acess
+   switchport access vlan 20
+   duplex full
+   cdp enable
+exit
 
+interface ethernet1/7
+   no shutdown
+   description ** L2-ACCESS-VLAN30-GREEN **
+   switchport
+   switchport mode acess
+   switchport access vlan 30
+   duplex full
+   cdp enable
+exit
 
+!# Out-Of-Band (OOB) Management Interface #
+
+interface management 0
+    ip address 192.168.0.2/24
+no shutdown
+!
+vrf context management
+    ip route 0.0.0.0/0 192.168.0.1
 
 !# TELNET & SSH #
 
@@ -845,10 +869,10 @@ exit
 interface loopback0
    no shutdown
    description ** MGMT Loopback / Device IP Address **
-   ip address 192.168.30.11/32
+   ip address 192.168.30.12/32
 exit
 
-!# DEFAULT ROUTE TO WAN (DEFAULT GATEWAY @ INTERNET)
+!# DEFAULT ROUTE TO GATEWAY (MANAGEMENT)
 
 ip route 0.0.0.0/0 123.123.123.1
 
