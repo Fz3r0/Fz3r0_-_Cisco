@@ -133,11 +133,11 @@ username fz3r0 role network-admin
 
 !# Create customized roles (eg. permit commands)
 role name Fz3r0-Custom-Role
-rule 1 permit command show interface status
-rule 2 permit command show interface description
-rule 3 deny command show interface
-rule 4 deny command reload
-rule 5 deny command write memory
+   rule 1 permit command show interface status
+   rule 2 permit command show interface description
+   rule 3 deny command show interface
+   rule 4 deny command reload
+   rule 5 deny command write memory
 
 !# Show roles descriptions
 show role name network-admin
