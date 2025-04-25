@@ -807,7 +807,7 @@ copy running-config startup-config
 | PC-3    | VLAN30-GREEN | 192.168.30.101     | 255.255.255.0    | /24   | 192.168.30.1      |
 | PC-6    | VLAN30-GREEN | 192.168.30.102     | 255.255.255.0    | /24   | 192.168.30.1      |
 
-````
+````py
 ! ########
 ! # PC-1 #
 ! ########
@@ -823,20 +823,24 @@ hostname PC-1
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
-interface GigabitEthernet0/0
+interface Ethernet 0/0
  description *** Simulated PC Interface ***
  ip address 192.168.10.101 255.255.255.0
  no shutdown
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.10.1
+
+! # Exit & Save
+end
+write memory
 !
 !
 
 
 ````
 
-````
+````py
 ! ########
 ! # PC-2 #
 ! ########
@@ -859,13 +863,17 @@ interface GigabitEthernet0/0
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.20.1
+
+! # Exit & Save
+end
+write memory
 !
 !
 
 
 ````
 
-````
+````py
 ! ########
 ! # PC-3 #
 ! ########
@@ -888,13 +896,17 @@ interface GigabitEthernet0/0
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.30.1
+
+! # Exit & Save
+end
+write memory
 !
 !
 
 
 ````
 
-````
+````py
 ! ########
 ! # PC-4 #
 ! ########
@@ -917,13 +929,17 @@ interface GigabitEthernet0/0
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.10.1
+
+! # Exit & Save
+end
+write memory
 !
 !
 
 
 ````
 
-````
+````py
 ! ########
 ! # PC-5 #
 ! ########
@@ -946,13 +962,17 @@ interface GigabitEthernet0/0
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.20.1
+
+! # Exit & Save
+end
+write memory
 !
 !
 
 
 ````
 
-````
+````py
 ! ########
 ! # PC-6 #
 ! ########
@@ -975,6 +995,10 @@ interface GigabitEthernet0/0
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.30.1
+
+! # Exit & Save
+end
+write memory
 !
 !
 
