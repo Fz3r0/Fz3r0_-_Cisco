@@ -963,7 +963,7 @@ exit
 
 #! Create Default Route to ISP/WAN
 
-ip route 0.0.0.0/0 123.1.1.1/30
+ip route 0.0.0.0/0 123.1.1.1
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
@@ -1105,7 +1105,7 @@ exit
 
 #! Create Default Route to ISP/WAN
 
-ip route 0.0.0.0/0 123.2.2.1/30
+ip route 0.0.0.0/0 123.1.1.1
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
@@ -1347,6 +1347,9 @@ copy running-config startup-config
 ## WANS / INTERNET
 
 ````py
+!###############
+!# WAN-1 (IOS) #
+!###############
 
 !# Namings
 enable
@@ -1383,7 +1386,45 @@ write memory
 
 ````
 
+````py
+!###############
+!# WAN-2 (IOS) #
+!###############
 
+!# Namings
+enable
+configure terminal
+hostname WAN-2
+
+!# WAN Interface
+interface Ethernet0/0
+  no shutdown
+  description LINK-TO-NETWORK
+  ip address 123.2.2.1 255.255.255.252
+  duplex full
+exit
+
+!# Loopbacks (Google)
+interface Loopback0
+  description ** GOOGLE-DNS-1 **
+  ip address 8.8.8.8 255.255.255.255
+exit
+interface Loopback1
+  description ** GOOGLE-DNS-2 **
+  ip address 8.8.4.4 255.255.255.255
+exit
+
+!# Default Route (opcional si usas default-route en el otro router)
+ip route 0.0.0.0 0.0.0.0 123.2.2.2
+
+end
+write memory
+
+!
+!
+
+
+````
 
 
 
