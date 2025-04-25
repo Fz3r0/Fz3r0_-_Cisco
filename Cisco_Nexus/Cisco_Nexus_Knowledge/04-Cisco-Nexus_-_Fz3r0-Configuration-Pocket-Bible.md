@@ -719,9 +719,9 @@ copy running-config startup-config
 
 configure terminal
 hostname Nx9-1
-password strenght-check enable
-username admin password Admin12345
-username fz3r0 password Admin12345
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
 !   licence grace-period
 !   license smart
