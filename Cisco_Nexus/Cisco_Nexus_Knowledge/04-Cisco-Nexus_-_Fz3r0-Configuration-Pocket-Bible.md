@@ -176,6 +176,21 @@ exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+!##############################
+!# INTERFACE RANGE SELECTION
+!##############################
+
+#! Configure ONE interface
+interface ethernet 1/1
+
+#! Configure RANGE interfaces
+interface ethernet 1/1-4
+
+#! Configure DIFFERENT interfaces
+interface ethernet 1/1,1/6,1/8
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 !##################################
 !# INTERFACE L3 / IP & ADDRESSING #
 !##################################
@@ -194,18 +209,148 @@ exit
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!##############################
-!# INTERFACE RANGE SELECTION
-!##############################
+!##################################
+!# SVI + SET SWITCH/INTERFACE AS GATEWAY #
+!##################################
 
-#! Configure ONE interface
+#! 1. Create the VLANs
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+exit
+
+#! 2. Create SVIs
+feature interface-vlan
+interface vlan 10
+   no shutdown
+   description ** SVI+GW-L3-VLAN10-BLUE **
+   ip address 192.168.10.254/24
+exit
+interface vlan 20
+   no shutdown
+   description ** SVI+GW-L3-VLAN20-RED **
+   ip address 192.168.20.254/24
+exit
+interface vlan 30
+   no shutdown
+   description ** SVI+GW-L3-VLAN30-GREEN **
+   ip address 192.168.30.254/24
+exit
+
+#! 3. Set L3 interface to ISP/WAN
+
 interface ethernet 1/1
+   no shutdown
+   no switchport
+   description ** WAN-L3-INTERFACE **
+   ip address 123.1.1.2/30
+exit
 
-#! Configure RANGE interfaces
-interface ethernet 1/1-4
+#! 4. Create Default Route to ISP/WAN
 
-#! Configure DIFFERENT interfaces
-interface ethernet 1/1,1/6,1/8
+ip route 0.0.0.0/0 123.1.1.1/30
+
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!##################################
+!# HSRP
+!##################################
+
+#! CORE 1      = 192.168.x.254 : 
+#! CORE 2      = 192.168.x.253 : 
+#! HSRP (BOTH) = 192.168.x.1
+
+#! Group 10 = VLAN 10 : 192.168.10.x >> VIP = 192.168.10.1 (HSRP BOTH)
+#! Group 20 = VLAN 20 : 192.168.20.x >> VIP = 192.168.20.1 (HSRP BOTH)
+#! Group 30 = VLAN 30 : 192.168.30.x >> VIP = 192.168.30.1 (HSRP BOTH)
+
+#! ** CORE 1 ** 192.x.x.254
+
+#! 1. Create the VLANs
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+exit
+
+#! 2. Create SVIs
+feature interface-vlan
+interface vlan 10
+   no shutdown
+   description ** SVI+GW-L3-VLAN10-BLUE **
+   ip address 192.168.10.254/24
+exit
+interface vlan 20
+   no shutdown
+   description ** SVI+GW-L3-VLAN20-RED **
+   ip address 192.168.20.254/24
+exit
+interface vlan 30
+   no shutdown
+   description ** SVI+GW-L3-VLAN30-GREEN **
+   ip address 192.168.30.254/24
+exit
+
+#! 3. Set L3 interface to ISP/WAN
+
+interface ethernet 1/1
+   no shutdown
+   no switchport
+   description ** WAN-L3-INTERFACE **
+   ip address 123.1.1.2/30
+exit
+
+#! 4. Create Default Route to ISP/WAN
+
+ip route 0.0.0.0/0 123.1.1.1/30
+
+#! ---
+
+#! 1. Create the VLANs
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+exit
+
+#! 2. Create SVIs
+feature interface-vlan
+interface vlan 10
+   no shutdown
+   description ** SVI+GW-L3-VLAN10-BLUE **
+   ip address 192.168.10.254/24
+exit
+interface vlan 20
+   no shutdown
+   description ** SVI+GW-L3-VLAN20-RED **
+   ip address 192.168.20.254/24
+exit
+interface vlan 30
+   no shutdown
+   description ** SVI+GW-L3-VLAN30-GREEN **
+   ip address 192.168.30.254/24
+exit
+
+#! 3. Set L3 interface to ISP/WAN
+
+interface ethernet 1/1
+   no shutdown
+   no switchport
+   description ** WAN-L3-INTERFACE **
+   ip address 123.1.1.2/30
+exit
+
+#! 4. Create Default Route to ISP/WAN
+
+ip route 0.0.0.0/0 123.1.1.1/30
 
 !##############################
 !# INTERFACE L2 BASICS #
