@@ -761,6 +761,7 @@ interface ethernet1/4,ethernet1/7
    switchport mode trunk
    switchport trunk native vlan 99
    switchport trunk allowed vlan 10,20,30,99
+   cdp enable
 exit
 
 !# TELNET & SSH #
@@ -776,8 +777,8 @@ exit
 
 interface loopback0
  no shutdown
- description Simulated Management Loopback
- ip address 192.168.30.1/32
+ description Simulated Management Loopback / Device IP Address
+ ip address 192.168.30.11/32
 exit
 
 !# DEFAULT ROUTE TO WAN (DEFAULT GATEWAY @ INTERNET)
