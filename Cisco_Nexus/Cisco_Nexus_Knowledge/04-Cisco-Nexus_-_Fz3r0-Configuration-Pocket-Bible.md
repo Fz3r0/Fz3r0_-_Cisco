@@ -515,10 +515,11 @@ interface ethernet 2/10
    switchport access vlan 50
 exit
 
-!# Trunk interface (vlan 99 & dot1q is optional)
+!# Trunk interface (vlan 99 & dot1q is optional / no "exit" command is needed)
 vlan 99
    name 99-TRUNK-NATIVE
    vlan dot1q tag native
+
 interface ethernet1/4,ethernet1/7
    no shutdown
    description ** LAN-L2-TRUNK **
@@ -1004,10 +1005,6 @@ exit
 
 !# L2 INTERFACES - TRUNK
 
-vlan 99
-   name VLAN99-TRUNK-NATIVE
-   vlan dot1q tag native
-
 interface ethernet1/4,ethernet1/7
    no shutdown
    description ** L2-TRUNK-NATIVE99 **
@@ -1213,18 +1210,114 @@ copy running-config startup-config
 
 ## Switch NX9-2
 
+
+
+
+
+
+
+
+
+
+
+## Switch NX9-1 - ACTIVE HSRP (Priority 200)
+
+
 ````py
 !######################
-!# NEXUS NX9-2
+!# NEXUS NX9-2-ACCESS
 !######################
 
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname Nx9-2-ACCESS
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
+username fz3r0 role network-admin
+!   licence grace-period
+cdp enable
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+   vlan dot1q tag native
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+
+interface vlan 30
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN30-GREEN **
+   ip address 192.168.30.11/24
+exit
+
+ip default-gateway 192.168.30.1
+
+!# L2 INTERFACES - TRUNK
+
+interface ethernet1/4,ethernet1/7
+   no shutdown
+   description ** L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+!# TELNET & SSH #
+
+feature telnet
+feature ssh
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-1
+copy running-config startup-config
+!
+!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------
 
 
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-2
+
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
