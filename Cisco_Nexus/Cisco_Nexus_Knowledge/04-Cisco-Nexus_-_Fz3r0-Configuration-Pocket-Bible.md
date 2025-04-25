@@ -268,7 +268,7 @@ ip route 0.0.0.0/0 123.1.1.1/30
 #! Group 20 = VLAN 20 : 192.168.20.x >> VIP = 192.168.20.1 (HSRP BOTH)
 #! Group 30 = VLAN 30 : 192.168.30.x >> VIP = 192.168.30.1 (HSRP BOTH)
 
-#! ** CORE 1 ** 192.x.x.254
+#! ** CORE 1 ** 192.x.x.254  (ACTIVE)
 
 #! 1. Create the VLANs
 vlan 10
@@ -310,7 +310,46 @@ exit
 
 ip route 0.0.0.0/0 123.1.1.1/30
 
-#! ---
+#! 5. Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
+
+feature hsrp
+interface vlan 10
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 10
+   !# Configure VIP
+   ip 192.168.10.1
+   !# Highest priprity will be primary
+   preempt
+   priority 200
+exit
+interface vlan 20
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 20
+   !# Configure VIP
+   ip 192.168.20.1
+   !# Highest priprity will be primary
+   preempt
+   priority 200
+exit
+interface vlan 30
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 30
+   !# Configure VIP
+   ip 192.168.30.1
+   !# Highest priprity will be primary
+   preempt
+   priority 200
+exit
+
+#! --------------------------------------------
+
+#! ** CORE 2 ** 192.x.x.253 (PASSIVE)
 
 #! 1. Create the VLANs
 vlan 10
@@ -326,17 +365,17 @@ feature interface-vlan
 interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-BLUE **
-   ip address 192.168.10.254/24
+   ip address 192.168.10.253/24
 exit
 interface vlan 20
    no shutdown
    description ** SVI+GW-L3-VLAN20-RED **
-   ip address 192.168.20.254/24
+   ip address 192.168.20.253/24
 exit
 interface vlan 30
    no shutdown
    description ** SVI+GW-L3-VLAN30-GREEN **
-   ip address 192.168.30.254/24
+   ip address 192.168.30.253/24
 exit
 
 #! 3. Set L3 interface to ISP/WAN
@@ -345,12 +384,56 @@ interface ethernet 1/1
    no shutdown
    no switchport
    description ** WAN-L3-INTERFACE **
-   ip address 123.1.1.2/30
+   ip address 123.2.2.2/30
 exit
 
 #! 4. Create Default Route to ISP/WAN
 
-ip route 0.0.0.0/0 123.1.1.1/30
+ip route 0.0.0.0/0 123.2.2.1/30
+
+#! 5. Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
+
+feature hsrp
+interface vlan 10
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 10
+   !# Configure VIP
+   ip 192.168.10.1
+   !# Highest priprity will be primary
+   preempt
+   priority 100
+exit
+interface vlan 20
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 20
+   !# Configure VIP
+   ip 192.168.20.1
+   !# Highest priprity will be primary
+   preempt
+   priority 100
+exit
+interface vlan 30
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 30
+   !# Configure VIP
+   ip 192.168.30.1
+   !# Highest priprity will be primary
+   preempt
+   priority 100
+exit
+
+!# --- HSRP HELP COmmands
+
+show hsrp brief
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
 !##############################
 !# INTERFACE L2 BASICS #
@@ -394,7 +477,7 @@ vrf context management
 ! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the OOB router/gateway (eg. Cradlepoint)
 ip route 0.0.0.0/0 192.168.100.1
 
----
+!# ---
 
 ! # Show all VRFs configured on the device
 show vrf
@@ -1031,6 +1114,56 @@ copy running-config startup-config
 
 
 ````
+
+
+
+
+
+
+
+## WANS / INTERNET
+
+````py
+
+!# Namings
+configure terminal
+hostname WAN-1
+
+!# WAN Interface
+interface Ethernet0/0
+  no shutdown
+  description LINK-TO-NETWORK
+  ip address 123.1.1.1 255.255.255.252
+  duplex full
+exit
+
+!# Loopbacks (Google)
+interface Loopback0
+  description ** GOOGLE-DNS-1 **
+  ip address 8.8.8.8 255.255.255.255
+exit
+interface Loopback1
+  description ** GOOGLE-DNS-2 **
+  ip address 8.8.4.4 255.255.255.255
+exit
+
+!# Default Route (opcional si usas default-route en el otro router)
+ip route 0.0.0.0/24 123.1.1.2
+
+end
+write memory
+
+!
+!
+
+
+````
+
+
+
+
+
+
 
 
 
