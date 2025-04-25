@@ -669,72 +669,7 @@ show running-config > backup-1
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-## Basic Example tu use:
-
-````py
-!# BASIC EXAMPLE
-!#################################
-
-!######################
-!# NEXUS 7K
-!######################
-
-configure terminal
-hostname NXv7K-1
-username admin password Adm1n.C1sc0
-license grace-period
-
-feature interface-vlan
-
-interface ethernet 2/1
-no shutdown
-ip address 10.1.1.1/30
-cdp enable
-exit
-
-cdp enable
-end
-
-copy running-config startup-config
-
-!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-!######################
-!# NEXUS 9K
-!######################
-
-configure terminal
-hostname NXv9K-1
-username admin password Adm1n.C1sc0
-license smart 
-
-interface ethernet 1/1
-no shutdown
-ip address 10.1.1.2/30
-cdp enable
-exit
-
-cdp enable
-end
-
-copy running-config startup-config
-
-
-
-
-
-````
+# LAB EXAMPLE FZ3R0 BIBLE
 
 
 ## Switch NX9-1
