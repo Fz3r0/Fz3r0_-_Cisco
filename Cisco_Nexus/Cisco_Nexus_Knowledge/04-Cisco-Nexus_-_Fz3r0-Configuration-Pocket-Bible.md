@@ -794,6 +794,171 @@ copy running-config startup-config
 
 
 
+## PC
+
+- PCs are IOS routers simulating a PC (for having shh, telnet, ping, traceroute, etc)
+
+| PC Name | VLAN         | IP Address        | Subnet Mask     | CIDR  | Default Gateway   |
+|---------|--------------|-------------------|------------------|-------|-------------------|
+| PC-1    | VLAN10-BLUE  | 192.168.10.101     | 255.255.255.0    | /24   | 192.168.10.1      |
+| PC-4    | VLAN10-BLUE  | 192.168.10.102     | 255.255.255.0    | /24   | 192.168.10.1      |
+| PC-2    | VLAN20-RED   | 192.168.20.101     | 255.255.255.0    | /24   | 192.168.20.1      |
+| PC-5    | VLAN20-RED   | 192.168.20.102     | 255.255.255.0    | /24   | 192.168.20.1      |
+| PC-3    | VLAN30-GREEN | 192.168.30.101     | 255.255.255.0    | /24   | 192.168.30.1      |
+| PC-6    | VLAN30-GREEN | 192.168.30.102     | 255.255.255.0    | /24   | 192.168.30.1      |
+
+````
+! ########
+! # PC-1 #
+! ########
+
+! # Change the device hostname to "PC-1"
+hostname PC-1
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface GigabitEthernet0/0
+ description *** Simulated PC Interface ***
+ ip address 192.168.10.101 255.255.255.0
+ no shutdown
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 192.168.10.1
+!
+!
+
+
+````
+
+````
+! ########
+! # PC-2 #
+! ########
+
+! # Change the device hostname to "PC-2"
+hostname PC-2
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface GigabitEthernet0/0
+ description *** Simulated PC Interface ***
+ ip address 192.168.20.101 255.255.255.0
+ no shutdown
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 192.168.20.1
+!
+!
+
+
+````
+
+````
+! ########
+! # PC-3 #
+! ########
+
+! # Change the device hostname to "PC-3"
+hostname PC-3
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface GigabitEthernet0/0
+ description *** Simulated PC Interface ***
+ ip address 192.168.30.101 255.255.255.0
+ no shutdown
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 192.168.30.1
+!
+!
+
+
+````
+
+````
+! ########
+! # PC-4 #
+! ########
+
+! # Change the device hostname to "PC-4"
+hostname PC-4
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface GigabitEthernet0/0
+ description *** Simulated PC Interface ***
+ ip address 192.168.10.102 255.255.255.0
+ no shutdown
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 192.168.10.1
+!
+!
+
+
+````
+
+````
+! ########
+! # PC-5 #
+! ########
+
+! # Change the device hostname to "PC-5"
+hostname PC-5
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface GigabitEthernet0/0
+ description *** Simulated PC Interface ***
+ ip address 192.168.20.102 255.255.255.0
+ no shutdown
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 192.168.20.1
+!
+!
+
+
+````
+
+````
+! ########
+! # PC-6 #
+! ########
+
+! # Change the device hostname to "PC-6"
+hostname PC-6
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface GigabitEthernet0/0
+ description *** Simulated PC Interface ***
+ ip address 192.168.30.102 255.255.255.0
+ no shutdown
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 192.168.30.1
+!
+!
+
+
+````
+
+
+
 # 📚🗂️🎥 Resources
 
 - https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
