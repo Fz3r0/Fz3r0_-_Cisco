@@ -1208,7 +1208,6 @@ copy running-config startup-config
 
 
 
-## Switch NX9-2
 
 
 
@@ -1220,8 +1219,8 @@ copy running-config startup-config
 
 
 
-## Switch NX9-1 - ACTIVE HSRP (Priority 200)
 
+## Switch NX9-2 - ACCESS
 
 ````py
 !######################
@@ -1261,15 +1260,86 @@ exit
 
 ip default-gateway 192.168.30.1
 
+!# L2 PORT CHANNELS 
+
+feature lacp
+default interface ethernet 1/1-3
+interface ethernet 1/1-2
+   description ** Port-Channel-1-Po1-Interfaces **
+   no shutdown
+   switchport
+   speed 1000
+   duplex full
+   channel-group 1 mode active
+exit
+
+interface port-channel 1
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+
+port-channel load-balance src-dst
+
 !# L2 INTERFACES - TRUNK
 
-interface ethernet1/4,ethernet1/7
+interface ethernet1/4
    no shutdown
    description ** L2-TRUNK-NATIVE99 **
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
    switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+interface port-channel 1
+   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+!# L2 INTERFACES - ACCESS
+
+interface ethernet1/5
+   no shutdown
+   description ** L2-ACCESS-VLAN10-BLUE **
+   switchport
+   switchport mode acess
+   switchport access vlan 10
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+interface ethernet1/6
+   no shutdown
+   description ** L2-ACCESS-VLAN20-RED **
+   switchport
+   switchport mode acess
+   switchport access vlan 20
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+interface ethernet1/7
+   no shutdown
+   description ** L2-ACCESS-VLAN30-GREEN **
+   switchport
+   switchport mode acess
+   switchport access vlan 30
    speed 1000
    duplex full
    cdp enable
