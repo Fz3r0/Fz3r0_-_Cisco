@@ -452,6 +452,17 @@ show spanning-tree
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !#######################
+!# SPEED & DUPLEX #
+!#######################
+
+! # Set full duplex speed on interface
+interface ethernet 1/1
+   duplex full
+exit
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!#######################
 !# DISCOVERY PROTOCOLS #
 !#######################
 
@@ -764,6 +775,7 @@ interface ethernet 1/1
    no switchport
    description ** WAN-L3-INTERFACE **
    ip address 123.123.123.2/30
+   duplex full
    cdp enable
 exit
 
@@ -775,11 +787,12 @@ vlan 99
 
 interface ethernet1/4,ethernet1/7
    no shutdown
-   description LAN-L2-TRUNK
+   description ** LAN-L2-TRUNK **
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
    switchport trunk allowed vlan 10,20,30,99
+   duplex full
    cdp enable
 exit
 
@@ -814,6 +827,107 @@ copy running-config startup-config
 
 
 ````
+
+
+
+
+
+
+## Switch NX9-2
+
+````py
+!######################
+!# NEXUS NX9-2
+!######################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname Nx9-2
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
+username fz3r0 role network-admin
+!   licence grace-period
+!   license smart
+cdp enable
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+exit
+
+!# L2 INTERFACES - TRUNK
+
+vlan 99
+   name 99-TRUNK-NATIVE
+   vlan dot1q tag native
+
+interface ethernet1/4
+   no shutdown
+   description ** LAN-L2-TRUNK **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   duplex full
+   cdp enable
+exit
+
+!# L2 INTERFACES - ACCESS
+
+interface ethernet1/5
+   no shutdown
+   description ** LAN-L2-TRUNK **
+   switchport
+   switchport mode acess
+   switchport access vlan 10
+   duplex full
+   cdp enable
+exit
+
+
+
+
+!# TELNET & SSH #
+
+feature telnet
+feature ssh
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+
+!# Loopback Virtual interface for management or testing
+
+interface loopback0
+   no shutdown
+   description ** MGMT Loopback / Device IP Address **
+   ip address 192.168.30.11/32
+exit
+
+!# DEFAULT ROUTE TO WAN (DEFAULT GATEWAY @ INTERNET)
+
+ip route 0.0.0.0/0 123.123.123.1
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-1
+copy running-config startup-config
+!
+!
+
+
+````
+
 
 
 
