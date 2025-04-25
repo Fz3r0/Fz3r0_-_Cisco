@@ -812,6 +812,10 @@ copy running-config startup-config
 ! # PC-1 #
 ! ########
 
+! # Enable & Config Exec Line
+enable
+configure terminal
+
 ! # Change the device hostname to "PC-1"
 hostname PC-1
 
@@ -836,6 +840,10 @@ ip route 0.0.0.0 0.0.0.0 192.168.10.1
 ! ########
 ! # PC-2 #
 ! ########
+
+! # Enable & Config Exec Line
+enable
+configure terminal
 
 ! # Change the device hostname to "PC-2"
 hostname PC-2
@@ -862,6 +870,10 @@ ip route 0.0.0.0 0.0.0.0 192.168.20.1
 ! # PC-3 #
 ! ########
 
+! # Enable & Config Exec Line
+enable
+configure terminal
+
 ! # Change the device hostname to "PC-3"
 hostname PC-3
 
@@ -886,6 +898,10 @@ ip route 0.0.0.0 0.0.0.0 192.168.30.1
 ! ########
 ! # PC-4 #
 ! ########
+
+! # Enable & Config Exec Line
+enable
+configure terminal
 
 ! # Change the device hostname to "PC-4"
 hostname PC-4
@@ -912,6 +928,10 @@ ip route 0.0.0.0 0.0.0.0 192.168.10.1
 ! # PC-5 #
 ! ########
 
+! # Enable & Config Exec Line
+enable
+configure terminal
+
 ! # Change the device hostname to "PC-5"
 hostname PC-5
 
@@ -936,6 +956,10 @@ ip route 0.0.0.0 0.0.0.0 192.168.20.1
 ! ########
 ! # PC-6 #
 ! ########
+
+! # Enable & Config Exec Line
+enable
+configure terminal
 
 ! # Change the device hostname to "PC-6"
 hostname PC-6
