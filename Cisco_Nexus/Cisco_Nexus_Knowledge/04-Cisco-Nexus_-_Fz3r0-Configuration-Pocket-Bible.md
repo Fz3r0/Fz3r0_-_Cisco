@@ -900,7 +900,7 @@ show running-config > backup-1
 # LAB EXAMPLE FZ3R0 BIBLE
 
 
-## Switch NX9-1
+## Switch NX9-1 - ACTIVE HSRP (Priority 200)
 
 ````py
 !######################
@@ -916,7 +916,6 @@ username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
 !   licence grace-period
-!   license smart
 cdp enable
 
 !# VLANs
@@ -929,7 +928,7 @@ vlan 30
    name VLAN10-GREEN-MANAGEMENT
 vlan 99
    name VLAN99-TRUNK-NATIVE
-exit
+   vlan dot1q tag native
 
 #! SVIs (GATEWAY L3)
 
@@ -1043,6 +1042,174 @@ copy running-config startup-config
 
 
 
+## Switch NX7-1 - PASSIVE HSRP (Priority 100)
+
+````py
+!######################
+!# NEXUS NX7-1
+!######################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname Nx7-1
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
+username fz3r0 role network-admin
+license grace-period
+cdp enable
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+   vlan dot1q tag native
+
+#! SVIs (GATEWAY L3)
+
+feature interface-vlan
+interface vlan 10
+   no shutdown
+   description ** SVI+GW-L3-VLAN10-BLUE **
+   ip address 192.168.10.253/24
+exit
+interface vlan 20
+   no shutdown
+   description ** SVI+GW-L3-VLAN20-RED **
+   ip address 192.168.20.253/24
+exit
+interface vlan 30
+   no shutdown
+   description ** SVI+GW-L3-VLAN30-GREEN **
+   ip address 192.168.30.253/24
+exit
+
+#! L3 WAN INTERFACE @ INTERNET
+
+interface ethernet 2/1
+   no shutdown
+   no switchport
+   description ** WAN-L3-INTERFACE **
+   ip address 123.2.2.2/30
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+#! Create Default Route to ISP/WAN
+
+ip route 0.0.0.0/0 123.2.2.1/30
+
+#! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
+
+feature hsrp
+interface vlan 10
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 10
+   !# Configure VIP
+   ip 192.168.10.1
+   !# Highest priprity will be primary
+   preempt
+   priority 100
+exit
+interface vlan 20
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 20
+   !# Configure VIP
+   ip 192.168.20.1
+   !# Highest priprity will be primary
+   preempt
+   priority 100
+exit
+interface vlan 30
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 30
+   !# Configure VIP
+   ip 192.168.30.1
+   !# Highest priprity will be primary
+   preempt
+   priority 100
+exit
+
+!# L2 INTERFACES - TRUNK
+
+interface ethernet2/4,ethernet2/7
+   no shutdown
+   description ** L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+exit
+
+!# TELNET & SSH #
+
+feature telnet
+feature ssh
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX7-1
+copy running-config startup-config
+!
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Switch NX9-2
 
@@ -1050,6 +1217,9 @@ copy running-config startup-config
 !######################
 !# NEXUS NX9-2
 !######################
+
+
+
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
