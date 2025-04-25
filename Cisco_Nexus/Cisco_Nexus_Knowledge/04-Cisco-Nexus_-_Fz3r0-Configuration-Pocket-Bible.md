@@ -708,9 +708,89 @@ copy running-config startup-config
 ````
 
 
+## Switch NX9-1
+
+````py
+!=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!######################
+!# NEXUS NX9-1
+!######################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname Nx9-1
+password strenght-check enable
+username admin password Admin12345
+username fz3r0 password Admin12345
+username fz3r0 role network-admin
+licence grace-period
+license smart
+cdp enable
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+exit
+
+!# L3 INTERFACES
+
+interface ethernet 1/1
+   no shutdown
+   description WAN-L3-INTERFACE
+   ip address 123.123.123.2/30
+   cdp enable
+exit
+
+!# L2 INTERFACES - TRUNK
+
+vlan 99
+   name 99-TRUNK-NATIVE
+   vlan dot1q tag native
+exit
+interface ethernet 1/4,1/7
+   no shutdown
+   description LAN-L2-TRUNK
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport allowed vlan 10,20,30,99
+exit
+
+!# TELNET & SSH #
+
+feature telnet
+feature ssh
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+
+!# L3 SVI - MANAGEMENT SVI
+
+interface vlan 30
+   no shutdown
+   description VLAN30-GREEN-MANAGEMENT-SVI
+   ip address 192.168.30.1/24   
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025
+copy running-config startup-config
+!
+!
 
 
-
+````
 
 
 
