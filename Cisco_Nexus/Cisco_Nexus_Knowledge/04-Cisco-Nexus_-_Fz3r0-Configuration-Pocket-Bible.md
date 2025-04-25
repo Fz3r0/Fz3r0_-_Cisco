@@ -931,21 +931,81 @@ vlan 99
    name VLAN99-TRUNK-NATIVE
 exit
 
-!# L3 INTERFACES
+#! SVIs (GATEWAY L3)
+
+feature interface-vlan
+interface vlan 10
+   no shutdown
+   description ** SVI+GW-L3-VLAN10-BLUE **
+   ip address 192.168.10.254/24
+exit
+interface vlan 20
+   no shutdown
+   description ** SVI+GW-L3-VLAN20-RED **
+   ip address 192.168.20.254/24
+exit
+interface vlan 30
+   no shutdown
+   description ** SVI+GW-L3-VLAN30-GREEN **
+   ip address 192.168.30.254/24
+exit
+
+#! L3 WAN INTERFACE @ INTERNET
 
 interface ethernet 1/1
    no shutdown
    no switchport
-   description ** L3-WAN-GATEWAY **
-   ip address 123.123.123.2/30
+   description ** WAN-L3-INTERFACE **
+   ip address 123.1.1.2/30
    duplex full
    cdp enable
+exit
+
+#! Create Default Route to ISP/WAN
+
+ip route 0.0.0.0/0 123.1.1.1/30
+
+#! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
+
+feature hsrp
+interface vlan 10
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 10
+   !# Configure VIP
+   ip 192.168.10.1
+   !# Highest priprity will be primary
+   preempt
+   priority 200
+exit
+interface vlan 20
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 20
+   !# Configure VIP
+   ip 192.168.20.1
+   !# Highest priprity will be primary
+   preempt
+   priority 200
+exit
+interface vlan 30
+   !# Select version 2
+   hsrp version 2
+   !# Create Group
+   hsrp 30
+   !# Configure VIP
+   ip 192.168.30.1
+   !# Highest priprity will be primary
+   preempt
+   priority 200
 exit
 
 !# L2 INTERFACES - TRUNK
 
 vlan 99
-   name 99-TRUNK-NATIVE
+   name VLAN99-TRUNK-NATIVE
    vlan dot1q tag native
 
 interface ethernet1/4,ethernet1/7
@@ -975,10 +1035,6 @@ interface loopback0
    description ** MGMT Loopback / Device IP Address **
    ip address 192.168.30.11/32
 exit
-
-!# DEFAULT ROUTE TO WAN (DEFAULT GATEWAY @ INTERNET)
-
-ip route 0.0.0.0/0 123.123.123.1
 
 !# SAVE CHECKPOINT & CONFIGURATION
 
