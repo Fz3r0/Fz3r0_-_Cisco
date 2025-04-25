@@ -1349,6 +1349,7 @@ copy running-config startup-config
 ````py
 
 !# Namings
+enable
 configure terminal
 hostname WAN-1
 
@@ -1371,7 +1372,7 @@ interface Loopback1
 exit
 
 !# Default Route (opcional si usas default-route en el otro router)
-ip route 0.0.0.0/24 123.1.1.2
+ip route 0.0.0.0 0.0.0.0 123.1.1.2
 
 end
 write memory
