@@ -1252,19 +1252,21 @@ vlan 99
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
 
+feature interface-vlan
 interface vlan 30
    no shutdown
    description ** SVI-MGMT-L3-VLAN30-GREEN **
    ip address 192.168.30.11/24
 exit
 
-ip default-gateway 192.168.30.1
+!# ip default-gateway 192.168.30.1 <- This command is deprecated.
+ip route 0.0.0.0/0 192.168.30.1
 
 !# L2 PORT CHANNELS 
 
 feature lacp
 default interface ethernet 1/1-3
-interface ethernet 1/1-2
+interface ethernet 1/1-3
    description ** Port-Channel-1-Po1-Interfaces **
    no shutdown
    switchport
@@ -1272,7 +1274,6 @@ interface ethernet 1/1-2
    duplex full
    channel-group 1 mode active
 exit
-
 interface port-channel 1
    lacp max-bundle 2
    lacp min-links 2
@@ -1308,7 +1309,6 @@ interface port-channel 1
    speed 1000
    duplex full
    cdp enable
-exit
 
 !# L2 INTERFACES - ACCESS
 
