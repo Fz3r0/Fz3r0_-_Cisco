@@ -2114,6 +2114,20 @@ write memory
 
 
 
+| Switch            | Interface                   | STP Role        | Port State  |
+|-------------------|-----------------------------|-----------------|-------------|
+| **NX9-1 (CORE)**  | Ethernet1/4                 | Designated      | Forwarding  |
+|                   | Ethernet1/7                 | Designated      | Forwarding  |
+| **NX9-11 (ACCESS)** | Ethernet1/4               | Root Port       | Forwarding  |
+|                   | Port-Channel1               | Designated      | Forwarding  |
+|                   | Ethernet1/5, 1/6, 1/7        | Edge (PortFast) | Forwarding  |
+| **NX9-12 (ACCESS)** | Ethernet1/7               | Root Port       | Forwarding  |
+|                   | Port-Channel1               | Alternate       | Blocking    |
+|                   | Access Ports                | Edge (PortFast) | Forwarding  |
+
+
+
+
 # 📚🗂️🎥 Resources
 
 - https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
