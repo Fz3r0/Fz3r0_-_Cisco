@@ -98,6 +98,10 @@ Spanning Tree Notes
 - Network Port: por defecto en NX-OS bloquea cualquier puerto tipo “network” donde no reciba BPDUs del otro extremo. Cuando no se ha levantado STP en un extremo trunk,  bloquea los puertos trunk para “asegurar” que no haya bucles unidireccionales. (Esto se arregla configurando el trunk del otro lado... o se apaga par aque ningun loquillo en PC vea esos BPDUs)
 - Edge Port: Para puertos de acceso, deja de enviar BPDUs y si recibe alguno de un loquillo bloquea el puerto. Habilita port fast para encender mas rapido el puerto sin negociar ni calcular STP. 
 
+NAT
+
+- Se configura basicamente igual que en IOS
+
 ## Basic Configurations & Commands: 
 
 ````py
@@ -718,6 +722,41 @@ end
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !##########################################
+!# NAT
+!##########################################
+
+!# Enable NAT
+configure terminal
+feature nat
+
+!# 1. Mark WAN link as NAT outside
+interface Ethernet1/1
+   no shutdown
+   ip nat outside
+exit
+
+!# 2. Mark each SVI as NAT inside
+interface Vlan10
+   ip nat inside
+exit
+interface Vlan20
+   ip nat inside
+exit
+interface Vlan30
+   ip nat inside
+exit
+
+!# 3. Define which source IPs to NAT
+ip access-list extended NAT_INSIDE
+   permit ip 192.168.10.0/24 any
+   permit ip 192.168.20.0/24 any
+   permit ip 192.168.30.0/24 any
+exit
+
+!# 4. Overload all matching inside traffic to the WAN interface address
+   ip nat inside source list NAT_INSIDE interface Ethernet1/1 overload
+
+!##########################################
 !# SET DEFAULT SETTINGS
 !##########################################
 
@@ -931,6 +970,15 @@ username fz3r0 role network-admin
 !   license grace-period
 cdp enable
 
+!# FEATURES
+
+feature spanning-tree
+feature interface-vlan
+feature hsrp
+feature telnet
+feature ssh
+feature nat
+
 !# VLANs
 
 vlan 10
@@ -945,30 +993,31 @@ vlan 99
 
 !# RPVSTP+ (ROOT-PRIMARY)
 
-feature spanning-tree
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,20,30,99 root primary
 
-#! SVIs (GATEWAY L3)
+#! SVIs (GATEWAY L3) - {{NAT INSIDE}}
 
-feature interface-vlan
 interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-BLUE **
    ip address 192.168.10.254/24
+   ip nat inside
 exit
 interface vlan 20
    no shutdown
    description ** SVI+GW-L3-VLAN20-RED **
    ip address 192.168.20.254/24
+   ip nat inside
 exit
 interface vlan 30
    no shutdown
    description ** SVI+GW-L3-VLAN30-GREEN **
    ip address 192.168.30.254/24
+   ip nat inside
 exit
 
-#! L3 WAN INTERFACE @ INTERNET
+#! L3 WAN INTERFACE @ INTERNET - {{NAT OUTSIDE}}
 
 interface ethernet 1/1
    no shutdown
@@ -977,6 +1026,7 @@ interface ethernet 1/1
    ip address 123.1.1.2/30
    speed 1000
    duplex full
+   ip nat outside
    cdp enable
 exit
 
@@ -984,9 +1034,19 @@ exit
 
 ip route 0.0.0.0/0 123.1.1.1
 
+!# NAT : From Inside (LAN) to Outside (WAN)
+
+!# Define which source IPs to NAT (WHOLE SUBNETS/VLANS)
+ip access-list extended Fz3r0-NAT-INSIDE
+   permit ip 192.168.10.0/24 any
+   permit ip 192.168.20.0/24 any
+   permit ip 192.168.30.0/24 any
+exit
+!# Overload all matching inside traffic to the WAN interface address
+ip nat inside source list NAT_INSIDE interface Ethernet1/1 overload
+
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
-feature hsrp
 interface vlan 10
    !# Select version 2
    hsrp version 2
@@ -1038,8 +1098,6 @@ exit
 
 !# TELNET & SSH #
 
-feature telnet
-feature ssh
 line vty
    session-limit 5
    exec-timeout 3
@@ -1051,6 +1109,7 @@ exit
 line vty
    access-class remote-access-users in
 exit
+
 
 !# SAVE CHECKPOINT & CONFIGURATION
 
