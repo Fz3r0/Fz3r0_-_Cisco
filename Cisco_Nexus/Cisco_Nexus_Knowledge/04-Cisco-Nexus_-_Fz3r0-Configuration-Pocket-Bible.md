@@ -725,6 +725,8 @@ end
 !# NAT
 !##########################################
 
+!# NO DISPONIBLE EN IMAGEN VIRTUAL DE GNS3 :(
+
 !# Enable NAT
 configure terminal
 feature nat
@@ -977,7 +979,7 @@ feature interface-vlan
 feature hsrp
 feature telnet
 feature ssh
-feature nat
+feature lldp
 
 !# VLANs
 
@@ -1002,19 +1004,19 @@ interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-BLUE **
    ip address 192.168.10.254/24
-   ip nat inside
+   !# {N/A} ip nat inside 
 exit
 interface vlan 20
    no shutdown
    description ** SVI+GW-L3-VLAN20-RED **
    ip address 192.168.20.254/24
-   ip nat inside
+   !# {N/A} ip nat inside
 exit
 interface vlan 30
    no shutdown
    description ** SVI+GW-L3-VLAN30-GREEN **
    ip address 192.168.30.254/24
-   ip nat inside
+   !# {N/A} ip nat inside
 exit
 
 #! L3 WAN INTERFACE @ INTERNET - {{NAT OUTSIDE}}
@@ -1026,7 +1028,7 @@ interface ethernet 1/1
    ip address 123.1.1.2/30
    speed 1000
    duplex full
-   ip nat outside
+   !# {N/A} ip nat outside
    cdp enable
 exit
 
@@ -1037,13 +1039,13 @@ ip route 0.0.0.0/0 123.1.1.1
 !# NAT : From Inside (LAN) to Outside (WAN)
 
 !# Define which source IPs to NAT (WHOLE SUBNETS/VLANS)
-ip access-list extended Fz3r0-NAT-INSIDE
-   permit ip 192.168.10.0/24 any
-   permit ip 192.168.20.0/24 any
-   permit ip 192.168.30.0/24 any
-exit
+   !# {N/A} ip access-list extended Fz3r0-NAT-INSIDE
+   !# {N/A}    permit ip 192.168.10.0/24 any
+   !# {N/A}    permit ip 192.168.20.0/24 any
+   !# {N/A}    permit ip 192.168.30.0/24 any
+   !# {N/A} exit
 !# Overload all matching inside traffic to the WAN interface address
-ip nat inside source list NAT_INSIDE interface Ethernet1/1 overload
+   !# {N/A} ip nat inside source list NAT_INSIDE interface Ethernet1/1 overload
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
