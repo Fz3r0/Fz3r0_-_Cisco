@@ -30,6 +30,11 @@ We will be using this simple topology just for example:
 
 ## Cisco Nexus & NX-OS Notes:
 
+v7 VS v9 images:
+
+- 7k Image doesn't support port-channel or LACP, unfortunately.
+- The only problem I have with the 9k Image is that it does not support multiple VDCs.
+
 Basic Notes:
 
 - No existen los comandos enable en nexus 9k (NX-OS) para cambiar ese nivel en CLI.
