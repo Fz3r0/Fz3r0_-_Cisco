@@ -1399,6 +1399,167 @@ copy running-config startup-config
 ````
 
 
+
+
+## Switch NX9-12 - ACCESS
+
+````py
+!######################
+!# NEXUS NX9-12-ACCESS
+!######################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname Nx9-12-ACCESS
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
+username fz3r0 role network-admin
+!   license grace-period
+cdp enable
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+   vlan dot1q tag native
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+
+feature interface-vlan
+interface vlan 30
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN30-GREEN **
+   ip address 192.168.30.12/24
+exit
+
+!# ip default-gateway 192.168.30.1 <- This command is deprecated.
+ip route 0.0.0.0/0 192.168.30.1
+
+!# L2 PORT CHANNELS 
+
+!# Po1
+
+feature lacp
+default interface ethernet 1/1-3
+interface ethernet 1/1-3
+   description ** Port-Channel-1-Po1-Interfaces **
+   no shutdown
+   switchport
+   speed 1000
+   duplex full
+   channel-group 1 mode active
+exit
+interface port-channel 1
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
+
+!# Po2
+
+feature lacp
+default interface ethernet 1/4-6
+interface ethernet 1/4-6
+   description ** Port-Channel-2-Po2-Interfaces **
+   no shutdown
+   switchport
+   speed 1000
+   duplex full
+   channel-group 2 mode active
+exit
+interface port-channel 2
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/6
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
+
+!# L2 INTERFACES - TRUNK
+
+interface port-channel1,port-channel2
+   no shutdown
+   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+
+!# TELNET & SSH #
+
+feature telnet
+feature ssh
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+end
+checkpoint fz3r0-check-2025-NX9-1
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Switch NX9-14 - ACCESS
 
 ````py
