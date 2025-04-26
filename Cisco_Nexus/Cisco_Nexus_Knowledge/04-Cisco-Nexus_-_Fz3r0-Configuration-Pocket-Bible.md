@@ -1283,8 +1283,8 @@ exit
 interface ethernet 1/3
    lacp port-priority 39000
 exit
-
-port-channel load-balance src-dst
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
 
 !# L2 INTERFACES - TRUNK
 
@@ -1316,7 +1316,7 @@ interface ethernet1/5
    no shutdown
    description ** L2-ACCESS-VLAN10-BLUE **
    switchport
-   switchport mode acess
+   switchport mode access
    switchport access vlan 10
    speed 1000
    duplex full
@@ -1327,7 +1327,7 @@ interface ethernet1/6
    no shutdown
    description ** L2-ACCESS-VLAN20-RED **
    switchport
-   switchport mode acess
+   switchport mode access
    switchport access vlan 20
    speed 1000
    duplex full
@@ -1338,7 +1338,7 @@ interface ethernet1/7
    no shutdown
    description ** L2-ACCESS-VLAN30-GREEN **
    switchport
-   switchport mode acess
+   switchport mode access
    switchport access vlan 30
    speed 1000
    duplex full
@@ -1359,142 +1359,8 @@ exit
 end
 checkpoint fz3r0-check-2025-NX9-1
 copy running-config startup-config
-!
-!
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---------------------------------------
-
-
-
-!# NAMINGS, USERS, LICENCES, DISCOVERY
-
-configure terminal
-
-password strength-check
-username admin password Adm1n.C1sc0
-username fz3r0 password Adm1n.C1sc0
-username fz3r0 role network-admin
-!   licence grace-period
-!   license smart
-cdp enable
-
-!# VLANs
-
-vlan 10
-   name VLAN10-BLUE
-vlan 20
-   name VLAN10-RED
-vlan 30
-   name VLAN10-GREEN-MANAGEMENT
-vlan 99
-   name VLAN99-TRUNK-NATIVE
-exit
-
-!# L2 INTERFACES - TRUNK
-
-vlan 99
-   name 99-TRUNK-NATIVE
-   vlan dot1q tag native
-
-interface ethernet1/4
-   no shutdown
-   description ** L2-TRUNK-NATIVE99 **
-   switchport
-   switchport mode trunk
-   switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
-   duplex full
-   cdp enable
-exit
-
-!# L2 INTERFACES - ACCESS
-
-interface ethernet1/5
-   no shutdown
-   description ** L2-ACCESS-VLAN10-BLUE **
-   switchport
-   switchport mode acess
-   switchport access vlan 10
-   speed 1000
-   duplex full
-   cdp enable
-exit
-
-interface ethernet1/6
-   no shutdown
-   description ** L2-ACCESS-VLAN20-RED **
-   switchport
-   switchport mode acess
-   switchport access vlan 20
-   speed 1000
-   duplex full
-   cdp enable
-exit
-
-interface ethernet1/7
-   no shutdown
-   description ** L2-ACCESS-VLAN30-GREEN **
-   switchport
-   switchport mode acess
-   switchport access vlan 30
-   speed 1000
-   duplex full
-   cdp enable
-exit
-
-!# Out-Of-Band (OOB) Management Interface #
-
-interface management 0
-    ip address 192.168.0.2/24
-no shutdown
-!
-vrf context management
-    ip route 0.0.0.0/0 192.168.0.1
-
-!# TELNET & SSH #
-
-feature telnet
-feature ssh
-line vty
-   session-limit 5
-   exec-timeout 3
-exit
-
-!# Loopback Virtual interface for management or testing
-
-interface loopback0
-   no shutdown
-   description ** MGMT Loopback / Device IP Address **
-   ip address 192.168.30.12/32
-exit
-
-!# DEFAULT ROUTE TO GATEWAY (MANAGEMENT)
-
-ip route 0.0.0.0/0 123.123.123.1
-
-!# SAVE CHECKPOINT & CONFIGURATION
-
-end
-checkpoint fz3r0-check-2025-NX9-1
-copy running-config startup-config
 !
 !
 
