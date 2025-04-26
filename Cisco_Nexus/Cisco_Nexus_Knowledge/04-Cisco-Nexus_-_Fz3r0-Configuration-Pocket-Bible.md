@@ -1475,27 +1475,29 @@ write memory
 | PC-3    | VLAN30-GREEN | 192.168.30.101     | 255.255.255.0    | /24   | 192.168.30.1      |
 | PC-6    | VLAN30-GREEN | 192.168.30.102     | 255.255.255.0    | /24   | 192.168.30.1      |
 
+
 ````py
-! ########
-! # PC-1 #
-! ########
+! ############
+! # SERVER-1 #
+! ############
 
 ! # Enable & Config Exec Line
 enable
 configure terminal
 
-! # Change the device hostname to "PC-1"
-hostname PC-1
+! # Change the device hostname
+hostname SERVER-1-V10BLUE
 
 ! # Disable DNS lookup to avoid delays when typing invalid commands
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
 interface Ethernet 0/0
- description *** Simulated PC Interface ***
- ip address 192.168.10.101 255.255.255.0
- duplex full
- no shutdown
+   description ** Simulated PC Interface **
+   ip address 192.168.10.101 255.255.255.0
+   duplex full
+   no shutdown
+exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.10.1
@@ -1503,6 +1505,8 @@ ip route 0.0.0.0 0.0.0.0 192.168.10.1
 ! # Exit & Save
 end
 write memory
+
+
 !
 !
 
@@ -1510,26 +1514,27 @@ write memory
 ````
 
 ````py
-! ########
-! # PC-2 #
-! ########
+! ############
+! # SERVER-2 #
+! ############
 
 ! # Enable & Config Exec Line
 enable
 configure terminal
 
-! # Change the device hostname to "PC-2"
-hostname PC-2
+! # Change the device hostname
+hostname SERVER-2-V20RED
 
 ! # Disable DNS lookup to avoid delays when typing invalid commands
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
-interface GigabitEthernet0/0
- description *** Simulated PC Interface ***
- ip address 192.168.20.101 255.255.255.0
- duplex full
- no shutdown
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 192.168.20.101 255.255.255.0
+   duplex full
+   no shutdown
+exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.20.1
@@ -1537,6 +1542,8 @@ ip route 0.0.0.0 0.0.0.0 192.168.20.1
 ! # Exit & Save
 end
 write memory
+
+
 !
 !
 
@@ -1544,26 +1551,27 @@ write memory
 ````
 
 ````py
-! ########
-! # PC-3 #
-! ########
+! ############
+! # SERVER-3 #
+! ############
 
 ! # Enable & Config Exec Line
 enable
 configure terminal
 
-! # Change the device hostname to "PC-3"
-hostname PC-3
+! # Change the device hostname
+hostname SERVER-3-V30GREEN
 
 ! # Disable DNS lookup to avoid delays when typing invalid commands
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
-interface GigabitEthernet0/0
- description *** Simulated PC Interface ***
- ip address 192.168.30.101 255.255.255.0
- duplex full
- no shutdown
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 192.168.30.101 255.255.255.0
+   duplex full
+   no shutdown
+exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.30.1
@@ -1571,6 +1579,8 @@ ip route 0.0.0.0 0.0.0.0 192.168.30.1
 ! # Exit & Save
 end
 write memory
+
+
 !
 !
 
@@ -1578,26 +1588,27 @@ write memory
 ````
 
 ````py
-! ########
-! # PC-4 #
-! ########
+! ############
+! # SERVER-4 #
+! ############
 
 ! # Enable & Config Exec Line
 enable
 configure terminal
 
-! # Change the device hostname to "PC-4"
-hostname PC-4
+! # Change the device hostname
+hostname SERVER-4-V10BLUE
 
 ! # Disable DNS lookup to avoid delays when typing invalid commands
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
-interface GigabitEthernet0/0
- description *** Simulated PC Interface ***
- ip address 192.168.10.102 255.255.255.0
- duplex full
- no shutdown
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 192.168.10.102 255.255.255.0
+   duplex full
+   no shutdown
+exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.10.1
@@ -1605,33 +1616,37 @@ ip route 0.0.0.0 0.0.0.0 192.168.10.1
 ! # Exit & Save
 end
 write memory
+
+
 !
 !
 
 
 ````
 
+
 ````py
-! ########
-! # PC-5 #
-! ########
+! ############
+! # SERVER-5 #
+! ############
 
 ! # Enable & Config Exec Line
 enable
 configure terminal
 
-! # Change the device hostname to "PC-5"
-hostname PC-5
+! # Change the device hostname
+hostname SERVER-5-V20RED
 
 ! # Disable DNS lookup to avoid delays when typing invalid commands
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
-interface GigabitEthernet0/0
- description *** Simulated PC Interface ***
- ip address 192.168.20.102 255.255.255.0
- duplex full
- no shutdown
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 192.168.20.102 255.255.255.0
+   duplex full
+   no shutdown
+exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.20.1
@@ -1639,6 +1654,8 @@ ip route 0.0.0.0 0.0.0.0 192.168.20.1
 ! # Exit & Save
 end
 write memory
+
+
 !
 !
 
@@ -1646,26 +1663,27 @@ write memory
 ````
 
 ````py
-! ########
-! # PC-6 #
-! ########
+! ############
+! # SERVER-6 #
+! ############
 
 ! # Enable & Config Exec Line
 enable
 configure terminal
 
-! # Change the device hostname to "PC-6"
-hostname PC-6
+! # Change the device hostname
+hostname SERVER-6-V30GREEN
 
 ! # Disable DNS lookup to avoid delays when typing invalid commands
 no ip domain-lookup
 
 ! # Configure interface as if it's the PC's network card
-interface GigabitEthernet0/0
- description *** Simulated PC Interface ***
- ip address 192.168.30.102 255.255.255.0
- duplex full
- no shutdown
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 192.168.30.102 255.255.255.0
+   duplex full
+   no shutdown
+exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
 ip route 0.0.0.0 0.0.0.0 192.168.30.1
@@ -1673,11 +1691,14 @@ ip route 0.0.0.0 0.0.0.0 192.168.30.1
 ! # Exit & Save
 end
 write memory
+
+
 !
 !
 
 
 ````
+
 
 
 
