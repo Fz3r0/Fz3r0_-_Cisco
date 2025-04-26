@@ -26,7 +26,8 @@
 
 We will be using this simple topology just for example:
 
-![image](https://github.com/user-attachments/assets/91bc3532-45d1-46ae-8dfe-318cd71d93a4)
+![image](https://github.com/user-attachments/assets/de337694-197d-4271-832f-06537bcd29e8)
+
 
 ## Cisco Nexus & NX-OS Notes:
 
