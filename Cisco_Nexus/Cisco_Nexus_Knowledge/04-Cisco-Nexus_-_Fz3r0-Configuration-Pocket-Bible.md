@@ -974,7 +974,6 @@ cdp enable
 
 !# FEATURES
 
-feature spanning-tree
 feature interface-vlan
 feature hsrp
 feature telnet
@@ -1045,7 +1044,7 @@ ip route 0.0.0.0/0 123.1.1.1
    !# {N/A}    permit ip 192.168.30.0/24 any
    !# {N/A} exit
 !# Overload all matching inside traffic to the WAN interface address
-   !# {N/A} ip nat inside source list NAT_INSIDE interface Ethernet1/1 overload
+   !# {N/A} ip nat inside source list Fz3r0-NAT-INSIDE interface Ethernet1/1 overload
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
