@@ -95,6 +95,8 @@ Spanning Tree Notes
 
 - Nexus solo soporta rapid-pvst (por default) y multiple (mst), es mejor utilizar RPVST por default.
 - El core es casi siempre el mejor candidato para ser root bridge, porque está en el centro de tu red y conecta la mayoría de los enlaces troncales, tiene más capacidad de cómputo y estabilidad que los switches de acceso, al hacer que el core sea root, minimizas la latencia y evitas que STP tenga que reelecciones innecesarias en el borde.
+- Network Port: por defecto en NX-OS bloquea cualquier puerto tipo “network” donde no reciba BPDUs del otro extremo. Cuando no se ha levantado STP en un extremo trunk,  bloquea los puertos trunk para “asegurar” que no haya bucles unidireccionales. (Esto se arregla configurando el trunk del otro lado... o se apaga par aque ningun loquillo en PC vea esos BPDUs)
+- Edge Port: Para puertos de acceso, deja de enviar BPDUs y si recibe alguno de un loquillo bloquea el puerto. Habilita port fast para encender mas rapido el puerto sin negociar ni calcular STP. 
 
 ## Basic Configurations & Commands: 
 
