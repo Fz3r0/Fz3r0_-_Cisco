@@ -1534,6 +1534,7 @@ interface port-channel1,port-channel2
    switchport trunk allowed vlan 10,20,30,99
    speed 1000
    duplex full
+   spanning-tree port type network
    cdp enable
 
 interface Ethernet1/7
@@ -1545,6 +1546,7 @@ interface Ethernet1/7
    switchport trunk allowed vlan 10,20,30,99
    speed 1000
    duplex full
+   spanning-tree port type network
    cdp enable
 exit
 
