@@ -104,7 +104,7 @@ feature ?
 feature interface-vlan
 
 !# Add demo licence to test all features
-licence grace-period
+license grace-period
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -919,7 +919,7 @@ password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
-!   licence grace-period
+!   license grace-period
 cdp enable
 
 !# VLANs
@@ -1252,7 +1252,7 @@ password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
-!   licence grace-period
+!   license grace-period
 cdp enable
 
 !# VLANs
@@ -1410,7 +1410,7 @@ password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
-licence grace-period
+license grace-period
 cdp enable
 
 !# VLANs
