@@ -80,7 +80,10 @@ Port Channel LACP Notes
 
 HSRP Notes
 
-- Pendiente!!!
+- Se necesitan 2 Cores (Router/Gateway) ambos con SVI con las VLANs como si uera cualquier otro gatewaya pero duplicado
+- Un Core/Gateway Tendrá la IP 192.168.30.254/24 y el otro 92.168.30.253/24
+- Se crea una VIP en ambos dentro de HSRP con la IP 192.168.30.1/254
+- Así los Hosts verán ambos gateways como uno solo, pero en realidad uno es el activo y el otro el pasivo
 
 Spanning Tree Notes
 
