@@ -1313,6 +1313,16 @@ port-channel load-balance src-dst mac
 
 !# L2 INTERFACES - TRUNK
 
+interface port-channel 1
+   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+
 interface ethernet1/4
    no shutdown
    description ** L2-TRUNK-NATIVE99 **
@@ -1324,16 +1334,6 @@ interface ethernet1/4
    duplex full
    cdp enable
 exit
-
-interface port-channel 1
-   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
-   switchport
-   switchport mode trunk
-   switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
-   speed 1000
-   duplex full
-   cdp enable
 
 !# L2 INTERFACES - ACCESS
 
@@ -1505,6 +1505,18 @@ interface port-channel1,port-channel2
    speed 1000
    duplex full
    cdp enable
+
+interface Ethernet1/7
+   no shutdown
+   description ** L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+   speed 1000
+   duplex full
+   cdp enable
+exit
 
 !# TELNET & SSH #
 
