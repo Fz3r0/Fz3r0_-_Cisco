@@ -914,13 +914,13 @@ show running-config > backup-1
 
 ````py
 !######################
-!# NEXUS NX9-1
+!# NEXUS NX9-1 - ROOT (ACTIVE / .254 PRIORITY 200)
 !######################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-1
+hostname Nx9-1-CR-ACT
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
@@ -1055,22 +1055,22 @@ copy running-config startup-config
 
 
 
-## Switch NX7-1 - PASSIVE HSRP (Priority 100)
+## Switch NX9-2 - PASSIVE HSRP (Priority 100)
 
 ````py
 !######################
-!# NEXUS NX7-1
+!# NEXUS NX9-2 - ROOT (PASSIVE / .253 PRIORITY 100)
 !######################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx7-1
+hostname Nx9-2-CR-PSV
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
-license grace-period
+!   license grace-period
 cdp enable
 
 !# VLANs
@@ -1106,7 +1106,7 @@ exit
 
 #! L3 WAN INTERFACE @ INTERNET
 
-interface ethernet 2/1
+interface ethernet 1/1
    no shutdown
    no switchport
    description ** WAN-L3-INTERFACE **
@@ -1159,7 +1159,7 @@ exit
 
 !# L2 INTERFACES - TRUNK
 
-interface ethernet2/4,ethernet2/7
+interface ethernet1/4,ethernet1/7
    no shutdown
    description ** L2-TRUNK-NATIVE99 **
    switchport
@@ -1190,10 +1190,12 @@ exit
 !# SAVE CHECKPOINT & CONFIGURATION
 
 end
-checkpoint fz3r0-check-2025-NX7-1
+checkpoint fz3r0-check-2025-NX9-2
 copy running-config startup-config
+
 !
 !
+
 
 
 ````
@@ -1243,17 +1245,17 @@ copy running-config startup-config
 
 
 
-## Switch NX9-2 - ACCESS
+## Switch NX9-11 - ACCESS
 
 ````py
 !######################
-!# NEXUS NX9-2-ACCESS
+!# NEXUS NX9-11-ACCESS
 !######################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-2-ACCESS
+hostname Nx9-11-ACCESS
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
@@ -1397,26 +1399,22 @@ copy running-config startup-config
 ````
 
 
-
-
-
-
-## Switch NX7-3 - ACCESS
+## Switch NX9-14 - ACCESS
 
 ````py
 !######################
-!# NEXUS NX7-3-ACCESS
+!# NEXUS NX9-14-ACCESS
 !######################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx7-3-ACCESS
+hostname Nx9-14-ACCESS
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
-license grace-period
+!   license grace-period
 cdp enable
 
 !# VLANs
@@ -1446,8 +1444,8 @@ ip route 0.0.0.0/0 192.168.30.1
 !# L2 PORT CHANNELS 
 
 feature lacp
-default interface ethernet 2/1-3
-interface ethernet 2/1-3
+default interface ethernet 1/1-3
+interface ethernet 1/1-3
    description ** Port-Channel-1-Po1-Interfaces **
    no shutdown
    switchport
@@ -1461,7 +1459,7 @@ interface port-channel 1
 exit
 #! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
 #! 1/3 = STANDBY (Higher than Default)
-interface ethernet 2/3
+interface ethernet 1/3
    lacp port-priority 39000
 exit
 !# load balance: src-dst mac is the default
@@ -1469,7 +1467,7 @@ port-channel load-balance src-dst mac
 
 !# L2 INTERFACES - TRUNK
 
-interface ethernet2/4
+interface ethernet1/4
    no shutdown
    description ** L2-TRUNK-NATIVE99 **
    switchport
@@ -1493,7 +1491,7 @@ interface port-channel 1
 
 !# L2 INTERFACES - ACCESS
 
-interface ethernet2/5
+interface ethernet1/5
    no shutdown
    description ** L2-ACCESS-VLAN10-BLUE **
    switchport
@@ -1504,7 +1502,7 @@ interface ethernet2/5
    cdp enable
 exit
 
-interface ethernet2/6
+interface ethernet1/6
    no shutdown
    description ** L2-ACCESS-VLAN20-RED **
    switchport
@@ -1515,7 +1513,7 @@ interface ethernet2/6
    cdp enable
 exit
 
-interface ethernet2/7
+interface ethernet1/7
    no shutdown
    description ** L2-ACCESS-VLAN30-GREEN **
    switchport
@@ -1553,6 +1551,33 @@ copy running-config startup-config
 
 
 ````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
