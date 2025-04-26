@@ -1025,6 +1025,13 @@ line vty
    session-limit 5
    exec-timeout 3
 exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
 
@@ -1162,6 +1169,13 @@ feature ssh
 line vty
    session-limit 5
    exec-timeout 3
+exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -1353,9 +1367,15 @@ line vty
    session-limit 5
    exec-timeout 3
 exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
-
 end
 checkpoint fz3r0-check-2025-NX9-1
 copy running-config startup-config
