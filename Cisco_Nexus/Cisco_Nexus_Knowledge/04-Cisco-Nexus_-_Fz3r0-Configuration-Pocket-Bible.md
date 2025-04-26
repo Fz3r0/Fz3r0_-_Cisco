@@ -93,7 +93,8 @@ HSRP Notes
 
 Spanning Tree Notes
 
-- Nexus solo soporta rapid-pvst (por default) y multiple (mst), es mejor utilizar RPVST por default. 
+- Nexus solo soporta rapid-pvst (por default) y multiple (mst), es mejor utilizar RPVST por default.
+- El core es casi siempre el mejor candidato para ser root bridge, porque está en el centro de tu red y conecta la mayoría de los enlaces troncales, tiene más capacidad de cómputo y estabilidad que los switches de acceso, al hacer que el core sea root, minimizas la latencia y evitas que STP tenga que reelecciones innecesarias en el borde.
 
 ## Basic Configurations & Commands: 
 
@@ -914,7 +915,7 @@ show running-config > backup-1
 
 ````py
 !######################
-!# NEXUS NX9-1 - ROOT (ACTIVE / .254 PRIORITY 200)
+!# NEXUS NX9-1 - ROOT (HSRP ACTIVE / .254 PRIORITY 200) {STP Primary Root Bridge}
 !######################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
@@ -939,6 +940,12 @@ vlan 30
 vlan 99
    name VLAN99-TRUNK-NATIVE
    vlan dot1q tag native
+
+!# RPVSTP+ (ROOT-PRIMARY)
+
+feature spanning-tree
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,99 root primary
 
 #! SVIs (GATEWAY L3)
 
@@ -1023,6 +1030,7 @@ interface ethernet1/4,ethernet1/7
    switchport trunk allowed vlan 10,20,30,99
    speed 1000
    duplex full
+   spanning-tree port type network
    cdp enable
 exit
 
@@ -1059,7 +1067,7 @@ copy running-config startup-config
 
 ````py
 !######################
-!# NEXUS NX9-2 - ROOT (PASSIVE / .253 PRIORITY 100)
+!# NEXUS NX9-2 - ROOT (PASSIVE / .253 PRIORITY 100) {STP Secondary Root Bridge}
 !######################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
@@ -1084,6 +1092,12 @@ vlan 30
 vlan 99
    name VLAN99-TRUNK-NATIVE
    vlan dot1q tag native
+
+!# RPVSTP+ (ROOT-SECONDARY)
+
+feature spanning-tree
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30,99 root secondary
 
 #! SVIs (GATEWAY L3)
 
@@ -1168,6 +1182,7 @@ interface ethernet1/4,ethernet1/7
    switchport trunk allowed vlan 10,20,30,99
    speed 1000
    duplex full
+   spanning-tree port type network
    cdp enable
 exit
 
@@ -1275,6 +1290,11 @@ vlan 99
    name VLAN99-TRUNK-NATIVE
    vlan dot1q tag native
 
+!# RPVSTP+ (ZOMBIE)
+
+feature spanning-tree
+spanning-tree mode rapid-pvst
+
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
 
 feature interface-vlan
@@ -1321,6 +1341,7 @@ interface port-channel 1
    switchport trunk allowed vlan 10,20,30,99
    speed 1000
    duplex full
+   spanning-tree port type network
    cdp enable
 
 interface ethernet1/4
@@ -1332,6 +1353,7 @@ interface ethernet1/4
    switchport trunk allowed vlan 10,20,30,99
    speed 1000
    duplex full
+   spanning-tree port type network
    cdp enable
 exit
 
@@ -1345,6 +1367,8 @@ interface ethernet1/5
    switchport access vlan 10
    speed 1000
    duplex full
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
    cdp enable
 exit
 
@@ -1356,6 +1380,8 @@ interface ethernet1/6
    switchport access vlan 20
    speed 1000
    duplex full
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
    cdp enable
 exit
 
@@ -1367,6 +1393,8 @@ interface ethernet1/7
    switchport access vlan 30
    speed 1000
    duplex full
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
    cdp enable
 exit
 
