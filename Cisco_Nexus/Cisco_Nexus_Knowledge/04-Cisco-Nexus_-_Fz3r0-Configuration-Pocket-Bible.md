@@ -103,9 +103,9 @@ NAT
 - Se configura basicamente igual que en IOS
 - En NX9 de simulador no existe feature NAT, por eso en este lab se hace en router aparte
 
-OSPF
+OSPF (point to pint)
 
-- 
+- En esta config uso una config básica de OSPF punto a punto, tanto en router como en NX se debe configurar el p2p en cad ainterfaz. 
 
 ## Basic Configurations & Commands: 
 
@@ -726,6 +726,10 @@ end
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+!##########################################
+!# OSPF
+!##########################################
+
 feature ospf
 !# Crear OSPF 1 + anunciar todas las redes LAN y WAN + crear default route @ WAN
 router ospf 1
@@ -993,6 +997,7 @@ cdp enable
 !# FEATURES
 
 feature interface-vlan
+feature ospf
 feature hsrp
 feature telnet
 feature ssh
@@ -1021,19 +1026,16 @@ interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-BLUE **
    ip address 192.168.10.254/24
-   !# {N/A} ip nat inside 
 exit
 interface vlan 20
    no shutdown
    description ** SVI+GW-L3-VLAN20-RED **
    ip address 192.168.20.254/24
-   !# {N/A} ip nat inside
 exit
 interface vlan 30
    no shutdown
    description ** SVI+GW-L3-VLAN30-GREEN **
    ip address 192.168.30.254/24
-   !# {N/A} ip nat inside
 exit
 
 #! L3 WAN INTERFACE @ INTERNET - {{NAT OUTSIDE}}
@@ -1042,27 +1044,22 @@ interface ethernet 1/1
    no shutdown
    no switchport
    description ** WAN-L3-INTERFACE **
-   ip address 123.1.1.2/30
+   ip address 10.10.0.2/30
    speed 1000
    duplex full
-   !# {N/A} ip nat outside
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
    cdp enable
 exit
 
-#! Create Default Route to ISP/WAN
+!# OSPF + Announce Subnets + Default Route @ WAN
 
-ip route 0.0.0.0/0 123.1.1.1
-
-!# NAT : From Inside (LAN) to Outside (WAN)
-
-!# Define which source IPs to NAT (WHOLE SUBNETS/VLANS)
-   !# {N/A} ip access-list extended Fz3r0-NAT-INSIDE
-   !# {N/A}    permit ip 192.168.10.0/24 any
-   !# {N/A}    permit ip 192.168.20.0/24 any
-   !# {N/A}    permit ip 192.168.30.0/24 any
-   !# {N/A} exit
-!# Overload all matching inside traffic to the WAN interface address
-   !# {N/A} ip nat inside source list Fz3r0-NAT-INSIDE interface Ethernet1/1 overload
+router ospf 1
+    network 192.168.10.0/24 area 0
+    network 192.168.20.0/24 area 0
+    network 192.168.30.0/24 area 0
+    network 10.10.0.0/30  area 0
+    !
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
@@ -1135,6 +1132,7 @@ exit
 end
 checkpoint fz3r0-check-2025-NX9-1
 copy running-config startup-config
+
 !
 !
 
@@ -1858,6 +1856,7 @@ interface Ethernet0/1
    description ** Link-to-NX9-1-CORE **
    ip address 10.10.0.1 255.255.255.252
    duplex full
+   ip ospf network point-to-point
    ip nat inside
 exit
 
@@ -1875,7 +1874,7 @@ access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
 
-!# NAT
+!# Overload all matching inside traffic to the WAN interface address
 ip nat inside source list 10 interface Ethernet0/0 overload
 
 !# Ruta por defecto hacia la nube Google
@@ -1883,14 +1882,27 @@ ip route 0.0.0.0 0.0.0.0 123.1.1.1
 
 !# OSPF Area 0
 router ospf 1
-   network 123.1.1.0 0.0.0.3 area 0
-   network 192.168.10.0 0.0.0.255 area 0
-   network 192.168.20.0 0.0.0.255 area 0
-   network 192.168.30.0 0.0.0.255 area 0
+    !# enlace hacia NX9-1
+    network 10.10.0.0 0.0.0.3 area 0
+    !# VLAN10       
+    network 192.168.10.0 0.0.0.255 area 0
+    !# VLAN20  
+    network 192.168.20.0 0.0.0.255 area 0
+    !# VLAN30
+    network 192.168.30.0 0.0.0.255 area 0
+    !# enlace hacia WAN-1 (opcional)
+    network 123.1.1.0 0.0.0.3 area 0
+    !# propaga la ruta por defecto      
+    default-information originate           
 exit
 
 end
 write memory
+
+!
+!
+
+
 ````
 
 
