@@ -1173,7 +1173,6 @@ vlan 99
 
 !# RPVSTP+ (ROOT-SECONDARY)
 
-feature spanning-tree
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,20,30,99 root secondary
 
@@ -1370,7 +1369,6 @@ vlan 99
 
 !# RPVSTP+ (ZOMBIE)
 
-feature spanning-tree
 spanning-tree mode rapid-pvst
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
