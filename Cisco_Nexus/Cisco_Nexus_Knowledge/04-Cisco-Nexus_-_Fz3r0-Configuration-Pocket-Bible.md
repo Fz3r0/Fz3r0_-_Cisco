@@ -1026,16 +1026,19 @@ interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-BLUE **
    ip address 192.168.10.254/24
+   ip router ospf 1 area 0
 exit
 interface vlan 20
    no shutdown
    description ** SVI+GW-L3-VLAN20-RED **
    ip address 192.168.20.254/24
+   ip router ospf 1 area 0
 exit
 interface vlan 30
    no shutdown
    description ** SVI+GW-L3-VLAN30-GREEN **
    ip address 192.168.30.254/24
+   ip router ospf 1 area 0
 exit
 
 #! L3 WAN INTERFACE @ INTERNET - {{NAT OUTSIDE}}
