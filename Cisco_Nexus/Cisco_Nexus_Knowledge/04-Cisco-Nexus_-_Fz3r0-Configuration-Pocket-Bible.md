@@ -1870,6 +1870,7 @@ interface Ethernet0/0
 exit
 
 !# NAT Inside/Outside ACL 10
+access-list 10 permit 10.10.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
