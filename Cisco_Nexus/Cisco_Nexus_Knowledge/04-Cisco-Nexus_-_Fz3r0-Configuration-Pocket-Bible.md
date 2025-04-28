@@ -1527,7 +1527,7 @@ exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
-checkpoint fz3r0-check-2025-NX9-1
+checkpoint fz3r0-check-2025-NX9-11
 copy running-config startup-config
 
 
@@ -1587,7 +1587,6 @@ spanning-tree mode rapid-pvst
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
 
-feature interface-vlan
 interface vlan 30
    no shutdown
    description ** SVI-MGMT-L3-VLAN30-GREEN **
@@ -1601,7 +1600,6 @@ ip route 0.0.0.0/0 192.168.30.1
 
 !# Po1
 
-feature lacp
 default interface ethernet 1/1-3
 interface ethernet 1/1-3
    description ** Port-Channel-1-Po1-Interfaces **
@@ -1625,7 +1623,6 @@ port-channel load-balance src-dst mac
 
 !# Po2
 
-feature lacp
 default interface ethernet 1/4-6
 interface ethernet 1/4-6
    description ** Port-Channel-2-Po2-Interfaces **
@@ -1676,8 +1673,6 @@ exit
 
 !# TELNET & SSH #
 
-feature telnet
-feature ssh
 line vty
    session-limit 5
    exec-timeout 3
@@ -1692,7 +1687,7 @@ exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
-checkpoint fz3r0-check-2025-NX9-1
+checkpoint fz3r0-check-2025-NX9-12
 copy running-config startup-config
 
 
