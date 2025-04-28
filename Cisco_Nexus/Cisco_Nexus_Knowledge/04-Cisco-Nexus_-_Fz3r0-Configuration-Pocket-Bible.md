@@ -1022,7 +1022,7 @@ vlan 99
 !# RPVSTP+ (ROOT-PRIMARY)
 
 spanning-tree mode rapid-pvst
-spanning-tree vlan 10,20,30,99 root primary
+spanning-tree vlan 10,20,30 root primary
 
 #! SVIs (GATEWAY L3) {OSPF AREA 0}
 
@@ -1111,7 +1111,7 @@ interface ethernet1/4,ethernet1/7
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
+   switchport trunk allowed vlan 10,20,30
    speed 1000
    duplex full
    spanning-tree port type network
@@ -1345,20 +1345,30 @@ copy running-config startup-config
 ## Switch NX9-11 - ACCESS
 
 ````py
-!######################
-!# NEXUS NX9-11-ACCESS
-!######################
+!##################################################
+!#    NEXUS - NX9-11-ACCESS                       #
+!#    LAYER 2                                     #
+!#    STP  = ZOMBIE                               #
+!##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-11-ACCESS
+hostname NX9-11-ACCESS
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
 !   license grace-period
 cdp enable
+
+!# FEATURES
+
+feature interface-vlan
+feature telnet
+feature ssh
+feature lldp
+feature lacp
 
 !# VLANs
 
@@ -1378,7 +1388,6 @@ spanning-tree mode rapid-pvst
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
 
-feature interface-vlan
 interface vlan 30
    no shutdown
    description ** SVI-MGMT-L3-VLAN30-GREEN **
@@ -1390,7 +1399,6 @@ ip route 0.0.0.0/0 192.168.30.1
 
 !# L2 PORT CHANNELS 
 
-feature lacp
 default interface ethernet 1/1-3
 interface ethernet 1/1-3
    description ** Port-Channel-1-Po1-Interfaces **
@@ -1419,7 +1427,7 @@ interface port-channel 1
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
+   switchport trunk allowed vlan 10,20,30
    speed 1000
    duplex full
    spanning-tree port type network
@@ -1431,7 +1439,7 @@ interface ethernet1/4
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
+   switchport trunk allowed vlan 10,20,30
    speed 1000
    duplex full
    spanning-tree port type network
@@ -1481,8 +1489,6 @@ exit
 
 !# TELNET & SSH #
 
-feature telnet
-feature ssh
 line vty
    session-limit 5
    exec-timeout 3
