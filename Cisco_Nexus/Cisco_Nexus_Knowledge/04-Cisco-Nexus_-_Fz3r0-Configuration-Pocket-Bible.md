@@ -978,14 +978,19 @@ show running-config > backup-1
 ## Switch NX9-1 - ACTIVE HSRP (Priority 200)
 
 ````py
-!######################
-!# NEXUS NX9-1 - ROOT (HSRP ACTIVE / .254 PRIORITY 200) {STP Primary Root Bridge}
-!######################
+!##################################################
+!#    NEXUS - NX9-1-CORE-ACTIVE                   #
+!#    LAYER 3 + LAYER 2                           #
+!#    OSPF -> LAN+P2P @ Area 0 / OSPF 1           #
+!#    HSRP = ACTIVE @ x.x.x.254 / Priority 200    #
+!#              VIP @ x.x.x.1                     #
+!#    STP  = PRIMARY / Root Bridge                #
+!##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-1-CR-ACT
+hostname NX9-1-CR-ACT
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
@@ -1019,7 +1024,7 @@ vlan 99
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,20,30,99 root primary
 
-#! SVIs (GATEWAY L3) - {{NAT INSIDE}}
+#! SVIs (GATEWAY L3) {OSPF AREA 0}
 
 interface vlan 10
    no shutdown
@@ -1040,7 +1045,7 @@ interface vlan 30
    ip router ospf 1 area 0
 exit
 
-#! L3 WAN INTERFACE @ INTERNET - {{NAT OUTSIDE}}
+#! L3 WAN INTERFACE @ INTERNET {OSPF AREA 0 + P2P<->RT-EDGE}
 
 interface ethernet 1/1
    no shutdown
@@ -1054,14 +1059,13 @@ interface ethernet 1/1
    cdp enable
 exit
 
-!# OSPF + Announce Subnets + Default Route @ WAN
+!# OSPF + Announce Subnets (LAN & P2P)
 
 router ospf 1
     network 192.168.10.0/24 area 0
     network 192.168.20.0/24 area 0
     network 192.168.30.0/24 area 0
     network 10.10.0.0/30  area 0
-    !
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
 
@@ -1099,7 +1103,7 @@ interface vlan 30
    priority 200
 exit
 
-!# L2 INTERFACES - TRUNK
+!# L2 INTERFACES - TRUNK (STP = NETWORK)
 
 interface ethernet1/4,ethernet1/7
    no shutdown
@@ -1127,7 +1131,6 @@ exit
 line vty
    access-class remote-access-users in
 exit
-
 
 !# SAVE CHECKPOINT & CONFIGURATION
 
