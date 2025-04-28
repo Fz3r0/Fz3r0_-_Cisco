@@ -980,6 +980,8 @@ show running-config > backup-1
 ````py
 !##################################################
 !#    NEXUS - NX9-1-CORE-ACTIVE                   #
+!#    IP    - 192.168.30.254/24                   #
+!#          - 192.168.30.1 (VIP-HSRP)             #
 !#    LAYER 3 + LAYER 2                           #
 !#    OSPF -> LAN+P2P @ Area 0 / OSPF 1           #
 !#    HSRP = ACTIVE @ x.x.x.254 / Priority 200    #
@@ -1067,7 +1069,7 @@ router ospf 1
     network 192.168.30.0/24 area 0
     network 10.10.0.0/30  area 0
 
-#! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
+#! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {ACTIVE = PRIORITY 200}
 
 interface vlan 10
    !# Select version 2
@@ -1149,20 +1151,36 @@ copy running-config startup-config
 ## Switch NX9-2 - PASSIVE HSRP (Priority 100)
 
 ````py
-!######################
-!# NEXUS NX9-2 - ROOT (PASSIVE / .253 PRIORITY 100) {STP Secondary Root Bridge}
-!######################
+!##################################################
+!#    NEXUS - NX9-2-CORE-STANDBY                  #
+!#    IP    - 192.168.30.253/24                   #
+!#          - 192.168.30.1 (VIP-HSRP)             #
+!#    LAYER 3 + LAYER 2                           #
+!#    OSPF -> LAN+P2P @ Area 0 / OSPF 1           #
+!#    HSRP = STANDBY @ x.x.x.253 / Priority 100   #
+!#              VIP @ x.x.x.1                     #
+!#    STP  = SECONDARY / Sec Bridge               #
+!##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-2-CR-PSV
+hostname NX9-2-CR-STB
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
 !   license grace-period
 cdp enable
+
+!# FEATURES
+
+feature interface-vlan
+feature ospf
+feature hsrp
+feature telnet
+feature ssh
+feature lldp
 
 !# VLANs
 
@@ -1179,46 +1197,53 @@ vlan 99
 !# RPVSTP+ (ROOT-SECONDARY)
 
 spanning-tree mode rapid-pvst
-spanning-tree vlan 10,20,30,99 root secondary
+spanning-tree vlan 10,20,30 root secondary
 
-#! SVIs (GATEWAY L3)
+#! SVIs (GATEWAY L3) {OSPF AREA 0}
 
-feature interface-vlan
 interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-BLUE **
    ip address 192.168.10.253/24
+   ip router ospf 1 area 0
 exit
 interface vlan 20
    no shutdown
    description ** SVI+GW-L3-VLAN20-RED **
    ip address 192.168.20.253/24
+   ip router ospf 1 area 0
 exit
 interface vlan 30
    no shutdown
    description ** SVI+GW-L3-VLAN30-GREEN **
    ip address 192.168.30.253/24
+   ip router ospf 1 area 0
 exit
 
-#! L3 WAN INTERFACE @ INTERNET
+#! L3 WAN INTERFACE @ INTERNET {OSPF AREA 0 + P2P<->RT-EDGE}
 
 interface ethernet 1/1
    no shutdown
    no switchport
    description ** WAN-L3-INTERFACE **
-   ip address 123.2.2.2/30
+   ip address 10.20.0.2/30
    speed 1000
    duplex full
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
    cdp enable
 exit
 
-#! Create Default Route to ISP/WAN
+!# OSPF + Announce Subnets (LAN & P2P)
 
-ip route 0.0.0.0/0 123.2.2.1
+router ospf 1
+    network 192.168.10.0/24 area 0
+    network 192.168.20.0/24 area 0
+    network 192.168.30.0/24 area 0
+    network 10.10.0.0/30  area 0
 
-#! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
+#! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {STANDBY = PRIORITY 100}
 
-feature hsrp
 interface vlan 10
    !# Select version 2
    hsrp version 2
@@ -1253,7 +1278,7 @@ interface vlan 30
    priority 100
 exit
 
-!# L2 INTERFACES - TRUNK
+!# L2 INTERFACES - TRUNK (STP = NETWORK)
 
 interface ethernet1/4,ethernet1/7
    no shutdown
@@ -1261,7 +1286,7 @@ interface ethernet1/4,ethernet1/7
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
+   switchport trunk allowed vlan 10,20,30
    speed 1000
    duplex full
    spanning-tree port type network
@@ -1270,8 +1295,6 @@ exit
 
 !# TELNET & SSH #
 
-feature telnet
-feature ssh
 line vty
    session-limit 5
    exec-timeout 3
