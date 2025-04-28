@@ -1846,8 +1846,11 @@ copy running-config startup-config
 ## Router 1 Edge
 
 ````py
+!# Namings
+
 enable
 configure terminal
+hostname RT-1-EDGE
 
 !# Interfaces
 
