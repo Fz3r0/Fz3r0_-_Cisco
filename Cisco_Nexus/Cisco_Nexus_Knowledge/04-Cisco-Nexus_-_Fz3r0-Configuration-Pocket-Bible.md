@@ -1704,6 +1704,346 @@ copy running-config startup-config
 
 
 
+## Switch NX9-13 - ACCESS
+
+````py
+!##################################################
+!#    NEXUS - NX9-13-ACCESS                       #
+!#    IP    - 192.168.30.13 /24                   #
+!#    LAYER 2                                     #
+!#    STP   = ZOMBIE                              #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname NX9-13-ACCESS
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
+username fz3r0 role network-admin
+!   license grace-period
+cdp enable
+
+!# FEATURES
+
+feature interface-vlan
+feature telnet
+feature ssh
+feature lldp
+feature lacp
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+   vlan dot1q tag native
+
+!# RPVSTP+ (ZOMBIE)
+
+spanning-tree mode rapid-pvst
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+
+interface vlan 30
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN30-GREEN **
+   ip address 192.168.30.13/24
+exit
+
+!# ip default-gateway 192.168.30.1 <- This command is deprecated.
+ip route 0.0.0.0/0 192.168.30.1
+
+!# L2 PORT CHANNELS 
+
+!# Po1
+
+default interface ethernet 1/1-3
+interface ethernet 1/1-3
+   description ** Port-Channel-1-Po1-Interfaces **
+   no shutdown
+   switchport
+   speed 1000
+   duplex full
+   channel-group 1 mode active
+exit
+interface port-channel 1
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
+
+!# Po2
+
+default interface ethernet 1/4-6
+interface ethernet 1/4-6
+   description ** Port-Channel-2-Po2-Interfaces **
+   no shutdown
+   switchport
+   speed 1000
+   duplex full
+   channel-group 2 mode active
+exit
+interface port-channel 2
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/6
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
+
+!# L2 INTERFACES - TRUNK
+
+interface port-channel1,port-channel2
+   no shutdown
+   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30
+   speed 1000
+   duplex full
+   spanning-tree port type network
+   cdp enable
+
+interface Ethernet1/7
+   no shutdown
+   description ** L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30
+   speed 1000
+   duplex full
+   spanning-tree port type network
+   cdp enable
+exit
+
+!# TELNET & SSH #
+
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+end
+checkpoint fz3r0-check-2025-NX9-13
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+
+
+
+
+
+
+## Switch NX9-14 - ACCESS
+
+````py
+!##################################################
+!#    NEXUS - NX9-14-ACCESS                       #
+!#    IP    - 192.168.30.14 /24                   #
+!#    LAYER 2                                     #
+!#    STP   = ZOMBIE                              #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname NX9-14-ACCESS
+password strength-check
+username admin password Adm1n.C1sc0
+username fz3r0 password Adm1n.C1sc0
+username fz3r0 role network-admin
+!   license grace-period
+cdp enable
+
+!# FEATURES
+
+feature interface-vlan
+feature telnet
+feature ssh
+feature lldp
+feature lacp
+
+!# VLANs
+
+vlan 10
+   name VLAN10-BLUE
+vlan 20
+   name VLAN10-RED
+vlan 30
+   name VLAN10-GREEN-MANAGEMENT
+vlan 99
+   name VLAN99-TRUNK-NATIVE
+   vlan dot1q tag native
+
+!# RPVSTP+ (ZOMBIE)
+
+spanning-tree mode rapid-pvst
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+
+interface vlan 30
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN30-GREEN **
+   ip address 192.168.30.14/24
+exit
+
+!# ip default-gateway 192.168.30.1 <- This command is deprecated.
+ip route 0.0.0.0/0 192.168.30.1
+
+!# L2 PORT CHANNELS 
+
+default interface ethernet 1/1-3
+interface ethernet 1/1-3
+   description ** Port-Channel-1-Po1-Interfaces **
+   no shutdown
+   switchport
+   speed 1000
+   duplex full
+   channel-group 1 mode active
+exit
+interface port-channel 1
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
+
+!# L2 INTERFACES - TRUNK
+
+interface port-channel 1
+   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30
+   speed 1000
+   duplex full
+   spanning-tree port type network
+   cdp enable
+
+interface ethernet1/4
+   no shutdown
+   description ** L2-TRUNK-NATIVE99 **
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30
+   speed 1000
+   duplex full
+   spanning-tree port type network
+   cdp enable
+exit
+
+!# L2 INTERFACES - ACCESS
+
+interface ethernet1/5
+   no shutdown
+   description ** L2-ACCESS-VLAN10-BLUE **
+   switchport
+   switchport mode access
+   switchport access vlan 10
+   speed 1000
+   duplex full
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
+   cdp enable
+exit
+
+interface ethernet1/6
+   no shutdown
+   description ** L2-ACCESS-VLAN20-RED **
+   switchport
+   switchport mode access
+   switchport access vlan 20
+   speed 1000
+   duplex full
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
+   cdp enable
+exit
+
+interface ethernet1/7
+   no shutdown
+   description ** L2-ACCESS-VLAN30-GREEN **
+   switchport
+   switchport mode access
+   switchport access vlan 30
+   speed 1000
+   duplex full
+   spanning-tree port type edge
+   spanning-tree bpduguard enable
+   cdp enable
+exit
+
+!# TELNET & SSH #
+
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+end
+checkpoint fz3r0-check-2025-NX9-14
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+
+
+
+
+
 
 
 
