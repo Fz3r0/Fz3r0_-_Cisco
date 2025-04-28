@@ -1882,7 +1882,7 @@ ip nat inside source list 10 interface Ethernet0/0 overload
 !# Ruta por defecto hacia la nube Google
 ip route 0.0.0.0 0.0.0.0 123.1.1.1
 
-!# OSPF Area 0
+!# OSPF Area 0 : Anuncia las redes LAN y P2P
 router ospf 1
     !# enlace hacia NX9-1
     network 10.10.0.0 0.0.0.3 area 0
@@ -1892,10 +1892,8 @@ router ospf 1
     network 192.168.20.0 0.0.0.255 area 0
     !# VLAN30
     network 192.168.30.0 0.0.0.255 area 0
-    !# enlace hacia WAN-1 (opcional)
-    network 123.1.1.0 0.0.0.3 area 0
     !# propaga la ruta por defecto      
-    default-information originate           
+    default-information originate always           
 exit
 
 end
