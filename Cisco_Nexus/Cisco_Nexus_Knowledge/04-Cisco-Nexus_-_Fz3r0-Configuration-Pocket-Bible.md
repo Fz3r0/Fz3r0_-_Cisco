@@ -1370,8 +1370,9 @@ copy running-config startup-config
 ````py
 !##################################################
 !#    NEXUS - NX9-11-ACCESS                       #
+!#    IP    - 192.168.30.11 /24                   #
 !#    LAYER 2                                     #
-!#    STP  = ZOMBIE                               #
+!#    STP   = ZOMBIE                              #
 !##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
@@ -1542,20 +1543,31 @@ copy running-config startup-config
 ## Switch NX9-12 - ACCESS
 
 ````py
-!######################
-!# NEXUS NX9-12-ACCESS
-!######################
+!##################################################
+!#    NEXUS - NX9-12-ACCESS                       #
+!#    IP    - 192.168.30.12 /24                   #
+!#    LAYER 2                                     #
+!#    STP   = ZOMBIE                              #
+!##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
 
 configure terminal
-hostname Nx9-12-ACCESS
+hostname NX9-12-ACCESS
 password strength-check
 username admin password Adm1n.C1sc0
 username fz3r0 password Adm1n.C1sc0
 username fz3r0 role network-admin
 !   license grace-period
 cdp enable
+
+!# FEATURES
+
+feature interface-vlan
+feature telnet
+feature ssh
+feature lldp
+feature lacp
 
 !# VLANs
 
@@ -1568,6 +1580,10 @@ vlan 30
 vlan 99
    name VLAN99-TRUNK-NATIVE
    vlan dot1q tag native
+
+!# RPVSTP+ (ZOMBIE)
+
+spanning-tree mode rapid-pvst
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
 
@@ -1639,7 +1655,7 @@ interface port-channel1,port-channel2
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
+   switchport trunk allowed vlan 10,20,30
    speed 1000
    duplex full
    spanning-tree port type network
@@ -1651,7 +1667,7 @@ interface Ethernet1/7
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
+   switchport trunk allowed vlan 10,20,30
    speed 1000
    duplex full
    spanning-tree port type network
