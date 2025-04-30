@@ -1072,8 +1072,9 @@ interface vlan 30
    ip router ospf 1 area 0
 exit
 
-#! L3 WAN INTERFACE @ INTERNET {OSPF AREA 0 + P2P<->RT-EDGE}
+#! L3 WAN INTERFACES @ INTERNET + OSPF FULL MESH
 
+#! OSPF BEST PREFERENCE (1) @ RT1 >> @ WAN 1 
 interface ethernet 1/1
    no shutdown
    no switchport
@@ -1083,6 +1084,35 @@ interface ethernet 1/1
    duplex full
    ip router ospf 1 area 0
    ip ospf network point-to-point
+   ip ospf cost 1
+   cdp enable
+exit
+
+#! OSPF WORST PREFERENCE (100) @ RT2 (WAN2)
+interface ethernet 1/2
+   no shutdown
+   no switchport
+   description ** OSPF-BACKUP-TO-RT-2 **
+   ip address 10.40.0.1/30
+   speed 1000
+   duplex full
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
+   ip ospf cost 100
+   cdp enable
+exit
+
+#! OSPF MEDIUM PREFERENCE (10) @ NX9-2
+interface ethernet 1/6
+   no shutdown
+   no switchport
+   description ** OSPF-BACKUP-NX1-TO-NX2-PORT-CHANNEL **
+   ip address 10.50.0.1/30
+   speed 1000
+   duplex full
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
+   ip ospf cost 100
    cdp enable
 exit
 
@@ -1093,6 +1123,8 @@ router ospf 1
     network 192.168.20.0/24 area 0
     network 192.168.30.0/24 area 0
     network 10.10.0.0/30  area 0
+    network 10.40.0.0 0.0.0.3 area 0
+    network 10.50.0.0 0.0.0.3 area 0
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {ACTIVE = PRIORITY 200}
 
@@ -1245,8 +1277,9 @@ interface vlan 30
    ip router ospf 1 area 0
 exit
 
-#! L3 WAN INTERFACE @ INTERNET {OSPF AREA 0 + P2P<->RT-EDGE}
+#! L3 WAN INTERFACES @ INTERNET + OSPF FULL MESH
 
+#! OSPF BEST PREFERENCE (1) @ RT1 >> @ WAN 1 
 interface ethernet 1/1
    no shutdown
    no switchport
@@ -1256,6 +1289,35 @@ interface ethernet 1/1
    duplex full
    ip router ospf 1 area 0
    ip ospf network point-to-point
+   ip ospf cost 1
+   cdp enable
+exit
+
+#! OSPF WORST PREFERENCE (100) @ RT2 (WAN2)
+interface ethernet 1/2
+   no shutdown
+   no switchport
+   description ** OSPF-BACKUP-TO-RT-2 **
+   ip address 10.30.0.1/30
+   speed 1000
+   duplex full
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
+   ip ospf cost 100
+   cdp enable
+exit
+
+#! OSPF MEDIUM PREFERENCE (10) @ NX9-2
+interface ethernet 1/6
+   no shutdown
+   no switchport
+   description ** OSPF-BACKUP-NX1-TO-NX2-PORT-CHANNEL **
+   ip address 10.50.0.2/30
+   speed 1000
+   duplex full
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
+   ip ospf cost 100
    cdp enable
 exit
 
@@ -1265,7 +1327,9 @@ router ospf 1
     network 192.168.10.0/24 area 0
     network 192.168.20.0/24 area 0
     network 192.168.30.0/24 area 0
-    network 10.10.0.0/30  area 0
+    network 10.20.0.0 0.0.0.3 area 0
+    network 10.30.0.0 0.0.0.3 area 0
+    network 10.50.0.0 0.0.0.3 area 0
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {STANDBY = PRIORITY 100}
 
@@ -2107,7 +2171,8 @@ hostname RT-1-EDGE
 
 !# Interfaces
 
-!# LAN (NAT INSIDE)
+!# LAN (NAT INSIDE) :: OSPF FULL MESH
+
 interface Ethernet0/1
    no shutdown
    description ** Link-to-NX9-1-CORE **
