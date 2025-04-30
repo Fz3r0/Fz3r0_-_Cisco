@@ -82,7 +82,8 @@ Port Channel LACP Notes
 - Ninguno debe tener configuración (deben ser seteados a default al inicio de configuración de preferencia), o en caso contrario, todos deberían tener exactamente la misma configuración. 
 - PAGP ya no esta disnonible en Cisco, el estándar es LACP (active/passive), lo recomendado es siempre ponerlo en modo active.
 - Siempre los port channels deben ir de 2 en 2, por ejemplo 2,4,6,8, etc... esto porque si hay en números nones pensará uno está caído.
-- Para backup, si se puede usar un tercer link o un número non, ya que este estarña configurado como backup y solo entrará cuando un par realmente muera. 
+- Para backup, si se puede usar un tercer link o un número non, ya que este estarña configurado como backup y solo entrará cuando un par realmente muera.
+- Para hacer un Port Channel L3 la única diferencia es crearlo cuando antes las interfaces estan configuradas con "no switchport" (L3), en caso que tengan "switchport" se crearán como L2. 
 
 HSRP Notes
 
@@ -606,7 +607,7 @@ exit
 !# PORT CHANNEL (LACP)
 !###########################
 
-!# Create Port Channel Switch "A" interfaces ethernet 1/1-3 (TURN ON INTERFACES BEFORE PORT CHANNEL!)
+!# Create L2 Port Channel Switch "A" interfaces ethernet 1/1-3 (TURN ON INTERFACES BEFORE PORT CHANNEL!) {L2 = switchport}
 feature lacp
 default interface ethernet 1/1-2
 interface ethernet 1/1-2
@@ -615,9 +616,18 @@ interface ethernet 1/1-2
    channel-group 1 mode active
 exit
 
+!# Create L3 Port Channel Switch "X" interfaces ethernet 1/1-3 (TURN ON INTERFACES BEFORE PORT CHANNEL!) {L3 = no switchport}
+feature lacp
+default interface ethernet 1/1-2
+interface ethernet 1/1-2
+   no shutdown
+   no switchport 
+   channel-group 1 mode active
+exit
+
 !# Configure the Port Channel created, just like a normal interface
 interface port-channel 1
-   description PORT-CHANNEL-TRUNK-LINK-1
+   description PORT-CHANNEL-L2-TRUNK-LINK-1
    no shutdown
    switchport
    switchport mode trunk
