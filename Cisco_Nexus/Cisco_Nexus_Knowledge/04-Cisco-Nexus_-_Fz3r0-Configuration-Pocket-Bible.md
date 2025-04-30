@@ -2150,6 +2150,72 @@ write memory
 ````
 
 
+## Router 2 Edge
+
+````py
+!# Namings
+
+enable
+configure terminal
+hostname RT-2-EDGE
+
+!# Interfaces
+
+!# LAN (NAT INSIDE)
+interface Ethernet0/1
+   no shutdown
+   description ** Link-to-NX9-2-CORE **
+   ip address 10.20.0.1 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip nat inside
+exit
+
+!# WAN (NAT OUTSIDE)
+interface Ethernet0/0
+   no shutdown
+   description ** Link-to-WAN-2_INTERNET **
+   ip address 123.2.2.2 255.255.255.252
+   duplex full
+   ip nat outside
+exit
+
+!# NAT Inside/Outside ACL 10
+access-list 10 permit 10.10.0.0 0.0.0.3
+access-list 10 permit 192.168.10.0 0.0.0.255
+access-list 10 permit 192.168.20.0 0.0.0.255
+access-list 10 permit 192.168.30.0 0.0.0.255
+
+!# Overload all matching inside traffic to the WAN interface address
+ip nat inside source list 10 interface Ethernet0/0 overload
+
+!# Ruta por defecto hacia la nube Google
+ip route 0.0.0.0 0.0.0.0 123.2.2.1
+
+!# OSPF Area 0 : Anuncia las redes LAN y P2P
+router ospf 1
+    !# enlace hacia NX9-2
+    network 10.20.0.0 0.0.0.3 area 0
+    !# VLAN10       
+    network 192.168.10.0 0.0.0.255 area 0
+    !# VLAN20  
+    network 192.168.20.0 0.0.0.255 area 0
+    !# VLAN30
+    network 192.168.30.0 0.0.0.255 area 0
+    !# propaga la ruta por defecto      
+    default-information originate always           
+exit
+
+end
+write memory
+
+!
+!
+
+
+````
+
+
 
 
 
