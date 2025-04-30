@@ -106,9 +106,22 @@ NAT
 - Se configura basicamente igual que en IOS
 - En NX9 de simulador no existe feature NAT, por eso en este lab se hace en router aparte
 
-OSPF (point to pint)
+OSPF (Full Mesh en Core Layer)
 
-- En esta config uso una config básica de OSPF punto a punto, tanto en router como en NX se debe configurar el p2p en cad ainterfaz. 
+- En esta config uso una config básica de OSPF punto a punto, tanto en router como en NX se debe configurar el p2p en cad ainterfaz.
+- Aunque se use Full mesh para alta disponibilidad y redundancia con los otros sw y routers es recomendable mantener los p2p entre las interfaces principales ya que No generan tráfico de OSPF tipo broadcast, son más rápidos de converger y más seguros y fáciles de controlar.
+- Si en algún momento se agrega un switch entre dos dispositivos OSPF (aunque no enrute), ya no se debería usar point-to-point, porque se vuelve multiacceso y OSPF cambiará el comportamiento. En este caso
+- Point-to-Point	- l	No hay DR/BDR, LSA tipo 1 únicamente
+
+### 🔍 OSPF Role Classification for Lab Routers
+
+| Router    | OSPF Area(s) | Redistributes External Routes? | OSPF Role              | Notes                                           |
+|-----------|--------------|-------------------------------|-------------------------|-------------------------------------------------|
+| NX9-1     | Area 0        | No                            | Internal + Backbone     | Part of Area 0 only, does not redistribute      |
+| NX9-2     | Area 0        | No                            | Internal + Backbone     | Same as NX9-1                                   |
+| RT-1      | Area 0        | Yes (`default-information originate`) | ASBR + Backbone     | Injects default route from static to OSPF       |
+| RT-2      | Area 0        | Yes (`default-information originate`) | ASBR + Backbone     | Same behavior as RT-1                           |
+
 
 ## Basic Configurations & Commands: 
 
