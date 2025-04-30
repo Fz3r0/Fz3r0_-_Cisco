@@ -91,6 +91,7 @@ HSRP Notes
 - Un Core/Gateway Tendrá la IP 192.168.30.254/24 y el otro 92.168.30.253/24
 - Se crea una VIP en ambos dentro de HSRP con la IP 192.168.30.1/254
 - Así los Hosts verán ambos gateways como uno solo, pero en realidad uno es el activo y el otro el pasivo
+- Para usar HSRP y DHCP es mejor usar un DHCP server aparte y usar DHCP relay, ya que si se configura DHCP en ambos cores podría haber problemas. Otra técnica no muy limpia es crear el DHCP server en ambos, con DHCP pools que no repitan IPs eg. SW.1 1-50 / SW.2 51-100
 
 Spanning Tree Notes
 
@@ -2519,6 +2520,8 @@ write memory
 - https://youtu.be/aPzNzvyv20A?si=1QMckKT0AjZHR1bm
 - https://youtu.be/ieZkA7Ayc-4?si=XgsEx2Pz87hLBZM5
 - https://youtu.be/IFb-Ncj5w-E?si=BsXcc9WlyG-W0vpu
+- https://journey2theccie.wordpress.com/2020/07/20/hsrp-aware-dhcp-relay/
+- 
 
 
 
