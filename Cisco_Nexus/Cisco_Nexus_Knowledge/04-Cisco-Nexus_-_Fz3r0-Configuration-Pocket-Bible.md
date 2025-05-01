@@ -2259,6 +2259,10 @@ ip nat inside source list 10 interface Ethernet0/0 overload
 
 !# OSPF Area 0 : Anuncia las redes LAN y P2P
 router ospf 1
+
+    !# Router ID (OSPF)
+    router-id 3.3.3.3
+
     !# enlace hacia NX9-1
     network 10.10.0.0 0.0.0.3 area 0
     !# enlace hacia NX9-2
@@ -2344,6 +2348,10 @@ ip nat inside source list 10 interface Ethernet0/0 overload
 
 !# OSPF Area 0 : Anuncia las redes LAN y P2P
 router ospf 1
+
+    !# Router ID (OSPF)
+    router-id 4.4.4.4
+
     !# enlace hacia NX9-2
     network 10.20.0.0 0.0.0.3 area 0
     !# enlace hacia NX9-1
