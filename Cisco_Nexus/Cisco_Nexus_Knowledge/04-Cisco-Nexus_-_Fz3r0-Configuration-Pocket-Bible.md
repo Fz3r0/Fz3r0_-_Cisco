@@ -2211,7 +2211,7 @@ hostname RT-1-EDGE
 
 #! L3 WAN INTERFACES @ CORE/LAN + OSPF FULL MESH
 
-#! OSPF BEST PREFERENCE (1) @ RT2 >> @ WAN 2 
+#! OSPF BEST PREFERENCE (1) @ NX9-1-CORE-PRIMARY
 interface Ethernet0/1
    no shutdown
    description ** Link-to-NX9-1-CORE **
@@ -2222,7 +2222,7 @@ interface Ethernet0/1
    ip nat inside
 exit
 
-#! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
+#! OSPF MEDIUM PREFERENCE (100) @ NX9-2-CORE-SECONDARY
 interface Ethernet0/2
    no shutdown
    description ** Link-to-NX9-2-CORE **
@@ -2230,6 +2230,17 @@ interface Ethernet0/2
    duplex full
    ip ospf network point-to-point
    ip ospf cost 100
+   ip nat inside
+exit
+
+#! OSPF WORST PREFERENCE (200) @ RT2 (WAN2)
+interface Ethernet0/2
+   no shutdown
+   description ** RT1-RT2-Edge-to-Edge-Link **
+   ip address 10.60.0.1 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip ospf cost 200
    ip nat inside
 exit
 
@@ -2301,7 +2312,7 @@ hostname RT-2-EDGE
 
 #! L3 WAN INTERFACES @ CORE/LAN + OSPF FULL MESH
 
-#! OSPF BEST PREFERENCE (1) @ RT2 >> @ WAN 2 
+#! OSPF BEST PREFERENCE (1) @ NX9-2-CORE-SECONDARY
 interface Ethernet0/1
    no shutdown
    description ** Link-to-NX9-2-CORE **
@@ -2312,7 +2323,7 @@ interface Ethernet0/1
    ip nat inside
 exit
 
-#! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
+#! OSPF MEDIUM PREFERENCE (100) @ NX9-1-CORE-PRIMARY
 interface Ethernet0/2
    no shutdown
    description ** Link-to-NX9-1-CORE **
@@ -2320,6 +2331,17 @@ interface Ethernet0/2
    duplex full
    ip ospf network point-to-point
    ip ospf cost 100
+   ip nat inside
+exit
+
+#! OSPF WORST PREFERENCE (200) @ RT1 (WAN1)
+interface Ethernet0/2
+   no shutdown
+   description ** RT1-RT2-Edge-to-Edge-Link **
+   ip address 10.60.0.2 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip ospf cost 200
    ip nat inside
 exit
 
