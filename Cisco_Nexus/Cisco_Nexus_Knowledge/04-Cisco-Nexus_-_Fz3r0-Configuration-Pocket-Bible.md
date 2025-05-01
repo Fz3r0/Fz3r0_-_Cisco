@@ -1074,8 +1074,8 @@ exit
 
 !# L3 PORT CHANNELS (no switchport)
 
-default interface ethernet 1/5-6,1/3
-interface ethernet 1/5-6,1/3
+default interface ethernet 1/5-6,ethernet 1/3
+interface ethernet 1/5-6,ethernet 1/3
    description ** L3-Port-Channel-0-Po0-Interfaces **
    no shutdown
    no switchport
@@ -1299,6 +1299,29 @@ interface vlan 30
    ip address 192.168.30.253/24
    ip router ospf 1 area 0
 exit
+
+!# L3 PORT CHANNELS (no switchport)
+
+default interface ethernet 1/5-6,ethernet 1/3
+interface ethernet 1/5-6,ethernet 1/3
+   description ** L3-Port-Channel-0-Po0-Interfaces **
+   no shutdown
+   no switchport
+   speed 1000
+   duplex full
+   channel-group 1 mode active
+exit
+interface port-channel 1
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
 
 #! L3 WAN INTERFACES @ INTERNET + OSPF FULL MESH
 
