@@ -24,9 +24,10 @@
 
 ## Topology
 
-We will be using this simple topology just for example:
+I will be using this topology for all the examples & configurations:
 
-![image](https://github.com/user-attachments/assets/7063b109-426c-4458-b342-31acc4bf20bb)
+![image](https://github.com/user-attachments/assets/614a432c-e48c-4196-a3fe-87cc1a24ccb1)
+
 
 ## Cisco Nexus & NX-OS Notes:
 
