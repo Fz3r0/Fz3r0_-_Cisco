@@ -2234,7 +2234,7 @@ interface Ethernet0/2
 exit
 
 #! OSPF WORST PREFERENCE (200) @ RT2 (WAN2)
-interface Ethernet0/2
+interface Ethernet0/3
    no shutdown
    description ** RT1-RT2-Edge-to-Edge-Link **
    ip address 10.60.0.1 255.255.255.252
@@ -2335,7 +2335,7 @@ interface Ethernet0/2
 exit
 
 #! OSPF WORST PREFERENCE (200) @ RT1 (WAN1)
-interface Ethernet0/2
+interface Ethernet0/3
    no shutdown
    description ** RT1-RT2-Edge-to-Edge-Link **
    ip address 10.60.0.2 255.255.255.252
