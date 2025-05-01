@@ -1110,6 +1110,7 @@ interface ethernet 1/1
    ip ospf network point-to-point
    ip ospf cost 1
    cdp enable
+exit
 
 #! OSPF WORST PREFERENCE (100) @ RT2 (WAN2)
 interface ethernet 1/2
@@ -1123,6 +1124,7 @@ interface ethernet 1/2
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
+exit
 
 #! OSPF MEDIUM PREFERENCE (10) @ NX9-2 [Port Channel 1]
 interface port-channel 1
@@ -1136,16 +1138,6 @@ interface port-channel 1
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
-
-!# OSPF + Announce Subnets (LAN & P2P)
-
-router ospf 1
-    network 192.168.10.0/24 area 0
-    network 192.168.20.0/24 area 0
-    network 192.168.30.0/24 area 0
-    network 10.10.0.0/30  area 0
-    network 10.40.0.0 0.0.0.3 area 0
-    network 10.50.0.0 0.0.0.3 area 0
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {ACTIVE = PRIORITY 200}
 
@@ -1336,6 +1328,7 @@ interface ethernet 1/1
    ip ospf network point-to-point
    ip ospf cost 1
    cdp enable
+exit
 
 #! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
 interface ethernet 1/2
@@ -1349,6 +1342,7 @@ interface ethernet 1/2
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
+exit
 
 #! OSPF MEDIUM PREFERENCE (10) @ NX9-1 [Port Channel 1]
 interface port-channel 1
@@ -1362,16 +1356,6 @@ interface port-channel 1
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
-
-!# OSPF + Announce Subnets (LAN & P2P)
-
-router ospf 1
-    network 192.168.10.0/24 area 0
-    network 192.168.20.0/24 area 0
-    network 192.168.30.0/24 area 0
-    network 10.20.0.0 0.0.0.3 area 0
-    network 10.30.0.0 0.0.0.3 area 0
-    network 10.50.0.0 0.0.0.3 area 0
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {STANDBY = PRIORITY 100}
 
