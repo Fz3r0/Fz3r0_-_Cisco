@@ -2299,7 +2299,7 @@ exit
 #! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
 interface Ethernet0/2
    no shutdown
-   description ** Link-to-NX9-2-CORE **
+   description ** Link-to-NX9-1-CORE **
    ip address 10.40.0.2 255.255.255.252
    duplex full
    ip ospf network point-to-point
