@@ -1109,7 +1109,6 @@ interface ethernet 1/1
    ip ospf network point-to-point
    ip ospf cost 1
    cdp enable
-exit
 
 #! OSPF WORST PREFERENCE (100) @ RT2 (WAN2)
 interface ethernet 1/2
@@ -1123,7 +1122,6 @@ interface ethernet 1/2
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
-exit
 
 #! OSPF MEDIUM PREFERENCE (10) @ NX9-2 [Port Channel 1]
 interface port-channel 1
@@ -1137,7 +1135,6 @@ interface port-channel 1
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
-exit
 
 !# OSPF + Announce Subnets (LAN & P2P)
 
@@ -1337,7 +1334,6 @@ interface ethernet 1/1
    ip ospf network point-to-point
    ip ospf cost 1
    cdp enable
-exit
 
 #! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
 interface ethernet 1/2
@@ -1351,7 +1347,6 @@ interface ethernet 1/2
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
-exit
 
 #! OSPF MEDIUM PREFERENCE (10) @ NX9-1 [Port Channel 1]
 interface port-channel 1
@@ -1365,7 +1360,6 @@ interface port-channel 1
    ip ospf network point-to-point
    ip ospf cost 100
    cdp enable
-exit
 
 !# OSPF + Announce Subnets (LAN & P2P)
 
