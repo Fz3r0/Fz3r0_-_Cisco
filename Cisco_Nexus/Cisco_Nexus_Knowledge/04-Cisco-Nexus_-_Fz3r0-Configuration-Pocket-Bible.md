@@ -1033,6 +1033,7 @@ feature hsrp
 feature telnet
 feature ssh
 feature lldp
+feature lacp
 
 !# VLANs
 
@@ -1258,6 +1259,7 @@ feature hsrp
 feature telnet
 feature ssh
 feature lldp
+feature lacp
 
 !# VLANs
 
