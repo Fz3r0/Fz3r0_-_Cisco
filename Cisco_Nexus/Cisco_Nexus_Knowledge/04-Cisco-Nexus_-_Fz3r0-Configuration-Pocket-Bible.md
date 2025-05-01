@@ -1072,6 +1072,29 @@ interface vlan 30
    ip router ospf 1 area 0
 exit
 
+!# L3 PORT CHANNELS (no switchport)
+
+default interface ethernet 1/5-6,1/3
+interface ethernet 1/5-6,1/3
+   description ** L3-Port-Channel-0-Po0-Interfaces **
+   no shutdown
+   no switchport
+   speed 1000
+   duplex full
+   channel-group 1 mode active
+exit
+interface port-channel 1
+   lacp max-bundle 2
+   lacp min-links 2
+exit
+#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup/standby
+#! 1/3 = STANDBY (Higher than Default)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+!# load balance: src-dst mac is the default
+port-channel load-balance src-dst mac
+
 #! L3 WAN INTERFACES @ INTERNET + OSPF FULL MESH
 
 #! OSPF BEST PREFERENCE (1) @ RT1 >> @ WAN 1 
@@ -1102,8 +1125,8 @@ interface ethernet 1/2
    cdp enable
 exit
 
-#! OSPF MEDIUM PREFERENCE (10) @ NX9-2
-interface ethernet 1/6
+#! OSPF MEDIUM PREFERENCE (10) @ NX9-2 [Port Channel 1]
+interface port-channel 1
    no shutdown
    no switchport
    description ** OSPF-BACKUP-NX1-TO-NX2-PORT-CHANNEL **
@@ -1510,11 +1533,11 @@ exit
 !# ip default-gateway 192.168.30.1 <- This command is deprecated.
 ip route 0.0.0.0/0 192.168.30.1
 
-!# L2 PORT CHANNELS 
+!# L2 PORT CHANNELS (switchport)
 
 default interface ethernet 1/1-3
 interface ethernet 1/1-3
-   description ** Port-Channel-1-Po1-Interfaces **
+   description ** L2-Port-Channel-1-Po1-Interfaces **
    no shutdown
    switchport
    speed 1000
@@ -1685,13 +1708,13 @@ exit
 !# ip default-gateway 192.168.30.1 <- This command is deprecated.
 ip route 0.0.0.0/0 192.168.30.1
 
-!# L2 PORT CHANNELS 
+!# L2 PORT CHANNELS (switchport)
 
 !# Po1
 
 default interface ethernet 1/1-3
 interface ethernet 1/1-3
-   description ** Port-Channel-1-Po1-Interfaces **
+   description ** L2-Port-Channel-1-Po1-Interfaces **
    no shutdown
    switchport
    speed 1000
@@ -1714,7 +1737,7 @@ port-channel load-balance src-dst mac
 
 default interface ethernet 1/4-6
 interface ethernet 1/4-6
-   description ** Port-Channel-2-Po2-Interfaces **
+   description ** L2-Port-Channel-2-Po2-Interfaces **
    no shutdown
    switchport
    speed 1000
@@ -1737,7 +1760,7 @@ port-channel load-balance src-dst mac
 
 interface port-channel1,port-channel2
    no shutdown
-   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   description ** L2-Port-Channel-TRUNK-NATIVE99 **
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
@@ -1849,13 +1872,13 @@ exit
 !# ip default-gateway 192.168.30.1 <- This command is deprecated.
 ip route 0.0.0.0/0 192.168.30.1
 
-!# L2 PORT CHANNELS 
+!# L2 PORT CHANNELS (switchport)
 
 !# Po1
 
 default interface ethernet 1/1-3
 interface ethernet 1/1-3
-   description ** Port-Channel-1-Po1-Interfaces **
+   description ** L2-Port-Channel-1-Po1-Interfaces **
    no shutdown
    switchport
    speed 1000
@@ -1878,7 +1901,7 @@ port-channel load-balance src-dst mac
 
 default interface ethernet 1/4-6
 interface ethernet 1/4-6
-   description ** Port-Channel-2-Po2-Interfaces **
+   description ** L2-Port-Channel-2-Po2-Interfaces **
    no shutdown
    switchport
    speed 1000
@@ -1901,7 +1924,7 @@ port-channel load-balance src-dst mac
 
 interface port-channel1,port-channel2
    no shutdown
-   description ** Port-Channel-1-L2-TRUNK-NATIVE99 **
+   description ** L2-Port-Channel-TRUNK-NATIVE99 **
    switchport
    switchport mode trunk
    switchport trunk native vlan 99
@@ -2012,11 +2035,11 @@ exit
 !# ip default-gateway 192.168.30.1 <- This command is deprecated.
 ip route 0.0.0.0/0 192.168.30.1
 
-!# L2 PORT CHANNELS 
+!# L2 PORT CHANNELS (switchport)
 
 default interface ethernet 1/1-3
 interface ethernet 1/1-3
-   description ** Port-Channel-1-Po1-Interfaces **
+   description ** L2-Port-Channel-1-Po1-Interfaces **
    no shutdown
    switchport
    speed 1000
