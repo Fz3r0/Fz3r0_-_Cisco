@@ -2303,15 +2303,15 @@ interface Ethernet0/2
 exit
 
 #! OSPF WORST PREFERENCE (200) @ RT2 (WAN2)
-interface Ethernet0/3
-   no shutdown
-   description ** RT1-RT2-Edge-to-Edge-Link **
-   ip address 10.60.0.1 255.255.255.252
-   duplex full
-   ip ospf network point-to-point
-   ip ospf cost 200
-   ip nat inside
-exit
+!interface Ethernet0/3
+!   no shutdown
+!   description ** RT1-RT2-Edge-to-Edge-Link **
+!   ip address 10.60.0.1 255.255.255.252
+!   duplex full
+!   ip ospf network point-to-point
+!   ip ospf cost 200
+!   ip nat inside
+!exit
 
 !# WAN INTERFACE (NAT OUTSIDE) [Default Route @ Internet]
 
@@ -2360,8 +2360,6 @@ router ospf 1
 
     !# RT1 - Outside WAN
     network 123.1.1.0 0.0.0.3 area 0
-    !# RT2 - Outside WAN
-    network 123.2.2.0 0.0.0.3 area 0
 
     !# propaga la ruta por defecto      
     default-information originate always
@@ -2414,15 +2412,15 @@ interface Ethernet0/2
 exit
 
 #! OSPF WORST PREFERENCE (200) @ RT1 (WAN1)
-interface Ethernet0/3
-   no shutdown
-   description ** RT1-RT2-Edge-to-Edge-Link **
-   ip address 10.60.0.2 255.255.255.252
-   duplex full
-   ip ospf network point-to-point
-   ip ospf cost 200
-   ip nat inside
-exit
+!interface Ethernet0/3
+!   no shutdown
+!   description ** RT1-RT2-Edge-to-Edge-Link **
+!   ip address 10.60.0.2 255.255.255.252
+!   duplex full
+!   ip ospf network point-to-point
+!   ip ospf cost 200
+!   ip nat inside
+!exit
 
 !# WAN INTERFACE (NAT OUTSIDE) [Default Route @ Internet]
 
@@ -2468,8 +2466,6 @@ router ospf 1
     !# VLAN30
     network 192.168.30.0 0.0.0.255 area 0
 
-    !# RT1 - Outside WAN
-    network 123.1.1.0 0.0.0.3 area 0
     !# RT2 - Outside WAN
     network 123.2.2.0 0.0.0.3 area 0
 
