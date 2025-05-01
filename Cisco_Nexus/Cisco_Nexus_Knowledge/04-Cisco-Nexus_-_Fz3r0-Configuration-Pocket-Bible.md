@@ -1316,7 +1316,7 @@ interface ethernet 1/1
    cdp enable
 exit
 
-#! OSPF WORST PREFERENCE (100) @ RT2 (WAN2)
+#! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
 interface ethernet 1/2
    no shutdown
    no switchport
@@ -1330,7 +1330,7 @@ interface ethernet 1/2
    cdp enable
 exit
 
-#! OSPF MEDIUM PREFERENCE (10) @ NX9-2 [Port Channel 1]
+#! OSPF MEDIUM PREFERENCE (10) @ NX9-1 [Port Channel 1]
 interface port-channel 1
    no shutdown
    no switchport
@@ -2194,18 +2194,32 @@ hostname RT-1-EDGE
 
 !# Interfaces
 
-!# LAN (NAT INSIDE) :: OSPF FULL MESH
+#! L3 WAN INTERFACES @ CORE/LAN + OSPF FULL MESH
 
+#! OSPF BEST PREFERENCE (1) @ RT2 >> @ WAN 2 
 interface Ethernet0/1
    no shutdown
    description ** Link-to-NX9-1-CORE **
    ip address 10.10.0.1 255.255.255.252
    duplex full
    ip ospf network point-to-point
+   ip ospf cost 1
    ip nat inside
 exit
 
-!# WAN (NAT OUTSIDE)
+#! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
+interface Ethernet0/2
+   no shutdown
+   description ** Link-to-NX9-2-CORE **
+   ip address 10.30.0.1 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip ospf cost 100
+   ip nat inside
+exit
+
+!# WAN INTERFACE (NAT OUTSIDE) [Default Route @ Internet]
+
 interface Ethernet0/0
    no shutdown
    description ** Link-to-WAN-1_INTERNET **
@@ -2214,8 +2228,13 @@ interface Ethernet0/0
    ip nat outside
 exit
 
+!# Ruta por defecto hacia la nube Google
+ip route 0.0.0.0 0.0.0.0 123.1.1.1
+
 !# NAT Inside/Outside ACL 10
+
 access-list 10 permit 10.10.0.0 0.0.0.3
+access-list 10 permit 10.30.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
@@ -2223,13 +2242,13 @@ access-list 10 permit 192.168.30.0 0.0.0.255
 !# Overload all matching inside traffic to the WAN interface address
 ip nat inside source list 10 interface Ethernet0/0 overload
 
-!# Ruta por defecto hacia la nube Google
-ip route 0.0.0.0 0.0.0.0 123.1.1.1
-
 !# OSPF Area 0 : Anuncia las redes LAN y P2P
 router ospf 1
     !# enlace hacia NX9-1
     network 10.10.0.0 0.0.0.3 area 0
+    !# enlace hacia NX9-2
+    network 10.30.0.0 0.0.0.3 area 0
+
     !# VLAN10       
     network 192.168.10.0 0.0.0.255 area 0
     !# VLAN20  
@@ -2261,17 +2280,32 @@ hostname RT-2-EDGE
 
 !# Interfaces
 
-!# LAN (NAT INSIDE)
+#! L3 WAN INTERFACES @ CORE/LAN + OSPF FULL MESH
+
+#! OSPF BEST PREFERENCE (1) @ RT2 >> @ WAN 2 
 interface Ethernet0/1
    no shutdown
    description ** Link-to-NX9-2-CORE **
    ip address 10.20.0.1 255.255.255.252
    duplex full
    ip ospf network point-to-point
+   ip ospf cost 1
    ip nat inside
 exit
 
-!# WAN (NAT OUTSIDE)
+#! OSPF WORST PREFERENCE (100) @ RT1 (WAN1)
+interface Ethernet0/2
+   no shutdown
+   description ** Link-to-NX9-2-CORE **
+   ip address 10.40.0.2 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip ospf cost 100
+   ip nat inside
+exit
+
+!# WAN INTERFACE (NAT OUTSIDE) [Default Route @ Internet]
+
 interface Ethernet0/0
    no shutdown
    description ** Link-to-WAN-2_INTERNET **
@@ -2280,8 +2314,12 @@ interface Ethernet0/0
    ip nat outside
 exit
 
+!# Ruta por defecto hacia la nube Google
+ip route 0.0.0.0 0.0.0.0 123.2.2.1
+
 !# NAT Inside/Outside ACL 10
-access-list 10 permit 10.10.0.0 0.0.0.3
+access-list 10 permit 10.20.0.0 0.0.0.3
+access-list 10 permit 10.40.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
@@ -2289,13 +2327,13 @@ access-list 10 permit 192.168.30.0 0.0.0.255
 !# Overload all matching inside traffic to the WAN interface address
 ip nat inside source list 10 interface Ethernet0/0 overload
 
-!# Ruta por defecto hacia la nube Google
-ip route 0.0.0.0 0.0.0.0 123.2.2.1
-
 !# OSPF Area 0 : Anuncia las redes LAN y P2P
 router ospf 1
     !# enlace hacia NX9-2
     network 10.20.0.0 0.0.0.3 area 0
+    !# enlace hacia NX9-1
+    network 10.40.0.0 0.0.0.3 area 0
+
     !# VLAN10       
     network 192.168.10.0 0.0.0.255 area 0
     !# VLAN20  
