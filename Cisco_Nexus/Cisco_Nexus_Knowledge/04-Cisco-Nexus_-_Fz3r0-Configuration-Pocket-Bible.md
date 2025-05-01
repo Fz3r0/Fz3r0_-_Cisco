@@ -1052,6 +1052,12 @@ vlan 99
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,20,30 root primary
 
+!# Enable OSPF 1
+router ospf 1
+   router-id 1.1.1.1
+   log-adjacency-changes
+exit
+
 #! SVIs (GATEWAY L3) {OSPF AREA 0}
 
 interface vlan 10
@@ -1269,6 +1275,12 @@ vlan 99
 
 spanning-tree mode rapid-pvst
 spanning-tree vlan 10,20,30 root secondary
+
+!# Enable OSPF 1
+router ospf 1
+   router-id 2.2.2.2
+   log-adjacency-changes
+exit
 
 #! SVIs (GATEWAY L3) {OSPF AREA 0}
 
