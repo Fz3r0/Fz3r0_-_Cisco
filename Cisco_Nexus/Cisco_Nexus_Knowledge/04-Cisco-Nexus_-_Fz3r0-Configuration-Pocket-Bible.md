@@ -767,6 +767,11 @@ router ospf 1
     ip route 0.0.0.0/0 123.1.1.1
 exit
 
+! # hELP COMMANDS
+
+# MVP - show ospf neighbors
+show ip ospf neighbor 
+
 !##########################################
 !# NAT
 !##########################################
@@ -2261,6 +2266,7 @@ ip route 0.0.0.0 0.0.0.0 123.1.1.1
 
 access-list 10 permit 10.10.0.0 0.0.0.3
 access-list 10 permit 10.30.0.0 0.0.0.3
+access-list 10 permit 10.60.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
@@ -2278,6 +2284,8 @@ router ospf 1
     network 10.10.0.0 0.0.0.3 area 0
     !# enlace hacia NX9-2
     network 10.30.0.0 0.0.0.3 area 0
+    !# enlace Edge-to-Edge
+    network 10.60.0.0 0.0.0.3 area 0
 
     !# VLAN10       
     network 192.168.10.0 0.0.0.255 area 0
@@ -2361,6 +2369,7 @@ ip route 0.0.0.0 0.0.0.0 123.2.2.1
 !# NAT Inside/Outside ACL 10
 access-list 10 permit 10.20.0.0 0.0.0.3
 access-list 10 permit 10.40.0.0 0.0.0.3
+access-list 10 permit 10.60.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
@@ -2378,6 +2387,8 @@ router ospf 1
     network 10.20.0.0 0.0.0.3 area 0
     !# enlace hacia NX9-1
     network 10.40.0.0 0.0.0.3 area 0
+    !# enlace Edge-to-Edge
+    network 10.60.0.0 0.0.0.3 area 0
 
     !# VLAN10       
     network 192.168.10.0 0.0.0.255 area 0
