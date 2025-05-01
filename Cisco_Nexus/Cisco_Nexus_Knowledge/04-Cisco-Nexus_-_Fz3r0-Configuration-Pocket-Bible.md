@@ -1302,7 +1302,7 @@ exit
 
 #! L3 WAN INTERFACES @ INTERNET + OSPF FULL MESH
 
-#! OSPF BEST PREFERENCE (1) @ RT1 >> @ WAN 1 
+#! OSPF BEST PREFERENCE (1) @ RT2 >> @ WAN 2 
 interface ethernet 1/1
    no shutdown
    no switchport
@@ -1321,7 +1321,7 @@ interface ethernet 1/2
    no shutdown
    no switchport
    description ** OSPF-BACKUP-TO-RT-2 **
-   ip address 10.30.0.1/30
+   ip address 10.30.0.2/30
    speed 1000
    duplex full
    ip router ospf 1 area 0
@@ -1330,8 +1330,8 @@ interface ethernet 1/2
    cdp enable
 exit
 
-#! OSPF MEDIUM PREFERENCE (10) @ NX9-2
-interface ethernet 1/6
+#! OSPF MEDIUM PREFERENCE (10) @ NX9-2 [Port Channel 1]
+interface port-channel 1
    no shutdown
    no switchport
    description ** OSPF-BACKUP-NX1-TO-NX2-PORT-CHANNEL **
