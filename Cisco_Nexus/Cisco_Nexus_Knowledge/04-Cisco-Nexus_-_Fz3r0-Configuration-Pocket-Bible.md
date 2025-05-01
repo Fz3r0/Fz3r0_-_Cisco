@@ -769,8 +769,71 @@ exit
 
 ! # hELP COMMANDS
 
-# MVP - show ospf neighbors
-show ip ospf neighbor 
+!# Vecinos OSPF
+
+!# Lista de vecinos OSPF (ID, interfaz, estado, tiempo)
+show ip ospf neighbor
+!# Resumen de interfaces con OSPF habilitado (tipo, estado, cost)
+show ip ospf interface brief
+!# Detalles de OSPF por interfaz específica
+show ip ospf interface Ethernet0/1
+
+!# Estado del proceso OSPF
+
+!# Estado general del proceso OSPF (router-id, áreas, roles, ASBR)
+show ip ospf
+!# Eventos importantes del proceso (solo NX-OS o con ciertos IOS)
+show ip ospf events
+!# Estadísticas generales de OSPF (LSAs, SPF runs, errores)
+show ip ospf statistics
+
+!# Base de datos SPF (LSDB)
+
+!# Base de datos OSPF completa
+show ip ospf database
+!# LSA tipo 1 - Routers conectados directamente
+show ip ospf database router
+!# LSA tipo 2 - Redes broadcast (DR/BDR) [No aplica en enlaces p2p]
+show ip ospf database network
+!# LSA tipo 3 - Rutas entre áreas (summary LSAs)
+show ip ospf database summary
+!# LSA tipo 5 - Rutas externas (ej. default route desde ASBR)
+show ip ospf database external
+!# LSAs generadas por este router
+show ip ospf database self-originate
+!# Ver los enlaces y vecinos de un router específico
+show ip ospf database router 1.1.1.1
+
+!# Tabla de rutas OSPF
+
+!# Ver únicamente las rutas OSPF aprendidas
+show ip route ospf
+!# Ver toda la tabla de rutas con prefijos OSPF marcados con "O"
+show ip route
+!# Ver por qué camino llega la ruta default
+show ip route 0.0.0.0
+!# Ver la mejor ruta hacia una IP específica
+show ip route 192.168.20.1
+
+!# Debugs para laboratorio
+
+!# Ver cambios de vecinos OSPF en tiempo real
+debug ip ospf adj
+!# Ver cada evento de OSPF: timers, LSA, SPF, etc.
+debug ip ospf events
+!# Ver SPF recalculation (muy útil cuando cae una interfaz)
+debug ip ospf spf
+
+!# Extra para NX-OS (si aplica en tu lab)
+
+!# Ver la RIB interna de OSPF en Nexus
+show ip ospf rib
+!# Ver eventos OSPF históricos
+show ip ospf events
+!# Ver todos los interfaces NX-OS con OSPF, sus estados y costos
+show ip ospf interface brief
+
+--
 
 !##########################################
 !# NAT
