@@ -2329,10 +2329,7 @@ ip route 0.0.0.0 0.0.0.0 123.1.1.1
 !# NAT Inside/Outside ACL 10
 
 access-list 10 permit 10.10.0.0 0.0.0.3
-access-list 10 permit 10.20.0.0 0.0.0.3
 access-list 10 permit 10.30.0.0 0.0.0.3
-access-list 10 permit 10.40.0.0 0.0.0.3
-access-list 10 permit 10.50.0.0 0.0.0.3
 access-list 10 permit 10.60.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
@@ -2353,13 +2350,6 @@ router ospf 1
     network 10.30.0.0 0.0.0.3 area 0
     !# enlace Edge-to-Edge
     network 10.60.0.0 0.0.0.3 area 0
-
-    !# enlace extra
-    network 10.20.0.0 0.0.0.3 area 0
-    !# enlace extra
-    network 10.40.0.0 0.0.0.3 area 0
-    !# enlace extra
-    network 10.50.0.0 0.0.0.3 area 0
 
     !# VLAN10       
     network 192.168.10.0 0.0.0.255 area 0
@@ -2441,11 +2431,8 @@ exit
 ip route 0.0.0.0 0.0.0.0 123.2.2.1
 
 !# NAT Inside/Outside ACL 10
-access-list 10 permit 10.10.0.0 0.0.0.3
 access-list 10 permit 10.20.0.0 0.0.0.3
-access-list 10 permit 10.30.0.0 0.0.0.3
 access-list 10 permit 10.40.0.0 0.0.0.3
-access-list 10 permit 10.50.0.0 0.0.0.3
 access-list 10 permit 10.60.0.0 0.0.0.3
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
@@ -2466,13 +2453,6 @@ router ospf 1
     network 10.40.0.0 0.0.0.3 area 0
     !# enlace Edge-to-Edge
     network 10.60.0.0 0.0.0.3 area 0
-
-    !# enlace extra
-    network 10.10.0.0 0.0.0.3 area 0
-    !# enlace extra
-    network 10.30.0.0 0.0.0.3 area 0
-    !# enlace extra
-    network 10.50.0.0 0.0.0.3 area 0
 
     !# VLAN10       
     network 192.168.10.0 0.0.0.255 area 0
