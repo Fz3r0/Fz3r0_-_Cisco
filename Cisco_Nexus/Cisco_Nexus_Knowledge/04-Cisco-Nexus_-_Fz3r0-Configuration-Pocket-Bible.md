@@ -2303,15 +2303,15 @@ interface Ethernet0/2
 exit
 
 #! OSPF WORST PREFERENCE (200) @ RT2 (WAN2)
-!interface Ethernet0/3
-!   no shutdown
-!   description ** RT1-RT2-Edge-to-Edge-Link **
-!   ip address 10.60.0.1 255.255.255.252
-!   duplex full
-!   ip ospf network point-to-point
-!   ip ospf cost 200
-!   ip nat inside
-!exit
+interface Ethernet0/3
+   no shutdown
+   description ** RT1-RT2-Edge-to-Edge-Link **
+   ip address 10.60.0.1 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip ospf cost 200
+   ip nat inside
+exit
 
 !# WAN INTERFACE (NAT OUTSIDE) [Default Route @ Internet]
 
@@ -2328,9 +2328,14 @@ ip route 0.0.0.0 0.0.0.0 123.1.1.1
 
 !# NAT Inside/Outside ACL 10
 
+access-list 10 permit 10.20.0.0 0.0.0.3
+access-list 10 permit 10.40.0.0 0.0.0.3
+access-list 10 permit 10.50.0.0 0.0.0.3
+
 access-list 10 permit 10.10.0.0 0.0.0.3
 access-list 10 permit 10.30.0.0 0.0.0.3
 access-list 10 permit 10.60.0.0 0.0.0.3
+
 access-list 10 permit 192.168.10.0 0.0.0.255
 access-list 10 permit 192.168.20.0 0.0.0.255
 access-list 10 permit 192.168.30.0 0.0.0.255
@@ -2412,15 +2417,15 @@ interface Ethernet0/2
 exit
 
 #! OSPF WORST PREFERENCE (200) @ RT1 (WAN1)
-!interface Ethernet0/3
-!   no shutdown
-!   description ** RT1-RT2-Edge-to-Edge-Link **
-!   ip address 10.60.0.2 255.255.255.252
-!   duplex full
-!   ip ospf network point-to-point
-!   ip ospf cost 200
-!   ip nat inside
-!exit
+interface Ethernet0/3
+   no shutdown
+   description ** RT1-RT2-Edge-to-Edge-Link **
+   ip address 10.60.0.2 255.255.255.252
+   duplex full
+   ip ospf network point-to-point
+   ip ospf cost 200
+   ip nat inside
+exit
 
 !# WAN INTERFACE (NAT OUTSIDE) [Default Route @ Internet]
 
@@ -2436,6 +2441,10 @@ exit
 ip route 0.0.0.0 0.0.0.0 123.2.2.1
 
 !# NAT Inside/Outside ACL 10
+access-list 10 permit 10.10.0.0 0.0.0.3
+access-list 10 permit 10.30.0.0 0.0.0.3
+access-list 10 permit 10.50.0.0 0.0.0.3
+
 access-list 10 permit 10.20.0.0 0.0.0.3
 access-list 10 permit 10.40.0.0 0.0.0.3
 access-list 10 permit 10.60.0.0 0.0.0.3
