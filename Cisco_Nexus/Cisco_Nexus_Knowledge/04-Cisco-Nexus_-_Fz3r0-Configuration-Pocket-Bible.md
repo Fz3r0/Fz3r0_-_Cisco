@@ -1280,6 +1280,54 @@ line vty
    access-class remote-access-users in
 exit
 
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-1 
++ SITE      =  SITE_A
++ LOCATION  =  RAPTOR PADDOK
++ ADMIN 1   =  Fz3r0
++ ADMIN 2   =  Dennis Nedry
+
++ IP        =  192.168.30.254
++ VIP(HSRP) =  192.168.30.1 
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+#
+$
+
+!############################################################################################
+!                                                                                           #
+!          @@@@@@@@@@@@@@@@@@             ((_.-'- Cisco Switch Data Center Config -'-._))   #
+!        @@@@@@@@@@@@@@@@@@@@@@@                                                            #
+!      @@@@@@@@@@@@@@@@@@@@@@@@@@@            - Configuration for Cisco Nexus -             #
+!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         #
+!    @@@@@@@@@@@@@@@/      \@@@/   @      [+] Cyber-Weapon:............. Nexus Configs      #
+!   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
+!   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
+!   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
+!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
+!                  \_|_|_|_|_|_|_|_|                                                        #
+!                                                                                           #
+!############################################################################################
+!                                 !!! DISCLAIMER !!!                                        #
+!############################################################################################
+!                                                                                           #
+!        THE AUTHOR ASSUMES NO RESPONSIBILITY OR LIABILITY FOR ANY DAMAGE OR ISSUES         #
+!        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
+!                                                                                           #
+!############################################################################################
+!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
+
 !# SAVE CHECKPOINT & CONFIGURATION
 
 end
@@ -1504,6 +1552,54 @@ line vty
    access-class remote-access-users in
 exit
 
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-2 
++ SITE      =  SITE_A
++ LOCATION  =  RAPTOR PADDOK
++ ADMIN 1   =  Fz3r0
++ ADMIN 2   =  Dennis Nedry
+
++ IP        =  192.168.30.253
++ VIP(HSRP) =  192.168.30.1 
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+#
+$
+
+!############################################################################################
+!                                                                                           #
+!          @@@@@@@@@@@@@@@@@@             ((_.-'- Cisco Switch Data Center Config -'-._))   #
+!        @@@@@@@@@@@@@@@@@@@@@@@                                                            #
+!      @@@@@@@@@@@@@@@@@@@@@@@@@@@            - Configuration for Cisco Nexus -             #
+!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         #
+!    @@@@@@@@@@@@@@@/      \@@@/   @      [+] Cyber-Weapon:............. Nexus Configs      #
+!   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
+!   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
+!   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
+!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
+!                  \_|_|_|_|_|_|_|_|                                                        #
+!                                                                                           #
+!############################################################################################
+!                                 !!! DISCLAIMER !!!                                        #
+!############################################################################################
+!                                                                                           #
+!        THE AUTHOR ASSUMES NO RESPONSIBILITY OR LIABILITY FOR ANY DAMAGE OR ISSUES         #
+!        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
+!                                                                                           #
+!############################################################################################
+!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
+
 !# SAVE CHECKPOINT & CONFIGURATION
 
 end
@@ -1722,6 +1818,53 @@ line vty
    access-class remote-access-users in
 exit
 
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-11
++ SITE      =  SITE_A
++ LOCATION  =  RAPTOR PADDOK
++ ADMIN 1   =  Fz3r0
++ ADMIN 2   =  Dennis Nedry
+
++ IP        =  192.168.30.11
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+#
+$
+
+!############################################################################################
+!                                                                                           #
+!          @@@@@@@@@@@@@@@@@@             ((_.-'- Cisco Switch Data Center Config -'-._))   #
+!        @@@@@@@@@@@@@@@@@@@@@@@                                                            #
+!      @@@@@@@@@@@@@@@@@@@@@@@@@@@            - Configuration for Cisco Nexus -             #
+!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         #
+!    @@@@@@@@@@@@@@@/      \@@@/   @      [+] Cyber-Weapon:............. Nexus Configs      #
+!   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
+!   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
+!   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
+!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
+!                  \_|_|_|_|_|_|_|_|                                                        #
+!                                                                                           #
+!############################################################################################
+!                                 !!! DISCLAIMER !!!                                        #
+!############################################################################################
+!                                                                                           #
+!        THE AUTHOR ASSUMES NO RESPONSIBILITY OR LIABILITY FOR ANY DAMAGE OR ISSUES         #
+!        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
+!                                                                                           #
+!############################################################################################
+!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
+
 !# SAVE CHECKPOINT & CONFIGURATION
 end
 checkpoint fz3r0-check-2025-NX9-11
@@ -1881,6 +2024,53 @@ exit
 line vty
    access-class remote-access-users in
 exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-12 
++ SITE      =  SITE_A
++ LOCATION  =  RAPTOR PADDOK
++ ADMIN 1   =  Fz3r0
++ ADMIN 2   =  Dennis Nedry
+
++ IP        =  192.168.30.12
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+#
+$
+
+!############################################################################################
+!                                                                                           #
+!          @@@@@@@@@@@@@@@@@@             ((_.-'- Cisco Switch Data Center Config -'-._))   #
+!        @@@@@@@@@@@@@@@@@@@@@@@                                                            #
+!      @@@@@@@@@@@@@@@@@@@@@@@@@@@            - Configuration for Cisco Nexus -             #
+!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         #
+!    @@@@@@@@@@@@@@@/      \@@@/   @      [+] Cyber-Weapon:............. Nexus Configs      #
+!   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
+!   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
+!   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
+!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
+!                  \_|_|_|_|_|_|_|_|                                                        #
+!                                                                                           #
+!############################################################################################
+!                                 !!! DISCLAIMER !!!                                        #
+!############################################################################################
+!                                                                                           #
+!        THE AUTHOR ASSUMES NO RESPONSIBILITY OR LIABILITY FOR ANY DAMAGE OR ISSUES         #
+!        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
+!                                                                                           #
+!############################################################################################
+!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
@@ -2046,6 +2236,53 @@ line vty
    access-class remote-access-users in
 exit
 
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-13
++ SITE      =  SITE_A
++ LOCATION  =  RAPTOR PADDOK
++ ADMIN 1   =  Fz3r0
++ ADMIN 2   =  Dennis Nedry
+
++ IP        =  192.168.30.13
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+#
+$
+
+!############################################################################################
+!                                                                                           #
+!          @@@@@@@@@@@@@@@@@@             ((_.-'- Cisco Switch Data Center Config -'-._))   #
+!        @@@@@@@@@@@@@@@@@@@@@@@                                                            #
+!      @@@@@@@@@@@@@@@@@@@@@@@@@@@            - Configuration for Cisco Nexus -             #
+!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         #
+!    @@@@@@@@@@@@@@@/      \@@@/   @      [+] Cyber-Weapon:............. Nexus Configs      #
+!   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
+!   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
+!   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
+!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
+!                  \_|_|_|_|_|_|_|_|                                                        #
+!                                                                                           #
+!############################################################################################
+!                                 !!! DISCLAIMER !!!                                        #
+!############################################################################################
+!                                                                                           #
+!        THE AUTHOR ASSUMES NO RESPONSIBILITY OR LIABILITY FOR ANY DAMAGE OR ISSUES         #
+!        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
+!                                                                                           #
+!############################################################################################
+!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
+
 !# SAVE CHECKPOINT & CONFIGURATION
 end
 checkpoint fz3r0-check-2025-NX9-13
@@ -2209,6 +2446,53 @@ interface ethernet1/7
    spanning-tree bpduguard enable
    cdp enable
 exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-14
++ SITE      =  SITE_A
++ LOCATION  =  RAPTOR PADDOK
++ ADMIN 1   =  Fz3r0
++ ADMIN 2   =  Dennis Nedry
+
++ IP        =  192.168.30.14
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+#
+$
+
+!############################################################################################
+!                                                                                           #
+!          @@@@@@@@@@@@@@@@@@             ((_.-'- Cisco Switch Data Center Config -'-._))   #
+!        @@@@@@@@@@@@@@@@@@@@@@@                                                            #
+!      @@@@@@@@@@@@@@@@@@@@@@@@@@@            - Configuration for Cisco Nexus -             #
+!     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@                                                         #
+!    @@@@@@@@@@@@@@@/      \@@@/   @      [+] Cyber-Weapon:............. Nexus Configs      #
+!   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
+!   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
+!   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
+!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
+!                  \_|_|_|_|_|_|_|_|                                                        #
+!                                                                                           #
+!############################################################################################
+!                                 !!! DISCLAIMER !!!                                        #
+!############################################################################################
+!                                                                                           #
+!        THE AUTHOR ASSUMES NO RESPONSIBILITY OR LIABILITY FOR ANY DAMAGE OR ISSUES         #
+!        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
+!                                                                                           #
+!############################################################################################
+!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# TELNET & SSH #
 
