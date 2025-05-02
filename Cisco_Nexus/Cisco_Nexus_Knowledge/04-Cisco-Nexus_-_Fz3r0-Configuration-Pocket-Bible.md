@@ -1068,6 +1068,7 @@ show running-config > backup-1
 
 # LAB EXAMPLE FZ3R0 BIBLE
 
+- Se deben encender y configurar primero los NX9-1 y 2, antes de los edge routers o el OSPF 1 da error. 
 
 ## Switch NX9-1 - ACTIVE HSRP (Priority 200)
 
