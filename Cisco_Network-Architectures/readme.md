@@ -18,6 +18,8 @@ https://www.youtube.com/watch?v=6TF2ph6jiEI
 
 ![image](https://github.com/user-attachments/assets/20f93bb7-35c2-4cb5-9ceb-79b2517570d1)
 
+![image](https://github.com/user-attachments/assets/48d7813e-4f51-4329-b813-1e55c70e1ded)
+
 
 Optimizing On-Premise Network Infrastructure: A Component-Level Breakdown ⚙️
 
