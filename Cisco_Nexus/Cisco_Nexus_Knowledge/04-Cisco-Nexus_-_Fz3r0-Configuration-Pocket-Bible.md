@@ -1316,7 +1316,7 @@ $
 !   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
 !   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
 !   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
-!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!    @@@@@@@@@@@@@@@/./././ /_|.\ \.\     [+] Twitter:.................. @Fz3r0_OPs         #
 !      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
 !                  \_|_|_|_|_|_|_|_|                                                        #
 !                                                                                           #
@@ -1328,7 +1328,6 @@ $
 !        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
 !                                                                                           #
 !############################################################################################
-!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# SAVE CHECKPOINT & CONFIGURATION
 
@@ -1588,7 +1587,7 @@ $
 !   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
 !   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
 !   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
-!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!    @@@@@@@@@@@@@@@/./././ /_|.\ \.\     [+] Twitter:.................. @Fz3r0_OPs         #
 !      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
 !                  \_|_|_|_|_|_|_|_|                                                        #
 !                                                                                           #
@@ -1600,7 +1599,6 @@ $
 !        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
 !                                                                                           #
 !############################################################################################
-!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# SAVE CHECKPOINT & CONFIGURATION
 
@@ -1853,7 +1851,7 @@ $
 !   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
 !   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
 !   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
-!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!    @@@@@@@@@@@@@@@/./././ /_|.\ \.\     [+] Twitter:.................. @Fz3r0_OPs         #
 !      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
 !                  \_|_|_|_|_|_|_|_|                                                        #
 !                                                                                           #
@@ -1865,7 +1863,6 @@ $
 !        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
 !                                                                                           #
 !############################################################################################
-!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
@@ -2060,7 +2057,7 @@ $
 !   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
 !   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
 !   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
-!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!    @@@@@@@@@@@@@@@/./././ /_|.\ \.\     [+] Twitter:.................. @Fz3r0_OPs         #
 !      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
 !                  \_|_|_|_|_|_|_|_|                                                        #
 !                                                                                           #
@@ -2072,7 +2069,6 @@ $
 !        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
 !                                                                                           #
 !############################################################################################
-!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
@@ -2271,7 +2267,7 @@ $
 !   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
 !   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
 !   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
-!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!    @@@@@@@@@@@@@@@/./././ /_|.\ \.\     [+] Twitter:.................. @Fz3r0_OPs         #
 !      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
 !                  \_|_|_|_|_|_|_|_|                                                        #
 !                                                                                           #
@@ -2283,7 +2279,6 @@ $
 !        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
 !                                                                                           #
 !############################################################################################
-!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
@@ -2449,6 +2444,20 @@ interface ethernet1/7
    cdp enable
 exit
 
+!# TELNET & SSH #
+
+line vty
+   session-limit 5
+   exec-timeout 3
+exit
+ip access-list remote-access-users
+   permit ip 192.168.30.0/24 any
+   permit ip host 192.168.10.101 any
+exit  
+line vty
+   access-class remote-access-users in
+exit
+
 !# MOTD & CREDITS
 
 banner motd $
@@ -2482,7 +2491,7 @@ $
 !   @@@@@@@@@@@@@@@@\  O   @@  @ O @      [+] Version:.................. 2.2                #
 !   @@@@@@@@@@@@@ @@@@@@@@@@  | \@@@@@    [+] Author:................... Fz3r0              #
 !   @@@@@@@@@@@@@ @@@@@@@@@\__@_/@@@@@    [+] Github:................... github.com/Fz3r0   #
-!    @@@@@@@@@@@@@@@/,/,/./´/_|.\`\,\     [+] Twitter:.................. @Fz3r0_OPs         #
+!    @@@@@@@@@@@@@@@/./././ /_|.\ \.\     [+] Twitter:.................. @Fz3r0_OPs         #
 !      @@@@@@@@@@@@@|  | | | | | | | |    [+] Youtube:.................. @Fz3r0_OPs         #
 !                  \_|_|_|_|_|_|_|_|                                                        #
 !                                                                                           #
@@ -2494,21 +2503,6 @@ $
 !        THAT MAY ARISE FROM THE USE OR MISUSE OF THIS SCRIPT. USE AT YOUR OWN RISK.        #
 !                                                                                           #
 !############################################################################################
-!         ((_.-`-+' Fz3r0 '+-´-._)) CISCO NEXUS DATA CENTER NETWORK CONFIGURATION           #
-
-!# TELNET & SSH #
-
-line vty
-   session-limit 5
-   exec-timeout 3
-exit
-ip access-list remote-access-users
-   permit ip 192.168.30.0/24 any
-   permit ip host 192.168.10.101 any
-exit  
-line vty
-   access-class remote-access-users in
-exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
 end
