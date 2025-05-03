@@ -1068,9 +1068,99 @@ show running-config > backup-1
 
 
 
-# LAB EXAMPLE FZ3R0 BIBLE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 
+
+
+
+
+
+
+
+
+# Fz3r0 Cisco Labs: `Data Center v1`
+
+This Cisco Nexus lab is designed for engineers transitioning from IOS switches to NX-OS. It covers essential data-center concepts and foundational protocols—HSRP, OSPF, Rapid PVST+, LACP—and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VXLAN, VPC and EVPN.
+
+## Fz3r0 Nexus Lab: Important Notes
 
 - Se deben encender y configurar primero los NX9-1 y 2, antes de los edge routers o el OSPF 1 da error. 
+
+## 🎯 Objectives   
+
+- **Hands-on with NX-OS CLI**: Master feature activation and NX-OS naming.  
+- **High Availability**: Implement HSRP for gateway redundancy.  
+- **Dynamic Routing**: Deploy OSPF Area 0 across core and edge devices.  
+- **Layer 2 Resiliency**: Configure Rapid PVST+ and port channels using LACP.  
+- **SVI Gateways**: Build SVIs per VLAN and integrate them into OSPF.  
+- **Inter-site Connectivity & NAT**: Simulate edge routers with multiple WAN links and NAT overload.
+
+## 📋 Device Roles & IP Addressing   
+
+| Device         | Role                        | Interface / Network      | IP Address        | Notes                          |
+|----------------|-----------------------------|--------------------------|-------------------|--------------------------------|
+| **NX9-1**      | Core Active (HSRP A)        | VLAN 10 SVI              | 192.168.10.254/24 | HSRP VIP .1, OSPF area 0       |
+|                |                             | VLAN 20 SVI              | 192.168.20.254/24 |                                |
+|                |                             | VLAN 30 SVI              | 192.168.30.254/24 |                                |
+|                |                             | Port-Channel 1           | 10.50.0.1/30      | OSPF cost 10                   |
+|                |                             | Eth1/1 → RT-1            | 10.10.0.2/30      | OSPF cost 1                    |
+|                |                             | Eth1/2 → RT-2            | 10.40.0.1/30      | OSPF cost 100                  |
+| **NX9-2**      | Core Standby (HSRP B)       | VLAN 10 SVI              | 192.168.10.253/24 | HSRP VIP .1, OSPF area 0       |
+|                |                             | VLAN 20 SVI              | 192.168.20.253/24 |                                |
+|                |                             | VLAN 30 SVI              | 192.168.30.253/24 |                                |
+|                |                             | Port-Channel 1           | 10.50.0.2/30      | OSPF cost 10                   |
+|                |                             | Eth1/1 → RT-2            | 10.20.0.2/30      | OSPF cost 1                    |
+|                |                             | Eth1/2 → RT-1            | 10.30.0.2/30      | OSPF cost 100                  |
+| **NX9-11**     | Access Switch (Mgmt)        | VLAN 30 SVI              | 192.168.30.11/24  | Default GW 192.168.30.1        |
+| **NX9-12**     | Access Switch (Mgmt)        | VLAN 30 SVI              | 192.168.30.12/24  | Default GW 192.168.30.1        |
+| **NX9-13**     | Access Switch (Mgmt)        | VLAN 30 SVI              | 192.168.30.13/24  | Default GW 192.168.30.1        |
+| **NX9-14**     | Access Switch (Mgmt)        | VLAN 30 SVI              | 192.168.30.14/24  | Default GW 192.168.30.1        |
+| **RT-1-EDGE**  | Edge Router 1               | Eth0/1 → NX9-1           | 10.10.0.1/30      | OSPF cost 1, NAT inside        |
+|                |                             | Eth0/2 → NX9-2           | 10.30.0.1/30      | OSPF cost 100, NAT inside      |
+|                |                             | Eth0/3 → RT-2            | 10.60.0.1/30      | OSPF cost 200                  |
+|                |                             | Eth0/0 (WAN-1 outside)   | 123.1.1.2/30      | NAT outside                    |
+| **RT-2-EDGE**  | Edge Router 2               | Eth0/1 → NX9-2           | 10.20.0.1/30      | OSPF cost 1, NAT inside        |
+|                |                             | Eth0/2 → NX9-1           | 10.40.0.2/30      | OSPF cost 100, NAT inside      |
+|                |                             | Eth0/3 → RT-1            | 10.60.0.2/30      | OSPF cost 200                  |
+|                |                             | Eth0/0 (WAN-2 outside)   | 123.2.2.2/30      | NAT outside                    |
+| **WAN-1**      | Simulated Internet A        | Eth0/0                   | 123.1.1.1/30      | Default route → 123.1.1.2      |
+|                |                             | Loopback0                | 8.8.8.8/32        | Google DNS                     |
+|                |                             | Loopback1                | 8.8.4.4/32        | Google DNS                     |
+| **WAN-2**      | Simulated Internet B        | Eth0/0                   | 123.2.2.1/30      | Default route → 123.2.2.2      |
+|                |                             | Loopback0                | 8.8.8.8/32        | Google DNS                     |
+|                |                             | Loopback1                | 8.8.4.4/32        | Google DNS                     |
+| **Server-1**   | Host in VLAN 10 (Blue)      | Eth0                     | 192.168.10.101/24 | GW 192.168.10.1                |
+| **Server-2**   | Host in VLAN 20 (Red)       | Eth0                     | 192.168.20.101/24 | GW 192.168.20.1                |
+| **Server-3**   | Host in VLAN 30 (Green)     | Eth0                     | 192.168.30.101/24 | GW 192.168.30.1                |
+| **Server-4**   | Host in VLAN 10 (Blue)      | Eth0                     | 192.168.10.102/24 | GW 192.168.10.1                |
+| **Server-5**   | Host in VLAN 20 (Red)       | Eth0                     | 192.168.20.102/24 | GW 192.168.20.1                |
+| **Server-6**   | Host in VLAN 30 (Green)     | Eth0                     | 192.168.30.102/24 | GW 192.168.30.1                |
+
+
+
 
 ## Switch NX9-1 - ACTIVE HSRP (Priority 200)
 
