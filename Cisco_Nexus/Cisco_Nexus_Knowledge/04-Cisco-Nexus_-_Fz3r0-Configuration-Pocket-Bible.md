@@ -26,7 +26,8 @@
 
 I will be using this topology for all the examples & configurations:
 
-![image](https://github.com/user-attachments/assets/35aa0651-1ea7-4846-bd8a-9eb7cc9f95b4)
+![image](https://github.com/user-attachments/assets/3ccf3a68-9f97-42a3-aef4-f86c6abf244b)
+
 
 
 
