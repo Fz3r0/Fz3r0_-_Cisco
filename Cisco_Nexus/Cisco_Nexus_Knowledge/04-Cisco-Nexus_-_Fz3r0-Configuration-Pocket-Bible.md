@@ -2882,6 +2882,7 @@ exit
 ip route 10.200.0.100 255.255.255.255 10.100.0.5
 ip route 10.210.0.100 255.255.255.255 10.100.0.5
 
+
 end
 write memory
 
@@ -2993,6 +2994,96 @@ write memory
 
 
 ````
+
+
+
+
+
+## MPLS
+
+````py
+!################
+!# MPLS-1 (IOS) #
+!################
+
+!# Namings
+enable
+configure terminal
+hostname MPLS-1
+
+interface Ethernet1/0
+   no shutdown
+   description ** Link-MPLS-1 (RT-1) **
+   ip address 10.100.0.1 255.255.255.252
+
+!
+interface Loopback0
+ description ** Simulated Remote Net A **
+ ip address 10.200.0.100 255.255.255.255
+!
+interface Loopback1
+ description ** Simulated Remote Net B **
+ ip address 10.210.0.100 255.255.255.255
+!
+
+# LANS 
+ip route 192.168.10.0 255.255.255.0 10.100.0.2
+ip route 192.168.20.0 255.255.255.0 10.100.0.2
+ip route 192.168.30.0 255.255.255.0 10.100.0.2
+
+
+end
+write memory
+
+!
+!
+
+
+````
+
+
+````py
+!################
+!# MPLS-2 (IOS) #
+!################
+
+!# Namings
+enable
+configure terminal
+hostname MPLS-2
+
+interface Ethernet1/0
+   no shutdown
+   description ** Link-MPLS-1 (RT-1) **
+   ip address 10.100.0.5 255.255.255.252
+
+!
+interface Loopback0
+ description ** Simulated Remote Net A **
+ ip address 10.200.0.100 255.255.255.255
+!
+interface Loopback1
+ description ** Simulated Remote Net B **
+ ip address 10.210.0.100 255.255.255.255
+!
+
+# LANS 
+ip route 192.168.10.0 255.255.255.0 10.100.0.6
+ip route 192.168.20.0 255.255.255.0 10.100.0.6
+ip route 192.168.30.0 255.255.255.0 10.100.0.6
+
+
+end
+write memory
+
+!
+!
+
+
+````
+
+
+
 
 
 
