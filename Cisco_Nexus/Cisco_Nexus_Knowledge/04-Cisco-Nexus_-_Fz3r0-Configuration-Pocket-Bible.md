@@ -3011,7 +3011,7 @@ enable
 configure terminal
 hostname MPLS-1
 
-interface Ethernet1/0
+interface Ethernet0/0
    no shutdown
    description ** Link-MPLS-1 (RT-1) **
    ip address 10.100.0.1 255.255.255.252
@@ -3052,7 +3052,7 @@ enable
 configure terminal
 hostname MPLS-2
 
-interface Ethernet1/0
+interface Ethernet0/0
    no shutdown
    description ** Link-MPLS-1 (RT-1) **
    ip address 10.100.0.5 255.255.255.252
