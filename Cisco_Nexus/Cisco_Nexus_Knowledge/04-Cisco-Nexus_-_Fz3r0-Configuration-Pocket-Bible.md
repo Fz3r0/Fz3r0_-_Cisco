@@ -2739,7 +2739,10 @@ router ospf 1
     network 123.1.1.0 0.0.0.3 area 0
 
     !# propaga la ruta por defecto      
-    default-information originate always   
+    default-information originate always
+
+    !# redistribuye las rutas estáticas (MPLS)
+    redistribute static subnets
 exit
 
 !# MPLS INTERFACE (Static Private Address) [Static Route @ MPLS]
@@ -2865,6 +2868,9 @@ router ospf 1
 
     !# propaga la ruta por defecto      
     default-information originate always
+
+    !# redistribuye las rutas estáticas (MPLS)
+    redistribute static subnets
         
 exit
 
