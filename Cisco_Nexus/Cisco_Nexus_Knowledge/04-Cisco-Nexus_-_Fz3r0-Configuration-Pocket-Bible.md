@@ -2739,9 +2739,22 @@ router ospf 1
     network 123.1.1.0 0.0.0.3 area 0
 
     !# propaga la ruta por defecto      
-    default-information originate always
-   
+    default-information originate always   
 exit
+
+!# MPLS INTERFACE (Static Private Address) [Static Route @ MPLS]
+
+!# MPLS INTERFACE 
+interface Ethernet1/0
+   no shutdown
+   description ** Link-to-MPLS-1 **
+   ip address 10.100.0.2 255.255.255.252
+   duplex full
+exit
+
+!# MPLS STATIC ROUTES @ MPLS CIRCUITS
+ip route 10.200.0.100 255.255.255.255 10.100.0.1
+ip route 10.210.0.100 255.255.255.255 10.100.0.1
 
 end
 write memory
@@ -2854,6 +2867,20 @@ router ospf 1
     default-information originate always
         
 exit
+
+!# MPLS INTERFACE (Static Private Address) [Static Route @ MPLS]
+
+!# MPLS INTERFACE 
+interface Ethernet1/0
+   no shutdown
+   description ** Link-to-MPLS-2 **
+   ip address 10.100.0.6 255.255.255.252
+   duplex full
+exit
+
+!# MPLS STATIC ROUTES @ MPLS CIRCUITS
+ip route 10.200.0.100 255.255.255.255 10.100.0.5
+ip route 10.210.0.100 255.255.255.255 10.100.0.5
 
 end
 write memory
