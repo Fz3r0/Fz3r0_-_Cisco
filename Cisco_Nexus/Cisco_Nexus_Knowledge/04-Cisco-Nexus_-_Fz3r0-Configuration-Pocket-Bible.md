@@ -3015,6 +3015,7 @@ interface Ethernet0/0
    no shutdown
    description ** Link-MPLS-1 (RT-1) **
    ip address 10.100.0.1 255.255.255.252
+   duplex full
 
 !
 interface Loopback0
@@ -3056,6 +3057,7 @@ interface Ethernet0/0
    no shutdown
    description ** Link-MPLS-1 (RT-1) **
    ip address 10.100.0.5 255.255.255.252
+   duplex full
 
 !
 interface Loopback0
