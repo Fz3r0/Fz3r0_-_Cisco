@@ -22,3 +22,10 @@ config eveng
 Cisco EVE NG corto español
 
 https://www.youtube.com/watch?v=0HeWNKTJDQ0
+
+
+---
+
+Encapsulation vxlan
+
+https://www.thenetworkdna.com/2024/03/a-step-by-step-guide-to-vxlan.html?fbclid=IwY2xjawKJ4-xleHRuA2FlbQIxMABicmlkETFOSHJyS0REbGl5V0tLMDJVAR7j0H6uIbn-wVocfZvy6N-Dm3aZhXEeGh_vP_vkR6QN94t1KDPaEK9TWNfxjQ_aem_WBFWQVNRsasIXr5uARaAbg
