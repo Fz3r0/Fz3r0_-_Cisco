@@ -16,3 +16,9 @@ config eveng
 
 - https://youtu.be/cE4Q6MjNJnk?si=wZ92fA4V3ORzf2TP
 - https://youtu.be/EQOwcySrDUk?si=iAfugpW1A4254Med <<<<<<<<<<<<< tshooting del padirno!!!
+
+---
+
+Cisco EVE NG corto español
+
+https://www.youtube.com/watch?v=0HeWNKTJDQ0
