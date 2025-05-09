@@ -1,6 +1,6 @@
 ## Basic NXOS upgrade:
 
-````
+````py
 !# 1 Validate images on flash or usb
 
 dir usb1:
