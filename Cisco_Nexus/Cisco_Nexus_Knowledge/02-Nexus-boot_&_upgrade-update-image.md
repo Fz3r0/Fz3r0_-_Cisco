@@ -1,3 +1,63 @@
+## Basic NXOS upgrade:
+
+````
+!# 1 Validate images on flash or usb
+
+dir usb1:
+dir bootflash:
+
+!# 2 Save Running Config (Device will be reloaded!!!)
+
+wr
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=   
+
+!# 3. Copy image to device
+
+!### - sftp or scp from other device/server:
+
+copy sftp://admin@10.10.0.1/bootflash:/nxos64-cs.10.2.8.M.bin bootflash:
+copy sftp://admin@10.10.0.1/nxos64-cs.10.2.8.M.bin bootflash:
+
+copy scp://admin@10.10.0.1/nxos64-cs.10.2.8.M.bin bootflash:
+copy scp://admin@10.10.0.1/bootflash:/nxos64-cs.10.2.8.M.bin bootflash:
+
+!### - usb1:
+
+copy usb1:nxos64-cs.10.2.8.M.bin bootflash:
+
+!# IF "READY ONLY" ISSUE OCCUR YOU NEED TO SAVE AND RELOAD THE SWITCH TO FREE MEMORY
+wr
+reload
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=   
+
+!# 2. Validate image is in bootflash:
+ 
+dir bootflash: 
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=    
+
+!# 3. Install Image:
+install all nxos bootflash:nxos64-cs.10.2.8.M.bin
+
+# reboot
+Reboot? yes
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=    
+
+!# 4. Validate After Reboot
+show version
+
+
+````
+
+
+
+
+
+
+
 
 
 ## 1
