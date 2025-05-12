@@ -148,22 +148,15 @@ interface Eth0/1
    duplex full
    no shutdown
 
-!# Static routes to reach R1 LANs (so they exist in the routing table)
-ip route 192.168.10.0 255.255.255.0 1.0.0.1
-ip route 192.168.20.0 255.255.255.0 1.0.0.1
-ip route 192.168.30.0 255.255.255.0 1.0.0.1
-
-!# BGP Configuration
+!# BGP Configuration (Transit only)
 router bgp 65002
    bgp log-neighbor-changes
    no auto-summary
    neighbor 1.0.0.1 remote-as 65001
    neighbor 2.0.0.2 remote-as 65003
+   neighbor 2.0.0.2 next-hop-self
    network 1.0.0.0 mask 255.255.255.252
    network 2.0.0.0 mask 255.255.255.252
-   network 192.168.10.0 mask 255.255.255.0
-   network 192.168.20.0 mask 255.255.255.0
-   network 192.168.30.0 mask 255.255.255.0
 
 end
 wr
@@ -198,17 +191,15 @@ interface Eth0/0
    duplex full
    no shutdown
 
-!# BGP Configuration
+!# BGP Configuration (Transit only)
 router bgp 65003
    bgp log-neighbor-changes
    no auto-summary
    neighbor 2.0.0.1 remote-as 65002
    neighbor 3.0.0.2 remote-as 65004
+   neighbor 3.0.0.2 next-hop-self
    network 2.0.0.0 mask 255.255.255.252
    network 3.0.0.0 mask 255.255.255.252
-   network 192.168.10.0 mask 255.255.255.0
-   network 192.168.20.0 mask 255.255.255.0
-   network 192.168.30.0 mask 255.255.255.0
 
 end
 wr
