@@ -545,12 +545,44 @@ save
 
 # Traceroute Lab
 
+## 🔍 What is `traceroute`?
+
+`traceroute is a tool that discovers the path packets take to a destination by sending packets with **increasing TTL (Time To Live)** values. When TTL hits 0 at each hop, the router replies with **ICMP Time Exceeded**.
+
+- **Each hop you see is the IP address of the next-hop interface that replied with a "Time Exceeded" message.**
+
 ### Traceroute from Site A (PC-A1) to Site B (PC-B1)
 
 ![image](https://github.com/user-attachments/assets/bd92043b-1da2-4033-b76b-819368971563)
 
-
 ### Traceroute from Site B (PC-B1) to Site A (PC-A1)
+
+![image](https://github.com/user-attachments/assets/ddb9bbdc-1d9d-4525-9bac-5d05b497d155)
+
+## 🧠 Why You See *Next-Hop* Interfaces (Not Outgoing Interfaces)
+
+Each IP shown in `traceroute` output is the **interface on the *next* router that receives the packet**, not the one where the packet was sent **from**.
+
+- ⚠️ Important: `traceroute` always shows the **incoming interface of the next hop**, not the source router's outgoing interface.
+
+````kotlin
+# From PC-B1 to 192.168.10.100:
+
+1   192.168.40.254   ← gateway (R4)
+2   3.0.0.1          ← interface of R3 towards R4
+3   2.0.0.1          ← interface of R2 towards R3
+4   1.0.0.1          ← interface of R1 towards R2
+5   192.168.10.100   ← destination (got there!)
+````
+
+This means:
+
+- From **Site A**, you’ll mostly see `.2` interfaces (because that’s the side *receiving* from Site A)
+- From **Site B**, you’ll see `.1` interfaces (same logic, just reversed)
+
+This explains why **traceroute results are not symmetrical** when going from A to B vs. B to A.
+
+
 
 
 
