@@ -327,34 +327,34 @@ configure terminal
 hostname SW1-Site-B
 
 !# VLAN definitions for Site B
-vlan 10
-   name VLAN10-SITEB
-vlan 20
-   name VLAN20-SITEB
-vlan 30
-   name VLAN30-SITEB
+vlan 40
+   name VLAN40-SITEB
+vlan 50
+   name VLAN50-SITEB
+vlan 60
+   name VLAN60-SITEB
 
-!# Access ports for VLAN 10 : PC-B1, PC-B2
+!# Access ports for VLAN 40 : PC-B1, PC-B2
 interface range Eth0/0 - 1
-   description ** VLAN 10 ACCESS - PC-B1 / PC-B2 **
+   description ** VLAN 40 ACCESS - PC-B1 / PC-B2 **
    switchport mode access
-   switchport access vlan 10
+   switchport access vlan 40
    duplex full
    no shutdown
 
-!# Access ports for VLAN 20 : PC-B3, PC-B4
+!# Access ports for VLAN 50 : PC-B3, PC-B4
 interface range Eth0/2 - 3
-   description ** VLAN 20 ACCESS - PC-B3 / PC-B4 **
+   description ** VLAN 50 ACCESS - PC-B3 / PC-B4 **
    switchport mode access
-   switchport access vlan 20
+   switchport access vlan 50
    duplex full
    no shutdown
 
-!# Access ports for VLAN 30 : PC-B5, PC-B6
+!# Access ports for VLAN 60 : PC-B5, PC-B6
 interface range Eth1/0 - 1
-   description ** VLAN 30 ACCESS - PC-B5 / PC-B6 **
+   description ** VLAN 60 ACCESS - PC-B5 / PC-B6 **
    switchport mode access
-   switchport access vlan 30
+   switchport access vlan 60
    duplex full
    no shutdown
 
