@@ -220,18 +220,18 @@ interface Eth0/1
    duplex full
    no shutdown
 
-interface Eth0/1.10
-   encapsulation dot1Q 10
+interface Eth0/1.40
+   encapsulation dot1Q 40
    ip address 192.168.40.254 255.255.255.0
    description ** VLAN 10 GATEWAY - SITE B **
 
-interface Eth0/1.20
-   encapsulation dot1Q 20
+interface Eth0/1.50
+   encapsulation dot1Q 50
    ip address 192.168.50.254 255.255.255.0
    description ** VLAN 20 GATEWAY - SITE B **
 
-interface Eth0/1.30
-   encapsulation dot1Q 30
+interface Eth0/1.60
+   encapsulation dot1Q 60
    ip address 192.168.60.254 255.255.255.0
    description ** VLAN 30 GATEWAY - SITE B **
 
