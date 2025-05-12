@@ -81,13 +81,11 @@ hostname R1-65001
 interface Eth0/0
    description ** LINK TO R2 **
    ip address 1.0.0.1 255.255.255.252
-   speed 1000
    duplex full
    no shutdown
 
 interface Eth0/1
    description ** TRUNK TO SWITCH SW1 **
-   speed 1000
    duplex full
    no shutdown
 
@@ -133,14 +131,12 @@ hostname R2-65002
 interface Eth0/0
    description ** LINK TO R1 **
    ip address 1.0.0.2 255.255.255.252
-   speed 1000
    duplex full
    no shutdown
 
 interface Eth0/1
    description ** LINK TO R3 **
    ip address 2.0.0.1 255.255.255.252
-   speed 1000
    duplex full
    no shutdown
 
@@ -181,7 +177,6 @@ interface Eth0/1
 interface Eth0/0
    description ** LINK TO R4 **
    ip address 3.0.0.1 255.255.255.252
-   speed 1000
    duplex full
    no shutdown
 
@@ -212,13 +207,11 @@ hostname R4-65004
 interface Eth0/0
    description ** LINK TO R3 **
    ip address 3.0.0.2 255.255.255.252
-   speed 1000
    duplex full
    no shutdown
 
 interface Eth0/1
    description ** TRUNK TO SWITCH SW2 **
-   speed 1000
    duplex full
    no shutdown
 
