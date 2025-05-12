@@ -28,9 +28,10 @@ The simplicity of this setup allows for controlled experiments focused on:
 
 Although VLANs are present locally at each site, the primary goal is **not** to implement routing between them. Instead, the emphasis is on simulating routed traffic **across** the BGP domain between matching VLANs at each site (e.g., VLAN 10 to VLAN 10).
 
----
 
 ## Topology
+
+![image](https://github.com/user-attachments/assets/98c0e09b-5531-4f5f-b61a-ce4c4cc35648)
 
 
 ## Address Table
