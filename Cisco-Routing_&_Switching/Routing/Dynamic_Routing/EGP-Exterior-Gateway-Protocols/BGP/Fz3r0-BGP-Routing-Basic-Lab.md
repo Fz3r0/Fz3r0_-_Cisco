@@ -1,4 +1,4 @@
-# 🚀🔄🔧 Cisco: `Dynamic Routing` > `Link State` :: `OSPF`
+# 🚀🔄🔧 Cisco: `Dynamic Routing` > `EGP` :: `BGP`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -7,19 +7,28 @@
 
 ---
  
-#### **Keywords**: `Routing` `Dynamic Routing` `BGP`
+#### **Keywords**: `BGP` `eBGP` `Routing` `Dynamic Routing` `BGP Peering` `Route Advertisement` `Subnetting` `Traceroute` `Packet Capture` `Wireshark` `EVE-NG` `dot1Q` `Subinterfaces` `LAN-to-LAN Routing`
 
 ---
 
 
-
-
 </div>
 
-
-
-
 # 🌐🔄🖧 BGP Lab
+
+This lab simulates a basic BGP (Border Gateway Protocol) routing scenario between two remote sites (Site A and Site B) using four routers interconnected over point-to-point links. Each edge router connects to a local Layer 2 switch, which in turn connects to multiple end devices (PCs) grouped by VLANs (10, 20, and 30). The core objective is to establish eBGP sessions across routers and enable end-to-end IP connectivity **within the same VLANs across sites**.
+
+The simplicity of this setup allows for controlled experiments focused on:
+
+- 🔍 Observing BGP peering and route advertisement behavior
+- 🧭 Performing `traceroute` between edge hosts
+- 📦 Capturing traffic at key points using Wireshark or built-in tools in **EVE-NG**
+- 🧱 Practicing subinterface configuration with `dot1Q` tagging
+- 🚫 Verifying VLAN isolation (no inter-VLAN routing)
+
+Although VLANs are present locally at each site, the primary goal is **not** to implement routing between them. Instead, the emphasis is on simulating routed traffic **across** the BGP domain between matching VLANs at each site (e.g., VLAN 10 to VLAN 10).
+
+---
 
 ## Topology
 
