@@ -56,11 +56,210 @@
 
 ## Configuration
 
+### 🌐 R1 – Site A Edge Router - AS 65001
+
+````py
+!# Enable, Config & Naming
+enable
+configure terminal
+!
+hostname R1-65001
+
+!# WAN link to R2 (BGP peer)
+interface Eth0
+   description ** LINK TO R2 **
+   ip address 1.0.0.1 255.255.255.252
+   speed 1000
+   duplex full
+   no shutdown
+
+!# Trunk to Layer 2 switch SW1
+interface Eth1
+   description ** TRUNK TO SWITCH SW1 **
+   speed 1000
+   duplex full
+   no shutdown
+
+!# Subinterface for VLAN 10 – Site A
+interface Eth1.10
+   encapsulation dot1Q 10
+   ip address 192.168.10.1 255.255.255.0
+   description ** VLAN 10 GATEWAY - SITE A **
+
+!# Subinterface for VLAN 20 – Site A
+interface Eth1.20
+   encapsulation dot1Q 20
+   ip address 192.168.20.1 255.255.255.0
+   description ** VLAN 20 GATEWAY - SITE A **
+
+!# Subinterface for VLAN 30 – Site A
+interface Eth1.30
+   encapsulation dot1Q 30
+   ip address 192.168.30.1 255.255.255.0
+   description ** VLAN 30 GATEWAY - SITE A **
+
+!# BGP AS 65001 - Peering to R2 and LAN network advertisement
+router bgp 65001
+   bgp log-neighbor-changes
+   neighbor 1.0.0.2 remote-as 65002
+   network 192.168.10.0 mask 255.255.255.0
+   network 192.168.20.0 mask 255.255.255.0
+   network 192.168.30.0 mask 255.255.255.0
+
+end
+wr
+
+!
+!
+
+
+````
+
+### 📡 R2 – Intermediate Router - AS 65002
+
+
+````py
+!# Enable, Config & Naming
+enable
+configure terminal
+!
+hostname R2-65002
+
+!# Link to R1 (BGP peer)
+interface Eth0
+   description ** LINK TO R1 **
+   ip address 1.0.0.2 255.255.255.252
+   speed 1000
+   duplex full
+   no shutdown
+
+!# Link to R3 (BGP peer)
+interface Eth1
+   description ** LINK TO R3 **
+   ip address 2.0.0.1 255.255.255.252
+   speed 1000
+   duplex full
+   no shutdown
+
+!# BGP AS 65002 - Route transit between R1 and R3
+router bgp 65002
+   bgp log-neighbor-changes
+   neighbor 1.0.0.1 remote-as 65001
+   neighbor 2.0.0.2 remote-as 65003
+
+
+end
+wr
+
+!
+!
+
+
+````
+
+
+### 📡 R3 – Intermediate Router - AS 65003
+
+
+````py
+!# Enable, Config & Naming
+enable
+configure terminal
+!
+hostname R3-65003
+
+!# Link to R2 (BGP peer)
+interface Eth1
+   description ** LINK TO R2 **
+   ip address 2.0.0.2 255.255.255.252
+   speed 1000
+   duplex full
+   no shutdown
+
+!# Link to R4 (BGP peer)
+interface Eth0
+   description ** LINK TO R4 **
+   ip address 3.0.0.1 255.255.255.252
+   speed 1000
+   duplex full
+   no shutdown
+
+!# BGP AS 65003 - Route transit between R2 and R4
+router bgp 65003
+   bgp log-neighbor-changes
+   neighbor 2.0.0.1 remote-as 65002
+   neighbor 3.0.0.2 remote-as 65004
+
+
+end
+wr
+
+!
+!
+
+
+````
+
+### 🌐 R4 – Site A Edge Router - AS 65004
+
+````py
+!# Enable, Config & Naming
+enable
+configure terminal
+!
+hostname R3-65004
+
+!# WAN link to R3 (BGP peer)
+interface Eth0
+   description ** LINK TO R3 **
+   ip address 3.0.0.2 255.255.255.252
+   speed 1000
+   duplex full
+   no shutdown
+
+!# Trunk to Layer 2 switch SW2
+interface Eth1
+   description ** TRUNK TO SWITCH SW2 **
+   speed 1000
+   duplex full
+   no shutdown
+
+!# Subinterface for VLAN 10 – Site B
+interface Eth1.10
+   encapsulation dot1Q 10
+   ip address 192.168.10.254 255.255.255.0
+   description ** VLAN 10 GATEWAY - SITE B **
+
+!# Subinterface for VLAN 20 – Site B
+interface Eth1.20
+   encapsulation dot1Q 20
+   ip address 192.168.20.254 255.255.255.0
+   description ** VLAN 20 GATEWAY - SITE B **
+
+!# Subinterface for VLAN 30 – Site B
+interface Eth1.30
+   encapsulation dot1Q 30
+   ip address 192.168.30.254 255.255.255.0
+   description ** VLAN 30 GATEWAY - SITE B **
+
+!# BGP AS 65004 - Peering to R3 and LAN network advertisement
+router bgp 65004
+   bgp log-neighbor-changes
+   neighbor 3.0.0.1 remote-as 65003
+   network 192.168.10.0 mask 255.255.255.0
+   network 192.168.20.0 mask 255.255.255.0
+   network 192.168.30.0 mask 255.255.255.0
+
+
+end
+wr
+
+!
+!
 
 
 
-
-
+````
 
 
 # 📚🗂️🎥 Resources
