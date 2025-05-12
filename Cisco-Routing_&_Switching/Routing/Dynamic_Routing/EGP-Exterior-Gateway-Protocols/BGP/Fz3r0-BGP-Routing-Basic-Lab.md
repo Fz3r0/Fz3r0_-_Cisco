@@ -214,7 +214,7 @@ wr
 enable
 configure terminal
 !
-hostname R3-65004
+hostname R4-65004
 
 !# WAN link to R3 (BGP peer)
 interface Eth0/0
