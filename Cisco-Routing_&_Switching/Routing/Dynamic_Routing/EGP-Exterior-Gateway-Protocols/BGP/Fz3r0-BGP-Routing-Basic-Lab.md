@@ -547,7 +547,7 @@ save
 
 ## 🔍 What is `traceroute`?
 
-`traceroute is a tool that discovers the path packets take to a destination by sending packets with **increasing TTL (Time To Live)** values. When TTL hits 0 at each hop, the router replies with **ICMP Time Exceeded**.
+`traceroute` is a tool that discovers the path packets take to a destination by sending packets with **increasing TTL (Time To Live)** values. When TTL hits 0 at each hop, the router replies with **ICMP Time Exceeded**.
 
 - **Each hop you see is the IP address of the next-hop interface that replied with a "Time Exceeded" message.**
 
