@@ -545,8 +545,12 @@ save
 
 # Traceroute Lab
 
+### Traceroute from Site A (PC-A1) to Site B (PC-B1)
+
+![image](https://github.com/user-attachments/assets/bd92043b-1da2-4033-b76b-819368971563)
 
 
+### Traceroute from Site B (PC-B1) to Site A (PC-A1)
 
 
 
