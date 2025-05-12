@@ -74,10 +74,8 @@ Although VLANs are present locally at each site, the primary goal is **not** to 
 ````py
 enable
 configure terminal
-!
 hostname R1-65001
 
-!# WAN link to R2
 interface Eth0/0
    description ** LINK TO R2 **
    ip address 1.0.0.1 255.255.255.252
@@ -85,14 +83,12 @@ interface Eth0/0
    duplex full
    no shutdown
 
-!# Trunk to Layer 2 switch SW1
 interface Eth0/1
    description ** TRUNK TO SWITCH SW1 **
    speed 1000
    duplex full
    no shutdown
 
-!# VLAN Gateways – Site A
 interface Eth0/1.10
    encapsulation dot1Q 10
    ip address 192.168.10.254 255.255.255.0
@@ -108,7 +104,6 @@ interface Eth0/1.30
    ip address 192.168.30.254 255.255.255.0
    description ** VLAN 30 GATEWAY - SITE A **
 
-!# BGP Configuration
 router bgp 65001
    bgp log-neighbor-changes
    no auto-summary
@@ -131,7 +126,6 @@ wr
 ````py
 enable
 configure terminal
-!
 hostname R2-65002
 
 interface Eth0/0
@@ -148,7 +142,6 @@ interface Eth0/1
    duplex full
    no shutdown
 
-!# BGP Configuration (Transit only)
 router bgp 65002
    bgp log-neighbor-changes
    no auto-summary
@@ -174,7 +167,6 @@ wr
 ````py
 enable
 configure terminal
-!
 hostname R3-65003
 
 interface Eth0/1
@@ -191,7 +183,6 @@ interface Eth0/0
    duplex full
    no shutdown
 
-!# BGP Configuration (Transit only)
 router bgp 65003
    bgp log-neighbor-changes
    no auto-summary
@@ -203,7 +194,6 @@ router bgp 65003
 
 end
 wr
-
 !
 !
 
@@ -215,7 +205,6 @@ wr
 ````py
 enable
 configure terminal
-!
 hostname R4-65004
 
 interface Eth0/0
@@ -231,30 +220,28 @@ interface Eth0/1
    duplex full
    no shutdown
 
-!# VLAN Gateways – Site B
 interface Eth0/1.10
    encapsulation dot1Q 10
-   ip address 192.168.10.253 255.255.255.0
+   ip address 192.168.40.254 255.255.255.0
    description ** VLAN 10 GATEWAY - SITE B **
 
 interface Eth0/1.20
    encapsulation dot1Q 20
-   ip address 192.168.20.253 255.255.255.0
+   ip address 192.168.50.254 255.255.255.0
    description ** VLAN 20 GATEWAY - SITE B **
 
 interface Eth0/1.30
    encapsulation dot1Q 30
-   ip address 192.168.30.253 255.255.255.0
+   ip address 192.168.60.254 255.255.255.0
    description ** VLAN 30 GATEWAY - SITE B **
 
-!# BGP Configuration
 router bgp 65004
    bgp log-neighbor-changes
    no auto-summary
    neighbor 3.0.0.1 remote-as 65003
-   network 192.168.10.0 mask 255.255.255.0
-   network 192.168.20.0 mask 255.255.255.0
-   network 192.168.30.0 mask 255.255.255.0
+   network 192.168.40.0 mask 255.255.255.0
+   network 192.168.50.0 mask 255.255.255.0
+   network 192.168.60.0 mask 255.255.255.0
 
 end
 wr
@@ -477,7 +464,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B1
-ip 192.168.10.102/24 192.168.10.253
+ip 192.168.40.100/24 192.168.10.253
 save
 
 !
@@ -490,7 +477,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B2
-ip 192.168.10.103/24 192.168.10.253
+ip 192.168.40.101/24 192.168.10.254
 save
 
 !
@@ -503,7 +490,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B3
-ip 192.168.20.102/24 192.168.20.253
+ip 192.168.50.100/24 192.168.20.254
 save
 
 !
@@ -516,7 +503,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B4
-ip 192.168.20.103/24 192.168.20.253
+ip 192.168.50.101/24 192.168.20.254
 save
 
 !
@@ -529,7 +516,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B5
-ip 192.168.30.102/24 192.168.30.253
+ip 192.168.60.100/24 192.168.30.254
 save
 
 !
@@ -542,7 +529,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B6
-ip 192.168.30.103/24 192.168.30.253
+ip 192.168.60.101/24 192.168.30.254
 save
 
 !
