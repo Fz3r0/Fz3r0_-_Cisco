@@ -31,7 +31,7 @@ Although VLANs are present locally at each site, the primary goal is **not** to 
 
 ## Topology
 
-![image](https://github.com/user-attachments/assets/98c0e09b-5531-4f5f-b61a-ce4c4cc35648)
+![image](https://github.com/user-attachments/assets/44b42072-e282-4b14-b80a-83990a148bf2)
 
 
 ## Address Table
