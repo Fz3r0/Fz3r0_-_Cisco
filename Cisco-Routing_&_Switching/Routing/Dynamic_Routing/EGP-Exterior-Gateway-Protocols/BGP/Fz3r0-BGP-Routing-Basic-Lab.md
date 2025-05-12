@@ -464,7 +464,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B1
-ip 192.168.40.100/24 192.168.10.253
+ip 192.168.40.100/24 192.168.40.254
 save
 
 !
@@ -477,7 +477,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B2
-ip 192.168.40.101/24 192.168.10.254
+ip 192.168.40.101/24 192.168.40.254
 save
 
 !
@@ -490,7 +490,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B3
-ip 192.168.50.100/24 192.168.20.254
+ip 192.168.50.100/24 192.168.50.254
 save
 
 !
@@ -503,7 +503,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B4
-ip 192.168.50.101/24 192.168.20.254
+ip 192.168.50.101/24 192.168.50.254
 save
 
 !
@@ -516,7 +516,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B5
-ip 192.168.60.100/24 192.168.30.254
+ip 192.168.60.100/24 192.168.60.254
 save
 
 !
@@ -529,7 +529,7 @@ save
 ````py
 !# PC Name & Static IP
 set pcname PC-B6
-ip 192.168.60.101/24 192.168.30.254
+ip 192.168.60.101/24 192.168.60.254
 save
 
 !
