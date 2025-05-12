@@ -79,34 +79,32 @@ configure terminal
 hostname R1-65001
 
 !# WAN link to R2 (BGP peer)
-interface Eth0
+interface Eth0/0
    description ** LINK TO R2 **
    ip address 1.0.0.1 255.255.255.252
-   speed 1000
    duplex full
    no shutdown
 
 !# Trunk to Layer 2 switch SW1
-interface Eth1
+interface Eth0/1
    description ** TRUNK TO SWITCH SW1 **
-   speed 1000
    duplex full
    no shutdown
 
-!# Subinterface for VLAN 10 – Site A
-interface Eth1.10
+!# Subinterface for VLAN 10 Site A
+interface Eth0/1.10
    encapsulation dot1Q 10
    ip address 192.168.10.254 255.255.255.0
    description ** VLAN 10 GATEWAY - SITE A **
 
-!# Subinterface for VLAN 20 – Site A
-interface Eth1.20
+!# Subinterface for VLAN 20 Site A
+interface Eth0/1.20
    encapsulation dot1Q 20
    ip address 192.168.20.254 255.255.255.0
    description ** VLAN 20 GATEWAY - SITE A **
 
-!# Subinterface for VLAN 30 – Site A
-interface Eth1.30
+!# Subinterface for VLAN 30 Site A
+interface Eth0/1.30
    encapsulation dot1Q 30
    ip address 192.168.30.254 255.255.255.0
    description ** VLAN 30 GATEWAY - SITE A **
@@ -237,19 +235,19 @@ interface Eth1
    duplex full
    no shutdown
 
-!# Subinterface for VLAN 10 – Site B
+!# Subinterface for VLAN 10 Site B
 interface Eth1.10
    encapsulation dot1Q 10
    ip address 192.168.10.253 255.255.255.0
    description ** VLAN 10 GATEWAY - SITE B **
 
-!# Subinterface for VLAN 20 – Site B
+!# Subinterface for VLAN 20 Site B
 interface Eth1.20
    encapsulation dot1Q 20
    ip address 192.168.20.253 255.255.255.0
    description ** VLAN 20 GATEWAY - SITE B **
 
-!# Subinterface for VLAN 30 – Site B
+!# Subinterface for VLAN 30 Site B
 interface Eth1.30
    encapsulation dot1Q 30
    ip address 192.168.30.253 255.255.255.0
