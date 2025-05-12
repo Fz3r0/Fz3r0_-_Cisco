@@ -286,30 +286,27 @@ vlan 20
 vlan 30
    name VLAN30-SITEA
 
-!# Access ports for VLAN 10 – PC-A1, PC-A2
+!# Access ports for VLAN 10 : PC-A1, PC-A2
 interface range Eth0/0 - 1
    description ** VLAN 10 ACCESS - PC-A1 / PC-A2 **
    switchport mode access
    switchport access vlan 10
-   speed 1000
    duplex full
    no shutdown
 
-!# Access ports for VLAN 20 – PC-A3, PC-A4
+!# Access ports for VLAN 20 : PC-A3, PC-A4
 interface range Eth0/2 - 3
    description ** VLAN 20 ACCESS - PC-A3 / PC-A4 **
    switchport mode access
    switchport access vlan 20
-   speed 1000
    duplex full
    no shutdown
 
-!# Access ports for VLAN 30 – PC-A5, PC-A6
+!# Access ports for VLAN 30 : PC-A5, PC-A6
 interface range Eth1/0 - 1
    description ** VLAN 30 ACCESS - PC-A5 / PC-A6 **
    switchport mode access
    switchport access vlan 30
-   speed 1000
    duplex full
    no shutdown
 
@@ -318,7 +315,6 @@ interface Eth2/3
    description ** TRUNK TO R1 ROUTER **
    switchport mode trunk
    switchport trunk encapsulation dot1q
-   speed 1000
    duplex full
    no shutdown
 
@@ -352,30 +348,27 @@ vlan 20
 vlan 30
    name VLAN30-SITEB
 
-!# Access ports for VLAN 10 – PC-B1, PC-B2
+!# Access ports for VLAN 10 : PC-B1, PC-B2
 interface range Eth0/0 - 1
    description ** VLAN 10 ACCESS - PC-B1 / PC-B2 **
    switchport mode access
    switchport access vlan 10
-   speed 1000
    duplex full
    no shutdown
 
-!# Access ports for VLAN 20 – PC-B3, PC-B4
+!# Access ports for VLAN 20 : PC-B3, PC-B4
 interface range Eth0/2 - 3
    description ** VLAN 20 ACCESS - PC-B3 / PC-B4 **
    switchport mode access
    switchport access vlan 20
-   speed 1000
    duplex full
    no shutdown
 
-!# Access ports for VLAN 30 – PC-B5, PC-B6
+!# Access ports for VLAN 30 : PC-B5, PC-B6
 interface range Eth1/0 - 1
    description ** VLAN 30 ACCESS - PC-B5 / PC-B6 **
    switchport mode access
    switchport access vlan 30
-   speed 1000
    duplex full
    no shutdown
 
@@ -384,7 +377,6 @@ interface Eth2/3
    description ** TRUNK TO R4 ROUTER **
    switchport mode trunk
    switchport trunk encapsulation dot1q
-   speed 1000
    duplex full
    no shutdown
 
