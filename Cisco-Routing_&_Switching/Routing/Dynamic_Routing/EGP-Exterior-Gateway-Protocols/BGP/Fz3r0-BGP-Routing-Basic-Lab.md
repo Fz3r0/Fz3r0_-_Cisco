@@ -77,7 +77,7 @@ configure terminal
 !
 hostname R1-65001
 
-!# WAN link to R2 (BGP peer)
+!# WAN link to R2
 interface Eth0/0
    description ** LINK TO R2 **
    ip address 1.0.0.1 255.255.255.252
@@ -108,7 +108,7 @@ interface Eth0/1.30
    ip address 192.168.30.254 255.255.255.0
    description ** VLAN 30 GATEWAY - SITE A **
 
-!# BGP config
+!# BGP Configuration
 router bgp 65001
    bgp log-neighbor-changes
    no auto-summary
@@ -148,7 +148,12 @@ interface Eth0/1
    duplex full
    no shutdown
 
-!# BGP config (transit router)
+!# Static routes to reach R1 LANs (so they exist in the routing table)
+ip route 192.168.10.0 255.255.255.0 1.0.0.1
+ip route 192.168.20.0 255.255.255.0 1.0.0.1
+ip route 192.168.30.0 255.255.255.0 1.0.0.1
+
+!# BGP Configuration
 router bgp 65002
    bgp log-neighbor-changes
    no auto-summary
@@ -156,6 +161,9 @@ router bgp 65002
    neighbor 2.0.0.2 remote-as 65003
    network 1.0.0.0 mask 255.255.255.252
    network 2.0.0.0 mask 255.255.255.252
+   network 192.168.10.0 mask 255.255.255.0
+   network 192.168.20.0 mask 255.255.255.0
+   network 192.168.30.0 mask 255.255.255.0
 
 end
 wr
@@ -190,7 +198,7 @@ interface Eth0/0
    duplex full
    no shutdown
 
-!# BGP config (transit router)
+!# BGP Configuration
 router bgp 65003
    bgp log-neighbor-changes
    no auto-summary
@@ -198,6 +206,9 @@ router bgp 65003
    neighbor 3.0.0.2 remote-as 65004
    network 2.0.0.0 mask 255.255.255.252
    network 3.0.0.0 mask 255.255.255.252
+   network 192.168.10.0 mask 255.255.255.0
+   network 192.168.20.0 mask 255.255.255.0
+   network 192.168.30.0 mask 255.255.255.0
 
 end
 wr
@@ -229,6 +240,7 @@ interface Eth0/1
    duplex full
    no shutdown
 
+!# VLAN Gateways – Site B
 interface Eth0/1.10
    encapsulation dot1Q 10
    ip address 192.168.10.253 255.255.255.0
@@ -244,7 +256,7 @@ interface Eth0/1.30
    ip address 192.168.30.253 255.255.255.0
    description ** VLAN 30 GATEWAY - SITE B **
 
-!# BGP config
+!# BGP Configuration
 router bgp 65004
    bgp log-neighbor-changes
    no auto-summary
@@ -256,6 +268,8 @@ router bgp 65004
 end
 wr
 
+!
+!
 
 
 ````
