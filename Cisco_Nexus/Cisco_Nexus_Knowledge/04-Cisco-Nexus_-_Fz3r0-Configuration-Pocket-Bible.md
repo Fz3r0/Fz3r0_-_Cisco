@@ -492,6 +492,15 @@ In NX-OS, VLAN creation, trunk configuration, and access port setup closely mirr
 !# VLANs, TRUNKS & ACCESS PORTS             #
 !#############################################
 
+! # vlan & trunk show important commands
+show vlan
+show interface status
+show run interface ethernet 2/1
+show interface trunk
+! # Show VLANs reserved for internal uses (Cisco reserved VLANs)
+show vlan interal usage
+show system vlan reserved
+
 !# 1. Ensure VLANs exist or create new VLANs
 vlan 10
   name VLAN10-BLUE
@@ -538,7 +547,120 @@ mac address-table limit vlan 20 199
 
 ````
 
-### SVI (Switch VLAN Interface)
+## Port Profile
+
+- Port Profiles in NX-OS allow you to group common interface settings into a reusable template. This simplifies configuration, ensures consistency, and speeds deployment. Instead of typing the same commands on every interface, you attach a port profile to one or many interfaces. If you need to update settings network-wide, you only modify the port profile.
+
+````py
+!################
+!# PORT PROFILE #
+!################
+
+!# 1. List available port profile types (ethernet, interface-vlan, port-channel, etc.)
+port-profile type ?
+
+!# 2. Create a basic Ethernet port profile for an access port in VLAN 10
+port-profile type ethernet fz3r0-interfaces-access-10
+   !# Human-friendly description
+   description ACCESS-VLAN10-BLUE
+   !# Ensure interface is active
+   no shutdown
+   !# Put interface into L2 access mode
+   switchport mode access
+   !# Assign VLAN 10
+   switchport access vlan 10
+   !# Force full-duplex
+   duplex full
+   !# Enable this port profile
+   state enabled
+exit
+
+!# 3. Create a second Ethernet port profile that inherits the first, adding 100 Mbps speed
+port-profile type ethernet fz3r0-interfaces-access-10-AND-speed100
+   !# Reuse all settings from fz3r0-interfaces-access-10
+   inherit port-profile fz3r0-interfaces-access-10
+   !# Override or add settings: set speed to 100 Mbps
+   speed 100
+   !# Describe the purpose
+   description ACCESS-VLAN10-BLUE-SPEED100
+   !# Enable this port profile
+   state enabled
+exit
+
+!# 4. Apply the fz3r0-interfaces-access-10 profile to a range of interfaces
+interface ethernet 1/1-2
+   !# Attach the port profile, which pushes all its commands to these interfaces
+   inherit port-profile fz3r0-interfaces-access-10
+exit
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# Helpful show commands:
+
+!# Show all configured port profiles
+show port-profile summary
+
+!# Show details of a specific port profile
+show port-profile type ethernet fz3r0-interfaces-access-10
+
+!# Verify which profile is applied to a given interface
+show interface ethernet 1/1 port-profile
+
+!# Show running configuration for port profiles
+show running-config port-profile
+````
+
+
+
+
+## Out-Of-Band (OOB) Management Interface
+
+In NX-OS, a dedicated Out-Of-Band (OOB) management interface separates device management traffic from production data. This ensures administrative access remains available even if data-plane interfaces are down. By placing this interface in its own “management” VRF, you isolate management routing, improve security, and simplify policy control.
+
+````py
+!##########################################
+!# Out-Of-Band (OOB) Management Interface #
+!##########################################
+
+!# 1. Configure the Management Interface (usually mgmt0)
+interface management 0
+  no shutdown
+  description ** OOB Management Interface **
+  ip address 192.168.100.100/24
+exit
+
+!# 2. Create or enter the 'management' VRF context
+vrf context management
+
+!# 3. Add a default route in the management VRF to reach the OOB gateway
+ip route 0.0.0.0/0 192.168.100.1
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# Useful show commands for Management VRF and VRFs in general:
+
+!# Show all VRFs configured on the device
+show vrf
+
+!# Show interfaces assigned to the 'management' VRF
+show vrf management interface
+
+!# Show running configuration for the 'management' VRF only
+show running-config vrf management
+
+!# Show the IP routing table for the 'management' VRF
+show ip route vrf management
+
+!# Verify the management interface status and IP
+show interface management 0
+
+!# Check process reachability to OOB gateway from management VRF
+ping vrf management 192.168.100.1
+````
+
+
+
+## SVI (Switch VLAN Interface)
 
 In NX-OS, SVIs (Switch Virtual Interfaces) act as Layer-3 gateways for VLANs—similar to “interface vlan X” on IOS, but you must ensure VLAN exists and the interface-vlan feature is enabled.
 
@@ -591,11 +713,185 @@ ip route 0.0.0.0/0 123.1.1.1
 ````
 
 
+## HSRP (Hot Standby Router Protocol)
 
+In NX-OS, HSRP (Hot Standby Router Protocol) provides a virtual gateway IP for hosts, ensuring continuous Layer-3 access if one device fails. Both active and standby routers share a virtual IP; the higher-priority device becomes active, and the other takes over if it stops responding.  
 
+````py
+!##################################
+!# HSRP CONFIGURATION EXAMPLE     #
+!##################################
 
+!# Assume two core switches with SVI IPs:
+!#   Core1 SVI  = 192.168.X.254 (higher priority → ACTIVE)
+!#   Core2 SVI  = 192.168.X.253 (lower priority → STANDBY)
+!# Virtual IP for each VLAN = 192.168.X.1
 
+!# 1. Create VLANs (if not already present)
+vlan 10
+  name VLAN10-BLUE
+vlan 20
+  name VLAN10-RED
+vlan 30
+  name VLAN10-GREEN-MANAGEMENT
+exit
 
+!# 2. Enable SVI feature (required on some NX-OS versions)
+feature interface-vlan
+
+!# 3. Create SVIs on Core1 (active)
+interface vlan 10
+  no shutdown
+  description ** SVI + GW VLAN10-BLUE (Core1) **
+  ip address 192.168.10.254/24
+exit
+
+interface vlan 20
+  no shutdown
+  description ** SVI + GW VLAN20-RED (Core1) **
+  ip address 192.168.20.254/24
+exit
+
+interface vlan 30
+  no shutdown
+  description ** SVI + GW VLAN30-GREEN (Core1) **
+  ip address 192.168.30.254/24
+exit
+
+!# 4. (Optional) Configure a dedicated WAN interface on Core1
+interface ethernet 1/1
+  no shutdown
+  no switchport
+  description ** WAN-L3-INTERFACE (Core1) **
+  ip address 123.1.1.2/30
+exit
+
+!# 5. Create default route on Core1
+ip route 0.0.0.0/0 123.1.1.1
+
+!# 6. Enable HSRP feature
+feature hsrp
+
+!# 7. Configure HSRP groups on Core1 (higher priority = active)
+interface vlan 10
+  hsrp version 2
+  hsrp 10
+  ip 192.168.10.1
+  preempt
+  priority 200
+exit
+
+interface vlan 20
+  hsrp version 2
+  hsrp 20
+  ip 192.168.20.1
+  preempt
+  priority 200
+exit
+
+interface vlan 30
+  hsrp version 2
+  hsrp 30
+  ip 192.168.30.1
+  preempt
+  priority 200
+exit
+
+!# --------------------------------------------
+
+!# Repeat on Core2 (standby) with lower priority
+
+!# 1. Create VLANs (if not already present)
+vlan 10
+  name VLAN10-BLUE
+vlan 20
+  name VLAN10-RED
+vlan 30
+  name VLAN10-GREEN-MANAGEMENT
+exit
+
+!# 2. Enable SVI feature (if needed)
+feature interface-vlan
+
+!# 3. Create SVIs on Core2 (standby)
+interface vlan 10
+  no shutdown
+  description ** SVI + GW VLAN10-BLUE (Core2) **
+  ip address 192.168.10.253/24
+exit
+
+interface vlan 20
+  no shutdown
+  description ** SVI + GW VLAN20-RED (Core2) **
+  ip address 192.168.20.253/24
+exit
+
+interface vlan 30
+  no shutdown
+  description ** SVI + GW VLAN30-GREEN (Core2) **
+  ip address 192.168.30.253/24
+exit
+
+!# 4. (Optional) Configure a dedicated WAN interface on Core2
+interface ethernet 1/1
+  no shutdown
+  no switchport
+  description ** WAN-L3-INTERFACE (Core2) **
+  ip address 123.2.2.2/30
+exit
+
+!# 5. Create default route on Core2
+ip route 0.0.0.0/0 123.2.2.1
+
+!# 6. Enable HSRP feature
+feature hsrp
+
+!# 7. Configure HSRP groups on Core2 (lower priority = standby)
+interface vlan 10
+  hsrp version 2
+  hsrp 10
+  ip 192.168.10.1
+  preempt
+  priority 100
+exit
+
+interface vlan 20
+  hsrp version 2
+  hsrp 20
+  ip 192.168.20.1
+  preempt
+  priority 100
+exit
+
+interface vlan 30
+  hsrp version 2
+  hsrp 30
+  ip 192.168.30.1
+  preempt
+  priority 100
+exit
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# Useful show commands for troubleshooting HSRP
+
+!#  - Verify HSRP state and VIP assignments
+show hsrp brief
+
+!#  - Show detailed HSRP statistics per interface
+show hsrp interface vlan 10
+
+!#  - Verify HSRP timers and priority
+show hsrp detail
+
+!#  - Confirm active/standby roles
+show hsrp status
+
+!#  - Check underlying VLAN and SVI status
+show interface vlan 10
+show ip interface brief
+
+````
 
 
 
@@ -611,225 +907,7 @@ ip route 0.0.0.0/0 123.1.1.1
 
 
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!##################################
-!# HSRP
-!##################################
-
-#! CORE 1      = 192.168.x.254 : 
-#! CORE 2      = 192.168.x.253 : 
-#! HSRP (BOTH) = 192.168.x.1
-
-#! Group 10 = VLAN 10 : 192.168.10.x >> VIP = 192.168.10.1 (HSRP BOTH)
-#! Group 20 = VLAN 20 : 192.168.20.x >> VIP = 192.168.20.1 (HSRP BOTH)
-#! Group 30 = VLAN 30 : 192.168.30.x >> VIP = 192.168.30.1 (HSRP BOTH)
-
-#! ** CORE 1 ** 192.x.x.254  (ACTIVE)
-
-#! 1. Create the VLANs
-vlan 10
-   name VLAN10-BLUE
-vlan 20
-   name VLAN10-RED
-vlan 30
-   name VLAN10-GREEN-MANAGEMENT
-exit
-
-#! 2. Create SVIs
-feature interface-vlan
-interface vlan 10
-   no shutdown
-   description ** SVI+GW-L3-VLAN10-BLUE **
-   ip address 192.168.10.254/24
-exit
-interface vlan 20
-   no shutdown
-   description ** SVI+GW-L3-VLAN20-RED **
-   ip address 192.168.20.254/24
-exit
-interface vlan 30
-   no shutdown
-   description ** SVI+GW-L3-VLAN30-GREEN **
-   ip address 192.168.30.254/24
-exit
-
-#! 3. Set L3 interface to ISP/WAN
-
-interface ethernet 1/1
-   no shutdown
-   no switchport
-   description ** WAN-L3-INTERFACE **
-   ip address 123.1.1.2/30
-exit
-
-#! 4. Create Default Route to ISP/WAN
-
-ip route 0.0.0.0/0 123.1.1.1/30
-
-#! 5. Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
-
-feature hsrp
-interface vlan 10
-   !# Select version 2
-   hsrp version 2
-   !# Create Group
-   hsrp 10
-   !# Configure VIP
-   ip 192.168.10.1
-   !# Highest priprity will be primary
-   preempt
-   priority 200
-exit
-interface vlan 20
-   !# Select version 2
-   hsrp version 2
-   !# Create Group
-   hsrp 20
-   !# Configure VIP
-   ip 192.168.20.1
-   !# Highest priprity will be primary
-   preempt
-   priority 200
-exit
-interface vlan 30
-   !# Select version 2
-   hsrp version 2
-   !# Create Group
-   hsrp 30
-   !# Configure VIP
-   ip 192.168.30.1
-   !# Highest priprity will be primary
-   preempt
-   priority 200
-exit
-
-#! --------------------------------------------
-
-#! ** CORE 2 ** 192.x.x.253 (PASSIVE)
-
-#! 1. Create the VLANs
-vlan 10
-   name VLAN10-BLUE
-vlan 20
-   name VLAN10-RED
-vlan 30
-   name VLAN10-GREEN-MANAGEMENT
-exit
-
-#! 2. Create SVIs
-feature interface-vlan
-interface vlan 10
-   no shutdown
-   description ** SVI+GW-L3-VLAN10-BLUE **
-   ip address 192.168.10.253/24
-exit
-interface vlan 20
-   no shutdown
-   description ** SVI+GW-L3-VLAN20-RED **
-   ip address 192.168.20.253/24
-exit
-interface vlan 30
-   no shutdown
-   description ** SVI+GW-L3-VLAN30-GREEN **
-   ip address 192.168.30.253/24
-exit
-
-#! 3. Set L3 interface to ISP/WAN
-
-interface ethernet 1/1
-   no shutdown
-   no switchport
-   description ** WAN-L3-INTERFACE **
-   ip address 123.2.2.2/30
-exit
-
-#! 4. Create Default Route to ISP/WAN
-
-ip route 0.0.0.0/0 123.2.2.1/30
-
-#! 5. Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;))
-
-feature hsrp
-interface vlan 10
-   !# Select version 2
-   hsrp version 2
-   !# Create Group
-   hsrp 10
-   !# Configure VIP
-   ip 192.168.10.1
-   !# Highest priprity will be primary
-   preempt
-   priority 100
-exit
-interface vlan 20
-   !# Select version 2
-   hsrp version 2
-   !# Create Group
-   hsrp 20
-   !# Configure VIP
-   ip 192.168.20.1
-   !# Highest priprity will be primary
-   preempt
-   priority 100
-exit
-interface vlan 30
-   !# Select version 2
-   hsrp version 2
-   !# Create Group
-   hsrp 30
-   !# Configure VIP
-   ip 192.168.30.1
-   !# Highest priprity will be primary
-   preempt
-   priority 100
-exit
-
-!# --- HSRP HELP COmmands
-
-show hsrp brief
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-
-!##########################################
-!# Out-Of-Band (OOB) Management Interface #
-!##########################################
-!
-! ## IP Addressing:
-interface management 0
-ip address 192.168.100.100/24
-no shutdown
-!
-! ## Enter the management VRF context (used for OOB traffic separation):
-vrf context management
-! ## Add a default route (0.0.0.0/0) in the management VRF pointing to the OOB router/gateway (eg. Cradlepoint)
-ip route 0.0.0.0/0 192.168.100.1
-
-!# ---
-
-! # Show all VRFs configured on the device
-show vrf
-! # Show interfaces assigned to the 'management' VRF
-show vrf management interface
-! # Show running configuration specific to the 'management' VRF
-show running-config vrf management
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-
-
----
-
-! # vlan & trunk show important commands
-show vlan
-show interface status
-show run interface ethernet 2/1
-show interface trunk
-
-! # Show VLANs reserved for internal uses (Cisco reserved VLANs)
-show vlan interal usage
-show system vlan reserved
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
