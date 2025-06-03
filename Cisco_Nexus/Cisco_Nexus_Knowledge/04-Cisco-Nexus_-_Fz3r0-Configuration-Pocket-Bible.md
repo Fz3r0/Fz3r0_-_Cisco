@@ -402,6 +402,187 @@ exit
 ````
 
 
+## Interface Configuration
+
+In NX-OS, interface configuration is similar to IOS but with a few Nexus-specific nuances (e.g., default L3 mode, feature enablement).
+
+### Interface Selection
+
+- In NX-OS you can also use wildcards and port‐channel selectors to match multiple interfaces.
+- Any syntax that matches the interface name pattern is accepted, similar to IOS wildcard usage.
+
+````py
+!#############################################
+!# INTERFACE RANGE SELECTION                #
+!#############################################
+
+!# Single interface:
+interface ethernet 1/1
+
+!# Range of sequential interfaces:
+interface ethernet 1/1-4
+
+!# Non-sequential list:
+interface ethernet 1/1,1/6,1/8
+
+!# Wildcard for an entire slot (all ports on module 1):
+interface ethernet 1/*
+
+!# Mix of ranges and single ports:
+interface ethernet 1/[1-2],1/[5-6],1/8
+
+!# Port‐channel interfaces (all Po interfaces):
+interface port-channel *
+
+!# Specific subset of port‐channels:
+interface port-channel 1-3
+
+!# You can combine VLAN SVIs too:
+interface vlan 10-12
+````
+
+### INTERFACE L3 / IP & ADDRESSING 
+
+- On Nexus, interfaces default to Layer-3 mode unless “system default switchport” is active.
+- To use interface as traditional Layer-2 interface (as IOS/Catalyst) you will need to run "switchport" command
+
+````py
+!#############################################
+!# INTERFACE L3 / IP & ADDRESSING           #
+!#############################################
+
+!# To explicitly set an interface to L2 (enable switchport / traditional Catalyst layer 2):
+interface ethernet 1/1
+  switchport
+exit
+
+!# To explicitly set an interface to L3 (disable switchport):
+interface ethernet 1/1
+  no switchport
+exit
+
+!# Example: Assign a WAN IP on a pure L3 port
+interface ethernet 1/1
+  no shutdown
+  no switchport
+  description ** WAN-L3-INTERFACE **
+  ip address 123.123.123.2/30
+exit
+
+!# After assigning IP, you can add a default route:
+ip route 0.0.0.0/0 123.123.123.1
+
+````
+
+### VLANs, Trunks & Access Ports
+
+In NX-OS, VLAN creation, trunk configuration, and access port setup closely mirror IOS, with a few Nexus‐specific commands (e.g., “vlan dot1q tag native”).
+
+````py
+!#############################################
+!# VLANs, TRUNKS & ACCESS PORTS             #
+!#############################################
+
+!# 1. Ensure VLANs exist (some may already be created above)
+vlan 10
+  name VLAN10-BLUE
+vlan 20
+  name VLAN10-RED
+vlan 30
+  name VLAN10-GREEN-MANAGEMENT
+vlan 99
+  name VLAN99-TRUNK-NATIVE
+  vlan dot1q tag native
+exit
+
+!# 2. Configure a trunk interface (for VLANs 10,20,30; native VLAN 99)
+interface ethernet 1/4
+  no shutdown
+  description ** L2-TRUNK-NATIVE99 **
+  switchport
+  switchport mode trunk
+  switchport trunk native vlan 99
+  switchport trunk allowed vlan 10,20,30
+  speed 1000
+  duplex full
+  spanning-tree port type network   !# R-PVSTP: mark as network port
+  cdp enable
+exit
+
+!# 3. Configure an access port in VLAN 10 (edge port settings)
+interface ethernet 1/5
+  no shutdown
+  description ** L2-ACCESS-VLAN10-BLUE **
+  switchport
+  switchport mode access
+  switchport access vlan 10
+  speed 1000
+  duplex full
+  spanning-tree port type edge      !# R-PVSTP: mark as edge port (PortFast equivalent)
+  spanning-tree bpduguard enable    !# Block if BPDU received
+  cdp enable
+exit
+````
+
+### SVI (Switch VLAN Interface)
+
+In NX-OS, SVIs (Switch Virtual Interfaces) act as Layer-3 gateways for VLANs—similar to “interface vlan X” on IOS, but you must ensure VLAN exists and the interface-vlan feature is enabled.
+
+````py
+!#############################################
+!# SVI + CONFIGURE SWITCH AS GATEWAY         #
+!#############################################
+
+!# 1. Create VLANs (needed before creating SVIs)
+vlan 10
+  name VLAN10-BLUE
+vlan 20
+  name VLAN10-RED
+vlan 30
+  name VLAN10-GREEN-MANAGEMENT
+exit
+
+!# 2. Enable the interface-vlan feature (required for SVIs on some NX-OS versions)
+feature interface-vlan
+
+!# 3. Create SVIs (logical L3 interfaces for each VLAN)
+interface vlan 10
+  no shutdown
+  description ** SVI + GW L3 VLAN10-BLUE **
+  ip address 192.168.10.254/24
+exit
+
+interface vlan 20
+  no shutdown
+  description ** SVI + GW L3 VLAN20-RED **
+  ip address 192.168.20.254/24
+exit
+
+interface vlan 30
+  no shutdown
+  description ** SVI + GW L3 VLAN30-GREEN **
+  ip address 192.168.30.254/24
+exit
+
+!# 4. (Optional) If you also need a dedicated WAN L3 port on the same switch, configure like above:
+interface ethernet 1/1
+  no shutdown
+  no switchport
+  description ** WAN-L3-INTERFACE **
+  ip address 123.1.1.2/30
+exit
+
+!# 5. Create a default route pointing to your ISP/WAN gateway:
+ip route 0.0.0.0/0 123.1.1.1
+````
+
+
+
+
+
+
+
+
 
 
 
@@ -421,84 +602,13 @@ exit
 
 
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!##############################
-!# INTERFACE RANGE SELECTION
-!##############################
 
-#! Configure ONE interface
-interface ethernet 1/1
 
-#! Configure RANGE interfaces
-interface ethernet 1/1-4
 
-#! Configure DIFFERENT interfaces
-interface ethernet 1/1,1/6,1/8
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!##################################
-!# INTERFACE L3 / IP & ADDRESSING #
-!##################################
 
-#! Set interface to L3 (default is L3 already)
-interface ethernet 1/1
-    no switchport
-exit
-
-interface ethernet 1/1
-   no shutdown
-   no switchport
-   description ** WAN-L3-INTERFACE **
-   ip address 123.123.123.2/30
-exit
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-!##################################
-!# SVI + SET SWITCH/INTERFACE AS GATEWAY #
-!##################################
-
-#! 1. Create the VLANs
-vlan 10
-   name VLAN10-BLUE
-vlan 20
-   name VLAN10-RED
-vlan 30
-   name VLAN10-GREEN-MANAGEMENT
-exit
-
-#! 2. Create SVIs
-feature interface-vlan
-interface vlan 10
-   no shutdown
-   description ** SVI+GW-L3-VLAN10-BLUE **
-   ip address 192.168.10.254/24
-exit
-interface vlan 20
-   no shutdown
-   description ** SVI+GW-L3-VLAN20-RED **
-   ip address 192.168.20.254/24
-exit
-interface vlan 30
-   no shutdown
-   description ** SVI+GW-L3-VLAN30-GREEN **
-   ip address 192.168.30.254/24
-exit
-
-#! 3. Set L3 interface to ISP/WAN
-
-interface ethernet 1/1
-   no shutdown
-   no switchport
-   description ** WAN-L3-INTERFACE **
-   ip address 123.1.1.2/30
-exit
-
-#! 4. Create Default Route to ISP/WAN
-
-ip route 0.0.0.0/0 123.1.1.1/30
 
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
