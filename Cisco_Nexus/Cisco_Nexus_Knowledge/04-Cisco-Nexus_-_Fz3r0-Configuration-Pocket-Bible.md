@@ -2739,6 +2739,9 @@ router ospf 1
     !# RT1 - Outside WAN
     network 123.1.1.0 0.0.0.3 area 0
 
+    !# RT2 - to MPLS (No NAT) (Network: 10.100.0.0)
+    network 10.100.0.0 0.0.0.3 area 0
+
     !# propaga la ruta por defecto      
     default-information originate always
 
@@ -2754,8 +2757,6 @@ interface Ethernet1/0
    description ** Link-to-MPLS-1 **
    ip address 10.100.0.2 255.255.255.252
    duplex full
-   ip ospf network point-to-point
-   ip router ospf 1 area 0 
 exit
 
 !# MPLS STATIC ROUTES @ MPLS CIRCUITS
@@ -2869,6 +2870,9 @@ router ospf 1
     !# RT2 - Outside WAN
     network 123.2.2.0 0.0.0.3 area 0
 
+    !# RT2 - to MPLS (No NAT) (Network: 10.100.0.4)
+    network 10.100.0.4 0.0.0.3 area 0
+
     !# propaga la ruta por defecto      
     default-information originate always
 
@@ -2885,8 +2889,6 @@ interface Ethernet1/0
    description ** Link-to-MPLS-2 **
    ip address 10.100.0.6 255.255.255.252
    duplex full
-   ip ospf network point-to-point
-   ip router ospf 1 area 0 
 exit
 
 !# MPLS STATIC ROUTES @ MPLS CIRCUITS
