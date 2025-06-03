@@ -24,8 +24,6 @@
 
 ## Topology
 
-I will be using this topology for all the examples & configurations:
-
 ![image](https://github.com/user-attachments/assets/cd6e8dc1-ee2e-46e8-8d82-5df8bf4f4deb)
 
 ## Network Device Inventory & IP Address Summary
