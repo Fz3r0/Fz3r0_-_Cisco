@@ -2653,9 +2653,9 @@ hostname RT-1-EDGE
 #! OSPF BEST PREFERENCE (1) @ NX9-1-CORE-PRIMARY
 interface Ethernet0/1
    no shutdown
+   duplex full
    description ** Link-to-NX9-1-CORE **
    ip address 10.10.0.1 255.255.255.252
-   duplex full
    ip ospf network point-to-point
    ip ospf cost 1
    ip nat inside
@@ -2664,9 +2664,9 @@ exit
 #! OSPF MEDIUM PREFERENCE (100) @ NX9-2-CORE-SECONDARY
 interface Ethernet0/2
    no shutdown
+   duplex full
    description ** Link-to-NX9-2-CORE **
    ip address 10.30.0.1 255.255.255.252
-   duplex full
    ip ospf network point-to-point
    ip ospf cost 100
    ip nat inside
@@ -2675,9 +2675,9 @@ exit
 #! OSPF WORST PREFERENCE (200) @ RT2 (WAN2)
 interface Ethernet0/3
    no shutdown
+   duplex full
    description ** RT1-RT2-Edge-to-Edge-Link **
    ip address 10.60.0.1 255.255.255.252
-   duplex full
    ip ospf network point-to-point
    ip ospf cost 200
    ip nat inside
@@ -2687,9 +2687,9 @@ exit
 
 interface Ethernet0/0
    no shutdown
+   duplex full
    description ** Link-to-WAN-1_INTERNET **
    ip address 123.1.1.2 255.255.255.252
-   duplex full
    ip nat outside
 exit
 
@@ -2751,9 +2751,9 @@ exit
 !# MPLS INTERFACE 
 interface Ethernet1/0
    no shutdown
+   duplex full
    description ** Link-to-MPLS-1 **
    ip address 10.100.0.2 255.255.255.252
-   duplex full
 exit
 
 !# MPLS STATIC ROUTES @ MPLS CIRCUITS
@@ -2786,9 +2786,9 @@ hostname RT-2-EDGE
 #! OSPF BEST PREFERENCE (1) @ NX9-2-CORE-SECONDARY
 interface Ethernet0/1
    no shutdown
+   duplex full
    description ** Link-to-NX9-2-CORE **
    ip address 10.20.0.1 255.255.255.252
-   duplex full
    ip ospf network point-to-point
    ip ospf cost 1
    ip nat inside
@@ -2797,9 +2797,9 @@ exit
 #! OSPF MEDIUM PREFERENCE (100) @ NX9-1-CORE-PRIMARY
 interface Ethernet0/2
    no shutdown
+   duplex full
    description ** Link-to-NX9-1-CORE **
    ip address 10.40.0.2 255.255.255.252
-   duplex full
    ip ospf network point-to-point
    ip ospf cost 100
    ip nat inside
@@ -2808,9 +2808,9 @@ exit
 #! OSPF WORST PREFERENCE (200) @ RT1 (WAN1)
 interface Ethernet0/3
    no shutdown
+   duplex full
    description ** RT1-RT2-Edge-to-Edge-Link **
    ip address 10.60.0.2 255.255.255.252
-   duplex full
    ip ospf network point-to-point
    ip ospf cost 200
    ip nat inside
@@ -2820,9 +2820,9 @@ exit
 
 interface Ethernet0/0
    no shutdown
+   duplex full
    description ** Link-to-WAN-2_INTERNET **
    ip address 123.2.2.2 255.255.255.252
-   duplex full
    ip nat outside
 exit
 
@@ -2941,9 +2941,10 @@ hostname WAN-1
 !# WAN Interface
 interface Ethernet0/0
   no shutdown
+  duplex full  
   description LINK-TO-NETWORK
   ip address 123.1.1.1 255.255.255.252
-  duplex full
+
 exit
 
 !# Loopbacks (Google)
@@ -2981,9 +2982,9 @@ hostname WAN-2
 !# WAN Interface
 interface Ethernet0/0
   no shutdown
+  duplex full
   description LINK-TO-NETWORK
   ip address 123.2.2.1 255.255.255.252
-  duplex full
 exit
 
 !# Loopbacks (Google)
