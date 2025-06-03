@@ -23,8 +23,41 @@
 
 # ⚡ Cisco Nexus - Fz3r0 :: Nexus Init Confioguration Bible
 
+This lab is designed for engineers transitioning from IOS switches (Cisco Catalyst) to NX-OS (Cisco Nexus). It covers essential network/data-center concepts and foundational protocols like VLANs, Trunk & Access Interfaces, SVI, HSRP, Static & Default Routing, OSPF, Rapid PVST+, Port Channels LACP, and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VXLAN, VPC and EVPN.
 
+This lab recreates a typical two-tier collapsed Core/Distribution topology connected to simulated WAN and MPLS circuits, with four downstream access switches and six end-hosts. The entire environment is composed of:
 
+- **Core Layer**:  
+  Two Cisco Nexus 9000 Series switches (NX9-1 and NX9-2) running NX-OS, configured in a collapsed core/distribution model (Layer 3 + Layer 2).
+
+- **Edge Routers**:  
+  Two Cisco IOS routers (RT-1-EDGE and RT-2-EDGE) simulating data-center border routers. Each edge router connects to three peers:  
+  1. Its primary and secondary core Nexus switches via dedicated OSPF point-to-point links.  
+  2. A peer edge router (RT-1 ↔ RT-2) over an inter-edge OSPF link for resiliency.  
+  3. Simulated WAN circuits (WAN-1 or WAN-2) using NAT overload.  
+  4. Simulated MPLS circuits (MPLS-1 or MPLS-2) using static routing.
+
+- **Access Layer**:  
+  Four Cisco Nexus 9000 Series switches (NX9-11, NX9-12, NX9-13, NX9-14) running NX-OS in Layer 2 mode, each hosting end-hosts or servers in three VLANs.
+
+- **End-Hosts**:  
+  Six Linux VMs (Server-1 through Server-6) acting as simple TCP/IP hosts in VLANs 10, 20, and 30.
+
+- **Simulated WAN & MPLS Routers**:  
+  - **WAN-1 and WAN-2**: Two IOS routers with loopbacks representing “Internet” DNS servers.  
+  - **MPLS-1 and MPLS-2**: Two IOS routers with loopbacks representing “remote sites” connected via private static circuits.
+
+### Key Features & Protocols Covered
+
+1. **NX-OS feature activation** (`feature interface-vlan`, `feature hsrp`, etc.)  
+2. **HSRP (v2)** for gateway redundancy on SVIs  
+3. **OSPF Area 0** full-mesh adjacency among core and edge devices  
+4. **Rapid PVST+** for STP resiliency on access layer trunks  
+5. **Port-channel (LACP)** bundling for inter-switch links  
+6. **SVI gateways per VLAN**, advertised into OSPF  
+7. **NAT overload** (`ip nat inside/outside`) on edge routers for outbound Internet  
+8. **Static routing** to simulate MPLS circuits  
+9. **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
 
 ## Topology
 
@@ -1167,9 +1200,7 @@ show running-config > backup-1
 
 
 
-# Fz3r0 Cisco Labs: `Data Center v1`
 
-This Cisco Nexus lab is designed for engineers transitioning from IOS switches to NX-OS. It covers essential data-center concepts and foundational protocols—HSRP, OSPF, Rapid PVST+, LACP—and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VXLAN, VPC and EVPN.
 
 ## Fz3r0 Nexus Lab: Important Notes
 
