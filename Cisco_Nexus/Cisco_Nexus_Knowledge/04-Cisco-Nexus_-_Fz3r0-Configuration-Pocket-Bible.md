@@ -26,10 +26,7 @@
 
 I will be using this topology for all the examples & configurations:
 
-![image](https://github.com/user-attachments/assets/3ccf3a68-9f97-42a3-aef4-f86c6abf244b)
-
-
-
+![image](https://github.com/user-attachments/assets/15266b6c-694d-4786-96d8-cc81b0616ccb)
 
 
 ## Cisco Nexus & NX-OS Notes:
