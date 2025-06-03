@@ -547,6 +547,31 @@ mac address-table limit vlan 20 199
 
 ````
 
+### Speed & Duplex
+
+In NX-OS, interfaces default to `auto-negotiate` both speed and duplex.  
+
+- In some scenarios (e.g., connecting to older devices or troubleshooting link issues), you may need to manually set speed and duplex.
+
+````py
+!#######################
+!# SPEED & DUPLEX #
+!#######################
+
+! # Set full duplex and 1 Giga speed on interface
+interface ethernet 1/1
+   duplex full
+   speed 1000
+exit
+
+! To revert to default  an interface back to auto-negotiation for both speed and duplex:
+interface ethernet 1/1
+   duplex auto     
+   speed auto      
+exit
+````
+
+
 ## Port Profile
 
 - Port Profiles in NX-OS allow you to group common interface settings into a reusable template. This simplifies configuration, ensures consistency, and speeds deployment. Instead of typing the same commands on every interface, you attach a port profile to one or many interfaces. If you need to update settings network-wide, you only modify the port profile.
@@ -658,8 +683,6 @@ show interface management 0
 ping vrf management 192.168.100.1
 ````
 
-
-
 ## SVI (Switch VLAN Interface)
 
 In NX-OS, SVIs (Switch Virtual Interfaces) act as Layer-3 gateways for VLANs—similar to “interface vlan X” on IOS, but you must ensure VLAN exists and the interface-vlan feature is enabled.
@@ -712,6 +735,121 @@ exit
 ip route 0.0.0.0/0 123.1.1.1
 ````
 
+## Port Channel (LACP)
+
+Port-channels (etherchannel) in NX-OS bundle multiple physical interfaces into a single logical link (very similar to IOS). This provides:
+
+ - **Increased bandwidth**: Combined throughput of member links.  
+ - **Redundancy**: If one member fails, traffic continues on the others.  
+ - **Simplified configuration**: Treat the bundle as one interface for spanning-tree, OSPF, etc.
+
+Port-channels can be used as both: L2 & L3 interfaces.
+
+````py
+!###########################
+!# PORT CHANNEL (LACP)     #
+!###########################
+
+!# 1. Enable LACP feature (required for channel-group commands)
+feature lacp
+
+!# 2. (Optional) Reset interfaces to default before bundling
+default interface ethernet 1/1-2
+default interface ethernet 1/3
+
+!# 3. Create an L2 port-channel on interfaces Ethernet1/1 and Ethernet1/2
+!#    - Turn on each interface  
+!#    - Configure as switchport (Layer-2)  
+!#    - Assign to channel-group 1 in active LACP mode  
+interface ethernet 1/1
+   no shutdown
+   switchport
+   channel-group 1 mode active
+exit
+
+interface ethernet 1/2
+   no shutdown
+   switchport
+   channel-group 1 mode active
+exit
+
+!# 4. Configure the logical Port-Channel1 as a trunk (L2)
+interface port-channel 1
+   description L2-PORT-CHANNEL-TRUNK-TO-DIST  
+   no shutdown
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 99
+   switchport trunk allowed vlan 10,20,30,99
+exit
+
+!# 5. Create an L3 port-channel on interfaces Ethernet1/1 and Ethernet1/2
+!#    - Turn on each interface  
+!#    - Remove switchport (Layer-3)  
+!#    - Assign to channel-group 2 in active LACP mode  
+interface ethernet 1/1
+   no shutdown
+   no switchport
+   channel-group 2 mode active
+exit
+
+interface ethernet 1/2
+   no shutdown
+   no switchport
+   channel-group 2 mode active
+exit
+
+!# 6. Configure the logical Port-Channel2 as a routed interface (L3)
+interface port-channel 2
+   description L3-PORT-CHANNEL-UPLINK  
+   no shutdown
+   no switchport
+   ip address 10.10.0.1/30
+exit
+
+!# 7. (Optional) Add a third interface as a standby link in the existing port-channel
+!#    - Use “force” to include it without negotiation  
+!#    - Adjust LACP bundle parameters  
+interface ethernet 1/3
+   no shutdown
+   switchport     !# or “no switchport” if L3  
+   channel-group 1 force mode active
+exit
+
+interface port-channel 1
+   lacp max-bundle 2   !# Only 2 active members  
+   lacp min-links 2    !# Bring down bundle if fewer than 2 remain  
+exit
+
+!# 8. Assign a higher LACP priority to make Ethernet1/3 the standby (lower priority = more preferred)
+interface ethernet 1/3
+   lacp port-priority 39000
+exit
+
+!# 9. Select load-balance algorithm for traffic distribution  
+!#    - “src-dst” (source/dest MAC) is a common choice  
+port-channel load-balance src-dst
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+!# Useful “show” commands for troubleshooting:
+
+!# Show port-channel status and member interfaces  
+show port-channel summary
+
+!# Show detailed LACP information for a specific bundle  
+show port-channel database
+
+!# Verify Port-Channel configuration and counters  
+show interface port-channel 1
+
+!# Check individual member interface status  
+show interface ethernet 1/1 status
+show interface ethernet 1/2 status
+
+!# View load-balance algorithm in use  
+show port-channel load-balance
+````
 
 ## HSRP (Hot Standby Router Protocol)
 
@@ -894,149 +1032,45 @@ show ip interface brief
 ````
 
 
+## Spanning Tree (R-PVSTP) 
 
-
-
-
-
-
-
-
+- Rapid PVST+ (R-PVSTP) is Cisco’s rapid version of Per-VLAN Spanning Tree.
+- It provides fast convergence and loop prevention on VLAN-based networks.
 
 ````py
-
-
-
-
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 !###########################
-!# PORT PROFILE
+!# SPANNING TREE (R-PVSTP) #
 !###########################
 
-!# Check all available port profile options for interface type (ethernet, interface-vlan(SVI), port-channel)
-port-profile type ?
-
-!# Create Port Profile for a basic ethernet interface configuration
-port-profile type ethernet fz3r0-interfaces-access-10
-   description ACCESS-VLAN10-BLUE
-   no shutdown
-   switchport mode access
-   switchport access vlan 10
-   duplex full
-state enabled   
-exit
-
-!# Create Port Profile for a basic ethernet interface configuration + Using an inherit from other Port Profile (Adds both configs together)
-port-profile type ethernet fz3r0-interfaces-access-10-AND-speed100  
-   inherit port-profile fz3r0-interfaces-access-10
-   description ACCESS-VLAN10-BLUE-SPEED100
-   speed100
-state enabled 
-exit
-
-!# Add Port-Profile to interface range
-interface ethernet 1/1-2
-   inherit port-profile fz3r0-interfaces-access-10    
-exit
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-!###########################
-!# PORT CHANNEL (LACP)
-!###########################
-
-!# Create L2 Port Channel Switch "A" interfaces ethernet 1/1-3 (TURN ON INTERFACES BEFORE PORT CHANNEL!) {L2 = switchport}
-feature lacp
-default interface ethernet 1/1-2
-interface ethernet 1/1-2
-   no shutdown
-   switchport 
-   channel-group 1 mode active
-exit
-
-!# Create L3 Port Channel Switch "X" interfaces ethernet 1/1-3 (TURN ON INTERFACES BEFORE PORT CHANNEL!) {L3 = no switchport}
-feature lacp
-default interface ethernet 1/1-2
-interface ethernet 1/1-2
-   no shutdown
-   no switchport 
-   channel-group 1 mode active
-exit
-
-!# Configure the Port Channel created, just like a normal interface
-interface port-channel 1
-   description PORT-CHANNEL-L2-TRUNK-LINK-1
-   no shutdown
-   switchport
-   switchport mode trunk
-   switchport trunk native vlan 99
-   switchport allowed vlan 50,60,99   
-exit
-
-!# Create additional 3rd Port Channel connection & force it to add to existing Port Channel + Make it for backup only
-default interface ethernet 1/3
-interface ethernet 1/3
-   no shutdown
-   switchport 
-   #! Force the new interface to participate in already created port channel
-   channel-group 1 force mode active
-exit
-interface port-channel 1
-   #! Only 2 interfaces will be active on port channel (1 pair)
-   lacp max-bundle 2
-   #! Force 2 links to be always working, if a link fails all the Po will be taken down
-   lacp min-links 2
-exit
-#! Choose the standby interface by prority, default is 32768 (1-65535), highest will be the backup
-interface ethernet 1/3
-   lacp port-priority 39000
-exit
-
-!# Select load balance method for the Port Channel (src-dst is always good!)
-port-channel load-balance src-dst
-
-!# ---
-
-!# Port Channel Help Commands
-show port-channel
-show port-channel summary
-show interface status
-show port-channel load-balance
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-!#######################
-!# SPANNINGTREE (R-PVSTP) #
-!#######################
-
-!# Activate R-PVSTP (per default is already active)
+! 1. Enable R-PVSTP (usually on by default in NX-OS)  
 spanning-tree mode rapid-pvst
 
-!# R-PVSTP set ROOT device (ONLY ONE ROOT per VLAN/NETWORK!!!)
-spanning-tree mode rapid-pvst
+! 2. Designate this switch as the primary root for VLANs 10, 20, 30  
+!    - “root primary” raises priority to be the root bridge  
 spanning-tree vlan 10,20,30 root primary
 
-!# R-PVSTP set SECONDARY device (ONLY ONE SECONDARY per VLAN/NETWORK!!!)
-spanning-tree mode rapid-pvst
+! 3. (On the secondary switch) Designate as secondary root  
+!    - “root secondary” sets a priority just below the primary’s  
 spanning-tree vlan 10,20,30 root secondary
 
-!# R-PVSTP port type = <<EDGE>> (for edge devices like PC/Access) - Activate Port Fast
+! 4. Mark an access (edge) port to bypass listening/learning  
+!    - Use on host-facing ports for instant transition (PortFast equivalent)  
 interface ethernet 1/3
    switchport
    switchport mode access
    spanning-tree port type edge
 exit
 
-!# R-PVSTP port type = <<NETWORK>> (for network devices Switch/Trunk) - Activate Bridge Assurance & BPDUs
+! 5. Mark a trunk (network) port to enable bridge assurance & BPDU forwarding  
+!    - Use on links between switches to detect unidirectional failures  
 interface ethernet 1/5
    switchport
    switchport mode trunk
    spanning-tree port type network
 exit
 
-!# R-PVSTP BPDUGUARD Security - Block Access Port if detects BPDUs (rogue switch)
+! 6. Enable BPDU Guard on an edge port to shut it down if a BPDU is received  
+!    - Protects against rogue switches/compliance issues on access ports  
 interface ethernet 1/1
    switchport
    switchport mode access
@@ -1044,37 +1078,105 @@ interface ethernet 1/1
    spanning-tree bpduguard enable
 exit
 
-!# ---
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!# PVRSTP Help Commands
-show spanning-tree
+!# Helpful “show” commands for troubleshooting R-PVSTP:
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!# Show root bridge status and priority  
+show spanning-tree vlan 10
 
-!#######################
-!# SPEED & DUPLEX #
-!#######################
+!# Display per-VLAN spanning-tree summary  
+show spanning-tree summary
 
-! # Set full duplex speed on interface
+!# View port roles and states for VLAN 10  
+show spanning-tree vlan 10 detail
+
+!# Check BPDU Guard status on all interfaces  
+show spanning-tree summary | include BPDU Guard
+
+!# View global R-PVSTP configuration  
+show running-config | include spanning-tree
+````
+
+
+
+## Discovery Protocols (CDP & LLDP)
+
+In NX-OS, CDP and LLDP are used to discover directly connected Cisco and non-Cisco devices.
+
+- CDP is on by default in NX-OS, but you can enable/disable it globally or per-interface.
+- LLDP must be explicitly enabled as a feature before use.
+
+````py
+!#########################
+!# DISCOVERY PROTOCOLS   #
+!#########################
+
+! ### CDP 
+
+! Enable CDP globally (exec-level command):
+cdp enable
+
+! Disable CDP globally if not needed:
+no cdp enable
+
+! Enable CDP on a specific interface:
 interface ethernet 1/1
-   duplex full
+   cdp enable        ! Allows this interface to send/receive CDP PDUs
 exit
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-!#######################
-!# DISCOVERY PROTOCOLS #
-!#######################
-
-! # Enable CDP in exec line 
-cdp enable
-
-! # Enable CDP in selected interface
+! Disable CDP on a specific interface:
 interface ethernet 1/1
-cdp enable
-end
+   no cdp enable     ! Prevents CDP on this interface
+exit
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+! Useful CDP show commands:
+
+! show cdp neighbors         ! Displays immediate neighbor devices
+! show cdp neighbors detail  ! Detailed information about neighbors
+! show cdp interface         ! Which interfaces have CDP enabled
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+! ### LLDP
+
+! LLDP must be turned on as a feature:
+feature lldp
+
+! Disable LLDP feature if not needed:
+no feature lldp
+
+! Enable LLDP globally (once enabled as a feature, LLDP is active):
+! By default, LLDP runs on all supported interfaces after "feature lldp".
+
+! To disable LLDP per interface:
+interface ethernet 1/1
+   no lldp transmit   ! Stop sending LLDP frames on this interface
+   no lldp receive    ! Stop processing LLDP frames on this interface
+exit
+
+! To enable LLDP per interface (if it was disabled earlier):
+interface ethernet 1/1
+   lldp transmit      ! Allow sending LLDP frames
+   lldp receive       ! Allow receiving LLDP frames
+exit
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+! Useful LLDP show commands:
+
+! show lldp neighbors         ! Displays LLDP neighbor summary
+! show lldp neighbors detail  ! Detailed LLDP neighbor information
+! show lldp interface         ! LLDP status per interface
+````
+
+
+
+````py
+
+
 
 !##########################################
 !# OSPF
