@@ -1129,23 +1129,23 @@ interface port-channel 1
    ip address 10.50.0.1/30
    ip router ospf 1 area 0
    ip ospf network point-to-point
-   ip ospf cost 100
+   ip ospf cost 500                       !# Highest cost → lowest priority path (worst)
    ip ospf hello-interval 1
    ip ospf dead-interval 4
    cdp enable
 exit
 
-! ### CONFIGURE OSPF PROCESS
+! ### CONFIGURE OSPF PROCESS IN ROUTER/NEXUS
 
 router ospf 1
-!#    Advertise VLAN10 (192.168.10.0/24) into Area 0
-network 192.168.10.0/24 area 0
-!#    Advertise VLAN20 (192.168.20.0/24) into Area 0
-network 192.168.20.0/24 area 0
-!#    Advertise VLAN30 (192.168.30.0/24) into Area 0
-network 192.168.30.0/24 area 0
-!#    Advertise the WAN-1 link (123.1.1.0/30) into Area 0
-network 123.1.1.0/30 area 0
+   !# Advertise VLAN10 (192.168.10.0/24) into Area 0
+   network 192.168.10.0/24 area 0
+   !# Advertise VLAN20 (192.168.20.0/24) into Area 0
+   network 192.168.20.0/24 area 0
+   !# Advertise VLAN30 (192.168.30.0/24) into Area 0
+   network 192.168.30.0/24 area 0
+   !# Advertise the WAN-1 link (123.1.1.0/30) into Area 0
+   network 123.1.1.0/30 area 0
 exit
 
 !# Configure Default Route to ISP/WAN
@@ -1156,27 +1156,29 @@ ip route 0.0.0.0/0 123.1.1.1
 !# To advertise the default route as an OSPF external LSA, under “router ospf 1” add:
 default-information originate
 
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ! ### USEFUL OSPF SHOW COMMANDS FOR TROUBLESHOOTING
 
-!# OSPF Neighbor Information ---
+!# OSPF Neighbor Information
 show ip ospf neighbor
 
-!# OSPF Interface Summary ---
+!# OSPF Interface Summary
 show ip ospf interface brief
 
-!# OSPF Interface Details ---
+!# OSPF Interface Details
 show ip ospf interface Ethernet0/1
 
-!# OSPF Process Status ---
+!# OSPF Process Status
 show ip ospf
 
-!# OSPF Event Logs ---
+!# OSPF Event Logs
 show ip ospf events
 
-!# OSPF Statistics ---
+!# OSPF Statistics
 show ip ospf statistics
 
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ! ### OSPF LINK-STATE DATABASE (LSDB) INSPECTION
 
@@ -1201,59 +1203,49 @@ show ip ospf database self-originate
 !# LSAs for a Specific Router ID - Shows all LSAs advertised by the router with ID 1.1.1.1.
 show ip ospf database router 1.1.1.1
 
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 ! ### OSPF ROUTING TABLE
 
-!# --- OSPF-Learned Routes Only - Filters the routing table to show only prefixes learned via OSPF.
+!# OSPF-Learned Routes Only - Filters the routing table to show only prefixes learned via OSPF.
 show ip route ospf
 
-!# --- Full Routing Table with OSPF Prefixes Marked “O” - Displays all routes; OSPF routes are prefixed with “O”.
+!# Full Routing Table with OSPF Prefixes Marked “O” - Displays all routes; OSPF routes are prefixed with “O”.
 show ip route
 
-!# --- Path to Default Route - Shows how the default route is resolved in the routing table.
+!# Path to Default Route - Shows how the default route is resolved in the routing table.
 show ip route 0.0.0.0
 
-!# --- Path to a Specific IP - Displays the best path towards 192.168.20.1 and its next‐hop information.
+!# Path to a Specific IP - Displays the best path towards 192.168.20.1 and its next‐hop information.
 show ip route 192.168.20.1
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ! ### DEBUG COMMANDS (LAB USE ONLY)
 
-!#
-!# --- Trace OSPF Adjacency Changes ---
+!# Trace OSPF Adjacency Changes - Logs OSPF neighbor adjacency state changes in real-time (use in lab only).
 debug ip ospf adj
-!# Logs OSPF neighbor adjacency state changes in real-time (use in lab only).
-!#
-!# --- Trace All OSPF Events ---
+
+!# Trace All OSPF Events - Logs OSPF timers, LSA generation, and SPF recalculations to console.
 debug ip ospf events
-!# Logs OSPF timers, LSA generation, and SPF recalculations to console.
-!#
-!# --- Trace SPF Recalculation ---
+
+!# Trace SPF Recalculation - Shows detailed SPF recalculation activity; useful when a link or neighbor goes down.
 debug ip ospf spf
-!# Shows detailed SPF recalculation activity; useful when a link or neighbor goes down.
-!#
-!# ##########################################
-!# NX-OS–SPECIFIC OSPF COMMANDS
-!# ##########################################
-!#
-!# --- Show OSPF RIB (Internal RIB) on Nexus ---
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+! ### NX-OS–SPECIFIC OSPF COMMANDS
+
+!# --- Show OSPF RIB (Internal RIB) on Nexus - Displays routes installed in the OSPF RIB on NX-OS.
 show ip ospf rib
-!# Displays routes installed in the OSPF RIB on NX-OS.
-!#
-!# --- Show Historical OSPF Events ---
+
+!# --- Show Historical OSPF Events - (Same as above, but especially helpful on NX-OS to review past events.)
 show ip ospf events
-!# (Same as above, but especially helpful on NX-OS to review past events.)
-!#
-!# --- Brief OSPF Interface Status on NX-OS ---
+
+!# --- Brief OSPF Interface Status on NX-OS - Lists all interfaces with their OSPF cost and adjacency state (Nexus-specific formatting).
 show ip ospf interface brief
-!# Lists all interfaces with their OSPF cost and adjacency state (Nexus-specific formatting).
+
 ````
-
-
-
-
-
-
-
-
 
 ## Discovery Protocols (CDP & LLDP)
 
