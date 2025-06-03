@@ -551,6 +551,26 @@ interface ethernet 1/1
 exit
 ````
 
+### Set Default Settings on Interfaces
+
+````py
+!##########################################
+!# SET DEFAULT SETTINGS ON INTERFACES
+!##########################################
+
+!# Set all interfaces to Layer 2 (On Nexus all interfaces are L3 by default)
+system default switchport
+
+!# Set default settings for "X" interface
+default interface ethernet 1/1
+
+!# Set default settings for a range from "X" to "Z" interfaces
+default interface ethernet 1/1-3
+````
+
+
+
+
 
 ## Port Profile
 
@@ -1321,217 +1341,148 @@ exit
 
 
 
+## NAT (PAT)
+
+- NON AVAILABLE IN VIRTUAL CURRENT VERSION, THIS EXAMPLE SHOW IOS/CATALYST NAT
+- NAT overload (PAT) translates multiple internal IPs to a single public IP for Internet access.
+
 ````py
-
-
-
-!##########################################
-!# OSPF
-!##########################################
-
-feature ospf
-!# Crear OSPF 1 + anunciar todas las redes LAN y WAN + crear default route @ WAN
-router ospf 1
-    network 192.168.10.0/24 area 0
-    network 192.168.20.0/24 area 0
-    network 192.168.30.0/24 area 0
-    network 123.1.1.0/30  area 0
-    exit
-    !
-    !# Crear default route hacia la WAN/ISP (LA DEFAULT ROUTE DEBE ESTAR DENTRO DE LA CONFIGURACIÓN DE OSPF!!!!) <<<
-    ip route 0.0.0.0/0 123.1.1.1
-exit
-
-! # hELP COMMANDS
-
-!# Vecinos OSPF
-
-!# Lista de vecinos OSPF (ID, interfaz, estado, tiempo)
-show ip ospf neighbor
-!# Resumen de interfaces con OSPF habilitado (tipo, estado, cost)
-show ip ospf interface brief
-!# Detalles de OSPF por interfaz específica
-show ip ospf interface Ethernet0/1
-
-!# Estado del proceso OSPF
-
-!# Estado general del proceso OSPF (router-id, áreas, roles, ASBR)
-show ip ospf
-!# Eventos importantes del proceso (solo NX-OS o con ciertos IOS)
-show ip ospf events
-!# Estadísticas generales de OSPF (LSAs, SPF runs, errores)
-show ip ospf statistics
-
-!# Base de datos SPF (LSDB)
-
-!# Base de datos OSPF completa
-show ip ospf database
-!# LSA tipo 1 - Routers conectados directamente
-show ip ospf database router
-!# LSA tipo 2 - Redes broadcast (DR/BDR) [No aplica en enlaces p2p]
-show ip ospf database network
-!# LSA tipo 3 - Rutas entre áreas (summary LSAs)
-show ip ospf database summary
-!# LSA tipo 5 - Rutas externas (ej. default route desde ASBR)
-show ip ospf database external
-!# LSAs generadas por este router
-show ip ospf database self-originate
-!# Ver los enlaces y vecinos de un router específico
-show ip ospf database router 1.1.1.1
-
-!# Tabla de rutas OSPF
-
-!# Ver únicamente las rutas OSPF aprendidas
-show ip route ospf
-!# Ver toda la tabla de rutas con prefijos OSPF marcados con "O"
-show ip route
-!# Ver por qué camino llega la ruta default
-show ip route 0.0.0.0
-!# Ver la mejor ruta hacia una IP específica
-show ip route 192.168.20.1
-
-!# Debugs para laboratorio
-
-!# Ver cambios de vecinos OSPF en tiempo real
-debug ip ospf adj
-!# Ver cada evento de OSPF: timers, LSA, SPF, etc.
-debug ip ospf events
-!# Ver SPF recalculation (muy útil cuando cae una interfaz)
-debug ip ospf spf
-
-!# Extra para NX-OS (si aplica en tu lab)
-
-!# Ver la RIB interna de OSPF en Nexus
-show ip ospf rib
-!# Ver eventos OSPF históricos
-show ip ospf events
-!# Ver todos los interfaces NX-OS con OSPF, sus estados y costos
-show ip ospf interface brief
-
---
-
-!##########################################
+!# ##########################################
 !# NAT
-!##########################################
+!# ##########################################
 
-!# NO DISPONIBLE EN IMAGEN VIRTUAL DE GNS3 :(
-
-!# Enable NAT
-configure terminal
+!# Enable the NAT feature
 feature nat
 
-!# 1. Mark WAN link as NAT outside
-interface Ethernet1/1
+!# Mark the WAN-facing interface as NAT outside
+interface ethernet 1/1
+   description ** WAN-Internet **
    no shutdown
    ip nat outside
 exit
 
-!# 2. Mark each SVI as NAT inside
-interface Vlan10
+!# Mark each VLAN SVI as NAT inside
+interface vlan 10
    ip nat inside
 exit
-interface Vlan20
+interface vlan 20
    ip nat inside
 exit
-interface Vlan30
+interface vlan 30
    ip nat inside
 exit
 
-!# 3. Define which source IPs to NAT
+!# Define which internal source IPs should be translated
 ip access-list extended NAT_INSIDE
    permit ip 192.168.10.0/24 any
    permit ip 192.168.20.0/24 any
    permit ip 192.168.30.0/24 any
 exit
 
-!# 4. Overload all matching inside traffic to the WAN interface address
-   ip nat inside source list NAT_INSIDE interface Ethernet1/1 overload
+!# Overload all matching inside traffic onto the WAN interface IP
+ip nat inside source list NAT_INSIDE interface ethernet 1/1 overload
+````
 
-!##########################################
-!# SET DEFAULT SETTINGS
-!##########################################
 
-!# Set all interfaces to Layer 2 (On Nexus all interfaces are L3 by default)
-system default switchport
 
-!# Set default settings for "X" interface
-default interface ethernet 1/1
 
-!# Set default settings for a range from "X" to "Z" interfaces
-default interface ethernet 1/1-3
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+##  Checkpoints & Roll-Backs
 
-!##########################################
+- Checkpoints allow you to capture the running configuration at a point in time.
+- You can roll back to a saved checkpoint if needed—useful for testing changes safely.
+
+````py
+!# ##########################################
 !# CHECKPOINTS & ROLL-BACKS
-!##########################################
+!# ##########################################
 
-!# Creates a checkpoint with a custom name
+!# Create a checkpoint with a custom name
 checkpoint fz3r0-check-04212025
 
-!# Roll-back to a checkpoint
-rollback running config checkpoint fz3r0-check-04212025
+!# Roll back to a specific checkpoint
+rollback running-config checkpoint fz3r0-check-04212025
 
-!# See the saved checkpoints
-show checkpoint 
+!# Display all saved checkpoints
+show checkpoint
 
-!# See the saved checkpoints list by name
+!# List checkpoint names (filtered output)
 show checkpoint | include name
 
-!# See the details of saved checkpoints
+!# Show summary information for all checkpoints
 show checkpoint summary
 
-!# See the details of selected checkpoint configurations
+!# View the full details of a specific checkpoint configuration
 show checkpoint fz3r0-check-04212025
+````
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########
+
+
+## Licences
+
+- In NX-OS, many advanced features require a valid license. You can use a free trial (grace-period) or install paid licenses via Smart Licensing. Below are commands to manage both.
+
+````py
+!# ###########
 !# LICENSES
-!###########
+!# ###########
 
-!# Enable Free test license for 120 days (enable features)
+!# Enable a free test license for 120 days (activates most features)
 license grace-period
 
-!# Check all licenses usage
+!# Display usage for all installed licenses
 show license usage
 
-!# Check "X" license usage
+!# Display usage for a specific license package (e.g., LAN_ENTERPRISE_SERVICES_PKG)
 show license usage LAN_ENTERPRISE_SERVICES_PKG
 
-!# Check license status
+!# Display overall license status and expiration details
 show license status
 
-!#---
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!# Install paid licenses (need Internet connection):
+! ### Install paid licenses (requires Internet connectivity)
 
-    !# 1. Install smart license
+!# 1. Enable the Smart Licensing feature
 feature license smart
-    !# 2. Enable smart license
+
+!# 2. Activate Smart Licensing
 license smart enable
-    !# 4. Enable DNS resolving
-ip domain-lookup 
-    !# 5. Add DNS to use (eg. Google DNS)
+
+!# 3. Enable DNS resolution (required for Smart Licensing communication)
+ip domain-lookup
+
+!# 4. Configure a DNS server (e.g., Google DNS)
 ip name-server 8.8.8.8
-    !# 6. Check or Add a Default Route
+
+!# 5. Ensure there is a default route to reach Cisco’s Smart Licensing servers
 ip route 0.0.0.0/0 123.123.123.1
-    !# 7. Test ping to Cisco Tools
+
+!# 6. Verify connectivity to Cisco’s Smart tools
 ping tools.cisco.com
-    !# 8. Start callhome process (it calls Cisco's Mothership)
+
+!# 7. Start the Call Home process (used to register and report licensing info)
 callhome
   transport http use-vrf default
   exit
-exit
-    !# 9. Register Cisco ID Token
+
+!# 8. Register with a Cisco ID token (replace with your valid token)
 license smart register idtoken e128fa0bcc32ffaccd91ff0001
-    !# 10. Done! you can also check the license in the Smart Software Licensing Dashboard URL provided by Cisco 
 
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-
+!# 9. After registration, confirm licenses in the Smart Software Licensing Dashboard provided by Cisco
 ````
+
+
+
+
+
+
+
+
+
+
+
 
 ## Help Commands
 
