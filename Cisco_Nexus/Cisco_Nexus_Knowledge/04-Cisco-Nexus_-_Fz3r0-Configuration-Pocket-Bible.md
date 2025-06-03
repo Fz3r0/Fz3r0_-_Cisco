@@ -1275,6 +1275,8 @@ interface ethernet 1/1
    ip router ospf 1 area 0
    ip ospf network point-to-point
    ip ospf cost 1
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    cdp enable
 exit
 
@@ -1289,6 +1291,8 @@ interface ethernet 1/2
    ip router ospf 1 area 0
    ip ospf network point-to-point
    ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    cdp enable
 exit
 
@@ -1303,6 +1307,8 @@ interface port-channel 1
    ip router ospf 1 area 0
    ip ospf network point-to-point
    ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    cdp enable
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {ACTIVE = PRIORITY 200}
@@ -1546,6 +1552,8 @@ interface ethernet 1/1
    ip router ospf 1 area 0
    ip ospf network point-to-point
    ip ospf cost 1
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    cdp enable
 exit
 
@@ -1560,6 +1568,8 @@ interface ethernet 1/2
    ip router ospf 1 area 0
    ip ospf network point-to-point
    ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    cdp enable
 exit
 
@@ -1574,6 +1584,8 @@ interface port-channel 1
    ip router ospf 1 area 0
    ip ospf network point-to-point
    ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    cdp enable
 
 #! Configure HSRP (FOR EACH VLAN) (BOTH SWITCHES = SAME VIP ;)) {STANDBY = PRIORITY 100}
@@ -2657,6 +2669,8 @@ interface Ethernet0/1
    ip address 10.10.0.1 255.255.255.252
    ip ospf network point-to-point
    ip ospf cost 1
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    ip nat inside
 exit
 
@@ -2668,6 +2682,8 @@ interface Ethernet0/2
    ip address 10.30.0.1 255.255.255.252
    ip ospf network point-to-point
    ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    ip nat inside
 exit
 
@@ -2679,6 +2695,8 @@ interface Ethernet0/3
    ip address 10.60.0.1 255.255.255.252
    ip ospf network point-to-point
    ip ospf cost 200
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    ip nat inside
 exit
 
@@ -2790,6 +2808,8 @@ interface Ethernet0/1
    ip address 10.20.0.1 255.255.255.252
    ip ospf network point-to-point
    ip ospf cost 1
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    ip nat inside
 exit
 
@@ -2801,6 +2821,8 @@ interface Ethernet0/2
    ip address 10.40.0.2 255.255.255.252
    ip ospf network point-to-point
    ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    ip nat inside
 exit
 
@@ -2812,6 +2834,8 @@ interface Ethernet0/3
    ip address 10.60.0.2 255.255.255.252
    ip ospf network point-to-point
    ip ospf cost 200
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
    ip nat inside
 exit
 
