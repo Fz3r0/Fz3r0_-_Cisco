@@ -2872,7 +2872,7 @@ router ospf 1
 
     !# redistribuye las rutas estáticas (MPLS)
     redistribute static subnets
-        
+       
 exit
 
 !# MPLS INTERFACE (Static Private Address) [Static Route @ MPLS]
