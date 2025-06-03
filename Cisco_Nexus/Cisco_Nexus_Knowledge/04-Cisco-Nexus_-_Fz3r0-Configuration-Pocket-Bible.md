@@ -224,52 +224,134 @@ OSPF (Full Mesh en Core Layer)
 | RT-2      | Area 0        | Yes (`default-information originate`) | ASBR + Backbone     | Same behavior as RT-1                           |
 
 
-## Basic Configurations & Commands: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Nexus: Common Configs & Commands: 
+
+## Features
+
+In NX-OS, many protocol modules and services are packaged as optional “features” that can be enabled or disabled. This modular approach allows you to:
+
+- **Save resources:** Only load the protocols/services you need.
+- **Meet licensing requirements:** Some advanced features (e.g., BGP, QoS modules, security services) require a valid license.
+- **Improve security & troubleshooting:** Disabling unused features reduces attack surface and debug noise.
 
 ````py
-
 !############
 !# FEATURES #
 !############
 
-!# Show all apliable features (Port Channel, DHCP, BGP, BFD, LACP, Inter-VLAN, etc)
+!# List all available features (e.g., port-channel, ospf, hsrp, interface-vlan, lacp, ssh, telnet, etc.)
 feature ?
 
-!# Add interface VLAN feature (v7 needs to turn on this first, 9k doesn't)
+!# Enable the Interface‐VLAN feature (required for SVIs on some NX-OS versions)
 feature interface-vlan
 
-!# Add demo licence to test all features
+!# Enable demo/trial licenses (usually 120 days) so you can test features
 license grace-period
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+!# Disable an unwanted feature (e.g., SSH)
+no feature ssh
 
+!# Show current feature status (enabled vs. disabled)
+show feature
+
+!# Show license token usage
+show license usage
+
+!# Show overall license status
+show license status
+````
+
+## Device Naming, Users & Roles
+
+In Cisco NX-OS, configuring the hostname and user accounts/roles is very similar to IOS.
+The commands differ slightly for roles and password strength, but the overall workflow is the same.
+
+````py
 !###########
 !# NAMINGS #
 !###########
 
-!# Change Switch Hostname
+!# Set the device hostname
 hostname NXv9K-1
-
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 !#################
 !# USERS & ROLES #
 !#################
 
-!# Change Switch Hostname
+!# Create or update a local user with a password
 username fz3r0 password Cisco.12345
 
-!# Enable/Disable password strenght check (Capital+AlfaNumeric+10Chars)
+!# Enable password strength enforcement (uppercase, lowercase, numbers, symbols, min length)
 password strength-check
+!# Disable password strength enforcement
 no password strength-check
 
-!# Check all user default available roles
+!# Display available built-in roles
 username fz3r0 role ?
 
-!# Set Full Privileges (Priv-15)
+!# Assign full-privilege role (network-admin = priv-15)
 username fz3r0 role network-admin
 
-!# Create customized roles (eg. permit commands)
+!# Create a custom role with specific command permissions
 role name Fz3r0-Custom-Role
    rule 1 permit command show interface status
    rule 2 permit command show interface description
@@ -277,40 +359,67 @@ role name Fz3r0-Custom-Role
    rule 4 deny command reload
    rule 5 deny command write memory
 
-!# Show roles descriptions
+!# Show the rules for a specified role
 show role name network-admin
 show role name Fz3r0-Custom-Role
+````
 
-!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+## Telnet & SSH
 
+! Enabling Telnet and SSH on NX-OS is almost identical to IOS.
+! You need to load the feature modules, assign an IP to a management port, and optionally lock down VTY access.
+
+````py
 !################
 !# TELNET & SSH #
 !################
 
-!# 1. Enable Telnet & SSH features (Mandatory)
+!# 1. Enable demo licenses (120-day trial) and activate Telnet & SSH features
 license grace-period
 feature telnet
 feature ssh
 
-!# 2. Set an Admin Interface (Mandatory/Optional)
+!# 2. Configure an admin interface for remote access (e.g., Ethernet2/1)
 interface ethernet 2/1
-no shutdown
-ip address 192.168.10.1/24
+  no shutdown
+  ip address 192.168.10.1/24
 exit
 
-!# 3. Configure VTY [additional security] (Optional)
+!# 3. (Optional) Restrict VTY sessions: max 5 sessions, auto-logout after 3 minutes
 line vty
-   session-limit 5
-   exec-timeout 3
+  session-limit 5
+  exec-timeout 3
 exit
 
-!# 4. ACL for permit only certain remote IP Address [additional security] (Optional)
+!# 4. (Optional) Create an ACL to allow only specific remote IPs to reach VTY
 ip access-list remote-access-users
-   permit ip host 192.168.10.100 any
-exit  
-line vty
-   access-class remote-access-users in
+  permit ip host 192.168.10.100 any
 exit
+!# Bind the ACL to VTY lines
+line vty
+  access-class remote-access-users in
+exit
+````
+
+
+
+
+
+
+
+
+
+
+
+
+````py
+
+
+
+
+
+
+
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
