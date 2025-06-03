@@ -2754,6 +2754,8 @@ interface Ethernet1/0
    description ** Link-to-MPLS-1 **
    ip address 10.100.0.2 255.255.255.252
    duplex full
+   ip ospf network point-to-point
+   ip router ospf 1 area 0 
 exit
 
 !# MPLS STATIC ROUTES @ MPLS CIRCUITS
@@ -2883,6 +2885,8 @@ interface Ethernet1/0
    description ** Link-to-MPLS-2 **
    ip address 10.100.0.6 255.255.255.252
    duplex full
+   ip ospf network point-to-point
+   ip router ospf 1 area 0 
 exit
 
 !# MPLS STATIC ROUTES @ MPLS CIRCUITS
