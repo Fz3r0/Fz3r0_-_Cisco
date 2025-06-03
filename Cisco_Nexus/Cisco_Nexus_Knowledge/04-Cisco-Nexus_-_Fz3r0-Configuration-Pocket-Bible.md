@@ -28,6 +28,72 @@ I will be using this topology for all the examples & configurations:
 
 ![image](https://github.com/user-attachments/assets/cd6e8dc1-ee2e-46e8-8d82-5df8bf4f4deb)
 
+## Network Device Inventory & IP Address Summary
+
+| Device                      | Function                    | Interface / VLAN                | IP (Mask)           | VIP / Gateway  | *Network*      | *Broadcast*      | Main Description                           |
+| --------------------------- | --------------------------- | ------------------------------- | ------------------- | -------------- | -------------- | ---------------- | ------------------------------------------ |
+| **NX9-1-CR-ACT**<br>(NXOS)  | Core L3/L2 (Active HSRP)    | VLAN 10 (SVI)                   | `192.168.10.254/24` | `192.168.10.1` | *192.168.10.0* | *192.168.10.255* | SVI GW VLAN 10–BLUE                        |
+|                             |                             | VLAN 20 (SVI)                   | `192.168.20.254/24` | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | SVI GW VLAN 20–RED                         |
+|                             |                             | VLAN 30 (SVI)                   | `192.168.30.254/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | SVI GW VLAN 30–GREEN-MGT                   |
+|                             |                             | Port-Channel 1 (P2P OSPF)       | `10.50.0.1/30`      | –              | *10.50.0.0*    | *10.50.0.3*      | OSPF backup link to NX9-2 (cost 100)       |
+|                             |                             | Eth1/1 (P2P OSPF)               | `10.10.0.2/30`      | –              | *10.10.0.0*    | *10.10.0.3*      | OSPF primary link to RT-1 (cost 1)         |
+|                             |                             | Eth1/2 (P2P OSPF)               | `10.40.0.1/30`      | –              | *10.40.0.0*    | *10.40.0.3*      | OSPF backup link to RT-2 (cost 100)        |
+|                             |                             | Eth1/3,1/5-6 (Port-Channel 0)   | –                   | –              | –              | –                | L3 Port-Channel between NX9-1 and NX9-2    |
+|                             |                             | Eth1/4,1/7 (trunks VLANs)       | trunk VLAN 10,20,30 | –              | –              | –                | L2 uplinks to Access                       |
+|                             |                             | Management (VLAN 30)            | `192.168.30.254/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | HSRP Active on VLAN 30                     |
+| **NX9-2-CR-STB**<br>(NXOS)  | Core L3/L2 (Standby HSRP)   | VLAN 10 (SVI)                   | `192.168.10.253/24` | `192.168.10.1` | *192.168.10.0* | *192.168.10.255* | SVI GW VLAN 10–BLUE                        |
+|                             |                             | VLAN 20 (SVI)                   | `192.168.20.253/24` | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | SVI GW VLAN 20–RED                         |
+|                             |                             | VLAN 30 (SVI)                   | `192.168.30.253/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | SVI GW VLAN 30–GREEN-MGT                   |
+|                             |                             | Port-Channel 1 (P2P OSPF)       | `10.50.0.2/30`      | –              | *10.50.0.0*    | *10.50.0.3*      | OSPF link to NX9-1 (cost 100)              |
+|                             |                             | Eth1/1 (P2P OSPF)               | `10.20.0.2/30`      | –              | *10.20.0.0*    | *10.20.0.3*      | OSPF primary link to RT-2 (cost 1)         |
+|                             |                             | Eth1/2 (P2P OSPF)               | `10.30.0.2/30`      | –              | *10.30.0.0*    | *10.30.0.3*      | OSPF backup link to RT-1 (cost 100)        |
+|                             |                             | Eth1/3,1/5-6 (Port-Channel 0)   | –                   | –              | –              | –                | L3 Port-Channel between NX9-2 and NX9-1    |
+|                             |                             | Eth1/4,1/7 (trunks VLANs)       | trunk VLAN 10,20,30 | –              | –              | –                | L2 uplinks to Access                       |
+|                             |                             | Management (VLAN 30)            | `192.168.30.253/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | HSRP Standby on VLAN 30                    |
+| **NX9-11-ACCESS**<br>(NXOS) | L2 Access Switch            | VLAN 30 (SVI mgmt)              | `192.168.30.11/24`  | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Management – default-route to HSRP Core    |
+|                             |                             | Port-Channel 1 (trunk)          | trunk VLAN 10,20,30 | –              | –              | –                | Redundant uplink to Core                   |
+|                             |                             | Eth1/4 (trunk)                  | trunk VLAN 10,20,30 | –              | –              | –                | Additional uplink to Core                  |
+|                             |                             | Eth1/5 (access VLAN 10)         | `192.168.10.x/24`   | `192.168.10.1` | *192.168.10.0* | *192.168.10.255* | Access port VLAN 10                        |
+|                             |                             | Eth1/6 (access VLAN 20)         | `192.168.20.x/24`   | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | Access port VLAN 20                        |
+|                             |                             | Eth1/7 (access VLAN 30)         | `192.168.30.x/24`   | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Access port VLAN 30                        |
+| **NX9-12-ACCESS**<br>(NXOS) | L2 Access Switch            | VLAN 30 (SVI mgmt)              | `192.168.30.12/24`  | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Management – default-route to HSRP Core    |
+|                             |                             | Port-Channel 1 (trunk)          | trunk VLAN 10,20,30 | –              | –              | –                | Redundant uplink to Core                   |
+|                             |                             | Port-Channel 2 (trunk)          | trunk VLAN 10,20,30 | –              | –              | –                | 2nd redundant uplink to Core               |
+|                             |                             | Eth1/7 (trunk)                  | trunk VLAN 10,20,30 | –              | –              | –                | Additional uplink to Core                  |
+| **NX9-13-ACCESS**<br>(NXOS) | L2 Access Switch            | VLAN 30 (SVI mgmt)              | `192.168.30.13/24`  | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Management – default-route to HSRP Core    |
+|                             |                             | Port-Channel 1 (trunk)          | trunk VLAN 10,20,30 | –              | –              | –                | Redundant uplink (1) to Core               |
+|                             |                             | Port-Channel 2 (trunk)          | trunk VLAN 10,20,30 | –              | –              | –                | Redundant uplink (2) to Core               |
+|                             |                             | Eth1/7 (trunk)                  | trunk VLAN 10,20,30 | –              | –              | –                | Additional uplink to Core                  |
+| **NX9-14-ACCESS**<br>(NXOS) | L2 Access Switch            | VLAN 30 (SVI mgmt)              | `192.168.30.14/24`  | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Management – default-route to HSRP Core    |
+|                             |                             | Port-Channel 1 (trunk)          | trunk VLAN 10,20,30 | –              | –              | –                | Redundant uplink (1) to Core               |
+|                             |                             | Eth1/4 (trunk)                  | trunk VLAN 10,20,30 | –              | –              | –                | Redundant uplink (2) to Core               |
+|                             |                             | Eth1/5 (access VLAN 10)         | `192.168.10.x/24`   | `192.168.10.1` | *192.168.10.0* | *192.168.10.255* | Access port VLAN 10                        |
+|                             |                             | Eth1/6 (access VLAN 20)         | `192.168.20.x/24`   | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | Access port VLAN 20                        |
+|                             |                             | Eth1/7 (access VLAN 30)         | `192.168.30.x/24`   | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Access port VLAN 30                        |
+| **RT-1-EDGE**<br>(IOS)      | Edge Router (WAN/MPLS/Core) | Ethernet0/0 (WAN-1)             | `123.1.1.2/30`      | –              | *123.1.1.0*    | *123.1.1.3*      | NAT outside → 0.0.0.0/0 via `123.1.1.1`    |
+|                             |                             | Ethernet0/1 (P2P OSPF to NX9-1) | `10.10.0.1/30`      | –              | *10.10.0.0*    | *10.10.0.3*      | OSPF cost 1                                |
+|                             |                             | Ethernet0/2 (P2P OSPF to NX9-2) | `10.30.0.1/30`      | –              | *10.30.0.0*    | *10.30.0.3*      | OSPF cost 100                              |
+|                             |                             | Ethernet0/3 (P2P OSPF to RT-2)  | `10.60.0.1/30`      | –              | *10.60.0.0*    | *10.60.0.3*      | OSPF cost 200 (Edge-to-Edge)               |
+|                             |                             | Ethernet1/0 (MPLS-1)            | `10.100.0.2/30`     | –              | *10.100.0.0*   | *10.100.0.3*     | Connected to MPLS-1                        |
+|                             |                             | OSPF process                    | router-id `3.3.3.3` | –              | –              | –                | Redistributes static routes (MPLS)         |
+| **RT-2-EDGE**<br>(IOS)      | Edge Router (WAN/MPLS/Core) | Ethernet0/0 (WAN-2)             | `123.2.2.2/30`      | –              | *123.2.2.0*    | *123.2.2.3*      | NAT outside → 0.0.0.0/0 via `123.2.2.1`    |
+|                             |                             | Ethernet0/1 (P2P OSPF to NX9-2) | `10.20.0.1/30`      | –              | *10.20.0.0*    | *10.20.0.3*      | OSPF cost 1                                |
+|                             |                             | Ethernet0/2 (P2P OSPF to NX9-1) | `10.40.0.2/30`      | –              | *10.40.0.0*    | *10.40.0.3*      | OSPF cost 100                              |
+|                             |                             | Ethernet0/3 (P2P OSPF to RT-1)  | `10.60.0.2/30`      | –              | *10.60.0.0*    | *10.60.0.3*      | OSPF cost 200 (Edge-to-Edge)               |
+|                             |                             | Ethernet1/0 (MPLS-2)            | `10.100.0.6/30`     | –              | *10.100.0.4*   | *10.100.0.7*     | Connected to MPLS-2                        |
+|                             |                             | OSPF process                    | router-id `4.4.4.4` | –              | –              | –                | Redistributes static routes (MPLS)         |
+| **WAN-1 (IOS)**<br>(IOS)    | Simulated WAN Router        | Ethernet0/0                     | `123.1.1.1/30`      | –              | *123.1.1.0*    | *123.1.1.3*      | Loopbacks 8.8.8.8/32, 8.8.4.4/32           |
+| **WAN-2 (IOS)**<br>(IOS)    | Simulated WAN Router        | Ethernet0/0                     | `123.2.2.1/30`      | –              | *123.2.2.0*    | *123.2.2.3*      | Loopbacks 8.8.8.8/32, 8.8.4.4/32           |
+| **MPLS-1 (IOS)**<br>(IOS)   | Simulated MPLS Router       | Ethernet0/0                     | `10.100.0.1/30`     | –              | *10.100.0.0*   | *10.100.0.3*     | Loopbacks 10.200.0.100/32, 10.210.0.100/32 |
+| **MPLS-2 (IOS)**<br>(IOS)   | Simulated MPLS Router       | Ethernet0/0                     | `10.100.0.5/30`     | –              | *10.100.0.4*   | *10.100.0.7*     | Loopbacks 10.200.0.100/32, 10.210.0.100/32 |
+| **Server-1**<br>(Linux)     | Host VLAN 10                | Ethernet0/0                     | `192.168.10.101/24` | `192.168.10.1` | *192.168.10.0* | *192.168.10.255* | Default-route to HSRP VIP Core             |
+| **Server-2**<br>(Linux)     | Host VLAN 20                | Ethernet0/0                     | `192.168.20.101/24` | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | Default-route to HSRP VIP Core             |
+| **Server-3**<br>(Linux)     | Host VLAN 30                | Ethernet0/0                     | `192.168.30.101/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Default-route to HSRP VIP Core             |
+| **Server-4**<br>(Linux)     | Host VLAN 10                | Ethernet0/0                     | `192.168.10.102/24` | `192.168.10.1` | *192.168.10.0* | *192.168.10.255* | Default-route to HSRP VIP Core             |
+| **Server-5**<br>(Linux)     | Host VLAN 20                | Ethernet0/0                     | `192.168.20.102/24` | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | Default-route to HSRP VIP Core             |
+| **Server-6**<br>(Linux)     | Host VLAN 30                | Ethernet0/0                     | `192.168.30.102/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Default-route to HSRP VIP Core             |
+
+
 ## Cisco Nexus & NX-OS Notes:
 
 v7 VS v9 images:
