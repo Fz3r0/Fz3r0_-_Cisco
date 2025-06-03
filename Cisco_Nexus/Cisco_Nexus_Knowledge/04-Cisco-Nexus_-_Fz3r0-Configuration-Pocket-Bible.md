@@ -1080,6 +1080,181 @@ show running-config | include spanning-tree
 
 
 
+
+## OSPF 
+
+- By enabling OSPF, you advertise network prefixes (SVIs, WAN links, etc.) so that all participating routers build a consistent topology. 
+- In this lab, OSPF is used to dynamically advertise networks and build a loop-free topology at core level
+
+````py
+!# ##########################################
+!# OSPF
+!# ##########################################
+
+!# Enable OSPF Feature
+feature ospf
+
+! ### INTERFACE CONFIGURATION EXAMPLES WITH OSPF
+
+!# OSPF BEST PREFERENCE (cost 1) on RT1 → WAN-1 link
+interface ethernet 1/1
+   no shutdown
+   no switchport
+   ip address 10.10.0.2/30
+   ip router ospf 1 area 0               !# Enable OSPF on this interface, assign to Area 0
+   ip ospf network point-to-point        !# Optimize OSPF for a point-to-point link
+   ip ospf cost 1                        !# Set cost to 1 (best preference)
+   ip ospf hello-interval 1              !# Reduce hello interval to 1s for fast adjacency
+   ip ospf dead-interval 4               !# Dead interval = 4s (faster failure detection)
+   cdp enable                            !# Enable CDP for neighbor discovery (optional)
+exit
+
+!# OSPF WORST PREFERENCE (cost 100) on RT1 → RT2 link (backup path)
+interface ethernet 1/2
+   no shutdown
+   no switchport
+   ip address 10.40.0.1/30
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
+   ip ospf cost 100                       !# Higher cost → lower priority path
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
+   cdp enable
+exit
+
+!# OSPF MEDIUM PREFERENCE (cost 100) on NX9-2 → NX9-1 port-channel (backup core link)
+interface port-channel 1
+   no shutdown
+   no switchport
+   ip address 10.50.0.1/30
+   ip router ospf 1 area 0
+   ip ospf network point-to-point
+   ip ospf cost 100
+   ip ospf hello-interval 1
+   ip ospf dead-interval 4
+   cdp enable
+exit
+
+! ### CONFIGURE OSPF PROCESS
+
+router ospf 1
+!#    Advertise VLAN10 (192.168.10.0/24) into Area 0
+network 192.168.10.0/24 area 0
+!#    Advertise VLAN20 (192.168.20.0/24) into Area 0
+network 192.168.20.0/24 area 0
+!#    Advertise VLAN30 (192.168.30.0/24) into Area 0
+network 192.168.30.0/24 area 0
+!#    Advertise the WAN-1 link (123.1.1.0/30) into Area 0
+network 123.1.1.0/30 area 0
+exit
+
+!# Configure Default Route to ISP/WAN
+!# In NX-OS, a static default route must exist before redistributing it into OSPF.
+ip route 0.0.0.0/0 123.1.1.1
+
+!# Optional: Redistribute Default into OSPF
+!# To advertise the default route as an OSPF external LSA, under “router ospf 1” add:
+default-information originate
+
+
+! ### USEFUL OSPF SHOW COMMANDS FOR TROUBLESHOOTING
+
+!# OSPF Neighbor Information ---
+show ip ospf neighbor
+
+!# OSPF Interface Summary ---
+show ip ospf interface brief
+
+!# OSPF Interface Details ---
+show ip ospf interface Ethernet0/1
+
+!# OSPF Process Status ---
+show ip ospf
+
+!# OSPF Event Logs ---
+show ip ospf events
+
+!# OSPF Statistics ---
+show ip ospf statistics
+
+
+! ### OSPF LINK-STATE DATABASE (LSDB) INSPECTION
+
+!# Full OSPF Database hows the entire LSDB (all LSA types) known to this router.
+show ip ospf database
+
+!# Type-1 (Router) LSAs - Lists LSAs describing directly connected OSPF routers.
+show ip ospf database router
+
+!# Type-2 (Network) LSAs - Lists LSAs representing multi-access networks (DR/BDR). Not used on point-to-point links.
+show ip ospf database network
+
+!# Type-3 (Summary) LSAs - Lists inter-area summary LSAs (routes injected from other OSPF areas).
+show ip ospf database summary
+
+!# Type-5 (External) LSAs - Lists LSAs for routes redistributed from other protocols (e.g., the default route).
+show ip ospf database external
+
+!# LSAs Originated by This Router - Displays LSAs that this router has generated (Router, Network, Summary, External).
+show ip ospf database self-originate
+
+!# LSAs for a Specific Router ID - Shows all LSAs advertised by the router with ID 1.1.1.1.
+show ip ospf database router 1.1.1.1
+
+! ### OSPF ROUTING TABLE
+
+!# --- OSPF-Learned Routes Only - Filters the routing table to show only prefixes learned via OSPF.
+show ip route ospf
+
+!# --- Full Routing Table with OSPF Prefixes Marked “O” - Displays all routes; OSPF routes are prefixed with “O”.
+show ip route
+
+!# --- Path to Default Route - Shows how the default route is resolved in the routing table.
+show ip route 0.0.0.0
+
+!# --- Path to a Specific IP - Displays the best path towards 192.168.20.1 and its next‐hop information.
+show ip route 192.168.20.1
+
+! ### DEBUG COMMANDS (LAB USE ONLY)
+
+!#
+!# --- Trace OSPF Adjacency Changes ---
+debug ip ospf adj
+!# Logs OSPF neighbor adjacency state changes in real-time (use in lab only).
+!#
+!# --- Trace All OSPF Events ---
+debug ip ospf events
+!# Logs OSPF timers, LSA generation, and SPF recalculations to console.
+!#
+!# --- Trace SPF Recalculation ---
+debug ip ospf spf
+!# Shows detailed SPF recalculation activity; useful when a link or neighbor goes down.
+!#
+!# ##########################################
+!# NX-OS–SPECIFIC OSPF COMMANDS
+!# ##########################################
+!#
+!# --- Show OSPF RIB (Internal RIB) on Nexus ---
+show ip ospf rib
+!# Displays routes installed in the OSPF RIB on NX-OS.
+!#
+!# --- Show Historical OSPF Events ---
+show ip ospf events
+!# (Same as above, but especially helpful on NX-OS to review past events.)
+!#
+!# --- Brief OSPF Interface Status on NX-OS ---
+show ip ospf interface brief
+!# Lists all interfaces with their OSPF cost and adjacency state (Nexus-specific formatting).
+````
+
+
+
+
+
+
+
+
+
 ## Discovery Protocols (CDP & LLDP)
 
 In NX-OS, CDP and LLDP are used to discover directly connected Cisco and non-Cisco devices.
