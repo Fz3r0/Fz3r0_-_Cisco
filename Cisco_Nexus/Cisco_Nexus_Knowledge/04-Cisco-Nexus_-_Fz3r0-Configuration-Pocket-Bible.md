@@ -45,6 +45,7 @@ Basic Notes:
 - El comando "show" se puede ejecutar donde sea (a diferenciade IOS que solo se puede en el primer nivel de CLI o teniendo que usar "do")
 - Todas las interfaces por default vienen como "routed" layer 3 en nuxus 9k, es decir, no son el clásico capa 2 como en IOS/Catalyst.
 - Todas las interfaces por default vienen como "disabled/shut down" (apagadas)
+- A menos que se manipulen los timers de OSPF, BGP, etc, cada que se haga un failover puede tardar hasta 10 segundos, no desesperes!!! (o modifica los timers)
 
 Management Interface Notes: 
 
