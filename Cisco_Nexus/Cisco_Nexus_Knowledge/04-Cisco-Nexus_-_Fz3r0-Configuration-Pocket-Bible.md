@@ -441,15 +441,15 @@ interface port-channel 1-3
 interface vlan 10-12
 ````
 
-### INTERFACE L3 / IP & ADDRESSING 
+### INTERFACES L2, L3 / IP & ADDRESSING 
 
 - On Nexus, interfaces default to Layer-3 mode unless “system default switchport” is active.
 - To use interface as traditional Layer-2 interface (as IOS/Catalyst) you will need to run "switchport" command
 
 ````py
-!#############################################
-!# INTERFACE L3 / IP & ADDRESSING           #
-!#############################################
+!########################
+!# INTERFACES: L3 & L2  #
+!########################
 
 !# To explicitly set an interface to L2 (enable switchport / traditional Catalyst layer 2):
 interface ethernet 1/1
@@ -460,6 +460,16 @@ exit
 interface ethernet 1/1
   no switchport
 exit
+````
+
+### L3 Interfaces: IP & Addressing
+
+In NX-OS, IP & Addressing configuration setup closely mirror IOS
+
+````py
+!################################
+!# INTERFACES: IP & ADDRESSING  #
+!################################
 
 !# Example: Assign a WAN IP on a pure L3 port
 interface ethernet 1/1
@@ -471,10 +481,9 @@ exit
 
 !# After assigning IP, you can add a default route:
 ip route 0.0.0.0/0 123.123.123.1
-
 ````
 
-### VLANs, Trunks & Access Ports
+### L2 Interfaces: VLANs, Trunks & Access Ports
 
 In NX-OS, VLAN creation, trunk configuration, and access port setup closely mirror IOS, with a few Nexus‐specific commands (e.g., “vlan dot1q tag native”).
 
@@ -483,7 +492,7 @@ In NX-OS, VLAN creation, trunk configuration, and access port setup closely mirr
 !# VLANs, TRUNKS & ACCESS PORTS             #
 !#############################################
 
-!# 1. Ensure VLANs exist (some may already be created above)
+!# 1. Ensure VLANs exist or create new VLANs
 vlan 10
   name VLAN10-BLUE
 vlan 20
@@ -522,6 +531,11 @@ interface ethernet 1/5
   spanning-tree bpduguard enable    !# Block if BPDU received
   cdp enable
 exit
+
+!# (Optional) Limit MAC Address table learning (e.g. 199 MACs max)
+mac address-table limit vlan 20 199
+
+
 ````
 
 ### SVI (Switch VLAN Interface)
@@ -594,20 +608,6 @@ ip route 0.0.0.0/0 123.1.1.1
 
 
 ````py
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -792,34 +792,6 @@ show hsrp brief
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
-!##############################
-!# INTERFACE L2 BASICS #
-!##############################
-
-#! Set interface to L2
-interface ethernet 1/1
-    switchport
-exit
-
-#! Basic Access Config
-interface ethernet 1/1
-   no shutdown
-   switchport
-   description ** LAN-L2-VLAN10-INTERFACE **
-   switchport mode access
-   switchport access vlan 10
-exit
-
-!# Basic Trunk Interface (vlan 99 & dot1q is optional)
-vlan 99
-vlan dot1q tag native
-interface ethernet 1/1
-   no shutdown
-   switchport mode trunk
-   switchport trunk native vlan 99
-   switchport allowed vlan 50,60,99
-exit
-
 !##########################################
 !# Out-Of-Band (OOB) Management Interface #
 !##########################################
@@ -845,52 +817,7 @@ show running-config vrf management
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-!###########################
-!# VLANs & TRUNKS
-!###########################
 
-!# VLAN Creation & Activation
-configure terminal
-vlan 50
-   state active
-   name VLAN50-BLUE
-exit
-
-!# VLAN De-activation
-configure terminal
-vlan 50
-   state suspended
-exit
-
-!# Access VLAN on interface "X"
-configure terminal
-interface ethernet 2/10
-   no shutdown
-   description ** LAN-L2-ACCESS **
-   switchport
-   switchport mode access
-   switchport access vlan 50
-exit
-
-!# Trunk interface (vlan 99 & dot1q is optional / no "exit" command is needed)
-vlan 99
-   name 99-TRUNK-NATIVE
-   vlan dot1q tag native
-
-interface ethernet1/4,ethernet1/7
-   no shutdown
-   description ** LAN-L2-TRUNK **
-   switchport
-   switchport mode trunk
-   switchport trunk native vlan 99
-   switchport trunk allowed vlan 10,20,30,99
-   cdp enable
-exit
-
----
-
-!# Limit MAC Address table learning
-mac address-table limit vlan 50 199
 
 ---
 
