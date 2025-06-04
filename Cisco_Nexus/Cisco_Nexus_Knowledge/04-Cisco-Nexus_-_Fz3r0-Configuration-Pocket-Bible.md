@@ -19,7 +19,7 @@
 
 # 📄 `Index`
 
-### [**🏗️ Cisco Nexus :: NX-OS Essential Configuration Bible**]()
+[**🏗️ Cisco Nexus :: NX-OS Essential Configuration Bible**]()
 - [Key Features & Protocols Covered]()
 - [Topology]()
 - [Network Device Inventory & IP Address Summary]()
