@@ -113,7 +113,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 
 v7 VS v9 images:
 
-- 7k Image doesn't support port-channel or LACP, unfortunately.
+- 7k Image doesn't support port-channel or LACP, use 9k version to practice Port Channels (LACP)
 - The only problem I have with the 9k Image is that it does not support multiple VDCs.
 
 Basic Notes:
@@ -124,25 +124,10 @@ Basic Notes:
 - Todas las interfaces por default vienen como "disabled/shut down" (apagadas)
 - A menos que se manipulen los timers de OSPF, BGP, etc, cada que se haga un failover puede tardar hasta 10 segundos, no desesperes!!! (o modifica los timers)
 
-Management Interface Notes: 
 
-- El puerto management va conectado a un router out-of-band, por ejemplo un cradlepoint con un chip 5G LTE conectado completamente fuera de la red que comunmente se usa como MPLS, Internet, etc.
-- Todos los Nexus tienen un puerto Management, incluso los modulares que tienen los orquestadores en el centro. 
-- El puerto management pertenece a la VRF management por defecto
-- Permite la administracion out of band OOB
-- Debe tener una IP asignada
-- Debe existir una Default ROute dentro del conectexto de la VRF management
 
-Rollback & Checkpoint Notes
 
-- A diferencia de IOS, en NX se puede crear un punto de retorno o checkpoint para poder hacer roll-backs más fácil.
-- Ejemplo, si yo hago un checkpoint, después hago 1203990123 páginas de configuración y algo salió mal, solo hago un roll-back y automáticamente regresaré el checkpoint. 
 
-SSH & Telnet Notes
-
-- Para activar SSH es muy sencillo solo usar "feature ssh"
-- Pero para tener mayor seguridad, una vez activado el SSH lo mas recomendable es configurar cosas adicionales como configs de VTY o ACLs.
-- A diferencia de IOS la VTY solo se selecciona a nivel general, no una por una (eg. "line vty" en lugar de "line vty 4")
 
 VLAN & Trunk Notes
 
@@ -437,6 +422,8 @@ copy ftp://<user>@<host>/nxos.10.0.1.bin bootflash:/nxos.10.0.1.bin
 
 ! ### CHECKPOINT & ROLLBACK 
 
+!# - Unlike IOS, NX-OS allows you to create a checkpoint (rollback point) to simplify configuration rollbacks.
+!# - For example, if you create a checkpoint and then make a large number of configuration changes—say thousands of lines—and something goes wrong, you can issue a rollback command to instantly restore the configuration to that checkpoint.
 !# - Checkpoints allow you to capture the running configuration at a point in time.
 !# - You can roll back to a saved checkpoint if needed—useful for testing changes safely.
 
@@ -562,8 +549,15 @@ show role name Fz3r0-Custom-Role
 
 ## Telnet & SSH
 
-! Enabling Telnet and SSH on NX-OS is almost identical to IOS.
-! You need to load the feature modules, assign an IP to a management port, and optionally lock down VTY access.
+- Enabling Telnet and SSH on NX-OS is almost identical to IOS.
+- You need to load the feature modules, assign an IP to a management port, and optionally lock down VTY access.
+- Enable the feature modules (e.g., `feature ssh`) to activate SSH
+- Assign an IP address to a management interface before allowing remote access
+- After enabling SSH, configure additional security controls:
+   - VTY session limits (`session-limit`)
+   - VTY idle-timeout (`exec-timeout`)
+   - ACLs bound to “line vty” to restrict allowed source IPs
+- In NX-OS, VTY settings apply at the global `line vty` context (not per-line as in IOS)
 
 ````py
 !################
@@ -856,7 +850,15 @@ show running-config port-profile
 
 ## Out-Of-Band (OOB) Management Interface
 
-In NX-OS, a dedicated Out-Of-Band (OOB) management interface separates device management traffic from production data. This ensures administrative access remains available even if data-plane interfaces are down. By placing this interface in its own “management” VRF, you isolate management routing, improve security, and simplify policy control.
+A dedicated Out-Of-Band (OOB) management interface in NX-OS ensures that device management traffic is completely separated from production data-plane traffic. This means you can always reach the switch for administrative tasks—even if all other network links fail. 
+
+By placing this interface in its own `management` VRF, you isolate management routing, improve security posture, and simplify policy enforcement.
+
+- The management port is connected to an out-of-band router (for example, a Cradlepoint with a 5G LTE modem) that operates entirely outside of the MPLS/Internet production network.  
+- All Nexus platforms include a dedicated management port, even large modular switches with multiple supervisor modules.  
+- By default, the management interface is in the `management` VRF.  
+- This interface must have a static IP address assigned.  
+- A default route must exist within the `management` VRF context to reach the OOB gateway.
 
 ````py
 !##########################################
