@@ -58,7 +58,7 @@ This lab is a hands-on, end-to-end deployment of a fully functional, two-tier co
 - ✅ **End-Hosts:** Six Linux VMs (Server-1 through Server-6) acting as PC/Server endpoints in their respective VLANs, each with a default gateway pointing at the HSRP VIPs on the Nexus cores. <br><br>
 - ✅ **Management & Out-Of-Band (OOB):** Two Cradlepoint devices (CP-OOB-1 and CP-OOB-2) connected to the dedicated management ports of the Nexus cores, each in a separate “management” VRF for true out-of-band administration.
 
-Throughout this lab you will learn NX-OS CLI conventions, feature activation, and new configuration paradigms—while still applying many familiar IOS-style commands. 
+Throughout this lab you will learn NX-OS CLI conventions, feature activation, and new configuration paradigms, while still applying many familiar IOS-style commands and procedures. 
 
 - 🏆 **You’ll end with a fully operational, high-availability data center fabric and upon completion, you’ll be ready to tackle advanced features like `VRF`, `VPC`, `VXLAN` or `EVPN`.**
 
