@@ -439,6 +439,7 @@ line vty
    exec-timeout 3
 exit
 ip access-list remote-access-users
+   permit ip 192.168.0.0/24 any
    permit ip 192.168.30.0/24 any
    permit ip host 192.168.10.101 any
 exit  
@@ -726,6 +727,7 @@ line vty
    exec-timeout 3
 exit
 ip access-list remote-access-users
+   permit ip 192.168.0.0/24 any
    permit ip 192.168.30.0/24 any
    permit ip host 192.168.10.101 any
 exit  
