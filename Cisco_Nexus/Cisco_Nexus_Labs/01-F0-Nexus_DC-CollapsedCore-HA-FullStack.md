@@ -56,7 +56,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 
 ## Network Topology
 
-![image](https://github.com/user-attachments/assets/30e85bd8-a5f6-4200-a990-5f2d4b93d34a)
+![image](https://github.com/user-attachments/assets/529c5012-fabd-40a2-b045-777f4fd230d8)
 
 ## Network Device Inventory & IP Addressing
 
