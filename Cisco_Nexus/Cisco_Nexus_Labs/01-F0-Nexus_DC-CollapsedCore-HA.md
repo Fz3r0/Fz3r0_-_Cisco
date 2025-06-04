@@ -462,7 +462,9 @@ banner motd $
 + ADMIN 2   =  Dennis Nedry
 
 + IP        =  192.168.30.254
-+ VIP(HSRP) =  192.168.30.1 
++ VIP(HSRP) =  192.168.30.1
+
++ OOB(MGMT) =  192.168.0.1
 
 ? login     :  admin
 ? Password  :  Adm1n.C1sc0
@@ -754,6 +756,8 @@ banner motd $
 
 + IP        =  192.168.30.253
 + VIP(HSRP) =  192.168.30.1 
+
++ OOB(MGMT) =  192.168.0.1
 
 ? login     :  admin
 ? Password  :  Adm1n.C1sc0
