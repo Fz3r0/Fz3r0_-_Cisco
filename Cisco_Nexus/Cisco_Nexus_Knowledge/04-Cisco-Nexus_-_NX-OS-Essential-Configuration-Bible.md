@@ -750,7 +750,7 @@ exit
 vrf context management
 
 !# 3. Add a default route in the management VRF to reach the OOB gateway
-ip route 0.0.0.0/0 192.168.100.2
+ip route 0.0.0.0/0 192.168.0.2
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
