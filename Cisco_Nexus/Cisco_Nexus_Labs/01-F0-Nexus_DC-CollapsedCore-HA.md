@@ -51,7 +51,7 @@ This lab is designed for engineers transitioning from IOS switches (Cisco Cataly
 
 The lab recreates a typical two-tier collapsed Core/Distribution topology connected to simulated WAN and MPLS circuits, with four downstream access switches and six end-hosts. 
 
-## Objectives, Features & Protocols Covered
+## 🎯 Objectives, Features & Protocols Covered
 
 - **Hands-on with NX-OS CLI**: Master feature activation and NX-OS naming.  
 - **High Availability**: Implement HSRP for gateway redundancy.  
@@ -69,11 +69,11 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 - **Static routing** to simulate MPLS circuits  
 - **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
 
-## Network Topology
+## 🗺️ Network Topology
 
 ![image](https://github.com/user-attachments/assets/9b00d3ab-fe67-4c33-a86f-b93bb7a59a5f)
 
-## Network Device Inventory & IP Addressing
+## 📋 Network Device Inventory & IP Addressing
 
 | Device                      | Function                    | Interface / VLAN                | IP (Mask)           | VIP / Gateway  | *Network*      | *Broadcast*      | Main Description                           |
 | --------------------------- | --------------------------- | ------------------------------- | ------------------- | -------------- | -------------- | ---------------- | ------------------------------------------ |
@@ -138,7 +138,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 | **Server-5**<br>(Linux)     | Host VLAN 20                | Ethernet0/0                     | `192.168.20.102/24` | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | Default-route to HSRP VIP Core             |
 | **Server-6**<br>(Linux)     | Host VLAN 30                | Ethernet0/0                     | `192.168.30.102/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Default-route to HSRP VIP Core             |
 
-## Lab Notes
+## 📝 Lab Notes
 
 Credentials:
 
@@ -150,11 +150,13 @@ Notes:
 - The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 could bug/error.
 - Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
 
-# Devices Configurations
+[**🎥 Resources**]()
+
+# **⚙️ Devices Configurations**
 
 - Copy & Paste the configuration in each device CLI
 
-## `NX9-1-CR-ACT` - (Switch NX9-1 - CORE: ACTIVE HSRP (Priority 200))
+## 🥇 `NX9-1-CR-ACT` - (Switch NX9-1 - CORE: ACTIVE HSRP (Priority 200))
 
 ````py
 !##################################################
@@ -443,7 +445,7 @@ copy running-config startup-config
 
 
 
-## `NX9-2-CR-STB` - (Switch NX9-2 - CORE: STAND-BY HSRP (Priority 100))
+## 🥈 `NX9-2-CR-STB` - (Switch NX9-2 - CORE: STAND-BY HSRP (Priority 100))
 
 ````py
 !##################################################
@@ -776,7 +778,7 @@ copy running-config startup-config
 
 
 
-## `NX9-11-ACCESS` - (Switch NX9-11 - ACCESS)
+## ↔️ `NX9-11-ACCESS` - (Switch NX9-11 - ACCESS)
 
 ````py
 !##################################################
@@ -997,7 +999,7 @@ copy running-config startup-config
 
 
 
-## `NX9-12-ACCESS` - (Switch NX9-12 - ACCESS)
+## ↔️ `NX9-12-ACCESS` - (Switch NX9-12 - ACCESS)
 
 ````py
 !##################################################
@@ -1207,7 +1209,7 @@ copy running-config startup-config
 
 
 
-## `NX9-13-ACCESS` - (Switch NX9-13 - ACCESS)
+## ↔️ `NX9-13-ACCESS` - (Switch NX9-13 - ACCESS)
 
 ````py
 !##################################################
@@ -1416,7 +1418,7 @@ copy running-config startup-config
 
 
 
-## `NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)
+## ↔️ `NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)
 
 ````py
 !##################################################
@@ -1666,7 +1668,7 @@ copy running-config startup-config
 
 
 
-## `RT-1-EDGE` - (Router 1 Edge) 
+## 🔀 `RT-1-EDGE` - (Router 1 Edge) 
 
 ````py
 !# Namings
@@ -1805,7 +1807,7 @@ write memory
 ````
 
 
-## `RT-2-EDGE` - (Router 2 Edge) 
+## 🔀 `RT-2-EDGE` - (Router 2 Edge) 
 
 ````py
 !# Namings
@@ -1967,7 +1969,7 @@ write memory
 
 
 
-## `WAN-1` - (ACTIVE Internet Circuit)
+## 🌎 `WAN-1` - (ACTIVE Internet Circuit)
 
 ````py
 !###############
@@ -2011,7 +2013,7 @@ write memory
 ````
 
 
-## `WAN-2` - (STAND-BY Internet Circuit)
+## 🌎 `WAN-2` - (STAND-BY Internet Circuit)
 
 
 
@@ -2057,7 +2059,7 @@ write memory
 
 
 
-## `MPLS-1` - (ACTIVE MPLS Circuit)
+## 🕸️ `MPLS-1` - (ACTIVE MPLS Circuit)
 
 
 ````py
@@ -2102,7 +2104,7 @@ write memory
 
 ````
 
-## `MPLS-2` - (STAND-BY MPLS Circuit)
+## 🕸️ `MPLS-2` - (STAND-BY MPLS Circuit)
 
 ````py
 !################
@@ -2151,7 +2153,7 @@ write memory
 
 
 
-## `SERVER-1-V10BLUE` - (Server 1)
+## 🖥️ `SERVER-1-V10BLUE` - (Server 1)
 
 
 
@@ -2192,7 +2194,7 @@ write memory
 
 ````
 
-## `SERVER-2-V20RED` - (Server 2)
+## 🖥️ `SERVER-2-V20RED` - (Server 2)
 
 
 ````py
@@ -2232,7 +2234,7 @@ write memory
 
 ````
 
-## `SERVER-3-V30GREEN` - (Server 3)
+## 🖥️ `SERVER-3-V30GREEN` - (Server 3)
 
 
 ````py
@@ -2272,7 +2274,7 @@ write memory
 
 ````
 
-## `SERVER-4-V10BLUE` - (Server 4)
+## 🖥️ `SERVER-4-V10BLUE` - (Server 4)
 
 
 ````py
@@ -2312,7 +2314,7 @@ write memory
 
 ````
 
-## `SERVER-5-V20RED` - (Server 5)
+## 🖥️ `SERVER-5-V20RED` - (Server 5)
 
 
 ````py
@@ -2352,7 +2354,7 @@ write memory
 
 ````
 
-## `SERVER-6-V30GREEN` - (Server 6)
+## 🖥️ `SERVER-6-V30GREEN` - (Server 6)
 
 ````py
 ! ############
@@ -2393,7 +2395,7 @@ write memory
 
 
 
-## `CP-OOB-1` - (Cradlepoint Out-Of-Band Management 1)
+## 📡 `CP-OOB-1` - (Cradlepoint Out-Of-Band Management 1)
 
 ````py
 ! #####################
@@ -2435,7 +2437,7 @@ write memory
 
 
 
-## `CP-OOB-2` - (Cradlepoint Out-Of-Band Management 2)
+## 📡 `CP-OOB-2` - (Cradlepoint Out-Of-Band Management 2)
 
 ````py
 ! #####################
@@ -2487,15 +2489,11 @@ write memory
 - https://youtu.be/ieZkA7Ayc-4?si=XgsEx2Pz87hLBZM5
 - https://youtu.be/IFb-Ncj5w-E?si=BsXcc9WlyG-W0vpu
 - https://journey2theccie.wordpress.com/2020/07/20/hsrp-aware-dhcp-relay/
-- 
 
 
-
-  
 ---
 
 <span align="center"> <p align="center"> ![giphy](https://user-images.githubusercontent.com/94720207/166587250-292d9a9f-e590-4c25-a678-d457e2268e85.gif) </p> </span> 
-
 
 
 &nbsp;
@@ -2510,10 +2508,6 @@ write memory
 <span align="center"> <p align="center"> _I am [Fz3r0 💀](https://github.com/Fz3r0/) and the Sun no longer rises..._ </p> </span> 
 
 ---
-
-
-
-
 
 
 ---
