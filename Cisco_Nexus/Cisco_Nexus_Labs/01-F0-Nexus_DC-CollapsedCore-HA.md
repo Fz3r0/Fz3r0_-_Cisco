@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `NX-OS - DC Collapsed Core  (HA-FullStack)`
+# 🧠🏗️🌐 Cisco Nexus: `NX-OS - DC Collapsed Core (HA)`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -15,7 +15,7 @@
 
 # 📄 `Index`
 
-[**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA-FullStack)**]()
+[**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA)**]()
 - [Objectives, Features & Protocols Covered]()
 - [Network Topology]()
 - [Network Device Inventory & IP Addressing]()
@@ -42,7 +42,7 @@
 - [`SERVER-6-V30GREEN` - (Server 6)]()
 
 
-# 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA-FullStack)`
+# 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA)`
 
 This lab is designed for engineers transitioning from IOS switches (Cisco Catalyst) to NX-OS (Cisco Nexus). It covers essential network/data-center concepts and foundational protocols like VLANs, Trunk & Access Interfaces, SVI, HSRP, Static & Default Routing, OSPF, Rapid PVST+, Port Channels LACP, and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VRF, VPC, VXLAN or EVPN.
 
