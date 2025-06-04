@@ -22,14 +22,24 @@
 - [Lab Notes]()
 
 [**⚙️ Devices Configurations**]()
-- [`NX9-1-CR-ACT` - (Switch NX9-1 - ACTIVE HSRP (Priority 200))]()
-- [`NX9-2-CR-STB` - (Switch NX9-2 - STAND-BY HSRP (Priority 100))]()
+- [`NX9-1-CR-ACT` - (Switch NX9-1 - CORE: ACTIVE HSRP (Priority 200))]()
+- [`NX9-2-CR-STB` - (Switch NX9-2 - CORE: STAND-BY HSRP (Priority 100))]()
 - [`NX9-11-ACCESS` - (Switch NX9-11 - ACCESS)]()
 - [`NX9-12-ACCESS` - (Switch NX9-12 - ACCESS)]()
 - [`NX9-13-ACCESS` - (Switch NX9-13 - ACCESS)]()
 - [`NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)]()
 - [`RT-1-EDGE` - (Router 1 Edge)]()
 - [`RT-2-EDGE` - (Router 2 Edge)]()
+- [`WAN-1` - (ACTIVE Internet Circuit)]()
+- [`WAN-2` - (STAND-BY Internet Circuit)]()
+- [`MPLS-1` - (ACTIVE MPLS Circuit)]()
+- [`MPLS-2` - (STAND-BY MPLS Circuit)]()
+- [`SERVER-1-V10BLUE` - (Server 1)]()
+- [`SERVER-2-V20RED` - (Server 2)]()
+- [`SERVER-3-V30GREEN` - (Server 3)]()
+- [`SERVER-4-V10BLUE` - (Server 4)]()
+- [`SERVER-5-V20RED` - (Server 5)]()
+- [`SERVER-6-V30GREEN` - (Server 6)]()
 
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA-FullStack)`
@@ -134,7 +144,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 
 - Copy & Paste the configuration in each device CLI
 
-## `NX9-1-CR-ACT` - (Switch NX9-1 - ACTIVE HSRP (Priority 200))
+## `NX9-1-CR-ACT` - (Switch NX9-1 - CORE: ACTIVE HSRP (Priority 200))
 
 ````py
 !##################################################
@@ -411,7 +421,7 @@ copy running-config startup-config
 
 
 
-## `NX9-2-CR-STB` - (Switch NX9-2 - STAND-BY HSRP (Priority 100))
+## `NX9-2-CR-STB` - (Switch NX9-2 - CORE: STAND-BY HSRP (Priority 100))
 
 ````py
 !##################################################
@@ -1923,7 +1933,7 @@ write memory
 
 
 
-## WANS / INTERNET
+## `WAN-1` - (ACTIVE Internet Circuit)
 
 ````py
 !###############
@@ -1965,6 +1975,11 @@ write memory
 
 
 ````
+
+
+## `WAN-2` - (STAND-BY Internet Circuit)
+
+
 
 ````py
 !###############
@@ -2008,9 +2023,8 @@ write memory
 
 
 
+## `MPLS-1` - (ACTIVE MPLS Circuit)
 
-
-## MPLS
 
 ````py
 !################
@@ -2054,6 +2068,7 @@ write memory
 
 ````
 
+## `MPLS-2` - (STAND-BY MPLS Circuit)
 
 ````py
 !################
@@ -2102,23 +2117,8 @@ write memory
 
 
 
+## `SERVER-1-V10BLUE` - (Server 1)
 
-
-
-
-
-## PC
-
-- PCs are IOS routers simulating a PC (for having shh, telnet, ping, traceroute, etc)
-
-| PC Name | VLAN         | IP Address        | Subnet Mask     | CIDR  | Default Gateway   |
-|---------|--------------|-------------------|------------------|-------|-------------------|
-| PC-1    | VLAN10-BLUE  | 192.168.10.101     | 255.255.255.0    | /24   | 192.168.10.1      |
-| PC-4    | VLAN10-BLUE  | 192.168.10.102     | 255.255.255.0    | /24   | 192.168.10.1      |
-| PC-2    | VLAN20-RED   | 192.168.20.101     | 255.255.255.0    | /24   | 192.168.20.1      |
-| PC-5    | VLAN20-RED   | 192.168.20.102     | 255.255.255.0    | /24   | 192.168.20.1      |
-| PC-3    | VLAN30-GREEN | 192.168.30.101     | 255.255.255.0    | /24   | 192.168.30.1      |
-| PC-6    | VLAN30-GREEN | 192.168.30.102     | 255.255.255.0    | /24   | 192.168.30.1      |
 
 
 ````py
@@ -2158,6 +2158,9 @@ write memory
 
 ````
 
+## `SERVER-2-V20RED` - (Server 2)
+
+
 ````py
 ! ############
 ! # SERVER-2 #
@@ -2194,6 +2197,9 @@ write memory
 
 
 ````
+
+## `SERVER-3-V30GREEN` - (Server 3)
+
 
 ````py
 ! ############
@@ -2232,6 +2238,9 @@ write memory
 
 ````
 
+## `SERVER-4-V10BLUE` - (Server 4)
+
+
 ````py
 ! ############
 ! # SERVER-4 #
@@ -2268,6 +2277,8 @@ write memory
 
 
 ````
+
+## `SERVER-5-V20RED` - (Server 5)
 
 
 ````py
@@ -2306,6 +2317,8 @@ write memory
 
 
 ````
+
+## `SERVER-6-V30GREEN` - (Server 6)
 
 ````py
 ! ############
