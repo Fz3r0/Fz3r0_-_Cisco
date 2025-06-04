@@ -42,7 +42,7 @@
 - [`SERVER-6-V30GREEN` - (Server 6)]()
 
 
-# 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA)`
+# 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core (HA)`
 
 This lab is designed for engineers transitioning from IOS switches (Cisco Catalyst) to NX-OS (Cisco Nexus). It covers essential network/data-center concepts and foundational protocols like VLANs, Trunk & Access Interfaces, SVI, HSRP, Static & Default Routing, OSPF, Rapid PVST+, Port Channels LACP, and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VRF, VPC, VXLAN or EVPN.
 
