@@ -49,18 +49,18 @@
 
 This lab is a hands-on, end-to-end deployment of a fully functional, two-tier collapsed Core/Distribution Nexus data center topology. It is designed for engineers migrating from IOS/Catalyst to NX-OS/Nexus platforms. You will build a resilient, high-availability environment that includes:
 
-- ⚙️ **Core Layer (Collapsed Core/Distribution):** Two Cisco Nexus 9000 Series switches (NX9-1 and NX9-2) running NX-OS, providing both Layer-3 routing (SVIs, HSRP, OSPF) and Layer-2 switching (Rapid PVST+, LACP port-channels) functions. <br><br>
-- ⚙️ **Edge Routers:**  Two Cisco IOS routers (RT-1-EDGE and RT-2-EDGE) simulating data-center border routers. Each edge router:  
+- ✅ **Core Layer (Collapsed Core/Distribution):** Two Cisco Nexus 9000 Series switches (NX9-1 and NX9-2) running NX-OS, providing both Layer-3 routing (SVIs, HSRP, OSPF) and Layer-2 switching (Rapid PVST+, LACP port-channels) functions. <br><br>
+- ✅ **Edge Routers:**  Two Cisco IOS routers (RT-1-EDGE and RT-2-EDGE) simulating data-center border routers. Each edge router:  
     - Peers with both Nexus cores over OSPF point-to-point links (primary and secondary paths with different OSPF costs).  
     - Peers with its sibling edge router over an OSPF “edge-to-edge” link for redundancy.  
     - Connects to a simulated WAN circuit via NAT overload (Internet) and to a simulated MPLS circuit via static routes. <br><br>
-- ⚙️ **Access Layer:** Four Cisco Nexus 9000 Series switches (NX9-11, NX9-12, NX9-13, NX9-14) running NX-OS in pure Layer-2 mode. Each access switch hosts one or two Linux end-hosts or servers in VLANs 10 (blue), 20 (red), and 30 (green). <br><br>
-- ⚙️ **End-Hosts:** Six Linux VMs (Server-1 through Server-6) acting as PC/Server endpoints in their respective VLANs, each with a default gateway pointing at the HSRP VIPs on the Nexus cores. <br><br>
-- ⚙️ **Management & Out-Of-Band (OOB):** Two Cradlepoint devices (CP-OOB-1 and CP-OOB-2) connected to the dedicated management ports of the Nexus cores, each in a separate “management” VRF for true out-of-band administration.
+- ✅ **Access Layer:** Four Cisco Nexus 9000 Series switches (NX9-11, NX9-12, NX9-13, NX9-14) running NX-OS in pure Layer-2 mode. Each access switch hosts one or two Linux end-hosts or servers in VLANs 10 (blue), 20 (red), and 30 (green). <br><br>
+- ✅ **End-Hosts:** Six Linux VMs (Server-1 through Server-6) acting as PC/Server endpoints in their respective VLANs, each with a default gateway pointing at the HSRP VIPs on the Nexus cores. <br><br>
+- ✅ **Management & Out-Of-Band (OOB):** Two Cradlepoint devices (CP-OOB-1 and CP-OOB-2) connected to the dedicated management ports of the Nexus cores, each in a separate “management” VRF for true out-of-band administration.
 
 Throughout this lab you will learn NX-OS CLI conventions, feature activation, and new configuration paradigms—while still applying many familiar IOS-style commands. 
 
-- **You’ll end with a fully operational, high-availability data center fabric and upon completion, you’ll be ready to tackle advanced features like `VRF`, `VPC`, `VXLAN` or `EVPN`.**
+- 🏆 **You’ll end with a fully operational, high-availability data center fabric and upon completion, you’ll be ready to tackle advanced features like `VRF`, `VPC`, `VXLAN` or `EVPN`.**
 
 ## 🎯 Objectives, Features & Protocols Covered
 
