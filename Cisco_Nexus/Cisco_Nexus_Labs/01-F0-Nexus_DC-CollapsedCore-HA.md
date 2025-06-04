@@ -645,6 +645,18 @@ interface ethernet1/4,ethernet1/7
    cdp enable
 exit
 
+!# OOB MANAGEMENT INTERFACE - MGMT -> CRADLEPOINT
+
+interface mgmt 0
+  no shutdown
+  description ** OOB Management Interface **
+  ip address 192.168.0.1/24
+exit
+
+vrf context management
+   ip route 0.0.0.0/0 192.168.0.2
+exit
+
 !# TELNET & SSH #
 
 line vty
