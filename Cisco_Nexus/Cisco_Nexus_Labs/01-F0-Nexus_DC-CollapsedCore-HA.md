@@ -23,25 +23,27 @@
 
 [**⚙️ Devices Configurations**]()
 - [`NX9-1-CR-ACT` - (Switch NX9-1 - CORE: ACTIVE HSRP (Priority 200))]()
-- [`NX9-2-CR-STB` - (Switch NX9-2 - CORE: STAND-BY HSRP (Priority 100))]() <br><br>
+- [`NX9-2-CR-STB` - (Switch NX9-2 - CORE: STAND-BY HSRP (Priority 100))]() 
 - [`NX9-11-ACCESS` - (Switch NX9-11 - ACCESS)]()
 - [`NX9-12-ACCESS` - (Switch NX9-12 - ACCESS)]()
 - [`NX9-13-ACCESS` - (Switch NX9-13 - ACCESS)]()
-- [`NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)]() <br><br>
+- [`NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)]() 
 - [`RT-1-EDGE` - (Router 1 Edge)]()
-- [`RT-2-EDGE` - (Router 2 Edge)]() <br><br>
+- [`RT-2-EDGE` - (Router 2 Edge)]() 
 - [`WAN-1` - (ACTIVE Internet Circuit)]()
-- [`WAN-2` - (STAND-BY Internet Circuit)]() <br><br>
+- [`WAN-2` - (STAND-BY Internet Circuit)]() 
 - [`MPLS-1` - (ACTIVE MPLS Circuit)]()
-- [`MPLS-2` - (STAND-BY MPLS Circuit)]() <br><br>
+- [`MPLS-2` - (STAND-BY MPLS Circuit)]() 
 - [`SERVER-1-V10BLUE` - (Server 1)]()
 - [`SERVER-2-V20RED` - (Server 2)]()
 - [`SERVER-3-V30GREEN` - (Server 3)]()
 - [`SERVER-4-V10BLUE` - (Server 4)]()
 - [`SERVER-5-V20RED` - (Server 5)]()
-- [`SERVER-6-V30GREEN` - (Server 6)]() <br><br>
+- [`SERVER-6-V30GREEN` - (Server 6)]() 
 - [`CP-OOB-1` - (Cradlepoint Out-Of-Band Management 1)]()
 - [`CP-OOB-2` - (Cradlepoint Out-Of-Band Management 2)]()
+
+[**⚙🎥 Resources**]()
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core (HA)`
 
@@ -2375,7 +2377,7 @@ write memory
 
 
 
-# 📚🗂️🎥 Resources
+# 🎥 Resources
 
 - https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
 - https://www.youtube.com/watch?v=fdc912ReAE4
