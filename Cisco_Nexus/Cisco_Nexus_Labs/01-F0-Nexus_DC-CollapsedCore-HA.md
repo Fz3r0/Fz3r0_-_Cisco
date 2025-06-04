@@ -140,6 +140,13 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 
 ## Lab Notes
 
+Credentials:
+
+- Admin: `admin`
+- Pass: `Adm1n.C1sc0`
+
+Notes:
+
 - The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 could bug/error.
 - Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
 
@@ -347,6 +354,18 @@ interface ethernet1/4,ethernet1/7
    duplex full
    spanning-tree port type network
    cdp enable
+exit
+
+!# OOB MANAGEMENT INTERFACE - MGMT -> CRADLEPOINT
+
+interface mgmt 0
+  no shutdown
+  description ** OOB Management Interface **
+  ip address 192.168.0.1/24
+exit
+
+vrf context management
+   ip route 0.0.0.0/0 192.168.0.2
 exit
 
 !# TELNET & SSH #
