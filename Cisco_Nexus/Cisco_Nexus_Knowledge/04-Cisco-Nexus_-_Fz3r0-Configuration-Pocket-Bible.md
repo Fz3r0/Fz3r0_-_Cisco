@@ -461,14 +461,25 @@ show checkpoint fz3r0-check-04212025
 
 ````
 
-
-
-
-
-
-
-
 # Nexus: Common Configs & Commands: 
+
+This section includes core NX-OS configurations and common command examples used in enterprise & data-center builds. It covers: 
+
+- feature activation
+- device naming
+- user/role management
+- remote access (Telnet/SSH),
+- interface selection and VLAN setup,
+- port profiles,
+- management VRF
+- SVIs
+- port channels
+- HSRP
+- spanning-tree
+- OSPF
+- discovery protocols (CDP/LLDP)
+- NAT
+- license management.
 
 ## Features
 
