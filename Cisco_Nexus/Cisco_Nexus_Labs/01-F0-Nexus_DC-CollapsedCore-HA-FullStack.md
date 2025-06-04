@@ -19,7 +19,7 @@
 
 # 📄 `Index`
 
-[**🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA-FullStack)**]()
+[**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA-FullStack)**]()
 - [Objectives, Features & Protocols Covered]()
 - [Network Topology]()
 - [Network Device Inventory & IP Addressing]()
