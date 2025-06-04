@@ -140,7 +140,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 
 ## Lab Notes
 
-- The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 will error.
+- The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 could bug/error.
 - Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
 
 # Devices Configurations
