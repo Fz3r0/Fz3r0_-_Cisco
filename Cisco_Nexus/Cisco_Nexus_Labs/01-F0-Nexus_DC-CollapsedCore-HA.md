@@ -47,27 +47,90 @@
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core (HA)`
 
-This lab is designed for engineers transitioning from IOS switches (Cisco Catalyst) to NX-OS (Cisco Nexus). It covers essential network/data-center concepts and foundational protocols like VLANs, Trunk & Access Interfaces, SVI, HSRP, Static & Default Routing, OSPF, Rapid PVST+, Port Channels LACP, SSH/Telnet, OOB Management, and other common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VRF, VPC, VXLAN or EVPN.
+This lab is a hands-on, end-to-end deployment of a fully functional, two-tier collapsed Core/Distribution Nexus data center topology. It is designed for engineers migrating from IOS/Catalyst to NX-OS/Nexus platforms. You will build a resilient, high-availability environment that includes:
 
-The lab recreates a typical two-tier collapsed Core/Distribution topology connected to simulated WAN and MPLS circuits, with four downstream access switches and six end-hosts. 
+- **Core Layer (Collapsed Core/Distribution):** Two Cisco Nexus 9000 Series switches (NX9-1 and NX9-2) running NX-OS, providing both Layer-3 routing (SVIs, HSRP, OSPF) and Layer-2 switching (Rapid PVST+, LACP port-channels) functions.
+- **Edge Routers:**  Two Cisco IOS routers (RT-1-EDGE and RT-2-EDGE) simulating data-center border routers. Each edge router:  
+    - Peers with both Nexus cores over OSPF point-to-point links (primary and secondary paths with different OSPF costs).  
+    - Peers with its sibling edge router over an OSPF “edge-to-edge” link for redundancy.  
+    - Connects to a simulated WAN circuit via NAT overload (Internet) and to a simulated MPLS circuit via static routes.
+- **Access Layer:** Four Cisco Nexus 9000 Series switches (NX9-11, NX9-12, NX9-13, NX9-14) running NX-OS in pure Layer-2 mode. Each access switch hosts one or two Linux end-hosts or servers in VLANs 10 (blue), 20 (red), and 30 (green).
+- **End-Hosts:** Six Linux VMs (Server-1 through Server-6) acting as PC/Server endpoints in their respective VLANs, each with a default gateway pointing at the HSRP VIPs on the Nexus cores.
+- **Management & Out-Of-Band (OOB):** Two Cradlepoint devices (CP-OOB-1 and CP-OOB-2) connected to the dedicated management ports of the Nexus cores, each in a separate “management” VRF for true out-of-band administration.
+
+Throughout this lab you will learn NX-OS CLI conventions, feature activation, and new configuration paradigms—while still applying many familiar IOS-style commands. 
+
+- **You’ll end with a fully operational, high-availability data center fabric and upon completion, you’ll be ready to tackle advanced features like `VRF`, `VPC`, `VXLAN` or `EVPN`.**
 
 ## 🎯 Objectives, Features & Protocols Covered
 
-- **Hands-on with NX-OS CLI**: Master feature activation and NX-OS naming.  
-- **High Availability**: Implement HSRP for gateway redundancy.  
-- **Dynamic Routing**: Deploy OSPF Area 0 across core and edge devices.  
-- **Layer 2 Resiliency**: Configure Rapid PVST+ and port channels using LACP.  
-- **SVI Gateways**: Build SVIs per VLAN and integrate them into OSPF.  
-- **Inter-site Connectivity & NAT**: Simulate edge routers with multiple WAN links and NAT overload.
-- **NX-OS feature activation** (`feature interface-vlan`, `feature hsrp`, etc.)  
-- **HSRP (v2)** for gateway redundancy on SVIs  
-- **OSPF Area 0** full-mesh adjacency among core and edge devices  
-- **Rapid PVST+** for STP resiliency on access layer trunks  
-- **Port-channel (LACP)** bundling for inter-switch links  
-- **SVI gateways per VLAN**, advertised into OSPF  
-- **NAT overload** (`ip nat inside/outside`) on edge routers for outbound Internet  
-- **Static routing** to simulate MPLS circuits  
-- **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
+By the end of this lab, you will have configured and verified:
+
+1. **NX-OS Feature Management & Naming:**
+   - Enable/disable NX-OS features (`feature interface-vlan`, `feature hsrp`, `feature ospf`, `feature lacp`, `feature lldp`, etc.).
+   - Understand NX-OS hostname and user/role configuration (password strength, custom roles).
+
+2. **High-Availability Gateway (HSRP v2):**
+   - Create SVIs for VLANs 10, 20, and 30 on both NX9 cores.
+   - Configure HSRP groups (v2) with matching VIPs across NX9-1 (priority 200) and NX9-2 (priority 100).
+   - Validate active/standby states and seamless failover for end-host default gateways.
+
+3. **Dynamic Layer-3 Connectivity (OSPF Area 0):**
+   - Enable and tune OSPF on NX9 cores and IOS edge routers.
+   - Build full-mesh OSPF adjacencies:  
+     - Core ↔ Edge links (cost manipulation for primary/backup paths).  
+     - Edge ↔ Edge link for resilience.
+   - Advertise VLAN networks (`192.168.10.0/24`, `192.168.20.0/24`, `192.168.30.0/24`), WAN circuits (`123.1.1.0/30`, `123.2.2.0/30`), and MPLS static circuits (`10.100.0.0/30`).
+   - Inject default route into OSPF and redistribute static MPLS routes.
+
+4. **Layer-2 Resiliency & Spanning-Tree (Rapid PVST+):**
+   - Enable Rapid PVST+ globally.
+   - Designate root-primary and root-secondary on VLANs 10, 20, 30 across NX9 cores.
+   - Configure edge ports (PortFast) and network ports (Bridge Assurance) on access layer.
+
+5. **Port-Channel (LACP) Bundling:**
+   - Create Layer-2 port-channels on NX9 cores and access switches for trunk uplinks.
+   - Create Layer-3 port-channels for core-to-core and core-to-edge interconnects.
+   - Set LACP parameters (`max-bundle`, `min-links`, `port-priority`, `load-balance`).
+
+6. **SVI Gateway Implementation:**
+   - Build SVIs as logical L3 interfaces for VLANs 10, 20, and 30.
+   - Assign IPs, enable OSPF on SVIs, and integrate HSRP for gateway redundancy.
+
+7. **Static & Default Routing:**
+   - Configure static default routes on NX9 cores toward WAN interfaces.
+   - Configure static MPLS routes on IOS routers to simulate remote networks.
+   - Redistribute static routes into OSPF on edge routers.
+
+8. **NAT Overload (PAT) on Edge Routers:**
+   - Designate WAN facing interfaces as `ip nat outside`.
+   - Designate SVIs and core links as `ip nat inside`.
+   - Create ACLs to match internal subnets for NAT.
+   - Overload internal traffic to a single public IP.
+
+9. **Out-Of-Band (OOB) Management:**
+   - Configure dedicated `mgmt0` interfaces on both NX9 cores.
+   - Place management interfaces in a separate VRF (`management`).
+   - Assign IP addresses (`192.168.0.1/24`) and default routes pointing to Cradlepoint.
+   - Secure and verify OOB connectivity (ping from management VRF, `show vrf interfaces`).
+
+10. **Telnet & SSH Access Hardening:**
+    - Enable Telnet and SSH features under NX-OS.
+    - Assign an L2 or L3 interface for admin access.
+    - Harden VTY lines (session limits, timeouts, ACLs).
+
+11. **Discovery Protocols (CDP & LLDP):**
+    - Enable CDP globally and per-interface for Cisco neighbor discovery.
+    - Enable LLDP feature and fine-tune LLDP transmit/receive on individual ports.
+
+12. **File Management & Saving:**
+    - Use `show tech-support`, `show file`, `dir bootflash:`.
+    - Save configurations to startup-config, take checkpoints (`checkpoint <name>`), and roll back if required.
+
+13. **Collapsed Core/Distribution Architecture:**
+    - Understand the benefits of collapsing core and distribution onto Nexus 9Ks.
+    - Integrate Layer-2 access switches directly to the dual core/distribution pair via LACP port-channels.
+    - Maintain a clear separation of VLAN domains and routing domains.
 
 ## 🗺️ Network Topology
 
