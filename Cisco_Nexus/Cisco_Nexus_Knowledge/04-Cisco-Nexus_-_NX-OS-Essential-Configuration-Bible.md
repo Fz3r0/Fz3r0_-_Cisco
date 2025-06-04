@@ -1284,11 +1284,29 @@ show ip ospf interface Ethernet0/1
 !# OSPF Process Status
 show ip ospf
 
-!# OSPF Event Logs
-show ip ospf events
-
 !# OSPF Statistics
 show ip ospf statistics
+
+!# OSPF Event Logs
+show ip ospf event-history ?
+  adjacency       Adjacency formation logs
+  cli             Cli logs
+  event           Internal event logs
+  flooding        LSA flooding logs
+  ha              HA and GR logs
+  hello           Hello related logs
+  ldp             LDP related logs
+  lsa             LSA generation and databse logs
+  msgs            IPC logs
+  objstore        DME OBJSTORE related logs
+  redistribution  Redistribution logs
+  rib             RIB related logs
+  segrt           Segment Routing logs
+  spf             SPF calculation logs
+  spf-trigger     SPF TRIGGER related logs
+  statistics      Show the state and size of the buffers
+  te              MPLS TE related logs
+
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
