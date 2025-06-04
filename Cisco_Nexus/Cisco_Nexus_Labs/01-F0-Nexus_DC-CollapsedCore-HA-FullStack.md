@@ -24,6 +24,8 @@
 - [Network Topology]()
 - [Network Device Inventory & IP Addressing]()
 
+[**⚙️ Devices Configurations**]()
+- [Switch NX9-1 - ACTIVE HSRP (Priority 200)]()
 
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA-FullStack)`
@@ -49,6 +51,8 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 7. **NAT overload** (`ip nat inside/outside`) on edge routers for outbound Internet  
 8. **Static routing** to simulate MPLS circuits  
 9. **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
+
+## Lab Notes
 
 ## Network Topology
 
@@ -120,21 +124,14 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 | **Server-6**<br>(Linux)     | Host VLAN 30                | Ethernet0/0                     | `192.168.30.102/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Default-route to HSRP VIP Core             |
 
 
+## Lab Important Notes
 
+- The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 will error.
+- Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
 
+# Devices Configurations
 
-
-
-
-## Fz3r0 Nexus Lab: Important Notes
-
-- Se deben encender y configurar primero los NX9-1 y 2, antes de los edge routers o el OSPF 1 da error. 
-
-
-
-
-
-
+- Copy & Paste the configuration in each device CLI
 
 ## Switch NX9-1 - ACTIVE HSRP (Priority 200)
 
