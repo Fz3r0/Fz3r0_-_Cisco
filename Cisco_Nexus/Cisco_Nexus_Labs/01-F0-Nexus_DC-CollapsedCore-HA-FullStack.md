@@ -25,7 +25,14 @@
 - [Network Device Inventory & IP Addressing]()
 
 [**⚙️ Devices Configurations**]()
-- [Switch NX9-1 - ACTIVE HSRP (Priority 200)]()
+- [`NX9-1-CR-ACT` - (Switch NX9-1 - ACTIVE HSRP (Priority 200))]()
+- [`NX9-2-CR-STB` - (Switch NX9-2 - STAND-BY HSRP (Priority 100))]()
+- [`NX9-11-ACCESS` - (Switch NX9-11 - ACCESS)]()
+- [`NX9-12-ACCESS` - (Switch NX9-12 - ACCESS)]()
+- [`NX9-13-ACCESS` - (Switch NX9-13 - ACCESS)]()
+- [`NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)]()
+- [`RT-1-EDGE` - (Router 1 Edge)]()
+- [`RT-2-EDGE` - (Router 2 Edge)]()
 
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core  (HA-FullStack)`
@@ -133,7 +140,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 
 - Copy & Paste the configuration in each device CLI
 
-## Switch NX9-1 - ACTIVE HSRP (Priority 200)
+## `NX9-1-CR-ACT` - (Switch NX9-1 - ACTIVE HSRP (Priority 200))
 
 ````py
 !##################################################
@@ -410,7 +417,7 @@ copy running-config startup-config
 
 
 
-## Switch NX9-2 - PASSIVE HSRP (Priority 100)
+## `NX9-2-CR-STB` - (Switch NX9-2 - STAND-BY HSRP (Priority 100))
 
 ````py
 !##################################################
@@ -731,7 +738,7 @@ copy running-config startup-config
 
 
 
-## Switch NX9-11 - ACCESS
+## `NX9-11-ACCESS` - (Switch NX9-11 - ACCESS)
 
 ````py
 !##################################################
@@ -952,7 +959,7 @@ copy running-config startup-config
 
 
 
-## Switch NX9-12 - ACCESS
+## `NX9-12-ACCESS` - (Switch NX9-12 - ACCESS)
 
 ````py
 !##################################################
@@ -1162,7 +1169,7 @@ copy running-config startup-config
 
 
 
-## Switch NX9-13 - ACCESS
+## `NX9-13-ACCESS` - (Switch NX9-13 - ACCESS)
 
 ````py
 !##################################################
@@ -1371,7 +1378,7 @@ copy running-config startup-config
 
 
 
-## Switch NX9-14 - ACCESS
+## `NX9-14-ACCESS` - (Switch NX9-14 - ACCESS)
 
 ````py
 !##################################################
@@ -1621,7 +1628,7 @@ copy running-config startup-config
 
 
 
-## Router 1 Edge
+## `RT-1-EDGE` - (Router 1 Edge) 
 
 ````py
 !# Namings
@@ -1760,7 +1767,7 @@ write memory
 ````
 
 
-## Router 2 Edge
+## `RT-2-EDGE` - (Router 2 Edge) 
 
 ````py
 !# Namings
