@@ -13,6 +13,50 @@
 
 <br>
 
+
+
+
+
+
+
+
+
+# 📄 `Index`
+
+[**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA)**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-cisco-nexus--nx-os---dc-collapsed-core-ha)  
+- [🎯 Objectives, Features & Protocols Covered](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-objectives-features--protocols-covered)  
+- [🗺️ Network Topology](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-network-topology)  
+- [📋 Network Device Inventory & IP Addressing](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-network-device-inventory--ip-addressing)  
+- [📝 Lab Notes](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-lab-notes)  
+
+[**⚙️ Devices Configurations**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#devices-configurations)  
+- [🥇 NX9-1-CR-ACT - (Switch NX9-1 – CORE: ACTIVE HSRP (Priority 200))](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#nx9-1-cr-act---switch-nx9-1---core-active-hsrp-priority-200)  
+- [🥈 NX9-2-CR-STB - (Switch NX9-2 – CORE: STAND-BY HSRP (Priority 100))](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#nx9-2-cr-stb---switch-nx9-2---core-stand-by-hsrp-priority-100)  
+- [↔️ NX9-11-ACCESS - (Switch NX9-11 – ACCESS)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#nx9-11-access---switch-nx9-11---access)  
+- [↔️ NX9-12-ACCESS - (Switch NX9-12 – ACCESS)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#nx9-12-access---switch-nx9-12---access)  
+- [↔️ NX9-13-ACCESS - (Switch NX9-13 – ACCESS)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#nx9-13-access---switch-nx9-13---access)  
+- [↔️ NX9-14-ACCESS - (Switch NX9-14 – ACCESS)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#nx9-14-access---switch-nx9-14---access)  
+- [🔀 RT-1-EDGE - (Router 1 Edge)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#rt-1-edge---router-1-edge)  
+- [🔀 RT-2-EDGE - (Router 2 Edge)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#rt-2-edge---router-2-edge)  
+- [🌎 WAN-1 - (ACTIVE Internet Circuit)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#wan-1---active-internet-circuit)  
+- [🌎 WAN-2 - (STAND-BY Internet Circuit)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#wan-2---stand-by-internet-circuit)  
+- [🕸️ MPLS-1 - (ACTIVE MPLS Circuit)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#mpls-1---active-mpls-circuit)  
+- [🕸️ MPLS-2 - (STAND-BY MPLS Circuit)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#mpls-2---stand-by-mpls-circuit)  
+- [🖥️ SERVER-1-V10BLUE - (Server 1)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#server-1-v10blue---server-1)  
+- [🖥️ SERVER-2-V20RED - (Server 2)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#server-2-v20red---server-2)  
+- [🖥️ SERVER-3-V30GREEN - (Server 3)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#server-3-v30green---server-3)  
+- [🖥️ SERVER-4-V10BLUE - (Server 4)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#server-4-v10blue---server-4)  
+- [🖥️ SERVER-5-V20RED - (Server 5)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#server-5-v20red---server-5)  
+- [🖥️ SERVER-6-V30GREEN - (Server 6)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#server-6-v30green---server-6)  
+- [📡 CP-OOB-1 - (Cradlepoint Out-Of-Band Management 1)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#cp-oob-1---cradlepoint-out-of-band-management-1)  
+- [📡 CP-OOB-2 - (Cradlepoint Out-Of-Band Management 2)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#cp-oob-2---cradlepoint-out-of-band-management-2)  
+
+[**🎥 Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#resources)  
+
+
+
+
+
 # 📄 `Index`
 
 [**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA)**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-cisco-nexus--nx-os---dc-collapsed-core-ha)  
