@@ -2362,6 +2362,89 @@ write memory
 
 
 
+## `CP-OOB-1` - (Cradlepoint Out-Of-Band Management 1)
+
+````py
+! #####################
+! # CRADLEPOINT OOB 1 #
+! #####################
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname CP-OOB-1
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated Cradlepoint OOB Port **
+   ip address 192.168.0.2 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (Management Nexus Interface (MGMT))
+ip route 0.0.0.0 0.0.0.0 192.168.0.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+
+
+
+## `CP-OOB-2` - (Cradlepoint Out-Of-Band Management 2)
+
+````py
+! #####################
+! # CRADLEPOINT OOB 2 #
+! #####################
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname CP-OOB-2
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated Cradlepoint OOB Port **
+   ip address 192.168.0.2 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (Management Nexus Interface (MGMT))
+ip route 0.0.0.0 0.0.0.0 192.168.0.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+
+
 
 
 # 🎥 Resources
