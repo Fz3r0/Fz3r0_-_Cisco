@@ -43,7 +43,7 @@
 - [`CP-OOB-1` - (Cradlepoint Out-Of-Band Management 1)]()
 - [`CP-OOB-2` - (Cradlepoint Out-Of-Band Management 2)]()
 
-[**⚙🎥 Resources**]()
+[**🎥 Resources**]()
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core (HA)`
 
