@@ -17,15 +17,15 @@
 
 <br>
 
-# 📝❓📄 `Index`
+# 📄 `Index`
 
-[**⚡ Cisco Nexus :: NX-OS Essential Configuration Bible**]()
+[**🏗️ Cisco Nexus :: NX-OS Essential Configuration Bible**]()
 - [Key Features & Protocols Covered]()
 - [Topology]()
 - [Network Device Inventory & IP Address Summary]()
 
 
-# ⚡ Cisco Nexus :: NX-OS Essential Configuration Bible
+# 🏗️ Cisco Nexus :: NX-OS Essential Configuration Bible
 
 This lab is designed for engineers transitioning from IOS switches (Cisco Catalyst) to NX-OS (Cisco Nexus). It covers essential network/data-center concepts and foundational protocols like VLANs, Trunk & Access Interfaces, SVI, HSRP, Static & Default Routing, OSPF, Rapid PVST+, Port Channels LACP, and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VRF, VPC, VXLAN or EVPN.
 
