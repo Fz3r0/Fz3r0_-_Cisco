@@ -19,6 +19,7 @@
 - [Objectives, Features & Protocols Covered]()
 - [Network Topology]()
 - [Network Device Inventory & IP Addressing]()
+- [Lab Notes]()
 
 [**⚙️ Devices Configurations**]()
 - [`NX9-1-CR-ACT` - (Switch NX9-1 - ACTIVE HSRP (Priority 200))]()
@@ -54,8 +55,6 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 - **NAT overload** (`ip nat inside/outside`) on edge routers for outbound Internet  
 - **Static routing** to simulate MPLS circuits  
 - **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
-
-## Lab Notes
 
 ## Network Topology
 
@@ -126,8 +125,7 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 | **Server-5**<br>(Linux)     | Host VLAN 20                | Ethernet0/0                     | `192.168.20.102/24` | `192.168.20.1` | *192.168.20.0* | *192.168.20.255* | Default-route to HSRP VIP Core             |
 | **Server-6**<br>(Linux)     | Host VLAN 30                | Ethernet0/0                     | `192.168.30.102/24` | `192.168.30.1` | *192.168.30.0* | *192.168.30.255* | Default-route to HSRP VIP Core             |
 
-
-## Lab Important Notes
+## Lab Notes
 
 - The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 will error.
 - Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
