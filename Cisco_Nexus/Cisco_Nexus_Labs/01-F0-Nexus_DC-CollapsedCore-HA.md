@@ -134,7 +134,7 @@ By the end of this lab, you will have configured and verified:
 
 ## 🗺️ Network Topology
 
-![image](https://github.com/user-attachments/assets/9b00d3ab-fe67-4c33-a86f-b93bb7a59a5f)
+![image](https://github.com/user-attachments/assets/a1fae561-c37c-4384-a1bf-b285f4b916e6)
 
 ## 📋 Network Device Inventory & IP Addressing
 
