@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `Fz3r0 :: Nexus Configuration Bible`
+# 🧠🏗️🌐 Cisco Nexus: `NX-OS Essential Configuration Bible`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -19,15 +19,19 @@
 
 # 📝❓📄 `Index`
 
+[**⚡ Cisco Nexus :: NX-OS Essential Configuration Bible**]()
+- [Key Features & Protocols Covered]()
+- [Topology]()
+- [Network Device Inventory & IP Address Summary]()
 
 
-# ⚡ Cisco Nexus - Fz3r0 :: Nexus Init Confioguration Bible
+# ⚡ Cisco Nexus :: NX-OS Essential Configuration Bible
 
 This lab is designed for engineers transitioning from IOS switches (Cisco Catalyst) to NX-OS (Cisco Nexus). It covers essential network/data-center concepts and foundational protocols like VLANs, Trunk & Access Interfaces, SVI, HSRP, Static & Default Routing, OSPF, Rapid PVST+, Port Channels LACP, and common NX-OS configuration patterns. Upon completion, you’ll be ready to tackle advanced features like VRF, VPC, VXLAN or EVPN.
 
 The lab recreates a typical two-tier collapsed Core/Distribution topology connected to simulated WAN and MPLS circuits, with four downstream access switches and six end-hosts. 
 
-### Key Features & Protocols Covered
+## Key Features & Protocols Covered
 
 1. **NX-OS feature activation** (`feature interface-vlan`, `feature hsrp`, etc.)  
 2. **HSRP (v2)** for gateway redundancy on SVIs  
