@@ -743,14 +743,14 @@ By placing this interface in its own `management` VRF, you isolate management ro
 interface management 0
   no shutdown
   description ** OOB Management Interface **
-  ip address 192.168.100.100/24
+  ip address 192.168.0.1/24
 exit
 
 !# 2. Create or enter the 'management' VRF context
 vrf context management
 
 !# 3. Add a default route in the management VRF to reach the OOB gateway
-ip route 0.0.0.0/0 192.168.100.1
+ip route 0.0.0.0/0 192.168.100.2
 
 !#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
