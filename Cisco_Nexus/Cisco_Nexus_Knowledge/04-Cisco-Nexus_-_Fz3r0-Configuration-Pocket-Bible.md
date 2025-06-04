@@ -247,14 +247,219 @@ OSPF (Full Mesh en Core Layer)
 
 
 
+# Nexus NX-OS: Help Miscellaneous Commands
+
+This section provides useful commands for:
+
+- Viewing general configurations
+- File management
+- Directory navigation
+- Basic utility operations in NX-OS.
+
+````py
+!#############################################
+!# HELP & MISCELLANEOUS COMMANDS (NX-OS CLI) #
+!#############################################
+
+! ### BASIC SHOW
+
+!# - Basic “show” commands for quick system insight and troubleshooting.
+
+!# Display the entire running configuration
+show running
+
+!# Display a summary of all interfaces and their current status (up/down, VLAN, etc.)
+show interface status
+
+!# List all currently connected users and the VTY sessions they are using
+show users
+
+!# Show system resource usage (CPU, memory, etc.)
+show system resources
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### WHERE & LOCATION
+
+!# - Commands to identify your current CLI context or mode.
+
+!# Display the current CLI context (which mode you are in)
+where
+
+!# Show detailed information about the CLI context (more verbose)
+where detail
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### VIEW CONFIGS
+
+!# - Commands to compare configurations or view specific sections.
+
+!# Show current running configuration
+show running-config
+
+!# Compare running-config to startup-config and highlight differences
+show diff rollback-patch running-config startup-config
+
+!# Show only the VLAN section of the running config
+show running-config vlan
+
+!# Show only the interface configuration for Ethernet1/1
+show running-config interface Ethernet1/1
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### PUSH / POP
+
+!# - Push creates a temporary CLI checkpoint; Pop reverts to it if needed.
+
+!# Create a push (CLI volatile checkpoint) so you can revert to it if needed
+push
+
+!# Return to the most recent push checkpoint
+pop
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### DIRECTORY (DIR)
+
+!# - Commands to inspect filesystems and their contents.
+
+!# Show all file systems mounted on the device
+show file system
+
+!# List contents of the primary flash filesystem
+dir bootflash:
+
+!# List contents of the “system” filesystem (where NX-OS images reside)
+dir system:
+
+!# List contents of a USB flash (if present)
+dir usb0:
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### NAVIGATION (PWD, CD, MKDIR, RMDIR)
+
+!# - Commands to navigate and manipulate directories.
+
+!# Print working directory (shows current path in NX-OS file hierarchy)
+pwd
+
+!# Create a directory named “tech-support” in the current filesystem
+mkdir tech-support
+
+!# Change into the “tech-support” directory
+cd tech-support
+
+!# Move up one directory level
+cd ..
+
+!# Remove an empty directory named “old-backups”
+rmdir old-backups
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### FILE INSPECTION (MORE, TYPE)
+
+!# - Commands to view file contents or validate integrity.
+
+!# Display the contents of “backup-1” one page at a time
+more backup-1
+
+!# Display the first 10 lines of “backup-1”
+more bootflash:/backup-1 | head
+
+!# Verify file integrity or view a file’s content in plain text
+show file bootflash:/nxos.9.2.3.bin
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### FILE MANAGEMENT
+
+!# - Commands to delete, rename, or manage files on NX-OS filesystems.
+
+!# Delete a file named “old-backup” from bootflash
+delete bootflash:/old-backup
+
+!# Rename (“move”) a file from bootflash to a new name
+rename bootflash:/backup-1 bootflash:/backup-1-old
+
+!# Remove all files matching a pattern (wildcard)
+delete bootflash:/*.cfg
+
+!# Verify remaining free and used space on bootflash
+dir bootflash: | include bytes
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# TECH-SUPPORT 
+
+!# - Use tech-support commands to collect diagnostics for TAC or internal use.
+
+!# Generate a full tech-support bundle (collects logs, configs, diagnostics)
+show tech-support
+
+!# Generate tech-support and save it to “tech-support-<date>”
+show tech-support > tech-support-$(date +%Y%m%d)
+
+!# View the directory to ensure the tech-support file is created
+dir bootflash: | include tech-support
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### SAVE CONFIGURATION, FILE COPY & TRANSFER
+
+!# - Common copy commands for configurations and IOS/NX-OS images.
+
+!# Copy running-config to startup-config
+copy running-config startup-config
+
+!# Copy running-config to a remote TFTP server (replace <tftp-ip> and <filename>)
+copy running-config tftp://<tftp-ip>/nxos-running.backup
+
+!# Copy startup-config from TFTP to running-config
+copy tftp://<tftp-ip>/nxos-startup.backup running-config
+
+!# Copy NX-OS image from USB to bootflash (replace <image.bin>)
+copy usb0:/nxos.9.3.3.bin bootflash:/nxos.9.3.3.bin
+
+!# Copy file from bootflash to USB
+copy bootflash:/backup-1 usb0:/backup-1
+
+!# Secure copy (SCP) running-config to a remote server (replace <user@host:path>)
+copy running-config scp://<user>@<host>/configs/nxos-running.cfg
+
+!# Download a file via FTP (requires an FTP server)
+copy ftp://<user>@<host>/nxos.10.0.1.bin bootflash:/nxos.10.0.1.bin
+
+!#=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+! ### CHECKPOINT & ROLLBACK 
+
+!# - Checkpoints allow you to capture the running configuration at a point in time.
+!# - You can roll back to a saved checkpoint if needed—useful for testing changes safely.
+
+!# Create a named checkpoint of the running configuration
+checkpoint fz3r0-check-04212025
+
+!# Roll back to a named checkpoint
+rollback running-config checkpoint fz3r0-check-04212025
+
+!# List all saved checkpoints
+show checkpoint
+
+!# List checkpoint names in the output
+show checkpoint | include name
+
+!# Show a summary of all checkpoints and their metadata
+show checkpoint summary
+
+!# Show the contents of a specific checkpoint (view its config)
+show checkpoint fz3r0-check-04212025
 
 
-
-
-
-
-
-
+````
 
 
 
@@ -1384,37 +1589,6 @@ ip nat inside source list NAT_INSIDE interface ethernet 1/1 overload
 ````
 
 
-
-
-
-##  Checkpoints & Roll-Backs
-
-- Checkpoints allow you to capture the running configuration at a point in time.
-- You can roll back to a saved checkpoint if needed—useful for testing changes safely.
-
-````py
-!# ##########################################
-!# CHECKPOINTS & ROLL-BACKS
-!# ##########################################
-
-!# Create a checkpoint with a custom name
-checkpoint fz3r0-check-04212025
-
-!# Roll back to a specific checkpoint
-rollback running-config checkpoint fz3r0-check-04212025
-
-!# Display all saved checkpoints
-show checkpoint
-
-!# List checkpoint names (filtered output)
-show checkpoint | include name
-
-!# Show summary information for all checkpoints
-show checkpoint summary
-
-!# View the full details of a specific checkpoint configuration
-show checkpoint fz3r0-check-04212025
-````
 
 
 
