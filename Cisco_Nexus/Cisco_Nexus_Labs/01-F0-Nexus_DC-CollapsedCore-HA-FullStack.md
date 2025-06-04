@@ -42,21 +42,21 @@ The lab recreates a typical two-tier collapsed Core/Distribution topology connec
 - **Layer 2 Resiliency**: Configure Rapid PVST+ and port channels using LACP.  
 - **SVI Gateways**: Build SVIs per VLAN and integrate them into OSPF.  
 - **Inter-site Connectivity & NAT**: Simulate edge routers with multiple WAN links and NAT overload.
-1. **NX-OS feature activation** (`feature interface-vlan`, `feature hsrp`, etc.)  
-2. **HSRP (v2)** for gateway redundancy on SVIs  
-3. **OSPF Area 0** full-mesh adjacency among core and edge devices  
-4. **Rapid PVST+** for STP resiliency on access layer trunks  
-5. **Port-channel (LACP)** bundling for inter-switch links  
-6. **SVI gateways per VLAN**, advertised into OSPF  
-7. **NAT overload** (`ip nat inside/outside`) on edge routers for outbound Internet  
-8. **Static routing** to simulate MPLS circuits  
-9. **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
+- **NX-OS feature activation** (`feature interface-vlan`, `feature hsrp`, etc.)  
+- **HSRP (v2)** for gateway redundancy on SVIs  
+- **OSPF Area 0** full-mesh adjacency among core and edge devices  
+- **Rapid PVST+** for STP resiliency on access layer trunks  
+- **Port-channel (LACP)** bundling for inter-switch links  
+- **SVI gateways per VLAN**, advertised into OSPF  
+- **NAT overload** (`ip nat inside/outside`) on edge routers for outbound Internet  
+- **Static routing** to simulate MPLS circuits  
+- **Collapsed Core/Distribution** architecture with L3 all-in-one on NX9  
 
 ## Lab Notes
 
 ## Network Topology
 
-![image](https://github.com/user-attachments/assets/529c5012-fabd-40a2-b045-777f4fd230d8)
+![image](https://github.com/user-attachments/assets/28d8de8e-2f83-4ab9-a2fc-d06895c81f15)
 
 ## Network Device Inventory & IP Addressing
 
