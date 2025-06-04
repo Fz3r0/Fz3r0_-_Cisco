@@ -464,6 +464,9 @@ banner motd $
 + IP        =  192.168.30.254
 + VIP(HSRP) =  192.168.30.1 
 
+? login     :  admin
+? Password  :  Adm1n.C1sc0
+
 * Github : Fz3r0           
 * Twitter: @fz3r0_OPs 
 * Youtube: @fz3r0_OPs
@@ -752,6 +755,9 @@ banner motd $
 + IP        =  192.168.30.253
 + VIP(HSRP) =  192.168.30.1 
 
+? login     :  admin
+? Password  :  Adm1n.C1sc0
+
 * Github : Fz3r0           
 * Twitter: @fz3r0_OPs 
 * Youtube: @fz3r0_OPs
@@ -971,6 +977,9 @@ banner motd $
 
 + IP        =  192.168.30.11
 
+? login     :  admin
+? Password  :  Adm1n.C1sc0
+
 * Github : Fz3r0           
 * Twitter: @fz3r0_OPs 
 * Youtube: @fz3r0_OPs
@@ -1174,6 +1183,9 @@ banner motd $
 
 + IP        =  192.168.30.12
 
+? login     :  admin
+? Password  :  Adm1n.C1sc0
+
 * Github : Fz3r0           
 * Twitter: @fz3r0_OPs 
 * Youtube: @fz3r0_OPs
@@ -1376,6 +1388,9 @@ banner motd $
 + ADMIN 2   =  Dennis Nedry
 
 + IP        =  192.168.30.13
+
+? login     :  admin
+? Password  :  Adm1n.C1sc0
 
 * Github : Fz3r0           
 * Twitter: @fz3r0_OPs 
@@ -1594,6 +1609,9 @@ banner motd $
 + ADMIN 2   =  Dennis Nedry
 
 + IP        =  192.168.30.14
+
+? login     :  admin
+? Password  :  Adm1n.C1sc0
 
 * Github : Fz3r0           
 * Twitter: @fz3r0_OPs 
