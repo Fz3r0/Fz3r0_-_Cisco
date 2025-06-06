@@ -3,6 +3,10 @@ Cisco oficial de como monitorearla en nexus dashbaord:
 
 https://www.cisco.com/c/en/us/td/docs/dcn/whitepapers/managing-and-monitoring-vxlan-evpn-fabrics-using-cisco-ndfc.html
 
+guia
+
+https://www.cisco.com/c/en/us/td/docs/dcn/ndfc/1221/articles/ndfc-data-center-vxlan-evpn/data-center-vxlan-evpn.html
+
 ---
 
 - https://www.youtube.com/watch?v=vJqwIl2V8GY
