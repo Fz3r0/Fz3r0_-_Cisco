@@ -1,0 +1,94 @@
+# 🧠🏗️🌐 Cisco Nexus: `NX-OS - Tier 3 Fabric : VXLAN/EVPN`
+
+![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
+
+### 🐦 Twitter  : [@fz3r0_OPs](https://twitter.com/Fz3r0_OPs)
+### 🐱 Github  : [Fz3r0](https://github.com/fz3r0) 
+
+---
+ 
+#### Keywords: `Cisco` `CCNA` `CCNP` `Datacenter` `NX-OS` `Cisco Nexus` `Leaf & Spine` `DC Switching` `Modular Chassis` `Fixed Form Factor` `vPC` `ECMP` `FEX` `Fabric Extender` `Nexus 2000` `Nexus 5000` `Nexus 7000` `Nexus 9000`  `Port-Channel` `LAG` `VLAN` `VRF` `Overlay` `Underlay` `EVPN` `VXLAN`  `Spine Switch` `Leaf Switch` `Control Plane` `Forwarding Plane` `Supervisor Card` `Line Card`  `Redundant Power Supply` `Hot-swappable` `In-Service Software Upgrade (ISSU)` `High Availability`  `Twinax Cable` `SFP+` `QSFP28` `QSFP-DD` `10G` `25G` `40G` `100G` `400G`
+
+---
+
+<br>
+
+# 📄 `Index`
+
+
+
+[**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-resources)
+
+# 🏗️ Cisco Nexus :: `NX-OS - Tier 3 Fabric : VXLAN/EVP`
+
+
+
+## 🎯 Objectives, Features & Protocols Covered
+
+
+
+## 🎥 Lab Proof of Concept (PoC) - Video
+
+- [**👉 Click here to go to the PoC video 👈**](https://youtu.be/RL9hBT0H7UE)
+
+## 🗺️ Network Topology
+
+
+
+## 📋 Network Device Inventory & IP Addressing
+
+
+
+## 📝 Lab Notes
+
+Credentials:
+
+- Admin: `admin`
+- Pass: `Adm1n.C1sc0`
+
+Notes:
+
+- During Nexus Switches start-up, select `skip` during "Abort Power On Auto Provisioning (yes - continue with normal setup, skip - bypass password and basic configuration, no - continue with Power On Auto Provisioning) (yes/skip/no)[no]: `skip`"
+- The NX9-1 and NX9-2 must be powered on and configured before the edge routers, otherwise OSPF process 1 could bug/error.
+- Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
+
+# **⚙️ Devices Configurations**
+
+- Copy & Paste the configuration in each device CLI
+
+## 🥇 `NX9-1-CR-ACT` - (Switch NX9-1 - CORE: ACTIVE HSRP (Priority 200))
+
+# 🗃️ Resources
+
+- https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
+- https://www.youtube.com/watch?v=fdc912ReAE4
+- https://youtu.be/oBJNkFhPpfU?si=BpyN82rV99dBf_cI
+- https://youtu.be/aPzNzvyv20A?si=1QMckKT0AjZHR1bm
+- https://youtu.be/ieZkA7Ayc-4?si=XgsEx2Pz87hLBZM5
+- https://youtu.be/IFb-Ncj5w-E?si=BsXcc9WlyG-W0vpu
+- https://journey2theccie.wordpress.com/2020/07/20/hsrp-aware-dhcp-relay/
+
+---
+
+<span align="center"> <p align="center"> ![giphy](https://user-images.githubusercontent.com/94720207/166587250-292d9a9f-e590-4c25-a678-d457e2268e85.gif) </p> </span> 
+
+&nbsp;
+
+<span align="center"> <p align="center"> _I hope this information was useful for someone_ </p> </span> 
+<span align="center"> <p align="center"> _and please, don't forget to enjoy your days..._ </p> </span> 
+<span align="center"> <p align="center"> _...It is getting dark... so dark..._ </p> </span> 
+
+&nbsp;
+
+<span align="center"> <p align="center"> _In the mist of the night you could see me come, where shadows move and Demons lie..._ </p> </span> 
+<span align="center"> <p align="center"> _I am [Fz3r0 💀](https://github.com/Fz3r0/) and the Sun no longer rises..._ </p> </span> 
+
+---
+
+---
+
+> ![hecho en mexico 5](https://user-images.githubusercontent.com/94720207/166068790-fa1f243d-2db9-4810-a6e4-eb3c4ad23700.png)
+>
+> _- Hecho en México - by [Fz3r0 💀](https://github.com/Fz3r0/)_  
+>
+> _"In the mist of the night you could see me come, where shadows move and Demons lie..."_ 
