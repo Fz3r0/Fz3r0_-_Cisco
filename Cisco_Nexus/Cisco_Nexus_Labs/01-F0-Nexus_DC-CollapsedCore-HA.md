@@ -16,6 +16,7 @@
 # 📄 `Index`
 
 [**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA)**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-cisco-nexus--nx-os---dc-collapsed-core-ha)  
+- [🎥 Lab Proof of Concept (PoC) - Video](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-lab-notes)  
 - [🎯 Objectives, Features & Protocols Covered](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-objectives-features--protocols-covered)  
 - [🗺️ Network Topology](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-network-topology)  
 - [📋 Network Device Inventory & IP Addressing](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-network-device-inventory--ip-addressing)  
@@ -43,7 +44,7 @@
 - [📡 CP-OOB-1 - (Cradlepoint Out-Of-Band Management 1)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-cp-oob-1---cradlepoint-out-of-band-management-1)
 - [📡 CP-OOB-2 - (Cradlepoint Out-Of-Band Management 2)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-cp-oob-2---cradlepoint-out-of-band-management-2)
 
-[**🎥 Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-resources)
+[**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-resources)
 
 # 🏗️ Cisco Nexus :: `NX-OS - DC Collapsed Core (HA)`
 
