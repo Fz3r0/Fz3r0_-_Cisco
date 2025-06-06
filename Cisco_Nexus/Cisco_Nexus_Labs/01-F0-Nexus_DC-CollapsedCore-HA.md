@@ -2428,7 +2428,7 @@ write memory
 
 ````
 
-# 🎥 Resources
+# 🗃️ Resources
 
 - https://www.youtube.com/watch?v=lADK3STwwAM&list=PLwAU7bA502wFB5j6RnpDPNG5xwb5JEbq8
 - https://www.youtube.com/watch?v=fdc912ReAE4
