@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `NX-OS - Tier 3 Fabric : VXLAN/EVPN`
+# 🧠🏗️🌐 Cisco Nexus: `NX-OS - Tier 3 Fabric : VXLAN`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -19,7 +19,7 @@
 
 [**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-resources)
 
-# 🏗️ Cisco Nexus :: `NX-OS - Tier 3 Fabric : VXLAN/EVP`
+# 🏗️ Cisco Nexus :: `NX-OS - Tier 3 Fabric : VXLAN`
 
 
 
