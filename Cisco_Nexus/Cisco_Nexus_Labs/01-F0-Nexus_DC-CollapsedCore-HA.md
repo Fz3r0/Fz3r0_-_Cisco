@@ -63,10 +63,6 @@ Throughout this lab you will learn NX-OS CLI conventions, feature activation, an
 
 - 🏆 **You’ll end with a fully operational, high-availability data center fabric and upon completion, you’ll be ready to tackle advanced features like `VRF`, `VPC`, `VXLAN` or `EVPN`.**
 
-## 🎥 Lab Proof of Concept (PoC) - Video
-
-- [**👉 Click here to go to the PoC video 👈**](https://youtu.be/RL9hBT0H7UE)
-
 ## 🎯 Objectives, Features & Protocols Covered
 
 By the end of this lab, you will have configured and verified:
@@ -136,6 +132,10 @@ By the end of this lab, you will have configured and verified:
     - Understand the benefits of collapsing core and distribution onto Nexus 9Ks.
     - Integrate Layer-2 access switches directly to the dual core/distribution pair via LACP port-channels.
     - Maintain a clear separation of VLAN domains and routing domains.
+
+## 🎥 Lab Proof of Concept (PoC) - Video
+
+- [**👉 Click here to go to the PoC video 👈**](https://youtu.be/RL9hBT0H7UE)
 
 ## 🗺️ Network Topology
 
