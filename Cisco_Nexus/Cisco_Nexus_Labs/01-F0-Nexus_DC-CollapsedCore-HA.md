@@ -16,8 +16,8 @@
 # 📄 `Index`
 
 [**🏗️ Cisco Nexus :: NX-OS - DC Collapsed Core  (HA)**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-cisco-nexus--nx-os---dc-collapsed-core-ha)  
-- [🎥 Lab Proof of Concept (PoC) - Video](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-lab-notes)  
 - [🎯 Objectives, Features & Protocols Covered](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-objectives-features--protocols-covered)  
+- [🎥 Lab Proof of Concept (PoC) - Video](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-lab-proof-of-concept-poc---video)  
 - [🗺️ Network Topology](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-network-topology)  
 - [📋 Network Device Inventory & IP Addressing](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-network-device-inventory--ip-addressing)  
 - [📝 Lab Notes](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#-lab-notes)  
