@@ -457,7 +457,10 @@ exit
 
 !# 4. (Optional) Create an ACL to allow only specific remote IPs to reach VTY
 ip access-list remote-access-users
+  !# (specific host) 
   permit ip host 192.168.10.100 any
+  !# (network/vlan/management vrf/ etc) 
+  permit ip host 192.168.0.0 any
 exit
 !# Bind the ACL to VTY lines
 line vty
