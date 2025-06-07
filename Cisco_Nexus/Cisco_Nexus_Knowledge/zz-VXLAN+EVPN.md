@@ -9,6 +9,13 @@ https://www.cisco.com/c/en/us/td/docs/dcn/ndfc/1221/articles/ndfc-data-center-vx
 
 ---
 
+Only VXLAN config step by step
+
+https://www.youtube.com/watch?v=gY8FX8YAPvY
+
+
+---
+
 - https://www.youtube.com/watch?v=vJqwIl2V8GY
 - https://www.youtube.com/watch?v=cdvstTm467k
 - https://www.youtube.com/watch?v=ztoDCBFNJgw
