@@ -461,6 +461,7 @@ Here’s an example to illustrate the process:
 - [Cisco DNA Center](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2023/pdf/BRKOPS-2077.pdf)
 - https://www.linkedin.com/pulse/vxlan-via-flood-learn-multicast-gedion-hulluka/
 - [How To's Deploy VXLAN - Flood & Learn](https://www.youtube.com/watch?v=v-2YaYWLnuo)
+- [](https://www.youtube.com/watch?v=3TWJ4XcU4Mg) cbnuggets facil y rapiod
 
 
 
