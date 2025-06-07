@@ -13,6 +13,9 @@ Only VXLAN config step by step
 
 https://www.youtube.com/watch?v=gY8FX8YAPvY
 
+VXLAN explanation
+
+https://www.youtube.com/watch?v=SnnNrXtIc1c
 
 ---
 
