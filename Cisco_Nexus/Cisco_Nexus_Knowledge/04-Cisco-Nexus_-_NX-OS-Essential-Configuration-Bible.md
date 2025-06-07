@@ -438,13 +438,12 @@ show role name Fz3r0-Custom-Role
 !# TELNET & SSH #
 !################
 
-!# 1. Enable demo licenses (120-day trial) and activate Telnet & SSH features
-license grace-period
+!# 1. Activate Telnet & SSH features
 feature telnet
 feature ssh
 
-!# 2. Configure an admin interface for remote access (e.g., Ethernet2/1)
-interface ethernet 2/1
+!# 2. Configure an admin interface for remote access (e.g., Ethernet2/3)
+interface ethernet 2/3
   no shutdown
   ip address 192.168.10.1/24
 exit
@@ -456,15 +455,15 @@ line vty
 exit
 
 !# 4. (Optional) Create an ACL to allow only specific remote IPs to reach VTY
-ip access-list remote-access-users
+ip access-list f0-remote-access-users
   !# (specific host) 
   permit ip host 192.168.10.101 any
   !# (network/vlan/management vrf/ etc) 
   permit ip 192.168.0.0/24 any
 exit
-!# Bind the ACL to VTY lines
+!# Bind the ACL to VTY lines (access-class)
 line vty
-  access-class remote-access-users in
+  access-class f0-remote-access-users in
 exit
 ````
 
