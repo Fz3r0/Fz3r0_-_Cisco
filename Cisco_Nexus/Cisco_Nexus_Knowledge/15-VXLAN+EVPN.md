@@ -19,6 +19,9 @@ VXLAN explanation
 
 https://www.youtube.com/watch?v=SnnNrXtIc1c
 
+https://youtu.be/3-7BkLDfDaY?si=YACu5zmUXrHyo0c_
+ESPAÑOL EVPN TODO
+
 ---
 
 - https://www.youtube.com/watch?v=vJqwIl2V8GY
