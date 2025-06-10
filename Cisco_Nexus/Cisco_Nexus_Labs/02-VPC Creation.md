@@ -111,7 +111,7 @@ exit
 !---------------------------------------------------
 ! STEP 4: Configure vPC Domain – BGW-1A
 !---------------------------------------------------
-vpc domain 1
+vpc domain 100
   peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
   role priority 100                 ! Lower = Primary vPC peer
   auto-recovery                     ! Optional: Recovers vPC after reload
@@ -122,7 +122,7 @@ exit
 !---------------------------------------------------
 ! STEP 4: Configure vPC Domain – BGW-1B
 !---------------------------------------------------
-vpc domain 1
+vpc domain 100
   peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
   role priority 200
   auto-recovery
@@ -191,55 +191,44 @@ cdp enable
 
 !# << vPC STEP1 - FEATURES >>
 
-feature lacp
 feature vpc
+feature lacp
 
 !# << vPC STEP2 - MGMT INTERFACE CONFIG >>
 
 interface mgmt 0
    description ** vPC Keepalive - SW1A --> SW1B **
    no shutdown
+   vrf member management
    ip address 10.10.68.1/24
-   vrf member management              
 exit
 
-!# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
+!# << vPC STEP 3 - vPC Domain CONFIG >>
 
-!# - 3.1: Create the actual Port-Channel interface for the peer-link
-interface port-channel 1
+vpc domain 100
+  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
+  !role priority 100              
+  !auto-recovery                  
+  !system-priority 1000             
+exit
+
+!# << vPC STEP 4 - vPC PEER-LINK INTERFACE >>
+
+!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  channel-group 10 mode active
+  no shutdown
+exit
+
+!# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
+
+interface port-channel 10
   description ** vPC Peer-Link **
   no shutdown
   switchport
   switchport mode trunk    
-  spanning-tree port type network  
   vpc peer-link     
-exit
-
-!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
-default interface ethernet 1/6-7
-interface ethernet 1/6-7
-  description ** vPC Peer-Link to Peer **
-  switchport
-  no shutdown
-  channel-group 1 mode active
-exit
-
-!# << vPC STEP 4 - vPC Domain >>
-
-vpc domain 1
-  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
-  role priority 100              
-  auto-recovery                  
-  system-priority 1000             
-exit
-
-!# << vPC STEP 5 - NATIVE VLAN FOR VPC PEER (Optional) >>
-
-vlan 99
-  name vPC-PEER-NATIVE
-exit
-interface port-channel 1
-  switchport trunk native vlan 99
 exit
 
 !# MOTD & CREDITS
@@ -293,54 +282,46 @@ hostname NX9-SWITCH-vPC-B
 username admin password admin.cisco
 cdp enable
 
-!# << CREATE NATIVE VLAN FOR VPC PEER (Optional) >>
-
-vlan 99
-  name vPC-PEER-NATIVE
-exit
-
 !# << vPC STEP1 - FEATURES >>
 
-feature lacp
 feature vpc
+feature lacp
 
 !# << vPC STEP2 - MGMT INTERFACE CONFIG >>
 
 interface mgmt 0
    description ** vPC Keepalive - SW1B --> SW1A **
    no shutdown
+   vrf member management
    ip address 10.10.68.2/24
-   vrf member management              
 exit
 
-!# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
+!# << vPC STEP 3 - vPC Domain CONFIG >>
 
-!# - 3.1: Create the actual Port-Channel interface for the peer-link
-interface port-channel 1
+vpc domain 100
+  peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
+  !role priority 100              
+  !auto-recovery                  
+  !system-priority 1000             
+exit
+
+!# << vPC STEP 4 - vPC PEER-LINK INTERFACE >>
+
+!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  channel-group 10 mode active
+  no shutdown
+exit
+
+!# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
+
+interface port-channel 10
   description ** vPC Peer-Link **
   no shutdown
   switchport
   switchport mode trunk    
-  spanning-tree port type network  
   vpc peer-link     
-exit
-
-!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
-default interface ethernet 1/6-7
-interface ethernet 1/6-7
-  description ** vPC Peer-Link to Peer **
-  switchport
-  no shutdown
-  channel-group 1 mode active
-exit
-
-!# << vPC STEP 4 - vPC Domain >>
-
-vpc domain 1
-  peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
-  role priority 200              
-  auto-recovery                  
-  system-priority 1000           
 exit
 
 !# MOTD & CREDITS
@@ -392,6 +373,7 @@ copy running-config startup-config
 # 🗃️ Resources
 
 - https://www.youtube.com/watch?v=fWCH39T-_fU
+- https://youtu.be/kOb0r_-26Lw?si=XM5VzoYBd4AHofUf
 
 ---
 
