@@ -188,7 +188,7 @@ feature vpc
 
 !# << vPC STEP2 - MGMT INTERFACE CONFIG >>
 
-interface mgmt
+interface mgmt 0
    description ** vPC Keepalive - SW1A --> SW1B **
    no shutdown
    ip address 10.10.68.1/24
@@ -292,7 +292,7 @@ feature vpc
 
 !# << vPC STEP2 - MGMT INTERFACE CONFIG >>
 
-interface mgmt
+interface mgmt 0
    description ** vPC Keepalive - SW1B --> SW1A **
    no shutdown
    ip address 10.10.68.2/24
