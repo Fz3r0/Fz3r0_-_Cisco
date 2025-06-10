@@ -178,9 +178,6 @@ Check vPC stgats: show vpc
 !#    ROLE  - VPC-A                               #
 !#    IP    - 10.10.10.11/24                      #
 !#    LOGIN - admin / admin.cisco                 #
-!#                                                #
-!#    UNDERLAY = OSPF                             #
-!#    OSPF 1 / AREA 0                             #
 !##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
@@ -271,9 +268,6 @@ copy running-config startup-config
 !#    ROLE  - VPC-B                               #
 !#    IP    - 10.10.10.12/24                      #
 !#    LOGIN - admin / admin.cisco                 #
-!#                                                #
-!#    UNDERLAY = OSPF                             #
-!#    OSPF 1 / AREA 0                             #
 !##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
