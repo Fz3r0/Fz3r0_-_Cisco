@@ -201,6 +201,7 @@ exit
 !# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
 
 !# - Interfaces used for Peer-Link (LACP trunk)
+default interface ethernet 1/6-7
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
   no shutdown
@@ -305,6 +306,7 @@ exit
 !# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
 
 !# - Interfaces used for Peer-Link (LACP trunk)
+default interface ethernet 1/6-7
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
   no shutdown
