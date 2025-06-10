@@ -79,6 +79,18 @@ exit
 ! STEP 3: Configure Peer-Link Interfaces (Both Nodes)
 !---------------------------------------------------
 
+! Siempre configura el Po1 antes de asignar los miembros. >>
+! Create the actual Port-Channel interface for the peer-link
+interface port-channel 1
+  description ** vPC Peer-Link **
+  no shutdown
+  switchport
+  switchport mode trunk             ! Must be trunk mode
+  spanning-tree port type network   ! Best practice for peer-links
+  vpc peer-link                      ! Designate as vPC peer-link
+  mtu 9216                          ! Recommended: Jumbo frames (if fabric-wide)
+exit
+
 ! Interfaces used for Peer-Link (LACP trunk)
 interface ethernet 1/6
   description ** vPC Peer-Link to Peer **
@@ -92,16 +104,7 @@ interface ethernet 1/7
   channel-group 1 mode active
 exit
 
-! Create the actual Port-Channel interface for the peer-link
-interface port-channel 1
-  description ** vPC Peer-Link **
-  no shutdown
-  switchport
-  switchport mode trunk             ! Must be trunk mode
-  spanning-tree port type network   ! Best practice for peer-links
-  vpc peer-link                      ! Designate as vPC peer-link
-  mtu 9216                          ! Recommended: Jumbo frames (if fabric-wide)
-exit
+
 
 !---------------------------------------------------
 ! STEP 4: Configure vPC Domain – BGW-1A
@@ -200,16 +203,7 @@ exit
 
 !# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
 
-!# - Interfaces used for Peer-Link (LACP trunk)
-default interface ethernet 1/6-7
-interface ethernet 1/6-7
-  description ** vPC Peer-Link to Peer **
-  switchport
-  no shutdown
-  channel-group 1 mode active
-exit
-
-!# - Create the actual Port-Channel interface for the peer-link
+!# - 3.1: Create the actual Port-Channel interface for the peer-link
 interface port-channel 1
   description ** vPC Peer-Link **
   no shutdown
@@ -218,6 +212,15 @@ interface port-channel 1
   spanning-tree port type network  
   vpc peer-link     
   mtu 9216   
+exit
+
+!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
+default interface ethernet 1/6-7
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  switchport
+  no shutdown
+  channel-group 1 mode active
 exit
 
 !# << vPC STEP 4 - vPC Domain >>
@@ -311,16 +314,7 @@ exit
 
 !# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
 
-!# - Interfaces used for Peer-Link (LACP trunk)
-default interface ethernet 1/6-7
-interface ethernet 1/6-7
-   description ** vPC Peer-Link to Peer **
-   no shutdown
-   switchport
-   channel-group 1 mode active
-exit
-
-!# - Create the actual Port-Channel interface for the peer-link
+!# - 3.1: Create the actual Port-Channel interface for the peer-link
 interface port-channel 1
   description ** vPC Peer-Link **
   no shutdown
@@ -329,6 +323,15 @@ interface port-channel 1
   spanning-tree port type network  
   vpc peer-link     
   mtu 9216   
+exit
+
+!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
+default interface ethernet 1/6-7
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  switchport
+  no shutdown
+  channel-group 1 mode active
 exit
 
 !# << vPC STEP 4 - vPC Domain >>
