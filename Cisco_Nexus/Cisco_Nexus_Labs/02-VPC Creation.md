@@ -168,7 +168,7 @@ Check vPC stgats: show vpc
 
 
 
-
+# vPC Configuration :: `Switch-A` & `Switch-B`
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -356,6 +356,8 @@ copy running-config startup-config
 ````
 
 
+
+# vPC Configuration :: `Port Channels for neighbor hosts`
 
 
 
