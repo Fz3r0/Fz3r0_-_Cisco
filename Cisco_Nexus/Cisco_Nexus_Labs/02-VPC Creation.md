@@ -75,6 +75,8 @@ interface mgmt0
   vrf member management
 exit
 
+show vpc peer-keepalive
+
 !---------------------------------------------------
 ! STEP 3: Configure Peer-Link Interfaces (Both Nodes)
 !---------------------------------------------------
