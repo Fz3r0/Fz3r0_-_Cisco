@@ -214,13 +214,13 @@ exit
 !# - 3.2: Interfaces used for Peer-Link (LACP trunk)
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
-  channel-group 10 mode active
+  channel-group 1 mode active
   no shutdown
 exit
 
 !# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
 
-interface port-channel 10
+interface port-channel 1
   description ** vPC Peer-Link **
   no shutdown
   switchport
@@ -304,13 +304,13 @@ exit
 !# - 3.2: Interfaces used for Peer-Link (LACP trunk)
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
-  channel-group 10 mode active
+  channel-group 1 mode active
   no shutdown
 exit
 
 !# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
 
-interface port-channel 10
+interface port-channel 1
   description ** vPC Peer-Link **
   no shutdown
   switchport
