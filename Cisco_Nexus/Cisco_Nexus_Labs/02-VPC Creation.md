@@ -204,6 +204,7 @@ exit
 default interface ethernet 1/6-7
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
+  switchport
   no shutdown
   channel-group 1 mode active
 exit
@@ -288,6 +289,12 @@ hostname NX9-SWITCH-vPC-B
 username admin password admin.cisco
 cdp enable
 
+!# << CREATE NATIVE VLAN FOR VPC PEER (Optional) >>
+
+vlan 99
+  name vPC-PEER-NATIVE
+exit
+
 !# << vPC STEP1 - FEATURES >>
 
 feature lacp
@@ -307,9 +314,10 @@ exit
 !# - Interfaces used for Peer-Link (LACP trunk)
 default interface ethernet 1/6-7
 interface ethernet 1/6-7
-  description ** vPC Peer-Link to Peer **
-  no shutdown
-  channel-group 1 mode active
+   description ** vPC Peer-Link to Peer **
+   no shutdown
+   switchport
+   channel-group 1 mode active
 exit
 
 !# - Create the actual Port-Channel interface for the peer-link
@@ -330,15 +338,6 @@ vpc domain 1
   role priority 200              
   auto-recovery                  
   system-priority 1000           
-exit
-
-!# << vPC STEP 5 - NATIVE VLAN FOR VPC PEER (Optional) >>
-
-vlan 99
-  name vPC-PEER-NATIVE
-exit
-interface port-channel 1
-  switchport trunk native vlan 99
 exit
 
 !# MOTD & CREDITS
