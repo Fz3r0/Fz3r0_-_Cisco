@@ -225,8 +225,7 @@ vpc domain 1
   peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
   role priority 100              
   auto-recovery                  
-  system-priority 1000           
-  peer-link port-channel 1      
+  system-priority 1000             
 exit
 
 !# << vPC STEP 5 - NATIVE VLAN FOR VPC PEER (Optional) >>
@@ -331,7 +330,6 @@ vpc domain 1
   role priority 200              
   auto-recovery                  
   system-priority 1000           
-  peer-link port-channel 1      
 exit
 
 !# << vPC STEP 5 - NATIVE VLAN FOR VPC PEER (Optional) >>
