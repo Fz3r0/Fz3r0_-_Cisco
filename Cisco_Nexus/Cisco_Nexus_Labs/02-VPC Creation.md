@@ -150,11 +150,14 @@ ping 10.10.68.2 vrf management       ! Test keepalive reachability
 ````
 
 
+Ping between vpcA: ping 10.10.68.2 vrf management
+Ping between vpcB: ping 10.10.68.1 vrf management
+Check vPC stgats: show vpc
 
 
-
-
-
+````
+#! Config Port Channel between Switch1-A+Switch1-B & Switch 2
+````
 
 
 
