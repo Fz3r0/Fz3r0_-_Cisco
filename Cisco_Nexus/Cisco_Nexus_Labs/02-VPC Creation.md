@@ -83,6 +83,7 @@ show vpc peer-keepalive
 
 ! Siempre configura el Po1 antes de asignar los miembros. >>
 ! Create the actual Port-Channel interface for the peer-link
+! No cmabair el MTU ahora, o no se crara el peer link
 interface port-channel 1
   description ** vPC Peer-Link **
   no shutdown
@@ -90,7 +91,6 @@ interface port-channel 1
   switchport mode trunk             ! Must be trunk mode
   spanning-tree port type network   ! Best practice for peer-links
   vpc peer-link                      ! Designate as vPC peer-link
-  mtu 9216                          ! Recommended: Jumbo frames (if fabric-wide)
 exit
 
 ! Interfaces used for Peer-Link (LACP trunk)
@@ -213,7 +213,6 @@ interface port-channel 1
   switchport mode trunk    
   spanning-tree port type network  
   vpc peer-link     
-  mtu 9216   
 exit
 
 !# - 3.2: Interfaces used for Peer-Link (LACP trunk)
@@ -324,7 +323,6 @@ interface port-channel 1
   switchport mode trunk    
   spanning-tree port type network  
   vpc peer-link     
-  mtu 9216   
 exit
 
 !# - 3.2: Interfaces used for Peer-Link (LACP trunk)
