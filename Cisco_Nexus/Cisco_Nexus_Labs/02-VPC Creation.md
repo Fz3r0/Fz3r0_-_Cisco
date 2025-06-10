@@ -176,17 +176,18 @@ ping 10.10.68.2 vrf management       ! Test keepalive reachability
 !##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
-
 configure terminal
 hostname NX9-SWITCH-1A
 username admin password admin.cisco
 cdp enable
 
-!# vPC STEP1 - FEATURES
+!# << vPC STEP1 - FEATURES >>
+
 feature lacp
 feature vpc
 
-!# vPC STEP2 - MGMT INTERFACE CONFIG
+!# << vPC STEP2 - MGMT INTERFACE CONFIG >>
+
 interface mgmt
    description ** vPC Keepalive - SW1A --> SW1B **
    no shutdown
@@ -194,7 +195,7 @@ interface mgmt
    vrf member management              
 exit
 
-!# vPC STEP3 - vPC PEER-LINK INTERFACE:
+!# << vPC STEP3 - vPC PEER-LINK INTERFACE >>
 
 !# - Interfaces used for Peer-Link (LACP trunk)
 interface ethernet 1/6-7
@@ -214,7 +215,8 @@ interface port-channel 1
   mtu 9216   
 exit
 
-!# vPC STEP 4 - vPC Domain:
+!# << vPC STEP 4 - vPC Domain >>
+
 vpc domain 1
   peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
   role priority 100              
@@ -223,7 +225,8 @@ vpc domain 1
   peer-link port-channel 1      
 exit
 
-!# vPC STEP 5 - Native VLAN Configuration
+!# << vPC STEP 5 - NATIVE VLAN FOR VPC PEER (Optional) >>
+
 vlan 99
   name vPC-PEER-NATIVE
 exit
