@@ -66,7 +66,7 @@ interface mgmt0
 exit
 
 !---------------------------------------------------
-! STEP 3: Configure MGMT Interface – Peer Keepalive (BGW-1B)
+! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1B)
 !---------------------------------------------------
 interface mgmt0
   description ** vPC Keepalive – to BGW-1A **
@@ -76,7 +76,7 @@ interface mgmt0
 exit
 
 !---------------------------------------------------
-! STEP 4: Configure Peer-Link Interfaces (Both Nodes)
+! STEP 3: Configure Peer-Link Interfaces (Both Nodes)
 !---------------------------------------------------
 
 ! Interfaces used for Peer-Link (LACP trunk)
@@ -104,7 +104,7 @@ interface port-channel 1
 exit
 
 !---------------------------------------------------
-! STEP 5: Configure vPC Domain – BGW-1A
+! STEP 4: Configure vPC Domain – BGW-1A
 !---------------------------------------------------
 vpc domain 1
   peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
@@ -115,7 +115,7 @@ vpc domain 1
 exit
 
 !---------------------------------------------------
-! STEP 6: Configure vPC Domain – BGW-1B
+! STEP 4: Configure vPC Domain – BGW-1B
 !---------------------------------------------------
 vpc domain 1
   peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
@@ -126,7 +126,7 @@ vpc domain 1
 exit
 
 !---------------------------------------------------
-! STEP 7: (Optional) Native VLAN Configuration
+! STEP 5: (Optional) Native VLAN Configuration
 !---------------------------------------------------
 ! It’s recommended to configure same native VLAN on both ends to avoid STP loops
 
@@ -139,7 +139,7 @@ vlan 999
 exit
 
 !---------------------------------------------------
-! STEP 8: Verification Commands
+! Verification Commands
 !---------------------------------------------------
 
 show vpc brief                        ! Check vPC status
@@ -148,6 +148,129 @@ show port-channel summary            ! LACP/Po status
 show interface port-channel 1 trunk  ! Verify trunking
 ping 10.10.68.2 vrf management       ! Test keepalive reachability
 ````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 🥇 `NX9-SWITCH-1A` - (vPC-A)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-1A                       #
+!#    ROLE  - VPC-A                               #
+!#    IP    - 10.10.10.11/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!#                                                #
+!#    UNDERLAY = OSPF                             #
+!#    OSPF 1 / AREA 0                             #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+
+configure terminal
+hostname NX9-SWITCH-1A
+username admin password admin.cisco
+cdp enable
+
+!# vPC STEP1 - FEATURES
+feature lacp
+feature vpc
+
+!# vPC STEP2 - MGMT INTERFACE CONFIG
+interface mgmt
+   description ** vPC Keepalive - SW1A --> SW1B **
+   no shutdown
+   ip address 10.10.68.1/24
+   vrf member management              
+exit
+
+!# vPC STEP3 - vPC PEER-LINK INTERFACE:
+
+!# - Interfaces used for Peer-Link (LACP trunk)
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  no shutdown
+  channel-group 1 mode active
+exit
+
+!# - Create the actual Port-Channel interface for the peer-link
+interface port-channel 1
+  description ** vPC Peer-Link **
+  no shutdown
+  switchport
+  switchport mode trunk    
+  spanning-tree port type network  
+  vpc peer-link     
+  mtu 9216   
+exit
+
+!# vPC STEP 4 - vPC Domain:
+vpc domain 1
+  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
+  role priority 100              
+  auto-recovery                  
+  system-priority 1000           
+  peer-link port-channel 1      
+exit
+
+!# vPC STEP 5 - Native VLAN Configuration
+vlan 99
+  name vPC-PEER-NATIVE
+exit
+interface port-channel 1
+  switchport trunk native vlan 99
+exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-SWITCH-1A 
++ IP        =  10.10.10.11
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-SPINE-1
+copy running-config startup-config
+
+!
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
 
 
 
