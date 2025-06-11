@@ -15,22 +15,22 @@
 
 # 📄 `Index`
 
-[**🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`**]()
-- [🎯 Objectives, Features & Protocols Covered]()
-- [🎥 Lab Proof of Concept (PoC) - Video]()
-- [🗺️ Network Topology]()
-- [📋 Network Device Inventory & IP Addressing]()
-- [📝 Lab Notes]()
+[**🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-cisco-nexus--nx-os---vpc-configuration-1)
+- [🎯 Objectives, Features & Protocols Covered](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-objectives-features--protocols-covered)
+- [🎥 Lab Proof of Concept (PoC) - Video](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-lab-proof-of-concept-poc---video)
+- [🗺️ Network Topology](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-network-topology)
+- [📋 Network Device Inventory & IP Addressing](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-network-device-inventory--ip-addressing)
+- [📝 Lab Notes](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-lab-notes)
 
-[**⚙️ Devices Configurations**]() 
-- [1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ Switch-vPC-A & Switch-vPC-B]()
-    - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
-    - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]() 
+[**⚙️ Devices Configurations**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-devices-configurations) 
+- [1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ Switch-vPC-A & Switch-vPC-B](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#1%EF%B8%8F%E2%83%A3%EF%B8%8F-vpc-config-step-1--vpc-domain--peer-link--keepalive-link--switch-vpc-a--switch-vpc-b)
+    - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-a---vpc-a)
+    - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-b---vpc-b) 
 
-- [2️⃣⚙️ vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ vPC <<==>> Host (Trunk/SVI)]()
-    - [🔛 vPC CONFIG :: vPC <<==>> L3 SVI]() 
-        - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
-        - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]()
+- [2️⃣⚙️ vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ vPC <<==>> Host (Trunk/SVI)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#2%EF%B8%8F%E2%83%A3%EF%B8%8F-vpc-config-step-2--vpc-port-channels--vpc--host-trunksvi)
+    - [🔛 vPC CONFIG :: vPC <<==>> L3 SVI](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-vpc-config--vpc--l3-svi) 
+        - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-a---vpc-a-1)
+        - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-b---vpc-b-1)
         - [🔀 L3-SWITCH-3 - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)]()  <br><br>
     - [🔛 vPC CONFIG :: vPC <<==>> Switch L2]()
         - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
