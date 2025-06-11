@@ -187,6 +187,8 @@ username admin password admin.cisco
 cdp enable
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+vlan 10
+   name VLAN10-MANAGEMENT
 interface vlan 10
    no shutdown
    description ** SVI-MGMT-L3-VLAN10-MGMT **
@@ -286,6 +288,8 @@ username admin password admin.cisco
 cdp enable
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+vlan 10
+   name VLAN10-MANAGEMENT
 interface vlan 10
    no shutdown
    description ** SVI-MGMT-L3-VLAN10-MGMT **
@@ -484,6 +488,8 @@ username admin password admin.cisco
 cdp enable
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+vlan 10
+   name VLAN10-MANAGEMENT
 interface vlan 10
    no shutdown
    description ** SVI-MGMT-L3-VLAN10-MGMT **
@@ -680,15 +686,12 @@ configure terminal
 hostname L3-SWITCH-3
 username admin password admin.cisco
 
+#! IP Routing (SVI - Router)
 ip routing
 
-!# VLANs
-
+#! SVIs (GATEWAY L3) 
 vlan 10
    name VLAN10-MANAGEMENT
-
-#! SVIs (GATEWAY L3) {OSPF AREA 0}
-
 interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-MGMT **
