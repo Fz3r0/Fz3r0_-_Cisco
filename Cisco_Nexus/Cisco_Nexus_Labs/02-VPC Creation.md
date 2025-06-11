@@ -593,6 +593,7 @@ interface port-channel 1
   no shutdown
   switchport
   switchport mode trunk
+  duplex full
   vpc 1
 exit
 
@@ -638,6 +639,7 @@ interface port-channel 1
   switchport
   switchport mode trunk
   vpc 1
+  duplex full
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
