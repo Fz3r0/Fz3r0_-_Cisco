@@ -99,38 +99,27 @@ Notes:
 
 - Copy & Paste the configuration in each device CLI
 
-
-
-
-
-
-
-
 # 1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ `Switch-vPC-A & Switch-vPC-B`
 
 This is the foundational step in building a vPC environment. 
 
 - You’re configuring the logical **vPC domain (Domain 666) between your two Nexus switches so they can act as one virtual switch to downstream devices**.
 
-This includes setting up the three components that make vPC possible: 
+Once this is in place, both Nexus switches are ready to support multi-chassis port-channels, and you can proceed to **Step 2**, where downstream switches or hosts are connected to the vPC fabric using `vpc <id>` assignments on new `port-channels`.
 
-1. `vPC domain ID`
-2. `vPC peer-link`
-3. `vPC keepalive-link`
+✅ Mandatory configs that make vPC possible:
 
-✅ Mandatory Components:
-
-- `Features`: vpc	and lacp (For VPC and Port-Channel config)
+- `feature`: vpc	and lacp features must be enabled (For VPC and Port-Channel config)
 - `vpc domain <id>`:	Logical group ID that binds both switches into a vPC pair
 - `Peer-Link`:	L2 trunk that carries vPC state, control traffic, and data
 - `Keepalive-Link`:	L3 link to ensure both switches can detect each other’s health
 
-🧩 Optional (But Recommended):
+🧩 Optional configs (But Recommended):
 
 - `role priority`:	Determines which switch becomes the vPC primary (lower wins)
 - `auto-recovery`:	Allows a switch to come back up in split-brain scenarios
 - `system-priority`:	Affects LACP system negotiation (keep consistent across peers)
-- `SVI Gateway & ip route 0.0.0.0`: 	Basic default route for management plane connectivity
+- `SVI Gateway & ip route 0.0.0.0`: Basic default route for management plane connectivity & testing purposes
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -233,7 +222,6 @@ copy running-config startup-config
 
 ````
 
-
 ## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
 
 ````py
@@ -335,11 +323,19 @@ copy running-config startup-config
 
 ````
 
-
-
 # vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ `vPC <<==>> Host` (Trunk/SVI)
 
-- First, you need to configure the Port Channel on the vPC switches, heres where magic happen!!! as youy can see you configure po1 with vpc 1 and por 2 with vpc 2, theres where the magic exists because bla bla bla... 
+Now that the vPC core is up and the peer-link is working, this step is about connecting downstream switches (or hosts) to the vPC domain using Port-Channels + vPC IDs.
+
+- This configu lets a host or switch connect to two physical Nexus devices as if they were a single logical switch, **using a single Port-Channel from its perspective**.
+
+✅ Mandatory Configuration:
+
+- `interface ethernet X/X + channel-group <id>`:	Assign physical interfaces to Po
+- `interface port-channel <id> + vpc <id>`:	Define vPC ID on both Nexus peers. **Both IDs must match (eg `Po1` + `VPC1`)**
+- `switchport mode trunk`:	Allow VLANs to traverse
+- `feature lacp`:	Required for dynamic Port-Channels
+- `Matching config`: on downstream switch	Port-channel must match on both sides
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -430,12 +426,7 @@ copy running-config startup-config
 
 ````
 
----
-
-- Then, you can proceed to configure the Port Channel on the Hosts, just configure as a normal port channel... at the end host dosent even know that there are 2 switches "up there" you know??? they are conneciton a post channel as usual, the vPC betqeen A and B is the one doing the mahic. 
-
 ## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
-
 
 ````py
 !##################################################
@@ -534,13 +525,8 @@ copy running-config startup-config
 
 
 
-## vPC Configuration :: `Layer 2 Port Channel + L3 SVI & Trunk`
+# vPC Configuration :: `Layer 2 Port Channel + L3 SVI & Trunk`
 
-Is basically the same... we are jsut simultiing this side simething liek the gateway, for example a layer 3 switch that will be used as ghateay for the network bla bla bla
-
-
-
-- First, you need to configure the Port Channel on the vPC switches:
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -871,6 +857,34 @@ show ip interface brief vrf management
 
 !# Check LACP neighbor status on the Peer-Link (Po100)
 show lacp neighbor interface port-channel 100
+
+
+---
+
+
+!# Check all vPCs configured and their status (now includes vPC 2)
+show vpc
+
+!# Check member interfaces and state of Po2
+show interface port-channel 2
+
+!# Summary of all port-channels and their member links
+show port-channel summary
+
+!# Check LACP neighbors (verify both links are participating)
+show lacp neighbor interface port-channel 2
+
+!# Validate MAC learning and VLANs
+show mac address-table | include Po2
+
+!# Confirm VLANs allowed on trunk
+show interface port-channel 2 trunk
+
+!# Verify interface status on each participating Ethernet port
+show interface ethernet 1/2
+
+!# Check consistency between vPC peers for this Po
+show vpc consistency-parameters interface port-channel 2
 ````
 
 
