@@ -557,7 +557,7 @@ copy running-config startup-config
 
 
 
-# vPC Configuration :: `Layer 2 Port Channel - SVI + Trunk`
+# vPC Configuration :: `Layer 2 Port Channel + L3 SVI & Trunk`
 
 - First, you need to configure the Port Channel on the vPC switches:
 
