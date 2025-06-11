@@ -405,7 +405,7 @@ interface port-channel 2
   no shutdown
   switchport
   switchport mode trunk
-  vpc 666
+  vpc 2
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -450,7 +450,7 @@ interface port-channel 2
   switchport
   switchport mode trunk
   !# Po2 = VPC2
-  vpc 666
+  vpc 2
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -593,7 +593,7 @@ interface port-channel 1
   no shutdown
   switchport
   switchport mode trunk
-  vpc 666
+  vpc 2
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -637,7 +637,7 @@ interface port-channel 1
   no shutdown
   switchport
   switchport mode trunk
-  vpc 666
+  vpc 2
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
