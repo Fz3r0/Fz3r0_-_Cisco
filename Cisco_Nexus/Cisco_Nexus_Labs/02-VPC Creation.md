@@ -185,6 +185,7 @@ username admin password admin.cisco
 cdp enable
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
 vlan 10
    name VLAN10-MANAGEMENT
 interface vlan 10
@@ -286,6 +287,7 @@ username admin password admin.cisco
 cdp enable
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
 vlan 10
    name VLAN10-MANAGEMENT
 interface vlan 10
@@ -486,6 +488,7 @@ username admin password admin.cisco
 cdp enable
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
 vlan 10
    name VLAN10-MANAGEMENT
 interface vlan 10
