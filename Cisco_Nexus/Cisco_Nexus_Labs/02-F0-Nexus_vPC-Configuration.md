@@ -119,7 +119,7 @@ Credentials:
 Notes:
 
 - During Nexus Switches start-up, select `skip` during "Abort Power On Auto Provisioning (yes - continue with normal setup, skip - bypass password and basic configuration, no - continue with Power On Auto Provisioning) (yes/skip/no)[no]: `skip`"
-- During Nexus Switches start-up, sometimes the boot process hangs after executing the kick start, when it tries to load the operating system and drops a `loader>` prompt. In that case, you need to wipe the device and reboot.
+- During Nexus Switches start-up, sometimes the boot process hangs after executing the kick start, when it tries to load the operating system and drops a `loader>` prompt. In that case, type `dir`, locate the operating system filename (e.g. `nxos64.10.1.1.bin`) and manually run the command `boot nxos64.10.1.1.bin`, which will load the OS. _(You can also wipe the device and reboot it.)_
 - Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
 - I tried to reduce LACP timers to do the tests fasters, but it seems that in this version of NXOS is not possible. 
 
