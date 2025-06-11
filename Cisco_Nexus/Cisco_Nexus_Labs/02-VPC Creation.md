@@ -518,6 +518,17 @@ interface port-channel 2
   switchport mode trunk
 exit
 
+!# ACCESS INTERFACE TO HOST-B
+
+!# Configure Access Interface @ Host-B - VLAN 10 mgmt
+interface ethernet 1/7
+  description ** Access Host B  **
+  no shutdown
+  switchport
+  switchport mode access
+  switchport access vlan 10
+exit
+
 !# MOTD & CREDITS
 
 banner motd $
@@ -719,6 +730,17 @@ interface port-channel 1
   no shutdown
   switchport
   switchport mode trunk
+exit
+
+!# ACCESS INTERFACE TO HOST-A
+
+!# Configure Access Interface @ Host-A - VLAN 10 mgmt
+interface ethernet 1/7
+  description ** Access Host A  **
+  no shutdown
+  switchport
+  switchport mode access
+  switchport access vlan 10
 exit
 
 !# MOTD & CREDITS
