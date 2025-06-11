@@ -51,11 +51,6 @@ By the end of this lab, you will have implemented and verified:
 - Port-channels operating in LACP active mode.
 - Trunk between Switch and vPC
 
-
-
-
-
-
 ## 🎥 Lab Proof of Concept (PoC) - Video
 
 - [**👉 Click here to go to the PoC video 👈**](https://youtu.be/RL9hBT0H7UE)
@@ -63,6 +58,35 @@ By the end of this lab, you will have implemented and verified:
 ## 🗺️ Network Topology
 
 ![image](https://github.com/user-attachments/assets/79225215-1e19-4c72-9db5-80035d331f3a)
+
+## 📋 Network Device Inventory & IP Addressing
+
+| Device                                | Function          | Interface / VLAN         | IP / CIDR         | Gateway       | *Network*    | *Broadcast*    | Main Description                      |
+| ------------------------------------- | ----------------- | ------------------------ | ----------------- | ------------- | ------------ | -------------- | ------------------------------------- |
+| **`NX9-SWITCH-vPC-A`**<br>(NXOS)      | vPC Core Peer A   | VLAN 10 (SVI)            | `10.10.10.11/24`  | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | Management SVI – Peer A               |
+|                                       |                   | Po1 (Eth1/1)             | trunk VLAN 10     | –             | –            | –              | L2 Po to L3-SWITCH-3                  |
+|                                       |                   | Po2 (Eth1/2)             | trunk VLAN 10     | –             | –            | –              | L2 Po to L2-SWITCH-2                  |
+|                                       |                   | Po100 (Eth1/6-7)         | trunk VLAN ALL    | –             | –            | –              | vPC Peer-Link                         |
+|                                       |                   | mgmt0 (Keepalive)        | `10.10.68.1/24`   | `10.10.68.2`  | *10.10.68.0* | *10.10.68.255* | vPC Keepalive (VRF: management)       |
+| **`NX9-SWITCH-vPC-B`**<br>(NXOS)      | vPC Core Peer B   | VLAN 10 (SVI)            | `10.10.10.12/24`  | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | Management SVI – Peer B               |
+|                                       |                   | Po1 (Eth1/1)             | trunk VLAN 10     | –             | –            | –              | L2 Po to L3-SWITCH-3                  |
+|                                       |                   | Po2 (Eth1/2)             | trunk VLAN 10     | –             | –            | –              | L2 Po to L2-SWITCH-2                  |
+|                                       |                   | Po100 (Eth1/6-7)         | trunk VLAN ALL    | –             | –            | –              | vPC Peer-Link                         |
+|                                       |                   | mgmt0 (Keepalive)        | `10.10.68.2/24`   | `10.10.68.1`  | *10.10.68.0* | *10.10.68.255* | vPC Keepalive (VRF: management)       |
+| **`L3-SWITCH-3`**<br>(NXOS)           | L3 Gateway Switch | VLAN 10 (SVI)            | `10.10.10.1/24`   | –             | *10.10.10.0* | *10.10.10.255* | Default Gateway for VLAN 10           |
+|                                       |                   | Po1 (Eth1/1-2)           | trunk VLAN 10     | –             | –            | –              | Uplink Po to vPC Peers (Po1 on both)  |
+|                                       |                   | Eth1/7 (Access)          | access VLAN 10    | –             | –            | –              | Access port to SERVER-1               |
+| **`L2-SWITCH-2`**<br>(NXOS)           | L2 Access Switch  | VLAN 10 (SVI – optional) | `10.10.10.13/24`  | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | Management SVI (optional)             |
+|                                       |                   | Po2 (Eth1/1-2)           | trunk VLAN 10     | –             | –            | –              | Uplink Po to vPC Peers (Po2 on both)  |
+|                                       |                   | Eth1/7 (Access)          | access VLAN 10    | –             | –            | –              | Access port to SERVER-2               |
+| **`SERVER-1-V10-MGMT`**<br>(IOS Host) | Simulated Host    | Eth0                     | `10.10.10.101/24` | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | End-host in VLAN 10 (via L3-SWITCH-3) |
+| **`SERVER-2-V10-MGMT`**<br>(IOS Host) | Simulated Host    | Eth0                     | `10.10.10.102/24` | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | End-host in VLAN 10 (via L2-SWITCH-2) |
+
+
+
+
+
+
 
 ## VPC Creation
 
