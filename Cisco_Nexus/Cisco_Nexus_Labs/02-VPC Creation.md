@@ -186,6 +186,15 @@ hostname NX9-SWITCH-vPC-A
 username admin password admin.cisco
 cdp enable
 
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+interface vlan 10
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN10-MGMT **
+   ip address 10.10.10.11/24 
+exit
+!# ip default-gateway 10.10.10.1 <- This command is deprecated.
+ip route 0.0.0.0/0 10.10.10.1
+
 !# << vPC STEP1 - FEATURES >>
 
 feature vpc
@@ -275,6 +284,15 @@ configure terminal
 hostname NX9-SWITCH-vPC-B
 username admin password admin.cisco
 cdp enable
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+interface vlan 10
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN10-MGMT **
+   ip address 10.10.10.12/24 
+exit
+!# ip default-gateway 10.10.10.1 <- This command is deprecated.
+ip route 0.0.0.0/0 10.10.10.1
 
 !# << vPC STEP1 - FEATURES >>
 
@@ -455,7 +473,7 @@ copy running-config startup-config
 !##################################################
 !#    NEXUS - L2-SWITCH-2                         #
 !#    ROLE  - HOST L2                             #
-!#    IP    - 10.10.10.22/24                      #
+!#    IP    - 10.10.10.13/24                      #
 !#    LOGIN - admin / admin.cisco                 #
 !##################################################
 
@@ -464,6 +482,15 @@ configure terminal
 hostname L2-SWITCH-2
 username admin password admin.cisco
 cdp enable
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+interface vlan 10
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN10-MGMT **
+   ip address 10.10.10.13/24 
+exit
+!# ip default-gateway 10.10.10.1 <- This command is deprecated.
+ip route 0.0.0.0/0 10.10.10.1
 
 !# << FEATURES >>
 
@@ -495,7 +522,7 @@ banner motd $
                          -- Fz3r0 : Nexus Datacenter --
 
 + DEVICE    =  L2-SWITCH-2
-+ IP        =  10.10.10.22
++ IP        =  10.10.10.13
 
 ? LOGIN     =  admin / admin.cisco    
 
