@@ -36,7 +36,7 @@
     - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
     - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]() 
     - [↔️ L2-SWITCH-2 - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)]()  <br><br>
-- [🔛 vPC CONFIG :: Hosts (Servers)]() 
+- [🖥️ CONFIG :: Hosts (Servers)]() 
     - [🖥️ SERVER-1-V10-MGMT - (Server 1)]()
     - [🖥️ SERVER-2-V10-MGMT - (Server 2)]()
 
