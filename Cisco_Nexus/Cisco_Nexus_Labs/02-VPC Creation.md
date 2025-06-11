@@ -15,7 +15,7 @@
 
 # 📄 `Index`
 
-[🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`]()
+[**🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`**]()
 - [🎯 Objectives, Features & Protocols Covered]
 - [🎥 Lab Proof of Concept (PoC) - Video]
 - [🗺️ Network Topology]
@@ -24,7 +24,11 @@
 
 [**⚙️ Devices Configurations**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-devices-configurations)
 
-## 🎯 Objectives, Features & Protocols Covered
+
+[**⚠️ vPC / Port-Channel :: `Verification` & `Troubleshooting`**]()
+
+
+
 
 [**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-resources)
 
@@ -910,152 +914,59 @@ Check vPC stgats: show vpc
 ````
 
 
+# ⚠️ vPC / Port-Channel :: `Verification` & `Troubleshooting`
 
-
-
-
-
-
-## VPC Creation
+## ✅ vPC Core, Domain & Peer Status
 
 ````py
-!##############################################
-!#   vPC CONFIGURATION – Nexus BGW-1A & 1B    #
-!#   Devices: NX9-BGW-1A / NX9-BGW-1B          #
-!#   Purpose: Border Gateways – vPC Peering    #
-!#   Mode: Trunk-based Peer-Link               #
-!##############################################
+!# Overall vPC status and adjacency
+show vpc                               
 
-!---------------------------------------------
-! STEP 1: Enable Required Features (Both Nodes)
-!---------------------------------------------
-feature vpc                          ! Enables vPC functionality
-feature lacp                         ! Enables LACP for Port-Channels
+!# Role assignment: primary / secondary
+show vpc role                          
 
-!---------------------------------------------------
-! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1A)
-!---------------------------------------------------
-interface mgmt0
-  description ** vPC Keepalive – to BGW-1B **
-  no shutdown
-  ip address 10.10.68.1/24
-  vrf member management              ! Use mgmt VRF (out-of-band)
-exit
+!# Summary of all vPCs and port-channels
+show vpc brief                         
 
-!---------------------------------------------------
-! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1B)
-!---------------------------------------------------
-interface mgmt0
-  description ** vPC Keepalive – to BGW-1A **
-  no shutdown
-  ip address 10.10.68.2/24
-  vrf member management
-exit
+!# Status of vPC keepalive link
+show vpc peer-keepalive                
 
-show vpc peer-keepalive
+!# Global consistency checks
+show vpc consistency-parameters global 
 
-!---------------------------------------------------
-! STEP 3: Configure Peer-Link Interfaces (Both Nodes)
-!---------------------------------------------------
+!# Per-vPC consistency
+show vpc consistency-parameters interface port-channel <id>
 
-! Siempre configura el Po1 antes de asignar los miembros. >>
-! Create the actual Port-Channel interface for the peer-link
-! No cmabair el MTU ahora, o no se crara el peer link
-interface port-channel 1
-  description ** vPC Peer-Link **
-  no shutdown
-  switchport
-  switchport mode trunk             ! Must be trunk mode
-  spanning-tree port type network   ! Best practice for peer-links
-  vpc peer-link                      ! Designate as vPC peer-link
-exit
+!# Check mgmt0 interface IP and up/down
+show ip interface brief vrf management          
 
-! Interfaces used for Peer-Link (LACP trunk)
-interface ethernet 1/6
-  description ** vPC Peer-Link to Peer **
-  no shutdown
-  channel-group 1 mode active        ! Active LACP
-exit
+!# Ping from vPC-A to vPC-B
+ping 10.10.68.2 vrf management                  
 
-interface ethernet 1/7
-  description ** vPC Peer-Link to Peer **
-  no shutdown
-  channel-group 1 mode active
-exit
-
-
-
-!---------------------------------------------------
-! STEP 4: Configure vPC Domain – BGW-1A
-!---------------------------------------------------
-vpc domain 100
-  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
-  role priority 100                 ! Lower = Primary vPC peer
-  auto-recovery                     ! Optional: Recovers vPC after reload
-  system-priority 1000             ! Used for consistency; not mandatory
-  peer-link port-channel 1         ! Explicitly bind peer-link (best practice)
-exit
-
-!---------------------------------------------------
-! STEP 4: Configure vPC Domain – BGW-1B
-!---------------------------------------------------
-vpc domain 100
-  peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
-  role priority 200
-  auto-recovery
-  system-priority 1000
-  peer-link port-channel 1
-exit
-
-!---------------------------------------------------
-! STEP 5: (Optional) Native VLAN Configuration
-!---------------------------------------------------
-! It’s recommended to configure same native VLAN on both ends to avoid STP loops
-
-interface port-channel 1
-  switchport trunk native vlan 999
-exit
-
-vlan 999
-  name vPC-NATIVE
-exit
-
-!---------------------------------------------------
-! Verification Commands
-!---------------------------------------------------
-
-show vpc brief                        ! Check vPC status
-show vpc peer-keepalive              ! Check keepalive status
-show port-channel summary            ! LACP/Po status
-show interface port-channel 1 trunk  ! Verify trunking
-ping 10.10.68.2 vrf management       ! Test keepalive reachability
-````
-
-
-
+!# Ping from vPC-B to vPC-A
+ping 10.10.68.1 vrf management  
 
 ````
-#! Config Port Channel between Switch1-A+Switch1-B & Switch 2
+
+## ✅ Port-Channel (Po) Status & Interfaces
+
+````py
+!# Summary of all port-channels and members
+show port-channel summary
+
+!# Detailed info for specific Po (e.g. Po1, Po2, Po100)
+show interface port-channel <id>       
+
+!# Trunk status, allowed VLANs
+show interface port-channel <id> trunk 
+
+!# Physical interface status (e.g. Eth1/2)
+show interface ethernet <slot/port>    
+
+!# LACP Neighbors
+show lacp neighbor interface port-channel <id>  !# Check LACP status per Po
+
 ````
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # 🗃️ Resources
 
