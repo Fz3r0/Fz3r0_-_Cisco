@@ -893,6 +893,7 @@ show lacp neighbor interface port-channel <id>
 # 🗃️ Resources
 
 - https://www.cisco.com/c/es_mx/support/docs/switches/nexus-9000-series-switches/218333-understand-and-configure-nexus-9000-vpc.html
+- https://www.youtube.com/live/uW--KhRzdEk?si=-0wyVkk1fJDk1TT6
 - https://www.youtube.com/watch?v=fWCH39T-_fU
 - https://youtu.be/kOb0r_-26Lw?si=XM5VzoYBd4AHofUf
 
