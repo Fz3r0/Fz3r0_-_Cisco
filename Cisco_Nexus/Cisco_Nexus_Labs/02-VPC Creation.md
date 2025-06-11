@@ -106,11 +106,31 @@ Notes:
 
 
 
-# vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ `Switch-vPC-A & Switch-vPC-B`
+# 1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ `Switch-vPC-A & Switch-vPC-B`
 
-Firts we need to configure the vPC domain itself, including the links that make all the magic ahhpen, the peer link and keep alive link, this domain and values crates a imaginary "box" tna converts 2 nexus as 1 switch as thee eyes from other switches, allowing to creates port channels using 2 devices, and ectrely suuemful way to have HA in data centers bl abla bla
+This is the foundational step in building a vPC environment. 
 
-Both switche suses a basically same config, just coupel values change for example the master and slave switch, but is pretty straighforweard bla bal. 
+- You’re configuring the logical **vPC domain (Domain 666) between your two Nexus switches so they can act as one virtual switch to downstream devices**.
+
+This includes setting up the three components that make vPC possible: 
+
+1. `vPC domain ID`
+2. `vPC peer-link`
+3. `vPC keepalive-link`
+
+✅ Mandatory Components:
+
+- `Features`: vpc	and lacp (For VPC and Port-Channel config)
+- `vpc domain <id>`:	Logical group ID that binds both switches into a vPC pair
+- `Peer-Link`:	L2 trunk that carries vPC state, control traffic, and data
+- `Keepalive-Link`:	L3 link to ensure both switches can detect each other’s health
+
+🧩 Optional (But Recommended):
+
+- `role priority`:	Determines which switch becomes the vPC primary (lower wins)
+- `auto-recovery`:	Allows a switch to come back up in split-brain scenarios
+- `system-priority`:	Affects LACP system negotiation (keep consistent across peers)
+- `SVI Gateway & ip route 0.0.0.0`: 	Basic default route for management plane connectivity
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -822,9 +842,36 @@ write memory
 
 
 
+Help and Show commands
 
+````py
+!# Check overall vPC status, peer adjacency, and operational state
+show vpc
 
+!# Show vPC role (primary or secondary)
+show vpc role
 
+!# Validate global consistency parameters between vPC peers
+show vpc consistency-parameters global
+
+!# Check status of the vPC peer-keepalive link
+show vpc peer-keepalive
+
+!# Show a brief summary of all configured vPCs (none expected at this point)
+show vpc brief
+
+!# Check detailed status of the Peer-Link Port-Channel (Po100)
+show interface port-channel 100
+
+!# Show summary of all port-channels and their member interfaces
+show port-channel summary
+
+!# Verify mgmt0 interface status and IP in the management VRF
+show ip interface brief vrf management
+
+!# Check LACP neighbor status on the Peer-Link (Po100)
+show lacp neighbor interface port-channel 100
+````
 
 
 
