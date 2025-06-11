@@ -533,6 +533,8 @@ hostname L3-SWITCH-3
 username admin password admin.cisco
 cdp enable
 
+ip routing
+
 !# VLANs
 
 vlan 10
