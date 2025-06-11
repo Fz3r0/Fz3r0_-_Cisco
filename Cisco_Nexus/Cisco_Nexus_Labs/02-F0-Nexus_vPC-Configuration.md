@@ -31,18 +31,20 @@
     - [🔛 vPC CONFIG :: vPC <<==>> L3 SVI](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-vpc-config--vpc--l3-svi) 
         - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-a---vpc-a-1)
         - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-b---vpc-b-1)
-        - [🔀 L3-SWITCH-3 - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)]()  <br><br>
-    - [🔛 vPC CONFIG :: vPC <<==>> Switch L2]()
-        - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
-        - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]() 
-        - [↔️ L2-SWITCH-2 - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)]()  <br><br>
-    - [🖥️ CONFIG :: Hosts (Servers)]() 
-        - [🖥️ SERVER-1-V10-MGMT - (Server 1)]()
-        - [🖥️ SERVER-2-V10-MGMT - (Server 2)]()
+        - [🔀 L3-SWITCH-3 - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-l3-switch-3---layer-2-port-channel--nxos-switch-l3-svitrunk)  <br><br>
+    - [🔛 vPC CONFIG :: vPC <<==>> Switch L2](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-vpc-config--vpc--switch-l2)
+        - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-a---vpc-a-2)
+        - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-b---vpc-b-2) 
+        - [↔️ L2-SWITCH-2 - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-l2-switch-2---layer-2-port-channel--nxos-switch-l2-trunk)  <br><br>
+    - [🖥️ CONFIG :: Hosts (Servers)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-config--hosts-servers) 
+        - [🖥️ SERVER-1-V10-MGMT - (Server 1)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-server-1-v10-mgmt---server-1)
+        - [🖥️ SERVER-2-V10-MGMT - (Server 2)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-server-2-v10-mgmt---server-2)
 
-[**⚠️ vPC / Port-Channel :: `Verification` & `Troubleshooting`**]()
+[**⚠️ vPC / Port-Channel :: `Verification` & `Troubleshooting`**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-vpc--port-channel--verification--troubleshooting)
+- [✅ vPC Core, Domain & Peer Status](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-vpc-core-domain--peer-status)
+- [✅ Port-Channel (Po) Status & Interfaces](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-port-channel-po-status--interfaces)
             
-[**🗃️ Resources**]()
+[**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#%EF%B8%8F-resources)
 
 # 🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`
 
