@@ -759,6 +759,85 @@ copy running-config startup-config
 
 
 
+## 🖥️ `SERVER-1-V10-MGMT` - (Server 1)
+
+````py
+! ############
+! # SERVER-1 #
+! ############
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname SERVER-1-V10-MGMT
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 10.10.10.101 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+## 🖥️ `SERVER-2-V10-MGMT` - (Server 2)
+
+````py
+! ############
+! # SERVER-2 #
+! ############
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname SERVER-2-V10-MGMT
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 10.10.10.102 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+
 
 
 
