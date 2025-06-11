@@ -70,7 +70,7 @@ By the end of this lab, you will have implemented and verified:
 
 ## 🗺️ Network Topology
 
-![image](https://github.com/user-attachments/assets/79225215-1e19-4c72-9db5-80035d331f3a)
+![image](https://github.com/user-attachments/assets/c637b6f9-0539-46af-b805-a6b89d4461a5)
 
 ## 📋 Network Device Inventory & IP Addressing
 
@@ -113,7 +113,12 @@ Notes:
 To fully deploy a vPC setup, there are two key configuration steps:
 
 - 1️⃣ `Step 1` – **Core vPC Setup**: This is the foundational step where you configure two Nexus switches (vPC-A and vPC-B) to act as a single logical switch to downstream devices.
+
+![image](https://github.com/user-attachments/assets/ea74660f-8c11-420d-a72e-00cc2a564f22)
+
 - 2️⃣ `Step 2` – **Connecting External Devices via vPC Port-Channels**: Now that the vPC core is active, this step is about connecting downstream switches or hosts using vPC-backed Port-Channels.
+
+![image](https://github.com/user-attachments/assets/5e54dc1f-847f-492f-8b16-6030f26be4d8)
 
 _(Copy & Paste the configuration in each device CLI)_
 
