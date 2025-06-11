@@ -884,7 +884,7 @@ show interface port-channel <id> trunk
 show interface ethernet <slot/port>    
 
 !# LACP Neighbors
-show lacp neighbor interface port-channel <id>  !# Check LACP status per Po
+show lacp neighbor interface port-channel <id>  
 
 ````
 
