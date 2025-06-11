@@ -673,48 +673,53 @@ copy running-config startup-config
 
 - Then, you can proceed to configure the Port Channel on the Hosts.
 
-## 🥇 `L3-SWITCH-3` - (Layer 3 Port Channel @ IOS Switch L3 SVI)
+## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
+
 
 ````py
 !##################################################
 !#    NEXUS - L3-SWITCH-3                         #
 !#    ROLE  - HOST L3                             #
-!#    IP    - 10.10.10.1/24                       #
+!#    IP    - 10.10.10.1/24                      #
 !#    LOGIN - admin / admin.cisco                 #
 !##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
-enable
 configure terminal
 hostname L3-SWITCH-3
 username admin password admin.cisco
+cdp enable
 
-#! IP Routing (SVI - Router)
 ip routing
 
-#! SVIs (GATEWAY L3) 
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
 vlan 10
    name VLAN10-MANAGEMENT
 interface vlan 10
    no shutdown
-   description ** SVI+GW-L3-VLAN10-MGMT **
-   ip address 10.10.10.1 255.255.255.0
+   description ** SVI-MGMT-L3-VLAN10-MGMT **
+   ip address 10.10.10.1/24 
 exit
 
-#! Port Channel Config (Trunk [SVI])
+!# << FEATURES >>
 
-interface range ethernet 0/1-2
+feature lacp
+
+!# << Port Channel : L3-SWITCH-3 -->> NX9-SWITCH-vPC-A+B
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/1-2
   description ** Po1 - Host Port Channel  **
   channel-group 1 mode active
   no shutdown
 exit
 
-!# Configure Port-Channel 1
+!# Configure Port-Channel 1 on = eth 1/2
 interface port-channel 1
   description ** Po1 - Host Port Channel  **
   no shutdown
   switchport
-  switchport trunk encapsulation dot1q
   switchport mode trunk
 exit
 
@@ -726,7 +731,7 @@ banner motd $
 
                          -- Fz3r0 : Nexus Datacenter --
 
-+ DEVICE    =  L3-SWITCH-3 - SVI Gateway
++ DEVICE    =  L2-SWITCH-2
 + IP        =  10.10.10.1
 
 ? LOGIN     =  admin / admin.cisco    
@@ -740,6 +745,7 @@ $
 !# SAVE CHECKPOINT & CONFIGURATION
 
 end
+checkpoint fz3r0-check-2025-L3-SWITCH-3
 copy running-config startup-config
 
 !
@@ -747,6 +753,7 @@ copy running-config startup-config
 
 
 ````
+
 
 
 
