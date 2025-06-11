@@ -506,7 +506,7 @@ feature lacp
 !# << Port Channel : L2-SWITCH-2 -->> NX9-SWITCH-vPC-B
 
 !# Set interface used for Host Port-Channel 2 = eth 1/2
-interface ethernet 1/2-2
+interface ethernet 1/1-2
   description ** Po2 - Host Port Channel  **
   channel-group 2 mode active
   no shutdown
