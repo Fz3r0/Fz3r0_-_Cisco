@@ -33,9 +33,7 @@
 
 ## 🗺️ Network Topology
 
-![image](https://github.com/user-attachments/assets/0cf3b58f-4f13-44cb-8bb1-6117a97c8ca9)
-
-
+![image](https://github.com/user-attachments/assets/e6f7a7de-05f1-4fa7-9ae7-ffe81610c985)
 
 
 
