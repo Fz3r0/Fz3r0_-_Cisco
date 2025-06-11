@@ -392,6 +392,11 @@ end
 checkpoint fz3r0-check-2025-NX9-vPC-A2
 copy running-config startup-config
 
+
+!
+!
+
+
 ````
 
 ## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
@@ -430,6 +435,12 @@ exit
 end
 checkpoint fz3r0-check-2025-NX9-vPC-B2
 copy running-config startup-config
+
+
+!
+!
+
+
 ````
 
 ---
