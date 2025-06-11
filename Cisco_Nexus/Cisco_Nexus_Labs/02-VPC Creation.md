@@ -671,7 +671,7 @@ copy running-config startup-config
 
 - Then, you can proceed to configure the Port Channel on the Hosts.
 
-## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
+## 🥇 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
 
 
 ````py
