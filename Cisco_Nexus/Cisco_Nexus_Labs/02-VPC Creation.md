@@ -23,7 +23,7 @@
 - [📝 Lab Notes]()
 
 [**⚙️ Devices Configurations**]() 
-- [1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ Switch-vPC-A & Switch-vPC-B]() <br><br>
+- [1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ Switch-vPC-A & Switch-vPC-B]()
     - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
     - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]() 
 
