@@ -360,6 +360,191 @@ Now that the vPC core is up and the peer-link is working, this step is about con
 - `feature lacp`:	Required for dynamic Port-Channels
 - `Matching config`: on downstream switch	Port-channel must match on both sides
 
+# vPC CONFIG :: `vPC <<==>> L3 SVI`
+
+![image](https://github.com/user-attachments/assets/cd2e5547-efcb-45d0-9a98-99ad4e776e8b)
+
+## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-A                    #
+!#    ROLE  - VPC-A                               #
+!#    IP    - 10.10.10.11/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# CONFIGURE TERMINAL
+configure terminal
+
+!# << Port Channel : NX9-SWITCH-vPC-A -->> L3-SWITCH-3
+
+!# Set interface used for Host Port-Channel 1 = eth 1/1
+interface ethernet 1/1
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1 on = eth 1/1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  duplex full
+  vpc 1
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-A3
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-B                    #
+!#    ROLE  - VPC-B                               #
+!#    IP    - 10.10.10.12/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# CONFIGURE TERMINAL
+configure terminal
+
+!# << Port Channel : NX9-SWITCH-vPC-B -->> L3-SWITCH-3
+
+!# Set interface used for Host Port-Channel 1 = eth 1/1
+interface ethernet 1/1
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1 on = eth 1/1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  vpc 1
+  duplex full
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-B3
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+## 🥇 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
+
+````py
+!##################################################
+!#    NEXUS - L3-SWITCH-3                         #
+!#    ROLE  - HOST L3                             #
+!#    IP    - 10.10.10.1/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname L3-SWITCH-3
+username admin password admin.cisco
+cdp enable
+
+ip routing
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
+vlan 10
+   name VLAN10-MANAGEMENT
+interface vlan 10
+   no shutdown
+   description ** SVI-MGMT-L3-VLAN10-MGMT **
+   ip address 10.10.10.1/24 
+exit
+
+!# << FEATURES >>
+
+feature lacp
+
+!# << Port Channel : L3-SWITCH-3 -->> NX9-SWITCH-vPC-A+B
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/1-2
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1 on = eth 1/2
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# ACCESS INTERFACE TO HOST-A
+
+!# Configure Access Interface @ Host-A - VLAN 10 mgmt
+interface ethernet 1/7
+  description ** Access Host A  **
+  no shutdown
+  switchport
+  switchport mode access
+  switchport access vlan 10
+exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  L2-SWITCH-2
++ IP        =  10.10.10.1
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-L3-SWITCH-3
+copy running-config startup-config
+
+!
+!
+
+
+````
+
 # vPC CONFIG :: `vPC <<==>> Switch L2`
 
 ![image](https://github.com/user-attachments/assets/1dcdb6b9-9674-4a8d-917e-b865e46a2556)
@@ -544,197 +729,18 @@ copy running-config startup-config
 
 ````
 
-# vPC CONFIG :: `vPC <<==>> L3 SVI`
+# vPC CONFIG :: `Hosts` (Servers)
 
-![image](https://github.com/user-attachments/assets/82c6e21c-a7ea-4575-b528-6d5d6b4c4b7a)
+This section adds basic L3 endpoints (servers) to simulate north-south traffic flows through the fabric. These devices are not running any routing protocol, just a static IP and default route. They help verify:
 
-## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
+- ✅ End-to-end IP connectivity
+- ✅ vPC Port-Channel forwarding
+- ✅ SVI gateway reachability
+- ✅ LACP behavior during link failures
 
-````py
-!##################################################
-!#    NEXUS - NX9-SWITCH-vPC-A                    #
-!#    ROLE  - VPC-A                               #
-!#    IP    - 10.10.10.11/24                      #
-!#    LOGIN - admin / admin.cisco                 #
-!##################################################
+Each server is configured as a simple host with a static IP and default gateway (e.g. 10.10.10.1), representing real-world clients or services connected to your access layer.
 
-!# CONFIGURE TERMINAL
-configure terminal
-
-!# << Port Channel : NX9-SWITCH-vPC-A -->> L3-SWITCH-3
-
-!# Set interface used for Host Port-Channel 1 = eth 1/1
-interface ethernet 1/1
-  description ** Po1 - Host Port Channel  **
-  channel-group 1 mode active
-  no shutdown
-exit
-
-!# Configure Port-Channel 1 on = eth 1/1
-interface port-channel 1
-  description ** Po1 - Host Port Channel  **
-  no shutdown
-  switchport
-  switchport mode trunk
-  duplex full
-  vpc 1
-exit
-
-!# SAVE CHECKPOINT & CONFIGURATION
-
-end
-checkpoint fz3r0-check-2025-NX9-vPC-A3
-copy running-config startup-config
-
-
-!
-!
-
-
-````
-
-## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
-
-````py
-!##################################################
-!#    NEXUS - NX9-SWITCH-vPC-B                    #
-!#    ROLE  - VPC-B                               #
-!#    IP    - 10.10.10.12/24                      #
-!#    LOGIN - admin / admin.cisco                 #
-!##################################################
-
-!# CONFIGURE TERMINAL
-configure terminal
-
-!# << Port Channel : NX9-SWITCH-vPC-B -->> L3-SWITCH-3
-
-!# Set interface used for Host Port-Channel 1 = eth 1/1
-interface ethernet 1/1
-  description ** Po1 - Host Port Channel  **
-  channel-group 1 mode active
-  no shutdown
-exit
-
-!# Configure Port-Channel 1 on = eth 1/1
-interface port-channel 1
-  description ** Po1 - Host Port Channel  **
-  no shutdown
-  switchport
-  switchport mode trunk
-  vpc 1
-  duplex full
-exit
-
-!# SAVE CHECKPOINT & CONFIGURATION
-
-end
-checkpoint fz3r0-check-2025-NX9-vPC-B3
-copy running-config startup-config
-
-
-!
-!
-
-
-````
-
-## 🥇 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
-
-````py
-!##################################################
-!#    NEXUS - L3-SWITCH-3                         #
-!#    ROLE  - HOST L3                             #
-!#    IP    - 10.10.10.1/24                      #
-!#    LOGIN - admin / admin.cisco                 #
-!##################################################
-
-!# NAMINGS, USERS, LICENCES, DISCOVERY
-configure terminal
-hostname L3-SWITCH-3
-username admin password admin.cisco
-cdp enable
-
-ip routing
-
-#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
-feature interface-vlan
-vlan 10
-   name VLAN10-MANAGEMENT
-interface vlan 10
-   no shutdown
-   description ** SVI-MGMT-L3-VLAN10-MGMT **
-   ip address 10.10.10.1/24 
-exit
-
-!# << FEATURES >>
-
-feature lacp
-
-!# << Port Channel : L3-SWITCH-3 -->> NX9-SWITCH-vPC-A+B
-
-!# Set interface used for Host Port-Channel 2 = eth 1/2
-interface ethernet 1/1-2
-  description ** Po1 - Host Port Channel  **
-  channel-group 1 mode active
-  no shutdown
-exit
-
-!# Configure Port-Channel 1 on = eth 1/2
-interface port-channel 1
-  description ** Po1 - Host Port Channel  **
-  no shutdown
-  switchport
-  switchport mode trunk
-exit
-
-!# ACCESS INTERFACE TO HOST-A
-
-!# Configure Access Interface @ Host-A - VLAN 10 mgmt
-interface ethernet 1/7
-  description ** Access Host A  **
-  no shutdown
-  switchport
-  switchport mode access
-  switchport access vlan 10
-exit
-
-!# MOTD & CREDITS
-
-banner motd $
-
-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
-                         -- Fz3r0 : Nexus Datacenter --
-
-+ DEVICE    =  L2-SWITCH-2
-+ IP        =  10.10.10.1
-
-? LOGIN     =  admin / admin.cisco    
-
-* Github : Fz3r0           
-* Twitter: @fz3r0_OPs 
-* Youtube: @fz3r0_OPs
-
-$
-
-!# SAVE CHECKPOINT & CONFIGURATION
-
-end
-checkpoint fz3r0-check-2025-L3-SWITCH-3
-copy running-config startup-config
-
-!
-!
-
-
-````
-
-
-
-
-
-This servers will simulate and end to end connection jsut for testing propuoses, for example the sereerts making north south traffic
-
+_These configs are intentionally minimal, just enough to test pings, routing, and basic traffic across the vPC fabric._
 
 ## 🖥️ `SERVER-1-V10-MGMT` - (Server 1)
 
@@ -814,90 +820,9 @@ write memory
 
 ````
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Help and Show commands
-
-````py
-!# Check overall vPC status, peer adjacency, and operational state
-show vpc
-
-!# Show vPC role (primary or secondary)
-show vpc role
-
-!# Validate global consistency parameters between vPC peers
-show vpc consistency-parameters global
-
-!# Check status of the vPC peer-keepalive link
-show vpc peer-keepalive
-
-!# Show a brief summary of all configured vPCs (none expected at this point)
-show vpc brief
-
-!# Check detailed status of the Peer-Link Port-Channel (Po100)
-show interface port-channel 100
-
-!# Show summary of all port-channels and their member interfaces
-show port-channel summary
-
-!# Verify mgmt0 interface status and IP in the management VRF
-show ip interface brief vrf management
-
-!# Check LACP neighbor status on the Peer-Link (Po100)
-show lacp neighbor interface port-channel 100
-
-
----
-
-
-!# Check all vPCs configured and their status (now includes vPC 2)
-show vpc
-
-!# Check member interfaces and state of Po2
-show interface port-channel 2
-
-!# Summary of all port-channels and their member links
-show port-channel summary
-
-!# Check LACP neighbors (verify both links are participating)
-show lacp neighbor interface port-channel 2
-
-!# Validate MAC learning and VLANs
-show mac address-table | include Po2
-
-!# Confirm VLANs allowed on trunk
-show interface port-channel 2 trunk
-
-!# Verify interface status on each participating Ethernet port
-show interface ethernet 1/2
-
-!# Check consistency between vPC peers for this Po
-show vpc consistency-parameters interface port-channel 2
-
-
-----
-
-
-Ping between vpcA: ping 10.10.68.2 vrf management
-Ping between vpcB: ping 10.10.68.1 vrf management
-Check vPC stgats: show vpc
-````
-
-
 # ⚠️ vPC / Port-Channel :: `Verification` & `Troubleshooting`
+
+💡 Replace <id> with the relevant Port-Channel number (100 for peer-link, 1, 2, etc. for host Po), and <slot/port> with actual interface (e.g. ethernet 1/2).
 
 ## ✅ vPC Core, Domain & Peer Status
 
