@@ -380,6 +380,7 @@ interface port-channel 2
   no shutdown
   switchport
   switchport mode trunk
+  vpc 666
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -415,6 +416,7 @@ interface port-channel 2
   no shutdown
   switchport
   switchport mode trunk
+  vpc 666
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
