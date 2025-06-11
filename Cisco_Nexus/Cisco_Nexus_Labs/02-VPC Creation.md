@@ -212,9 +212,9 @@ exit
 
 vpc domain 666
   peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
-  !role priority 100              
-  !auto-recovery                  
-  !system-priority 1000             
+  role priority 100              
+  auto-recovery                  
+  system-priority 1000             
 exit
 
 !# << vPC STEP 4 - vPC PEER-LINK INTERFACE >>
@@ -314,9 +314,9 @@ exit
 
 vpc domain 666
   peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
-  !role priority 100              
-  !auto-recovery                  
-  !system-priority 1000             
+  role priority 200              
+  auto-recovery                  
+  system-priority 1000             
 exit
 
 !# << vPC STEP 4 - vPC PEER-LINK INTERFACE >>
