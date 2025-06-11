@@ -517,6 +517,126 @@ copy running-config startup-config
 
 ````
 
+
+
+
+
+
+
+
+
+# vPC Configuration :: `Layer 2 Port Channel - SVI + Trunk`
+
+- First, you need to configure the Port Channel on the vPC switches:
+
+- First, you need to configure the Port Channel on the vPC switches:
+
+## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-A                    #
+!#    ROLE  - VPC-A                               #
+!#    IP    - 10.10.10.11/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# CONFIGURE TERMINAL
+configure terminal
+
+!# << Port Channel : NX9-SWITCH-vPC-A -->> L3-SWITCH-3
+
+!# Set interface used for Host Port-Channel 2 = eth 1/1
+interface ethernet 1/1
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1 on = eth 1/1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  vpc 666
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-A3
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-B                    #
+!#    ROLE  - VPC-B                               #
+!#    IP    - 10.10.10.12/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# CONFIGURE TERMINAL
+configure terminal
+
+!# << Port Channel : NX9-SWITCH-vPC-B -->> L3-SWITCH-3
+
+!# Set interface used for Host Port-Channel 1 = eth 1/1
+interface ethernet 1/1
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1 on = eth 1/1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  vpc 666
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-B3
+copy running-config startup-config
+
+
+!
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+- Then, you can proceed to configure the Port Channel on the Hosts.
+
 ## 🥇 `L3-SWITCH-3` - (Layer 3 Port Channel @ IOS Switch L3 SVI)
 
 ````py
