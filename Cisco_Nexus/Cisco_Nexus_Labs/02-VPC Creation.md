@@ -33,7 +33,7 @@
 
 ## 🗺️ Network Topology
 
-![image](https://github.com/user-attachments/assets/be2f7eac-6c4d-4e36-bf5b-40a20700d023)
+![image](https://github.com/user-attachments/assets/4dda3528-dded-4396-9e68-ddfb59dcba0d)
 
 ## VPC Creation
 
