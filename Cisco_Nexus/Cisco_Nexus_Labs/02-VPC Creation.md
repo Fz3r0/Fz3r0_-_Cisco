@@ -257,7 +257,7 @@ copy running-config startup-config
 
 ````
 
-## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
+## 🥈 `NX9-SWITCH-vPC-B` - (vPC-B)
 
 ````py
 !##################################################
@@ -358,7 +358,7 @@ copy running-config startup-config
 
 ````
 
-# vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ `vPC <<==>> Host` (Trunk/SVI)
+# 2️⃣⚙️ vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ `vPC <<==>> Host` (Trunk/SVI)
 
 Now that the vPC core is up and the peer-link is working, this step is about connecting downstream switches (or hosts) to the vPC domain using Port-Channels + vPC IDs.
 
@@ -372,7 +372,7 @@ Now that the vPC core is up and the peer-link is working, this step is about con
 - `feature lacp`:	Required for dynamic Port-Channels
 - `Matching config`: on downstream switch	Port-channel must match on both sides
 
-# vPC CONFIG :: `vPC <<==>> L3 SVI`
+# 🔛 vPC CONFIG :: `vPC <<==>> L3 SVI`
 
 ![image](https://github.com/user-attachments/assets/cd2e5547-efcb-45d0-9a98-99ad4e776e8b)
 
@@ -421,7 +421,7 @@ copy running-config startup-config
 
 ````
 
-## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
+## 🥈 `NX9-SWITCH-vPC-B` - (vPC-B)
 
 ````py
 !##################################################
@@ -557,7 +557,7 @@ copy running-config startup-config
 
 ````
 
-# vPC CONFIG :: `vPC <<==>> Switch L2`
+# 🔛 vPC CONFIG :: `vPC <<==>> Switch L2`
 
 ![image](https://github.com/user-attachments/assets/1dcdb6b9-9674-4a8d-917e-b865e46a2556)
 
@@ -605,7 +605,7 @@ copy running-config startup-config
 
 ````
 
-## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
+## 🥈 `NX9-SWITCH-vPC-B` - (vPC-B)
 
 ````py
 !##################################################
@@ -741,7 +741,7 @@ copy running-config startup-config
 
 ````
 
-# vPC CONFIG :: `Hosts` (Servers)
+# 🖥️ CONFIG :: `Hosts` (Servers)
 
 This section adds basic L3 endpoints (servers) to simulate north-south traffic flows through the fabric. These devices are not running any routing protocol, just a static IP and default route. They help verify:
 
