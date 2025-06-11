@@ -360,6 +360,8 @@ Now that the vPC core is up and the peer-link is working, this step is about con
 - `feature lacp`:	Required for dynamic Port-Channels
 - `Matching config`: on downstream switch	Port-channel must match on both sides
 
+# vPC CONFIG :: `vPC <<==>> Switch L2`
+
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
 ````py
@@ -540,16 +542,7 @@ copy running-config startup-config
 
 ````
 
-
-
-
-
-
-
-
-
-# vPC Configuration :: `Layer 2 Port Channel + L3 SVI & Trunk`
-
+# vPC CONFIG :: `vPC <<==>> L3 SVI`
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
