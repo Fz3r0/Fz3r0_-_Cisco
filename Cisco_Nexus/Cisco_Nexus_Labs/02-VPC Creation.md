@@ -126,7 +126,7 @@ To fully deploy a vPC setup, there are two key configuration steps:
 
 - 1️⃣ `Step 1` – **Core vPC Setup**: This is the foundational step where you configure two Nexus switches (vPC-A and vPC-B) to act as a single logical switch to downstream devices.
 
-<p align="center"> <img src="https://github.com/user-attachments/assets/ea74660f-8c11-420d-a72e-00cc2a564f22" height="300">  </p>
+<p align="center"> <img src="https://github.com/user-attachments/assets/ea74660f-8c11-420d-a72e-00cc2a564f22" height="600">  </p>
 
 
 - 2️⃣ `Step 2` – **Connecting External Devices via vPC Port-Channels**: Now that the vPC core is active, this step is about connecting downstream switches or hosts using vPC-backed Port-Channels.
