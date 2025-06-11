@@ -362,6 +362,8 @@ Now that the vPC core is up and the peer-link is working, this step is about con
 
 # vPC CONFIG :: `vPC <<==>> Switch L2`
 
+![image](https://github.com/user-attachments/assets/1dcdb6b9-9674-4a8d-917e-b865e46a2556)
+
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
 ````py
@@ -544,6 +546,8 @@ copy running-config startup-config
 
 # vPC CONFIG :: `vPC <<==>> L3 SVI`
 
+![image](https://github.com/user-attachments/assets/82c6e21c-a7ea-4575-b528-6d5d6b4c4b7a)
+
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
 ````py
@@ -634,26 +638,7 @@ copy running-config startup-config
 
 ````
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----
-
-- Then, you can proceed to configure the Port Channel on the Hosts.
-
 ## 🥇 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
-
 
 ````py
 !##################################################
