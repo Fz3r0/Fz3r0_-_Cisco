@@ -27,7 +27,7 @@
     - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-a---vpc-a)
     - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-b---vpc-b) 
 
-- [2️⃣⚙️ vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ vPC <<==>> Host (Trunk/SVI)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#2%EF%B8%8F%E2%83%A3%EF%B8%8F-vpc-config-step-2--vpc-port-channels--vpc--host-trunksvi)
+- [2️⃣⚙️ vPC CONFIG STEP 2 :: `Multi-chassis EtherChannel (MEC) AKA vPC Port Channels` @ vPC <<==>> Host (Trunk/SVI)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#2%EF%B8%8F%E2%83%A3%EF%B8%8F-vpc-config-step-2--vpc-port-channels--vpc--host-trunksvi)
     - [🔛 vPC CONFIG :: vPC <<==>> L3 SVI](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-vpc-config--vpc--l3-svi) 
         - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-a---vpc-a-1)
         - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02-F0-Nexus_vPC-Configuration.md#-nx9-switch-vpc-b---vpc-b-1)
