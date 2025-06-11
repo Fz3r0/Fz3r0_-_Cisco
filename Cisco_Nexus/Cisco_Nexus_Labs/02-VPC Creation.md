@@ -353,9 +353,90 @@ copy running-config startup-config
 
 # vPC Configuration :: `Port Channels for neighbor hosts`
 
+- First, you need to configure the Port Channel on the vPC switches:
 
+## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-A                    #
+!#    ROLE  - VPC-A                               #
+!#    IP    - 10.10.10.11/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
 
+!# << Port Channel : NX9-SWITCH-vPC-A -->> L2-SWITCH-2
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/2
+  description ** Po2 - Host Port Channel  **
+  channel-group 2 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 2 on = eth 1/2
+interface port-channel 2
+  description ** Po2 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-A2
+copy running-config startup-config
+
+````
+
+## 🥇 `NX9-SWITCH-vPC-B` - (vPC-B)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-B                    #
+!#    ROLE  - VPC-B                               #
+!#    IP    - 10.10.10.12/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# << Port Channel : NX9-SWITCH-vPC-B -->> L2-SWITCH-2
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/2
+  description ** Po2 - Host Port Channel  **
+  channel-group 2 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 2 on = eth 1/2
+interface port-channel 2
+  description ** Po2 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-B2
+copy running-config startup-config
+````
+
+---
+
+- Then, you can proceed to configure the Port Channel on the Hosts.
+
+## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
+
+````py
+````
+
+## 🥇 `L3-SWITCH-3` - (Layer 3 Port Channel @ IOS Switch L3 SVI)
+
+````py
+````
 
 
 
