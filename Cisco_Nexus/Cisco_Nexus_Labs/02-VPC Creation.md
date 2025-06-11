@@ -351,7 +351,7 @@ copy running-config startup-config
 
 
 
-# vPC Configuration :: `Port Channels for neighbor hosts`
+# vPC Configuration :: `Layer 2 Port Channel - Trunk`
 
 - First, you need to configure the Port Channel on the vPC switches:
 
