@@ -99,7 +99,7 @@ Notes:
 
 - Copy & Paste the configuration in each device CLI
 
-# 1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ `Switch-vPC-A & Switch-vPC-B`
+## 1️⃣⚙️ vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ `Switch-vPC-A & Switch-vPC-B`
 
 This is the foundational step in building a vPC environment. 
 
