@@ -21,6 +21,9 @@
 
 # 🏗️ Cisco Nexus :: `NX-OS - Tier 3 Fabric PT1 : OSPF Overlay + Essential Configs`
 
+his lab is a hands-on deployment of a dual-Nexus vPC domain, implementing a highly available, scalable Layer-2 and Layer-3 network fabric using Cisco Nexus 9000 switches and NX-OS. This setup is ideal for data center environments requiring active/active path redundancy, zero-loop bridging, and host-side dual-homing without spanning tree blocking ports.
+
+You will build a vPC-based collapsed core where two Nexus switches act as a single logical switch from the perspective of downstream access devices
 
 
 ## 🎯 Objectives, Features & Protocols Covered
