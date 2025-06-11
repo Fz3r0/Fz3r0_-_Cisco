@@ -31,42 +31,29 @@ By completing this deployment, you'll be fully prepared to extend the fabric wit
 
 By the end of this lab, you will have implemented and verified:
 
-⭕ vPC Core Design with Nexus 9K:
+⭕ vPC Design with Nexus 9K:
 
-- Full vPC domain (vpc domain 666) across NX9-SWITCH-vPC-A and NX9-SWITCH-vPC-B. <br><br>
-    - Peer-link (Po100)
-    - Keepalive-link (mgmt0)
+- Full vPC domain (vpc domain 666) across `NX9-SWITCH-vPC-A` and `NX9-SWITCH-vPC-B`. <br><br>
+    - `Peer-link` (Po100)
+    - `Keepalive-link` (mgmt0)
     - vPC Domain & Switches priority, role priority, auto-recovery
-    - Port Channel timers and adjusments
- 
 
-⭕ Layer-2 vPC Port-Channels:
+⭕ Po1 :: `vPC Port-Channels` + `Port Channel` @ `vPC <<==>> Switch-L3 SVI Gateway`:
 
-Port-channel configurations with vpc <ID> on both peers.
+- `Port-channel-1 + vPC-1` configuration between `vPC & Switch-L3`.
+- Port-channels operating in LACP active mode.
+- Static routing and default gateways using L3 SVI to simulate uplink connectivity & management
+- Trunk between Switch and vPC
 
-Dual-homed host switch (L2-SWITCH-2) connected via active-active vPC.
+⭕ Po2 :: `vPC Port-Channels` + `Port Channel` @ `vPC <<==>> Switch-L2`:
 
-Port-channels operating in LACP active mode.
+- `Port-channel-2 + vPC-2` configuration between `vPC & Switch-L2`.
+- Port-channels operating in LACP active mode.
+- Trunk between Switch and vPC
 
-⭕ Layer-3 SVI and Routed Port-Channel Gateway:
 
-Management SVI (VLAN 10) for all switches with IP addressing.
 
-Gateway SVI on L3-SWITCH-3 with routing enabled.
 
-Static routing and default gateways to simulate uplink connectivity.
-
-⭕ NX-OS Feature Control & Best Practices:
-
-Activation of required features only: vpc, interface-vlan, lacp.
-
-Use of checkpoint and copy run start for state preservation.
-
-⭕ Basic Access Switching:
-
-L2 switch ports (access mode) configured for host VLANs.
-
-Trunk uplinks towards vPC core.
 
 
 ## 🎥 Lab Proof of Concept (PoC) - Video
