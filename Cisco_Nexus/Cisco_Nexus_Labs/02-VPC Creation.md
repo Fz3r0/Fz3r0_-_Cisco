@@ -1,4 +1,4 @@
-# 🧠🏗️🌐 Cisco Nexus: `NX-OS - Tier 3 Fabric PT1 : OSPF Overlay + Essential Configs`
+# 🧠🏗️🌐 Cisco Nexus:  `NX-OS - vPC Configuration`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -19,15 +19,54 @@
 
 [**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-resources)
 
-# 🏗️ Cisco Nexus :: `NX-OS - Tier 3 Fabric PT1 : OSPF Overlay + Essential Configs`
+# 🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`
 
-his lab is a hands-on deployment of a dual-Nexus vPC domain, implementing a highly available, scalable Layer-2 and Layer-3 network fabric using Cisco Nexus 9000 switches and NX-OS. This setup is ideal for data center environments requiring active/active path redundancy, zero-loop bridging, and host-side dual-homing without spanning tree blocking ports.
+This lab is a hands-on deployment of a dual-Nexus vPC domain, implementing a highly available, scalable Layer-2 and Layer-3 network fabric using Cisco Nexus 9000 switches and NX-OS. This setup is ideal for data center environments requiring active/active path redundancy, zero-loop bridging, and host-side dual-homing without spanning tree blocking ports.
 
-You will build a vPC-based collapsed core where two Nexus switches act as a single logical switch from the perspective of downstream access devices
+- You will build a vPC-based topology where: **two Nexus switches act as a single logical switch from the perspective of upstream & downstream access devices**
 
+By completing this deployment, you'll be fully prepared to extend the fabric with advanced technologies like `VXLAN` and `EVPN`.
 
 ## 🎯 Objectives, Features & Protocols Covered
 
+By the end of this lab, you will have implemented and verified:
+
+⭕ vPC Core Design with Nexus 9K:
+
+- Full vPC domain (vpc domain 666) across NX9-SWITCH-vPC-A and NX9-SWITCH-vPC-B. <br><br>
+    - Peer-link (Po100)
+    - Keepalive-link (mgmt0)
+    - vPC Domain & Switches priority, role priority, auto-recovery
+    - Port Channel timers and adjusments
+ 
+
+⭕ Layer-2 vPC Port-Channels:
+
+Port-channel configurations with vpc <ID> on both peers.
+
+Dual-homed host switch (L2-SWITCH-2) connected via active-active vPC.
+
+Port-channels operating in LACP active mode.
+
+⭕ Layer-3 SVI and Routed Port-Channel Gateway:
+
+Management SVI (VLAN 10) for all switches with IP addressing.
+
+Gateway SVI on L3-SWITCH-3 with routing enabled.
+
+Static routing and default gateways to simulate uplink connectivity.
+
+⭕ NX-OS Feature Control & Best Practices:
+
+Activation of required features only: vpc, interface-vlan, lacp.
+
+Use of checkpoint and copy run start for state preservation.
+
+⭕ Basic Access Switching:
+
+L2 switch ports (access mode) configured for host VLANs.
+
+Trunk uplinks towards vPC core.
 
 
 ## 🎥 Lab Proof of Concept (PoC) - Video
@@ -239,7 +278,7 @@ interface port-channel 100
   description ** vPC Peer-Link **
   no shutdown
   switchport
-  switchport mode trunk    
+  switchport mode trunk  
   vpc peer-link     
 exit
 
