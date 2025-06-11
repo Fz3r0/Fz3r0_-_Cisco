@@ -202,7 +202,7 @@ exit
 
 !# << vPC STEP 3 - vPC Domain CONFIG >>
 
-vpc domain 100
+vpc domain 666
   peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
   !role priority 100              
   !auto-recovery                  
@@ -214,13 +214,13 @@ exit
 !# - 3.2: Interfaces used for Peer-Link (LACP trunk)
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
-  channel-group 1 mode active
+  channel-group 100 mode active
   no shutdown
 exit
 
 !# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
 
-interface port-channel 1
+interface port-channel 100
   description ** vPC Peer-Link **
   no shutdown
   switchport
@@ -292,7 +292,7 @@ exit
 
 !# << vPC STEP 3 - vPC Domain CONFIG >>
 
-vpc domain 100
+vpc domain 666
   peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
   !role priority 100              
   !auto-recovery                  
@@ -304,13 +304,13 @@ exit
 !# - 3.2: Interfaces used for Peer-Link (LACP trunk)
 interface ethernet 1/6-7
   description ** vPC Peer-Link to Peer **
-  channel-group 1 mode active
+  channel-group 100 mode active
   no shutdown
 exit
 
 !# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
 
-interface port-channel 1
+interface port-channel 100
   description ** vPC Peer-Link **
   no shutdown
   switchport
@@ -430,7 +430,69 @@ copy running-config startup-config
 
 ## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
 
+
 ````py
+!##################################################
+!#    NEXUS - L2-SWITCH-2                         #
+!#    ROLE  - HOST L2                             #
+!#    IP    - 10.10.10.22/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname L2-SWITCH-2
+username admin password admin.cisco
+cdp enable
+
+!# << FEATURES >>
+
+feature lacp
+
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  channel-group 100 mode active
+  no shutdown
+exit
+
+!# << Port Channel : L2-SWITCH-2 -->> NX9-SWITCH-vPC-B
+
+interface port-channel 2
+  description ** Po2 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  L2-SWITCH-2
++ IP        =  10.10.10.22
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-L2-SWITCH-2
+copy running-config startup-config
+
+!
+!
+
+
 ````
 
 ## 🥇 `L3-SWITCH-3` - (Layer 3 Port Channel @ IOS Switch L3 SVI)
