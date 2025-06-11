@@ -580,7 +580,7 @@ configure terminal
 
 !# << Port Channel : NX9-SWITCH-vPC-A -->> L3-SWITCH-3
 
-!# Set interface used for Host Port-Channel 2 = eth 1/1
+!# Set interface used for Host Port-Channel 1 = eth 1/1
 interface ethernet 1/1
   description ** Po1 - Host Port Channel  **
   channel-group 1 mode active
