@@ -528,10 +528,10 @@ copy running-config startup-config
 !##################################################
 
 !# NAMINGS, USERS, LICENCES, DISCOVERY
+enable
 configure terminal
 hostname L3-SWITCH-3
 username admin password admin.cisco
-cdp enable
 
 ip routing
 
@@ -545,12 +545,12 @@ vlan 10
 interface vlan 10
    no shutdown
    description ** SVI+GW-L3-VLAN10-MGMT **
-   ip address 10.10.10.1/24
+   ip address 10.10.10.1 255.255.255.0
 exit
 
 #! Port Channel Config (Trunk [SVI])
 
-interface Gi 0/1-2
+interface range ethernet 0/1-2
   description ** Po1 - Host Port Channel  **
   channel-group 1 mode active
   no shutdown
@@ -561,6 +561,7 @@ interface port-channel 1
   description ** Po1 - Host Port Channel  **
   no shutdown
   switchport
+  switchport trunk encapsulation dot1q
   switchport mode trunk
 exit
 
