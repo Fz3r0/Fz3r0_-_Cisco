@@ -466,7 +466,7 @@ copy running-config startup-config
 
 ````
 
-## 🥇 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
+## 🔀 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
 
 ````py
 !##################################################
@@ -650,7 +650,7 @@ copy running-config startup-config
 
 ````
 
-## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
+## ↔️ `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
 
 ````py
 !##################################################
