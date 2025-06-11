@@ -15,7 +15,16 @@
 
 # 📄 `Index`
 
+[🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`]()
+- [🎯 Objectives, Features & Protocols Covered]
+- [🎥 Lab Proof of Concept (PoC) - Video]
+- [🗺️ Network Topology]
+- [📋 Network Device Inventory & IP Addressing]
+- [📝 Lab Notes]
 
+[**⚙️ Devices Configurations**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-devices-configurations)
+
+## 🎯 Objectives, Features & Protocols Covered
 
 [**🗃️ Resources**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/01-F0-Nexus_DC-CollapsedCore-HA.md#%EF%B8%8F-resources)
 
@@ -890,6 +899,14 @@ show interface ethernet 1/2
 
 !# Check consistency between vPC peers for this Po
 show vpc consistency-parameters interface port-channel 2
+
+
+----
+
+
+Ping between vpcA: ping 10.10.68.2 vrf management
+Ping between vpcB: ping 10.10.68.1 vrf management
+Check vPC stgats: show vpc
 ````
 
 
@@ -1015,9 +1032,6 @@ ping 10.10.68.2 vrf management       ! Test keepalive reachability
 ````
 
 
-Ping between vpcA: ping 10.10.68.2 vrf management
-Ping between vpcB: ping 10.10.68.1 vrf management
-Check vPC stgats: show vpc
 
 
 ````
