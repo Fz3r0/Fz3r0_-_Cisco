@@ -1573,6 +1573,8 @@ tracert 8.8.8.8
 
 ````
 
+![image](https://github.com/user-attachments/assets/5949e316-3f8c-48d6-b4df-066503cc7b17)
+
 
 # Cheatsheet
 
