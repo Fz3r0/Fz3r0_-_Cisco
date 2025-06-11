@@ -164,7 +164,11 @@ Check vPC stgats: show vpc
 
 
 
-# vPC Configuration :: `Switch-A` & `Switch-B`
+# vPC CONFIG STEP 1 :: `vPC Domain` + `Peer-Link` + `KeepAlive-Link` @ `Switch-vPC-A & Switch-vPC-B`
+
+Firts we need to configure the vPC domain itself, including the links that make all the magic ahhpen, the peer link and keep alive link, this domain and values crates a imaginary "box" tna converts 2 nexus as 1 switch as thee eyes from other switches, allowing to creates port channels using 2 devices, and ectrely suuemful way to have HA in data centers bl abla bla
+
+Both switche suses a basically same config, just coupel values change for example the master and slave switch, but is pretty straighforweard bla bal. 
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -371,9 +375,9 @@ copy running-config startup-config
 
 
 
-# vPC Configuration :: `Layer 2 Port Channel - Trunk`
+# vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ `vPC <<==>> Host` (Trunk/SVI)
 
-- First, you need to configure the Port Channel on the vPC switches:
+- First, you need to configure the Port Channel on the vPC switches, heres where magic happen!!! as youy can see you configure po1 with vpc 1 and por 2 with vpc 2, theres where the magic exists because bla bla bla... 
 
 ## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
 
@@ -466,7 +470,7 @@ copy running-config startup-config
 
 ---
 
-- Then, you can proceed to configure the Port Channel on the Hosts.
+- Then, you can proceed to configure the Port Channel on the Hosts, just configure as a normal port channel... at the end host dosent even know that there are 2 switches "up there" you know??? they are conneciton a post channel as usual, the vPC betqeen A and B is the one doing the mahic. 
 
 ## 🥇 `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
 
@@ -568,9 +572,11 @@ copy running-config startup-config
 
 
 
-# vPC Configuration :: `Layer 2 Port Channel + L3 SVI & Trunk`
+## vPC Configuration :: `Layer 2 Port Channel + L3 SVI & Trunk`
 
-- First, you need to configure the Port Channel on the vPC switches:
+Is basically the same... we are jsut simultiing this side simething liek the gateway, for example a layer 3 switch that will be used as ghateay for the network bla bla bla
+
+
 
 - First, you need to configure the Port Channel on the vPC switches:
 
@@ -778,7 +784,7 @@ copy running-config startup-config
 
 
 
-
+This servers will simulate and end to end connection jsut for testing propuoses, for example the sereerts making north south traffic
 
 
 ## 🖥️ `SERVER-1-V10-MGMT` - (Server 1)
