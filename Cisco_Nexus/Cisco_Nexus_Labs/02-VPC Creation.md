@@ -365,6 +365,9 @@ copy running-config startup-config
 !#    LOGIN - admin / admin.cisco                 #
 !##################################################
 
+!# CONFIGURE TERMINAL
+configure terminal
+
 !# << Port Channel : NX9-SWITCH-vPC-A -->> L2-SWITCH-2
 
 !# Set interface used for Host Port-Channel 2 = eth 1/2
@@ -400,6 +403,9 @@ copy running-config startup-config
 !#    IP    - 10.10.10.12/24                      #
 !#    LOGIN - admin / admin.cisco                 #
 !##################################################
+
+!# CONFIGURE TERMINAL
+configure terminal
 
 !# << Port Channel : NX9-SWITCH-vPC-B -->> L2-SWITCH-2
 
