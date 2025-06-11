@@ -449,14 +449,16 @@ cdp enable
 
 feature lacp
 
-interface ethernet 1/6-7
-  description ** vPC Peer-Link to Peer **
-  channel-group 100 mode active
+!# << Port Channel : L2-SWITCH-2 -->> NX9-SWITCH-vPC-B
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/2-2
+  description ** Po2 - Host Port Channel  **
+  channel-group 2 mode active
   no shutdown
 exit
 
-!# << Port Channel : L2-SWITCH-2 -->> NX9-SWITCH-vPC-B
-
+!# Configure Port-Channel 2 on = eth 1/2
 interface port-channel 2
   description ** Po2 - Host Port Channel  **
   no shutdown
