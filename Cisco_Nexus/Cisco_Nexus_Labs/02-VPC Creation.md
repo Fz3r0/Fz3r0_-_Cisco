@@ -30,8 +30,8 @@
 [2️⃣⚙️ vPC CONFIG STEP 2 :: `(vPC) Port Channels` @ vPC <<==>> Host (Trunk/SVI)]()
 - [🔛 vPC CONFIG :: vPC <<==>> L3 SVI]() 
     - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
-    - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]() <br><br>
-    - [🔀 L3-SWITCH-3 - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)]() 
+    - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]()
+    - [🔀 L3-SWITCH-3 - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)]()  <br><br>
 - [🔛 vPC CONFIG :: vPC <<==>> Switch L2]()
     - [🥇 `NX9-SWITCH-vPC-A` - (vPC-A)]()
     - [🥈 `NX9-SWITCH-vPC-B` - (vPC-B)]() 
