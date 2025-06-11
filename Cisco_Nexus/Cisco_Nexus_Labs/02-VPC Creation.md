@@ -593,7 +593,7 @@ interface port-channel 1
   no shutdown
   switchport
   switchport mode trunk
-  vpc 2
+  vpc 1
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
@@ -637,7 +637,7 @@ interface port-channel 1
   no shutdown
   switchport
   switchport mode trunk
-  vpc 2
+  vpc 1
 exit
 
 !# SAVE CHECKPOINT & CONFIGURATION
