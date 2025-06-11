@@ -520,6 +520,76 @@ copy running-config startup-config
 ## 🥇 `L3-SWITCH-3` - (Layer 3 Port Channel @ IOS Switch L3 SVI)
 
 ````py
+!##################################################
+!#    NEXUS - L3-SWITCH-3                         #
+!#    ROLE  - HOST L3                             #
+!#    IP    - 10.10.10.1/24                       #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname L3-SWITCH-3
+username admin password admin.cisco
+cdp enable
+
+!# VLANs
+
+vlan 10
+   name VLAN10-MANAGEMENT
+
+#! SVIs (GATEWAY L3) {OSPF AREA 0}
+
+interface vlan 10
+   no shutdown
+   description ** SVI+GW-L3-VLAN10-MGMT **
+   ip address 10.10.10.1/24
+exit
+
+#! Port Channel Config (Trunk [SVI])
+
+interface Gi 0/1-2
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  L3-SWITCH-3 - SVI Gateway
++ IP        =  10.10.10.1
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+copy running-config startup-config
+
+!
+!
+
+
 ````
 
 
