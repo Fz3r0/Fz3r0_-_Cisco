@@ -82,136 +82,25 @@ By the end of this lab, you will have implemented and verified:
 | **`SERVER-1-V10-MGMT`**<br>(IOS Host) | Simulated Host    | Eth0                     | `10.10.10.101/24` | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | End-host in VLAN 10 (via L3-SWITCH-3) |
 | **`SERVER-2-V10-MGMT`**<br>(IOS Host) | Simulated Host    | Eth0                     | `10.10.10.102/24` | `10.10.10.1`  | *10.10.10.0* | *10.10.10.255* | End-host in VLAN 10 (via L2-SWITCH-2) |
 
+## 📝 Lab Notes
+
+Credentials:
+
+- Admin: `admin`
+- Pass: `admin.cisco`
+
+Notes:
+
+- During Nexus Switches start-up, select `skip` during "Abort Power On Auto Provisioning (yes - continue with normal setup, skip - bypass password and basic configuration, no - continue with Power On Auto Provisioning) (yes/skip/no)[no]: `skip`"
+- Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
+- I tried to reduce LACP timers to do the tests fasters, but it seems that in this version of NXOS is not possible. 
+
+# **⚙️ Devices Configurations**
+
+- Copy & Paste the configuration in each device CLI
 
 
 
-
-
-
-## VPC Creation
-
-````py
-!##############################################
-!#   vPC CONFIGURATION – Nexus BGW-1A & 1B    #
-!#   Devices: NX9-BGW-1A / NX9-BGW-1B          #
-!#   Purpose: Border Gateways – vPC Peering    #
-!#   Mode: Trunk-based Peer-Link               #
-!##############################################
-
-!---------------------------------------------
-! STEP 1: Enable Required Features (Both Nodes)
-!---------------------------------------------
-feature vpc                          ! Enables vPC functionality
-feature lacp                         ! Enables LACP for Port-Channels
-
-!---------------------------------------------------
-! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1A)
-!---------------------------------------------------
-interface mgmt0
-  description ** vPC Keepalive – to BGW-1B **
-  no shutdown
-  ip address 10.10.68.1/24
-  vrf member management              ! Use mgmt VRF (out-of-band)
-exit
-
-!---------------------------------------------------
-! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1B)
-!---------------------------------------------------
-interface mgmt0
-  description ** vPC Keepalive – to BGW-1A **
-  no shutdown
-  ip address 10.10.68.2/24
-  vrf member management
-exit
-
-show vpc peer-keepalive
-
-!---------------------------------------------------
-! STEP 3: Configure Peer-Link Interfaces (Both Nodes)
-!---------------------------------------------------
-
-! Siempre configura el Po1 antes de asignar los miembros. >>
-! Create the actual Port-Channel interface for the peer-link
-! No cmabair el MTU ahora, o no se crara el peer link
-interface port-channel 1
-  description ** vPC Peer-Link **
-  no shutdown
-  switchport
-  switchport mode trunk             ! Must be trunk mode
-  spanning-tree port type network   ! Best practice for peer-links
-  vpc peer-link                      ! Designate as vPC peer-link
-exit
-
-! Interfaces used for Peer-Link (LACP trunk)
-interface ethernet 1/6
-  description ** vPC Peer-Link to Peer **
-  no shutdown
-  channel-group 1 mode active        ! Active LACP
-exit
-
-interface ethernet 1/7
-  description ** vPC Peer-Link to Peer **
-  no shutdown
-  channel-group 1 mode active
-exit
-
-
-
-!---------------------------------------------------
-! STEP 4: Configure vPC Domain – BGW-1A
-!---------------------------------------------------
-vpc domain 100
-  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
-  role priority 100                 ! Lower = Primary vPC peer
-  auto-recovery                     ! Optional: Recovers vPC after reload
-  system-priority 1000             ! Used for consistency; not mandatory
-  peer-link port-channel 1         ! Explicitly bind peer-link (best practice)
-exit
-
-!---------------------------------------------------
-! STEP 4: Configure vPC Domain – BGW-1B
-!---------------------------------------------------
-vpc domain 100
-  peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
-  role priority 200
-  auto-recovery
-  system-priority 1000
-  peer-link port-channel 1
-exit
-
-!---------------------------------------------------
-! STEP 5: (Optional) Native VLAN Configuration
-!---------------------------------------------------
-! It’s recommended to configure same native VLAN on both ends to avoid STP loops
-
-interface port-channel 1
-  switchport trunk native vlan 999
-exit
-
-vlan 999
-  name vPC-NATIVE
-exit
-
-!---------------------------------------------------
-! Verification Commands
-!---------------------------------------------------
-
-show vpc brief                        ! Check vPC status
-show vpc peer-keepalive              ! Check keepalive status
-show port-channel summary            ! LACP/Po status
-show interface port-channel 1 trunk  ! Verify trunking
-ping 10.10.68.2 vrf management       ! Test keepalive reachability
-````
-
-
-Ping between vpcA: ping 10.10.68.2 vrf management
-Ping between vpcB: ping 10.10.68.1 vrf management
-Check vPC stgats: show vpc
-
-
-````
-#! Config Port Channel between Switch1-A+Switch1-B & Switch 2
-````
 
 
 
@@ -917,6 +806,172 @@ write memory
 
 
 ````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## VPC Creation
+
+````py
+!##############################################
+!#   vPC CONFIGURATION – Nexus BGW-1A & 1B    #
+!#   Devices: NX9-BGW-1A / NX9-BGW-1B          #
+!#   Purpose: Border Gateways – vPC Peering    #
+!#   Mode: Trunk-based Peer-Link               #
+!##############################################
+
+!---------------------------------------------
+! STEP 1: Enable Required Features (Both Nodes)
+!---------------------------------------------
+feature vpc                          ! Enables vPC functionality
+feature lacp                         ! Enables LACP for Port-Channels
+
+!---------------------------------------------------
+! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1A)
+!---------------------------------------------------
+interface mgmt0
+  description ** vPC Keepalive – to BGW-1B **
+  no shutdown
+  ip address 10.10.68.1/24
+  vrf member management              ! Use mgmt VRF (out-of-band)
+exit
+
+!---------------------------------------------------
+! STEP 2: Configure MGMT Interface – Peer Keepalive (BGW-1B)
+!---------------------------------------------------
+interface mgmt0
+  description ** vPC Keepalive – to BGW-1A **
+  no shutdown
+  ip address 10.10.68.2/24
+  vrf member management
+exit
+
+show vpc peer-keepalive
+
+!---------------------------------------------------
+! STEP 3: Configure Peer-Link Interfaces (Both Nodes)
+!---------------------------------------------------
+
+! Siempre configura el Po1 antes de asignar los miembros. >>
+! Create the actual Port-Channel interface for the peer-link
+! No cmabair el MTU ahora, o no se crara el peer link
+interface port-channel 1
+  description ** vPC Peer-Link **
+  no shutdown
+  switchport
+  switchport mode trunk             ! Must be trunk mode
+  spanning-tree port type network   ! Best practice for peer-links
+  vpc peer-link                      ! Designate as vPC peer-link
+exit
+
+! Interfaces used for Peer-Link (LACP trunk)
+interface ethernet 1/6
+  description ** vPC Peer-Link to Peer **
+  no shutdown
+  channel-group 1 mode active        ! Active LACP
+exit
+
+interface ethernet 1/7
+  description ** vPC Peer-Link to Peer **
+  no shutdown
+  channel-group 1 mode active
+exit
+
+
+
+!---------------------------------------------------
+! STEP 4: Configure vPC Domain – BGW-1A
+!---------------------------------------------------
+vpc domain 100
+  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
+  role priority 100                 ! Lower = Primary vPC peer
+  auto-recovery                     ! Optional: Recovers vPC after reload
+  system-priority 1000             ! Used for consistency; not mandatory
+  peer-link port-channel 1         ! Explicitly bind peer-link (best practice)
+exit
+
+!---------------------------------------------------
+! STEP 4: Configure vPC Domain – BGW-1B
+!---------------------------------------------------
+vpc domain 100
+  peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
+  role priority 200
+  auto-recovery
+  system-priority 1000
+  peer-link port-channel 1
+exit
+
+!---------------------------------------------------
+! STEP 5: (Optional) Native VLAN Configuration
+!---------------------------------------------------
+! It’s recommended to configure same native VLAN on both ends to avoid STP loops
+
+interface port-channel 1
+  switchport trunk native vlan 999
+exit
+
+vlan 999
+  name vPC-NATIVE
+exit
+
+!---------------------------------------------------
+! Verification Commands
+!---------------------------------------------------
+
+show vpc brief                        ! Check vPC status
+show vpc peer-keepalive              ! Check keepalive status
+show port-channel summary            ! LACP/Po status
+show interface port-channel 1 trunk  ! Verify trunking
+ping 10.10.68.2 vrf management       ! Test keepalive reachability
+````
+
+
+Ping between vpcA: ping 10.10.68.2 vrf management
+Ping between vpcB: ping 10.10.68.1 vrf management
+Check vPC stgats: show vpc
+
+
+````
+#! Config Port Channel between Switch1-A+Switch1-B & Switch 2
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
