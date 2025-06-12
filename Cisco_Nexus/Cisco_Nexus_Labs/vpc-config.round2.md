@@ -175,36 +175,29 @@ hostname NX9-SWITCH-vPC-A
 username admin password admin.cisco
 cdp enable
 
-#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
-feature interface-vlan
-vlan 10
-   name VLAN10-MANAGEMENT
-interface vlan 10
-   no shutdown
-   description ** SVI-MGMT-L3-VLAN10-MGMT **
-   ip address 10.10.10.11/24 
-exit
-!# ip default-gateway 10.10.10.1 <- This command is deprecated.
-ip route 0.0.0.0/0 10.10.10.1
-
 !# << vPC STEP1 - FEATURES >>
 
 feature vpc
 feature lacp
 
-!# << vPC STEP2 - MGMT INTERFACE CONFIG >>
+!# << vPC STEP2 - MGMT INTERFACE CONFIG (For Admin management & vPC KeepAlive-Link) >>
 
+!# Crear el VRF management y asignar DNS y Default Gateway (GW Core/Router/etc)
+vrf context management
+  ip route 0.0.0.0/0 10.10.10.1
+  ip name-server 8.8.8.8 8.8.4.4
+exit
 interface mgmt 0
-   description ** vPC Keepalive - SW1A --> SW1B **
+   description ** MGMT + vPC Keepalive - SW1A --> SW1B **
    no shutdown
    vrf member management
-   ip address 10.10.68.1/24
+   ip address 10.10.10.11/24
 exit
 
 !# << vPC STEP 3 - vPC Domain CONFIG >>
 
 vpc domain 666
-  peer-keepalive destination 10.10.68.2 source 10.10.68.1 vrf management
+  peer-keepalive destination 10.10.10.12 source 10.10.10.11 vrf management
   role priority 100              
   auto-recovery                  
   system-priority 1000             
@@ -276,36 +269,29 @@ hostname NX9-SWITCH-vPC-B
 username admin password admin.cisco
 cdp enable
 
-#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
-feature interface-vlan
-vlan 10
-   name VLAN10-MANAGEMENT
-interface vlan 10
-   no shutdown
-   description ** SVI-MGMT-L3-VLAN10-MGMT **
-   ip address 10.10.10.12/24 
-exit
-!# ip default-gateway 10.10.10.1 <- This command is deprecated.
-ip route 0.0.0.0/0 10.10.10.1
-
 !# << vPC STEP1 - FEATURES >>
 
 feature vpc
 feature lacp
 
-!# << vPC STEP2 - MGMT INTERFACE CONFIG >>
+!# << vPC STEP2 - MGMT INTERFACE CONFIG (For Admin management & vPC KeepAlive-Link) >>
 
+!# Crear el VRF management y asignar DNS y Default Gateway (GW Core/Router/etc)
+vrf context management
+  ip route 0.0.0.0/0 10.10.10.1
+  ip name-server 8.8.8.8 8.8.4.4
+exit
 interface mgmt 0
-   description ** vPC Keepalive - SW1B --> SW1A **
+   description ** MGMT + vPC Keepalive - SW1B --> SW1A **
    no shutdown
    vrf member management
-   ip address 10.10.68.2/24
+   ip address 10.10.10.12/24
 exit
 
 !# << vPC STEP 3 - vPC Domain CONFIG >>
 
 vpc domain 666
-  peer-keepalive destination 10.10.68.1 source 10.10.68.2 vrf management
+  peer-keepalive destination 10.10.10.11 source 10.10.10.12 vrf management
   role priority 200              
   auto-recovery                  
   system-priority 1000             
@@ -486,6 +472,22 @@ username admin password admin.cisco
 cdp enable
 
 ip routing
+
+!# << MGMT INTERFACE CONFIG (For Admin management) >>
+
+!# Crear el VRF management y asignar DNS y Default Gateway (GW Core/Router/etc)
+vrf context management
+  ip route 0.0.0.0/0 10.10.10.1
+  ip name-server 8.8.8.8 8.8.4.4
+exit
+interface mgmt 0
+   description ** MGMT + vPC Keepalive - SW1B --> SW1A **
+   no shutdown
+   vrf member management
+   ip address 10.10.10.254/24
+exit
+
+!# << SVI : Network Gateway >>
 
 #! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
 feature interface-vlan
@@ -669,17 +671,19 @@ hostname L2-SWITCH-2
 username admin password admin.cisco
 cdp enable
 
-#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
-feature interface-vlan
-vlan 10
-   name VLAN10-MANAGEMENT
-interface vlan 10
-   no shutdown
-   description ** SVI-MGMT-L3-VLAN10-MGMT **
-   ip address 10.10.10.13/24 
+!# << MGMT INTERFACE CONFIG (For Admin management) >>
+
+!# Crear el VRF management y asignar DNS y Default Gateway (GW Core/Router/etc)
+vrf context management
+  ip route 0.0.0.0/0 10.10.10.1
+  ip name-server 8.8.8.8 8.8.4.4
 exit
-!# ip default-gateway 10.10.10.1 <- This command is deprecated.
-ip route 0.0.0.0/0 10.10.10.1
+interface mgmt 0
+   description ** MGMT  **
+   no shutdown
+   vrf member management
+   ip address 10.10.10.13/24
+exit
 
 !# << FEATURES >>
 
