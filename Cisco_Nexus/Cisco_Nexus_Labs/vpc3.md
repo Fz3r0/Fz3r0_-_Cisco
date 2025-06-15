@@ -1,0 +1,943 @@
+# 🧠🏗️🌐 Cisco Nexus:  `NX-OS - vPC Configuration + >>Peer-Link VRF<< + MGMT-Switch`
+
+![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
+
+### 🐦 Twitter  : [@fz3r0_OPs](https://twitter.com/Fz3r0_OPs)
+### 🐱 Github  : [Fz3r0](https://github.com/fz3r0) 
+
+---
+ 
+#### Keywords: `Cisco` `CCNA` `CCNP` `Datacenter` `NX-OS` `Cisco Nexus` `Leaf & Spine` `DC Switching` `Modular Chassis` `Fixed Form Factor` `vPC` `ECMP` `FEX` `Fabric Extender` `Nexus 2000` `Nexus 5000` `Nexus 7000` `Nexus 9000`  `Port-Channel` `LAG` `VLAN` `VRF` `Overlay` `Underlay` `EVPN` `VXLAN`  `Spine Switch` `Leaf Switch` `Control Plane` `Forwarding Plane` `Supervisor Card` `Line Card`  `Redundant Power Supply` `Hot-swappable` `In-Service Software Upgrade (ISSU)` `High Availability`  `Twinax Cable` `SFP+` `QSFP28` `QSFP-DD` `10G` `25G` `40G` `100G` `400G`
+
+---
+
+<br>
+
+# 📄 `Index`
+
+[**🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`**](
+- [🎯 Objectives, Features & Protocols Covered](
+- [🔁 Key Differences: Lab v1 vs Lab v2]()
+- [🎥 Lab Proof of Concept (PoC) - Video](
+- [🗺️ Network Topology](
+- [📋 Network Device Inventory & IP Addressing](
+- [📝 Lab Notes](
+
+[**⚙️ Devices Configurations**]()
+- 
+
+
+            
+[**🗃️ Resources**]()
+
+# 🏗️ Cisco Nexus :: `NX-OS - vPC Configuration`
+
+In the previous lab [NX-OS - vPC Configuration](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02.1-F0-Nexus_vPC-Configuration.md), we built a classic vPC topology where the peer-link between the two Nexus switches was a direct physical connection, and the `mgmt0` interfaces were used for the **keepalive link**. However, to enable switch management, we had to create a new VLAN 10 ("management") and assign an SVI on each Nexus switch. This meant that all management traffic traversed the same data network and shared the same fabric as regular switch traffic, which could become a security or architectural concern in larger environments.
+
+**In this new version, we're taking the topology a step further by introducing a centralized `MGMT-SWITCH` that serves a dual purpose:**
+
+1. **As an out-of-band management switch (aggregating all mgmt0 interfaces), and**
+
+2. **As a shared aggregation point for the vPC peer-links.**
+
+This new architecture provides multiple operational and scalability benefits. Instead of connecting the vPC peer-link directly between the Nexus switches, we route it through the MGMT-SWITCH. This allows all Nexus devices to share a single management VLAN for out-of-band access while simultaneously using the same switch as the transit path for their vPC peer-link traffic.
+
+By completing this deployment, you'll be fully prepared to extend the fabric with advanced technologies like `VXLAN` and `EVPN`.
+
+## 🎯 Objectives, Features & Protocols Covered
+
+In this lab, we’ll maintain the same core configuration used in the [previous setup](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/Cisco_Nexus/Cisco_Nexus_Labs/02.1-F0-Nexus_vPC-Configuration.md):
+
+- The **vPC domain 666** across NX9-SWITCH-vPC-A and NX9-SWITCH-vPC-B
+- **Two port-channels**: Po1 connecting to the L3 Gateway, and Po2 to the L2 Access Switch
+- Standard features like LACP, role priority, auto-recovery, and SVI-based routing
+
+However, the key difference in this version is the **introduction of a centralized MGMT-SWITCH that fully separates management traffic both physically and logically:**
+
+- `mgmt0` interfaces now connect to a **dedicated out-of-band switch**, operating on its **own management VLAN and VRF**.
+- Meanwhile, VLAN 10-Blue is isolated and remains part of the main fabric for regular L2/L3 operations
+
+This approach decouples the management network from the production fabric, allowing for cleaner separation, better security, and improved scalability—especially in multi-device or multi-site environments.
+
+## 🔁 Key Differences: Lab v1 vs Lab v2
+
+| Component               | **vPC Lab v1**                           | **vPC Lab v2 (with MGMT-SWITCH)**                     |
+| ----------------------- | ---------------------------------------- | ----------------------------------------------------- |
+| Role of MGMT-SWITCH     | None (not present)                       | Dual: **OOB management** + **Peer-Link hub**          |
+| `Peer-Link`             | Direct physical connection between Nexus | Routed **through MGMT-SWITCH** using mgmt SVI         |
+| `mgmt0 Interfaces`      | Point-to-point connection                | Connected to MGMT-SWITCH using **access VLAN**        |
+| Management VLAN         | Shared, coexists with peer-link          | **Isolated VLAN** on dedicated switch                 |
+| `VRF` Usage             | `default`                                | Explicit use of `VRF management` with full separation |
+| Scalability             | Limited                                  | **Highly scalable**   just plug into MGMT-SWITCH      |
+
+![image](https://github.com/user-attachments/assets/796514c4-97f0-4154-ae31-4fba4278ea6b)
+
+## 🎥 Lab Proof of Concept (PoC) - Video
+
+- [**👉 Click here to go to the PoC video 👈**](https://youtu.be/RL9hBT0H7UE)
+
+## 🗺️ Network Topology
+
+<p align="center"> <img src="https://github.com/user-attachments/assets/dfd21ae2-f3b9-4430-b329-47b54aafe99a">  </p>
+
+## 📋 Network Device Inventory & IP Addressing
+
+## 📋 Network Device Inventory & IP Addressing
+
+| 💻 <br> **Device**                           | 🛠️ <br> **Function**        | 🔌 <br> **Interface / VLAN**     | 🌐 <br> **IP / CIDR**      | 🎯 <br> **Gateway**      | 🗺️ <br> *Network*     | 📡 <br> *Broadcast*   | 📘 <br> **Main Description**                    |
+| -------------------------------------- | ---------------------- | --------------------------- | --------------------- | ------------------- | ---------------- | ---------------- | ------------------------------------------ |
+| **`NX9-SWITCH-vPC-A`** <br> (NXOS)     | vPC Core Peer A        | VLAN 10 (SVI)               | `10.10.10.11/24`      | `10.10.10.1`         | *10.10.10.0*      | *10.10.10.255*    | Management SVI – Peer A                    |
+|                                        |                        | mgmt0 (VRF: mgmt, V66)      | `10.10.66.11/24`      | `10.10.66.1`         | *10.10.66.0*      | *10.10.66.255*    | vPC Keepalive + OOB Mgmt (via MGMT-SWITCH) |
+|                                        |                        | Po1 (Eth1/1)                | trunk VLAN 10         | –                    | –                 | –                | Uplink to L3-SWITCH-3                      |
+|                                        |                        | Po2 (Eth1/2)                | trunk VLAN 10         | –                    | –                 | –                | Uplink to L2-SWITCH-2                      |
+|                                        |                        | Po100 (Eth1/6-7)            | trunk VLAN ALL        | –                    | –                 | –                | vPC Peer-Link (via MGMT-SWITCH)           |
+| **`NX9-SWITCH-vPC-B`** <br> (NXOS)     | vPC Core Peer B        | VLAN 10 (SVI)               | `10.10.10.12/24`      | `10.10.10.1`         | *10.10.10.0*      | *10.10.10.255*    | Management SVI – Peer B                    |
+|                                        |                        | mgmt0 (VRF: mgmt, V66)      | `10.10.66.12/24`      | `10.10.66.1`         | *10.10.66.0*      | *10.10.66.255*    | vPC Keepalive + OOB Mgmt (via MGMT-SWITCH) |
+|                                        |                        | Po1 (Eth1/1)                | trunk VLAN 10         | –                    | –                 | –                | Uplink to L3-SWITCH-3                      |
+|                                        |                        | Po2 (Eth1/2)                | trunk VLAN 10         | –                    | –                 | –                | Uplink to L2-SWITCH-2                      |
+|                                        |                        | Po100 (Eth1/6-7)            | trunk VLAN ALL        | –                    | –                 | –                | vPC Peer-Link (via MGMT-SWITCH)           |
+| **`L3-SWITCH-3`** <br> (NXOS)          | L3 Gateway Switch      | VLAN 10 (SVI)               | `10.10.10.1/24`       | –                    | *10.10.10.0*      | *10.10.10.255*    | Default Gateway for VLAN 10               |
+|                                        |                        | mgmt0 (VRF: mgmt, V66)      | `10.10.66.14/24`      | `10.10.66.1`         | *10.10.66.0*      | *10.10.66.255*    | OOB Mgmt (via MGMT-SWITCH)                |
+|                                        |                        | Po1 (Eth1/1-2)              | trunk VLAN 10         | –                    | –                 | –                | Uplink to vPC peers (Po1)                  |
+|                                        |                        | Eth1/7                      | access VLAN 10        | –                    | –                 | –                | Access port to SERVER-1                   |
+| **`L2-SWITCH-2`** <br> (NXOS)          | L2 Access Switch       | VLAN 10 (SVI optional)      | `10.10.10.13/24`      | `10.10.10.1`         | *10.10.10.0*      | *10.10.10.255*    | Optional SVI – VLAN 10                     |
+|                                        |                        | mgmt0 (VRF: mgmt, V66)      | `10.10.66.13/24`      | `10.10.66.1`         | *10.10.66.0*      | *10.10.66.255*    | OOB Mgmt (via MGMT-SWITCH)                |
+|                                        |                        | Po2 (Eth1/1-2)              | trunk VLAN 10         | –                    | –                 | –                | Uplink to vPC peers (Po2)                  |
+|                                        |                        | Eth1/7                      | access VLAN 10        | –                    | –                 | –                | Access port to SERVER-2                   |
+| **`MGMT-SWITCH`** <br> (IOS)           | MGMT Aggregation       | VLAN 66 (SVI)               | `10.10.66.1/24`       | –                    | *10.10.66.0*      | *10.10.66.255*    | Gateway for all mgmt0 interfaces          |
+|                                        |                        | Eth0/0                      | access VLAN 66        | –                    | –                 | –                | ADMIN-Fz3r0 connection                    |
+|                                        |                        | Eth1/0-3                    | access VLAN 66        | –                    | –                 | –                | Peer-Link & Mgmt Nexus Switches           |
+| **`SERVER-1-V10-MGMT`** <br> (IOS Host)| Simulated Host         | Eth0                        | `10.10.10.101/24`     | `10.10.10.1`         | *10.10.10.0*      | *10.10.10.255*    | End-host VLAN 10 (via L3-SWITCH-3)        |
+| **`SERVER-2-V10-MGMT`** <br> (IOS Host)| Simulated Host         | Eth0                        | `10.10.10.102/24`     | `10.10.10.1`         | *10.10.10.0*      | *10.10.10.255*    | End-host VLAN 10 (via L2-SWITCH-2)        |
+| **`ADMIN-Fz3r0`** <br> (IOS Host)      | Admin Workstation      | Eth0                        | `10.10.66.100/24`     | `10.10.66.1`         | *10.10.66.0*      | *10.10.66.255*    | OOB Admin Access to Fabric                |
+
+## 📝 Lab Notes
+
+Credentials:
+
+- Admin: `admin`
+- Pass: `admin.cisco`
+
+Notes:
+
+- During Nexus Switches start-up, select `skip` during "Abort Power On Auto Provisioning (yes - continue with normal setup, skip - bypass password and basic configuration, no - continue with Power On Auto Provisioning) (yes/skip/no)[no]: `skip`"
+- During Nexus Switches start-up, sometimes the boot process hangs after executing the kick start, when it tries to load the operating system and drops a `loader>` prompt. In that case, type `dir`, locate the operating system filename (e.g. `nxos64.10.1.1.bin`) and manually run the command `boot nxos64.10.1.1.bin`, which will load the OS. _(You can also wipe the device and reboot it.)_
+- Check that all virtual NX devices are powered on and have no CLI issues; sometimes they can hang or freeze when too many sessions are open or multiple processes are running.
+- I tried to reduce LACP timers to do the tests fasters, but it seems that in this version of NXOS is not possible. 
+
+
+# **⚙️ Devices Configurations**
+
+Below are all the configurations used in this lab, including Nexus Switches, Management Switch, Hosts, and the Admin PC.
+
+This setup brings everything together:
+
+- The **Nexus vPC core**, forming a single logical switch.
+- The **management switch**, providing out-of-band access and centralized peer-link aggregation.
+- The **servers and admin PC**, simulating client traffic across VLANs 10 (blue) and 66 (mgmt).
+
+# **⚙️ Devices Configurations: `Network Devices`**
+
+To fully deploy a vPC setup, there are two key configuration steps that we already covered in the previous lab:
+
+- 1️⃣ `Step 1` – **Core vPC Setup**: This is the foundational step where two Nexus switches (vPC-A and vPC-B) are configured to operate as a single logical switch from the perspective of downstream devices.
+- 2️⃣ `Step 2` – **Connecting External Devices via vPC Port-Channels**: Once the vPC core is operational, downstream switches and hosts are connected using vPC-backed Port-Channels, providing both redundancy and link aggregation.
+
+The only major change in this version is the introduction of a **new centralized management switch**. This switch serves two purposes:
+
+- Hosts the **Out-of-Band management VLAN** for all `mgmt0` interfaces  
+- Acts as a **transit switch for the vPC Peer-Link**
+
+There's no problem with routing the peer-link through a Layer 2 switch, as it's purely used for synchronization between the vPC peers—not for data-plane forwarding. This design fully separates the management plane from the main fabric, offering better clarity and scalability.
+
+## 🥇 `NX9-SWITCH-vPC-A` - (vPC-A)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-A                    #
+!#    ROLE  - VPC-A                               #
+!#    MGMT* - 10.10.66.11/24                      #
+!#    BLUE  - 10.10.10.11/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname NX9-SWITCH-vPC-A
+username admin password admin.cisco
+cdp enable
+
+#! SVIs + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
+vlan 10
+   name VLAN10-BLUE
+interface vlan 10
+   no shutdown
+   description ** SVI-L3-VLAN10-BLUE **
+   ip address 10.10.10.11/24 
+exit
+!# ip default-gateway 10.10.10.1 <- This command is deprecated.
+ip route 0.0.0.0/0 10.10.10.1
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# << vPC Configuration - vPC Domain 666 >> 
+
+!# << vPC STEP1 - FEATURES >>
+
+feature vpc
+feature lacp
+
+!# << vPC STEP2 - MGMT INTERFACE CONFIG >> <<=== MANAGEMENT OUT OF BAND + PEER-LINK
+
+!# Add DNS and Default Gateway to MGMT VLAN/VRF
+vrf context management
+  ip name-server 8.8.8.8 8.8.4.4
+  ip route 0.0.0.0/0 10.10.66.1
+!# Configure mgmt0 interface
+interface mgmt 0
+   description ** MGMT INTERFACE + vPC PEER-LINK **
+   no shutdown
+   vrf member management
+   ip address 10.10.66.11/24
+exit
+
+!# << vPC STEP 3 - vPC Domain CONFIG >>
+
+vpc domain 666
+  peer-keepalive destination 10.10.66.12 source 10.10.66.11 vrf management
+  role priority 100              
+  auto-recovery                  
+  system-priority 1000             
+exit
+
+!# << vPC STEP 4 - vPC PEER-LINK INTERFACE >>
+
+!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  channel-group 100 mode active
+  no shutdown
+exit
+
+!# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
+
+interface port-channel 100
+  description ** vPC Peer-Link **
+  no shutdown
+  switchport
+  switchport mode trunk  
+  vpc peer-link     
+exit
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# << vPC - PORT CHANNELS CONFIGURATIONS @ Hosts>> 
+
+!# << Port Channel : NX9-SWITCH-vPC-A -->> L3-SWITCH-3
+
+!# Set interface used for Host Port-Channel 1 = eth 1/1
+interface ethernet 1/1
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+!# Configure Port-Channel 1 on = eth 1/1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  duplex full
+  vpc 1
+exit
+
+!# << Port Channel : NX9-SWITCH-vPC-A -->> L2-SWITCH-2
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/2
+  description ** Po2 - Host Port Channel  **
+  channel-group 2 mode active
+  no shutdown
+exit
+!# Configure Port-Channel 2 on = eth 1/2
+interface port-channel 2
+  description ** Po2 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  vpc 2
+exit
+
+!# << MOTD & CREDITS>> 
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-SWITCH-vPC-A
++ MGMT*     =  10.10.66.11
++ BLUE      =  10.10.10.11
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-A
+copy running-config startup-config
+
+!
+!
+
+
+````
+
+## 🥈 `NX9-SWITCH-vPC-B` - (vPC-B)
+
+````py
+!##################################################
+!#    NEXUS - NX9-SWITCH-vPC-B                    #
+!#    ROLE  - VPC-B                               #
+!#    MGMT* - 10.10.66.12/24                      #
+!#    BLUE  - 10.10.10.12/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname NX9-SWITCH-vPC-B
+username admin password admin.cisco
+cdp enable
+
+#! SVIs (MANAGEMENT) + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
+vlan 10
+   name  VLAN10-BLUE
+interface vlan 10
+   no shutdown
+   description ** SVI-L3-VLAN10-BLUE **
+   ip address 10.10.10.12/24 
+exit
+!# ip default-gateway 10.10.10.1 <- This command is deprecated.
+ip route 0.0.0.0/0 10.10.10.1
+
+!# << vPC STEP1 - FEATURES >>
+
+feature vpc
+feature lacp
+
+!# << vPC STEP2 - MGMT INTERFACE CONFIG >> <<=== MANAGEMENT OUT OF BAND + PEER-LINK
+
+!# Add DNS and Default Gateway to MGMT VLAN/VRF
+vrf context management
+  ip name-server 8.8.8.8 8.8.4.4
+  ip route 0.0.0.0/0 10.10.66.1
+!# Configure mgmt0 interface
+interface mgmt 0
+   description ** MGMT INTERFACE + vPC PEER-LINK **
+   no shutdown
+   vrf member management
+   ip address 10.10.66.12/24
+exit
+
+!# << vPC STEP 3 - vPC Domain CONFIG >>
+
+vpc domain 666
+  peer-keepalive destination 10.10.66.11 source 10.10.66.12 vrf management
+  role priority 200              
+  auto-recovery                  
+  system-priority 1000             
+exit
+
+!# << vPC STEP 4 - vPC PEER-LINK INTERFACE >>
+
+!# - 3.2: Interfaces used for Peer-Link (LACP trunk)
+interface ethernet 1/6-7
+  description ** vPC Peer-Link to Peer **
+  channel-group 100 mode active
+  no shutdown
+exit
+
+!# << vPC STEP 5 - PORT CHANNEL INTERFACE (For Peer-Link) >>
+
+interface port-channel 100
+  description ** vPC Peer-Link **
+  no shutdown
+  switchport
+  switchport mode trunk    
+  vpc peer-link     
+exit
+
+!# =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+!# << vPC - PORT CHANNELS CONFIGURATIONS @ Hosts>> 
+
+!# << Port Channel : NX9-SWITCH-vPC-B -->> L3-SWITCH-3
+
+!# Set interface used for Host Port-Channel 1 = eth 1/1
+interface ethernet 1/1
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+!# Configure Port-Channel 1 on = eth 1/1
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  vpc 1
+  duplex full
+exit
+
+!# << Port Channel : NX9-SWITCH-vPC-B -->> L2-SWITCH-2
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/2
+  description ** Po2 - Host Port Channel  **
+  channel-group 2 mode active
+  no shutdown
+exit
+!# Configure Port-Channel 2 on = eth 1/2
+interface port-channel 2
+  description ** Po2 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+  !# Po2 = VPC2
+  vpc 2
+exit
+
+
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  NX9-SWITCH-vPC-B
++ MGMT*     =  10.10.66.12
++ BLUE      =  10.10.10.12
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-NX9-vPC-B
+copy running-config startup-config
+
+!
+!
+
+
+````
+
+## 🔀 `L3-SWITCH-3` - (Layer 2 Port Channel @ NXOS Switch L3 SVI/TRUNK)
+
+````py
+!##################################################
+!#    NEXUS - L3-SWITCH-3                         #
+!#    ROLE  - HOST L3                             #
+!#    MGMT* - 10.10.66.14/24                      #
+!#    BLUE  - 10.10.10.1/24                       #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname L3-SWITCH-3
+username admin password admin.cisco
+cdp enable
+
+#! SVIs + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
+vlan 10
+   name  VLAN10-BLUE
+interface vlan 10
+   no shutdown
+   description ** SVI-L3-VLAN10-BLUE **
+   ip address 10.10.10.1/24 
+exit
+
+!# << MANAGEMENT INTERFACE >>
+
+!# Add DNS and Default Gateway to MGMT VLAN/VRF
+vrf context management
+  ip name-server 8.8.8.8 8.8.4.4
+  ip route 0.0.0.0/0 10.10.66.1
+!# Configure mgmt0 interface
+interface mgmt 0
+   description ** MGMT INTERFACE + vPC PEER-LINK **
+   no shutdown
+   vrf member management
+   ip address 10.10.66.14/24
+exit
+
+!# << FEATURES >>
+
+feature lacp
+
+!# << Port Channel : L3-SWITCH-3 -->> NX9-SWITCH-vPC-A+B
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/1-2
+  description ** Po1 - Host Port Channel  **
+  channel-group 1 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 1 on = eth 1/2
+interface port-channel 1
+  description ** Po1 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# ACCESS INTERFACE TO HOST-A
+
+!# Configure Access Interface @ Host-A - VLAN 10 mgmt
+interface ethernet 1/7
+  description ** Access Host A  **
+  no shutdown
+  switchport
+  switchport mode access
+  switchport access vlan 10
+exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  L3-SWITCH-3
++ MGMT*     =  10.10.66.14
++ BLUE      =  10.10.10.1
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-L3-SWITCH-3
+copy running-config startup-config
+
+!
+!
+
+
+````
+
+## ↔️ `L2-SWITCH-2` - (Layer 2 Port Channel @ NXOS Switch L2 TRUNK)
+
+````py
+!##################################################
+!#    NEXUS - L2-SWITCH-2                         #
+!#    ROLE  - HOST L2                             #
+!#    MGMT* - 10.10.66.13/24                      #
+!#    BLUE  - 10.10.10.13/24                      #
+!#    LOGIN - admin / admin.cisco                 #
+!##################################################
+
+!# NAMINGS, USERS, LICENCES, DISCOVERY
+configure terminal
+hostname L2-SWITCH-2
+username admin password admin.cisco
+cdp enable
+
+#! SVIs + DEFAULT GATEWAY (HSRP CORES)
+feature interface-vlan
+vlan 10
+   name  VLAN10-BLUE
+interface vlan 10
+   no shutdown
+   description ** SVI-L3-VLAN10-BLUE **
+   ip address 10.10.10.13/24 
+exit
+#! Default Gateway (Default VRF)
+ip route 0.0.0.0/0 10.10.10.1
+
+!# << MANAGEMENT INTERFACE >>
+
+!# Add DNS and Default Gateway to MGMT VLAN/VRF
+vrf context management
+  ip name-server 8.8.8.8 8.8.4.4
+  ip route 0.0.0.0/0 10.10.66.1
+!# Configure mgmt0 interface
+interface mgmt 0
+   description ** MGMT INTERFACE + vPC PEER-LINK **
+   no shutdown
+   vrf member management
+   ip address 10.10.66.13/24
+exit
+
+!# << FEATURES >>
+
+feature lacp
+
+!# << Port Channel : L2-SWITCH-2 -->> NX9-SWITCH-vPC-B
+
+!# Set interface used for Host Port-Channel 2 = eth 1/2
+interface ethernet 1/1-2
+  description ** Po2 - Host Port Channel  **
+  channel-group 2 mode active
+  no shutdown
+exit
+
+!# Configure Port-Channel 2 on = eth 1/2
+interface port-channel 2
+  description ** Po2 - Host Port Channel  **
+  no shutdown
+  switchport
+  switchport mode trunk
+exit
+
+!# ACCESS INTERFACE TO HOST-B
+
+!# Configure Access Interface @ Host-B - VLAN 10 mgmt
+interface ethernet 1/7
+  description ** Access Host B  **
+  no shutdown
+  switchport
+  switchport mode access
+  switchport access vlan 10
+exit
+
+!# MOTD & CREDITS
+
+banner motd $
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+                         -- Fz3r0 : Nexus Datacenter --
+
++ DEVICE    =  L2-SWITCH-2
++ MGMT*     =  10.10.66.13
++ BLUE      =  10.10.10.13
+
+? LOGIN     =  admin / admin.cisco    
+
+* Github : Fz3r0           
+* Twitter: @fz3r0_OPs 
+* Youtube: @fz3r0_OPs
+
+$
+
+!# SAVE CHECKPOINT & CONFIGURATION
+
+end
+checkpoint fz3r0-check-2025-L2-SWITCH-2
+copy running-config startup-config
+
+!
+!
+
+
+````
+
+## 🖥️ `MGMW-SWITCH` - (IOS Management Switch / Management Gateway)
+
+````py
+! ###############
+! # MGMT SWITCH #
+! ###############
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname MGMT-SWITCH
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # IP Routing / router mode
+ip routing
+
+!# << VLAN & INTERFACE  CONFIGURATION >>
+
+! # Create VLAN
+vlan 66
+    name V66-MGMT
+exit
+
+! # Configure interface as SVI to become Gateway
+interface vlan 66
+   description ** SVI Interface - MGMT Gateway **
+   ip address 10.10.66.1 255.255.255.0
+   no shutdown
+exit
+
+! # Configure Access Interface - ADMIN Fz3r0
+interface ethernet 0/0
+   description ** ACCESS - V66 - ADMIN Fz3r0 **
+   duplex full
+   no shutdown
+   switchport mode access
+   switchport access vlan 66
+exit
+
+! # Configure Access Interfaces - vPC Peer-Link & MGMT for Nexus Switches
+interface range ethernet 1/0-3
+   description ** ACCESS - V66 - NEXUS MGMT & PEER-LINK **
+   duplex full
+   no shutdown
+   switchport mode access
+   switchport access vlan 66
+exit
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+# **⚙️ Devices Configurations: `Hosts` & `Fz3r0` (Servers VLAN 10 & Admin VLAN 66)**
+
+This section adds basic L3 endpoints to simulate north-south traffic and test vPC behavior.  
+
+- Two servers in **VLAN 10** use static IPs to validate gateway reachability via the Nexus pair.  
+- The `ADMIN-Fz3r0` host lives in **VLAN 66** (management) and is used to reach all `mgmt0` interfaces.  
+
+> 🔒 **IMPORTANT!!!** - VLANs 10 and 66 are isolated; there's no routing between them, by design.
+
+_These configs are intentionally minimal, just enough to test pings, routing, and basic traffic across the vPC fabric._
+
+## 🖥️ `SERVER-1-V10-MGMT` - (Server 1)
+
+````py
+! ############
+! # SERVER-1 #
+! ############
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname SERVER-1-V10-MGMT
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 10.10.10.101 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+## 🖥️ `SERVER-2-V10-MGMT` - (Server 2)
+
+````py
+! ############
+! # SERVER-2 #
+! ############
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname SERVER-2-V10-MGMT
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 10.10.10.102 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+## 💀 `ADMIN-Fz3r0` - (Administrator)
+
+````py
+! ###############
+! # ADMIN-Fz3r0 #
+! ###############
+
+! # Enable & Config Exec Line
+enable
+configure terminal
+
+! # Change the device hostname
+hostname ADMIN-Fz3r0
+
+! # Disable DNS lookup to avoid delays when typing invalid commands
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** Simulated PC Interface **
+   ip address 10.10.66.100 255.255.255.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.66.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+````
+
+# ⚠️ vPC / Port-Channel :: `Verification` & `Troubleshooting`
+
+💡 Replace <id> with the relevant Port-Channel number (100 for peer-link, 1, 2, etc. for host Po), and <slot/port> with actual interface (e.g. ethernet 1/2).
+
+## ✅ vPC Core, Domain & Peer Status
+
+````py
+!# Overall vPC status and adjacency
+show vpc                               
+
+!# Role assignment: primary / secondary
+show vpc role                          
+
+!# Summary of all vPCs and port-channels
+show vpc brief                         
+
+!# Status of vPC keepalive link
+show vpc peer-keepalive                
+
+!# Global consistency checks
+show vpc consistency-parameters global 
+
+!# Per-vPC consistency
+show vpc consistency-parameters interface port-channel <id>
+
+!# Check mgmt0 interface IP and up/down
+show ip interface brief vrf management          
+
+!# Ping from vPC-A to vPC-B
+ping 10.10.66.12 vrf management                  
+
+!# Ping from vPC-B to vPC-A
+ping 10.10.66.11 vrf management  
+
+````
+
+## ✅ Port-Channel (Po) Status & Interfaces
+
+````py
+!# Summary of all port-channels and members
+show port-channel summary
+
+!# Detailed info for specific Po (e.g. Po1, Po2, Po100)
+show interface port-channel <id>       
+
+!# Trunk status, allowed VLANs
+show interface port-channel <id> trunk 
+
+!# Physical interface status (e.g. Eth1/2)
+show interface ethernet <slot/port>    
+
+!# LACP Neighbors
+show lacp neighbor interface port-channel <id>  
+
+````
+
+# 🗃️ Resources
+
+- https://www.cisco.com/c/es_mx/support/docs/switches/nexus-9000-series-switches/218333-understand-and-configure-nexus-9000-vpc.html
+- https://www.youtube.com/live/uW--KhRzdEk?si=-0wyVkk1fJDk1TT6
+- https://www.youtube.com/watch?v=fWCH39T-_fU
+- https://youtu.be/kOb0r_-26Lw?si=XM5VzoYBd4AHofUf
+
+---
+
+<span align="center"> <p align="center"> ![giphy](https://user-images.githubusercontent.com/94720207/166587250-292d9a9f-e590-4c25-a678-d457e2268e85.gif) </p> </span> 
+
+&nbsp;
+
+<span align="center"> <p align="center"> _I hope this information was useful for someone_ </p> </span> 
+<span align="center"> <p align="center"> _and please, don't forget to enjoy your days..._ </p> </span> 
+<span align="center"> <p align="center"> _...It is getting dark... so dark..._ </p> </span> 
+
+&nbsp;
+
+<span align="center"> <p align="center"> _In the mist of the night you could see me come, where shadows move and Demons lie..._ </p> </span> 
+<span align="center"> <p align="center"> _I am [Fz3r0 💀](https://github.com/Fz3r0/) and the Sun no longer rises..._ </p> </span> 
+
+---
+
+---
+
+> ![hecho en mexico 5](https://user-images.githubusercontent.com/94720207/166068790-fa1f243d-2db9-4810-a6e4-eb3c4ad23700.png)
+>
+> _- Hecho en México - by [Fz3r0 💀](https://github.com/Fz3r0/)_  
+>
+> _"In the mist of the night you could see me come, where shadows move and Demons lie..."_ 
