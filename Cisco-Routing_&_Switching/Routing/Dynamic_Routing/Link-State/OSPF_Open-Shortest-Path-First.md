@@ -155,6 +155,7 @@ OSPF is a robust and efficient routing protocol designed to scale in larger netw
 
 
 
+![image](https://github.com/user-attachments/assets/75de0128-95dd-421b-9b02-d317f276285f)
 
 
 
