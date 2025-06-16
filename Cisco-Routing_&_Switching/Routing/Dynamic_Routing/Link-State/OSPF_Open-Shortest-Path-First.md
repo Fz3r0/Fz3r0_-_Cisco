@@ -1593,6 +1593,7 @@ tracert 8.8.8.8
 
 # 📚🗂️🎥 Resources
 
+- [WWT - Configuring OSPF](https://www.wwt.com/lab/cisco-networking-configuring-ospf)
 - [Distance Vector VS Link State](https://www.routexp.com/2020/03/routing-basics-distance-vector-vs-link.html)
 - [OSPF a fondo](https://youtu.be/Izm-8BQLRiI?si=TgYYhEefuvJQMJFY)
 - [OSPF animado](https://www.youtube.com/watch?v=Zi1imlhYhFI)
