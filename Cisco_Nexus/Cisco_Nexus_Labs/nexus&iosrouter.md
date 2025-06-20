@@ -144,9 +144,9 @@ configure terminal
     no shutdown
   exit
 
-  interface Ethernet0/0.48
+  interface Ethernet0/0.10
     description *** VLAN48 punto-a-punto ***
-    encapsulation dot1Q 48
+    encapsulation dot1Q 10
     ip address 10.10.1.10 255.255.255.254
   exit
 
@@ -169,8 +169,6 @@ write memory
 
 
 
-
-
 ````py
 configure terminal
   hostname LAB-BGW1
@@ -180,22 +178,21 @@ configure terminal
   feature ospf
 
   interface Ethernet1/3
-    description *** Link → LAB-R1 Eth0/0 ***
+    description *** Link → LAB-R1 Eth 0/0 ***
     no switchport
     no shutdown
   exit
 
-  interface Ethernet1/3.48
+  interface Ethernet1/3.10
     description VLAN48 → LAB-R1
     no shutdown
-    encapsulation dot1q 48
+    encapsulation dot1q 10
     ip address 10.10.1.11/31
     ip router ospf 10 area 0
   exit
 
   router ospf 10
       router-id 10.10.1.11
-    exit
   exit
 
 end
