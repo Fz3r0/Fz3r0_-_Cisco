@@ -156,6 +156,53 @@ configure terminal
   exit
 end
 write memory
+
+
+
+!
+!
+
+
 ````
 
 ## NEXUS
+
+
+
+
+
+````py
+configure terminal
+  hostname LAB-BGW1
+
+
+
+  feature ospf
+
+  interface Ethernet1/3
+    description *** Link → LAB-R1 Eth0/0 ***
+    no switchport
+    no shutdown
+  exit
+
+  interface Ethernet1/3.48
+    description VLAN48 → LAB-R1
+    no shutdown
+    encapsulation dot1q 48
+    ip address 10.10.1.11/31
+    ip router ospf 10 area 0
+  exit
+
+  router ospf 10
+      router-id 10.10.1.11
+    exit
+  exit
+
+end
+copy running-config startup-config
+
+!
+!
+
+
+````
