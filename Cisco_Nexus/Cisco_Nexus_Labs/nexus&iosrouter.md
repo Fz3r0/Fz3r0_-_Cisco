@@ -6,7 +6,7 @@
 
 
 
-
+Funciona!
 
 ## Router
 
@@ -48,6 +48,20 @@ write memory
 !
 
 
+
+````
+
+````
+# router
+show interface Ethernet0/0.48
+!
+ping vrf VRF-10 10.10.1.11 source 10.10.1.10
+!
+ping vrf VRF-10 10.10.1.11
+!
+show ip ospf neighbor
+!
+show ip interface brief
 
 ````
 
@@ -94,7 +108,11 @@ copy running-config startup-config
 
 ````
 
-
+````
+# BGW
+show ip ospf neighbor vrf INSIDE1
+ping 10.10.1.10 vrf INSIDE1
+````
 
 
 
