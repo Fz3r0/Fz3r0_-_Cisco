@@ -128,71 +128,73 @@ ping 10.10.1.10 vrf INSIDE1
 ---
 
 
+# Simple
 
+## Router
 
-
-
-## ROUTER SIMPLIFICADO
-
-````
+````py
 enable
 configure terminal
   hostname LAB-R1
 
-  interface Ethernet 0/0
+
+  interface Ethernet0/0
     description *** Link → LAB-BGW1 Eth1/3 ***
+    duplex full
     no shutdown
   exit
 
-  interface Ethernet0/0.10
-    description *** VLAN48 punto-a-punto ***
-    encapsulation dot1Q 10
+  interface Ethernet0/0.48
+    no shutdown
+    description *** VLAN48 → LAB-BGW1 ***
+    encapsulation dot1Q 48
     ip address 10.10.1.10 255.255.255.254
   exit
 
-  router ospf 10
+  router ospf 10 
     router-id 10.10.1.10
     network 10.10.1.10 0.0.0.1 area 0
   exit
+
 end
 write memory
 
-
-
 !
 !
+
 
 
 ````
 
-## NEXUS
 
 
+
+## Nexus
 
 ````py
 configure terminal
   hostname LAB-BGW1
 
 
-
   feature ospf
 
   interface Ethernet1/3
-    description *** Link → LAB-R1 Eth 0/0 ***
+    description *** Link → LAB-R1 Eth0/0 ***
     no switchport
     no shutdown
   exit
 
-  interface Ethernet1/3.10
+  interface Ethernet1/3.48
     description VLAN48 → LAB-R1
     no shutdown
-    encapsulation dot1q 10
+    encapsulation dot1q 48
     ip address 10.10.1.11/31
     ip router ospf 10 area 0
   exit
 
   router ospf 10
       router-id 10.10.1.11
+
   exit
 
 end
@@ -203,3 +205,13 @@ copy running-config startup-config
 
 
 ````
+
+````
+# BGW
+show ip ospf neighbor vrf INSIDE1
+ping 10.10.1.10 vrf INSIDE1
+````
+
+
+
+
