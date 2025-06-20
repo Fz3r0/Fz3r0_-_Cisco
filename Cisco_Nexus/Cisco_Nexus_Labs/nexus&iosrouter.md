@@ -29,6 +29,7 @@ configure terminal
   exit
 
   interface Ethernet0/0.48
+    no shutdown
     description *** VLAN48 → LAB-BGW1 ***
     encapsulation dot1Q 48
     vrf forwarding VRF-10
@@ -71,6 +72,7 @@ configure terminal
 
   interface Ethernet1/3.48
     description VLAN48 → LAB-R1
+    no shutdown
     encapsulation dot1q 48
     vrf member INSIDE1
     ip address 10.10.1.11/31
