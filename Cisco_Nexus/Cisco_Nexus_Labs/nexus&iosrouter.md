@@ -24,6 +24,7 @@ configure terminal
 
   interface Ethernet0/0
     description *** Link → LAB-BGW1 Eth1/3 ***
+    duplex full
     no shutdown
   exit
 
@@ -41,6 +42,12 @@ configure terminal
 
 end
 write memory
+
+!
+!
+
+
+
 ````
 
 ## Nexus
@@ -49,9 +56,8 @@ write memory
 configure terminal
   hostname LAB-BGW1
 
-  !–– INSIDE1 
+  !# INSIDE1 
   vrf context INSIDE1
-    rd 64900:100
     address-family ipv4 unicast
   exit
 
@@ -68,16 +74,22 @@ configure terminal
     encapsulation dot1q 48
     vrf member INSIDE1
     ip address 10.10.1.11/31
+    ip router ospf 10 area 0
   exit
 
   router ospf 10
     vrf INSIDE1
       router-id 10.10.1.11
-      network 10.10.1.10/31 area 0
     exit
   exit
+
 end
 copy running-config startup-config
+
+!
+!
+
+
 ````
 
 
