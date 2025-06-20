@@ -25,7 +25,7 @@ interface Ethernet0/0.10
    description ** V10 Sub-Interface for -> NEXUS **
    no shutdown
       encapsulation dot1Q 10
-      ip address 10.10.1.254 255.255.255.0
+      ip address 10.10.1.210 255.255.255.254
          ip nat inside
 exit
 
@@ -46,34 +46,30 @@ no password strength-check
 username admin password admin.cisco role network-admin
 cdp enable
 
-feature interface-vlan
 feature lldp
 
 
-!# SVI CONFIG
-
-vlan 10
-   name VLAN10
-exit
-interface vlan 10
-   description ** SVI-V10**
-   no shutdown
-      ip address 10.10.1.11/24 
-exit
-#! Static default route (Default Gateway) for OSPF underlay in default VRF
-ip route 0.0.0.0/0 10.10.1.254
 
 !#  TRUNK INTERFACE @ ROUTER SUB INTERFACE
 
-interface ethernet1/3
-   description ** WAN Interface Trunk @ ROUTER **
+#! Sub-Interface @ ROUTER
+interface Ethernet1/3
+   description ** Physical Link to -> ROUTER **
    no shutdown
-   speed 10000
    duplex full
-      switchport
-      switchport mode trunk
-      switchport trunk allowed vlan 10
+ ip nat inside
 exit
+
+interface Ethernet1/3.11
+   description ** V10 Sub-Interface for -> NEXUS **
+   no shutdown
+      encapsulation dot1Q 11
+      ip address 10.10.1.211 255.255.255.254
+         ip nat inside
+exit
+
+
+
 
 end
 copy running-config startup-config
