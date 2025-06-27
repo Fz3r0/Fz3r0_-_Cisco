@@ -142,9 +142,6 @@ interface GigabitEthernet0/0
  ip nat outside
 ```
 
-
----
-
 ## ACL = The List (And Why Order Matters)
 
 ACLs are called *lists* for a reason: they’re literally read **line by line, from top to bottom**, like a checklist. And once a rule matches, **that’s it**, the rest of the list is ignored.
