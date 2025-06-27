@@ -17,6 +17,144 @@
 
 
 
+
+# 🚦👮🛑 ACL - Access Control List
+
+An **Access Control List (ACL)** is a mechanism used in network devices (mainly routers) to make **decisions about traffic** based on specific criteria such as **IP address**, **protocol**, and **port number**. 
+
+- ACLs are the **core tool** in Cisco IOS for **controlling**, **filtering**, and **classifying** traffic. They act like bouncers at a nightclub: they decide who gets in, who gets kicked out, and who gets redirected to the VIP area.
+
+ACLs have existed in the computing world since the early days of **file system permissions** in operating systems (like Unix in the 1970s). But in networking, they became standard tools with the rise of **access-layer routers** and **filtering firewalls** in the 1990s.
+
+- ACLs are vendor-specific in implementation (Cisco, Juniper, etc.), they **do not have a formal RFC**, because they’re considered a **device-level feature**, not a protocol. 
+
+# 🎯 Core Purposes of ACLs
+
+While ACLs can do many things, they serve **two main purposes** across most network environments:
+
+| Purpose       | Role of ACL     | Common Examples                                          |
+|---------------|------------------|-----------------------------------------------------------|
+| 🔍 **`Filtering`**   | Allow or block   | `VLAN segmentation`, `firewall rules (block/allow traffic between networks/devices/etc)`, `VTY restrictions`      |
+| 🗃️ **`Classification`** | Identify/select | `QoS tagging`, `NAT selection`, `route filtering (OSPF, BGP, etc)`, `PBR`         |
+
+## 🔍 ACL Purpose: `Filtering` _(most common use)_
+
+ACLs are most often used to **control access** by:
+
+- **`Permitting`** or **`denying*`** traffic between devices or networks (**`inbound`** or **`outbound`** traffic)
+- Enforcing segmentation between VLANs or security zones
+- Blocking specific protocols or ports (e.g. deny telnet, allow SSH)
+- Acting as **stateless firewalls** on interfaces
+
+> ✅ This is the typical usage in most CCNA/CCNP setups and enterprise networks.
+
+### 📦 Filtering by Packet Content
+
+ACLs make decisions based on the contents of a packet, using criteria from:
+
+- **Layer 3 (Network Layer)** = `IP Addresses`  
+- **Layer 4 (Transport Layer)** = `TCP/UDP Ports`  
+- Or a **`combination of both`**
+
+This is what makes **extended ACLs** so powerful, they can evaluate **source/destination IP** *and* **source/destination port** at the same time _(Extended ACLs)_.
+
+### 🌐 Layer 3 (IP-based Filtering)
+
+ACLs can match packets based on:
+
+- A single **host IP**  
+  → `host 192.168.1.1`
+- An entire **subnet**  
+  → `192.168.10.0 0.0.0.255`
+- A **range of IPs** using wildcard masks  
+  → `10.0.0.0 0.255.255.255`
+- A **supernet** (summarized networks)  
+  → `172.16.0.0 0.15.255.255`
+- **The keyword `any` for “match all IPs”**
+
+This type of filtering applies to both **source** and **destination** IP addresses.
+
+### 🎯 Layer 4 (Port-based Filtering)
+
+ACLs can also make decisions based on **TCP/UDP ports** for protocols like HTTP, SSH, Telnet, etc. You can:
+
+- Match **specific ports**
+  → `eq 80`, `eq 22`, `eq 443`
+- Match **ranges of ports**
+  → `range 1000 2000`
+- Use **well-known port names**
+  → `eq www`, `eq ftp`, `eq telnet`
+
+Ports range from **1 to 65535**, and ACLs can filter **both directions**:
+- Source Port (rare)
+- Destination Port (most common)
+
+> ⚠️ **IMPORTANT:**  Port-based filtering is only available in **extended ACLs**.
+
+## 🗃️ ACL Purpose:  `Classification`
+
+ACLs can also be used to **identify and classify** traffic for other processes. For example:
+
+- **`QoS`**: ACLs are used to match VoIP, video, or critical traffic, so the switch or router can give it special treatment (priority queuing, shaping, etc).
+- **`NAT`**: ACLs select which IPs will be translated and which won’t.
+- **`Route filtering`**: Used in **BGP**, **OSPF**, or **EIGRP** to permit or deny specific networks from being advertised.
+- **`Policy-Based Routing (PBR)`**: ACLs match traffic and route it through a specific next-hop instead of default routing.
+
+> 🎯 In this use case, ACLs **do not filter traffic**, they just **mark or select** it for another process.
+
+---
+
+### 📌 Example ACL Entry (L3 + L4)
+
+```PY
+! Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
+access-list 110 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
+````
+
+
+---
+
+
+These rules are always processed **top-down**, and the first match wins. Once a match is found, **no further ACL lines are evaluated**.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## ACL
 
 2 propositos basicos: 
