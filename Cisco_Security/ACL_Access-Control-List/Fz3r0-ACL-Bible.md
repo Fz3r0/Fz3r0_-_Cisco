@@ -51,6 +51,20 @@ como su nombre lo dice en una lista y lleva uin order por ejemplo
 
 Todas esas son siderentes sencencias que tienes diretepntes propositos, y todos son parte de una misma lista, o una misma ACL.,
 
+### Reglas a considerar para ACL
+
+Reglas a considerar
+
+- Se deben declarar de lo más específico a lo más general (Por ejemplo, una IP en particular en caso de solo querer una PC, o una red unicamente si solo se quiere seleccionar una subred por ejemplo)
+- Las declaraciones deben especificar primero lo que se permite (en una norma, aunque en ocasiones especiales si se puede llegar a poner primeor lo que se niega, estas son las nuevas practicas)
+- Las declaraciones se revisan de arriba hacia abajo (es decir, en la lsita, literal se revisan de arriba para abajo, el orden importa!!! por ejemplo en nuetsro ejemplo , perimo revisara el puerto 80 http, y despues el SMPT y asi...por eorden si primero se niega la red 10.10.x.x y luego se permite, se va a terminar pemritiendo, porque seri ala sguenda linea la que lee al final)
+- Cuando se encuentra una coincidencia se ejecuta y termina la revisión
+- Por defecto bloquea todo el tráfico al final de la lista
+- Las ACL se aplican por interfaz
+
+Solo se puede aplicar una ACL por sentido en cada interfaz (E/S)
+
+Solo se puede aplicar una ACL por protocolo de Capa 3 (IPv4, IPv6)
 
 
 
