@@ -98,8 +98,16 @@ Ports range from **1 to 65535**, and ACLs can filter **both directions**:
 ### 📌 Example ACL Entry (L3 + L4)
 
 ```PY
-!# Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
-access-list Fz3r0-ACL-1 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
+!# Step 1 – Create an extended ACL that blocks HTTP from subnet 10.10.10.0/24 to a specific server
+ip access-list extended Fz3r0-ACL-HTTP-BLOCK
+   deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
+   permit ip any any
+exit
+
+!# Step 2 – Apply the ACL to the inbound interface where the subnet is located
+interface GigabitEthernet0/1
+   ip access-group Fz3r0-ACL-HTTP-BLOCK in
+exit
 ````
 
 ## 🗃️ ACL Purpose:  `Classification`
