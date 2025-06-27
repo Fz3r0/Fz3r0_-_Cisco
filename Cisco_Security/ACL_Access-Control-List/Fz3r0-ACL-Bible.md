@@ -91,6 +91,15 @@ Ports range from **1 to 65535**, and ACLs can filter **both directions**:
 
 > ⚠️ **IMPORTANT:**  Port-based filtering is only available in **extended ACLs**.
 
+---
+
+### 📌 Example ACL Entry (L3 + L4)
+
+```PY
+! Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
+access-list 110 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
+````
+
 ## 🗃️ ACL Purpose:  `Classification`
 
 ACLs can also be used to **identify and classify** traffic for other processes. For example:
@@ -102,14 +111,7 @@ ACLs can also be used to **identify and classify** traffic for other processes. 
 
 > 🎯 In this use case, ACLs **do not filter traffic**, they just **mark or select** it for another process.
 
----
 
-### 📌 Example ACL Entry (L3 + L4)
-
-```PY
-! Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
-access-list 110 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
-````
 
 
 ---
