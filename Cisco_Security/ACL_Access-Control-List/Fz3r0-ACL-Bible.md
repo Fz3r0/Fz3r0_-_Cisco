@@ -113,8 +113,6 @@ ACLs can also be used to **identify and classify** traffic for other processes. 
 
 > 🎯 In this use case, ACLs **do not filter traffic**, they just **mark or select** it for another process.
 
----
-
 ### 📌 Example ACL for NAT
 
 ```PY
