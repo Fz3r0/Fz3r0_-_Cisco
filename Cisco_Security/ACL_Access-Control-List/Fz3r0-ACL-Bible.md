@@ -7,13 +7,43 @@
 
 ---
  
-#### Keywords: `Cisco` `CCNA` `CCNP` `Datacenter` `NX-OS` `Cisco Nexus` `Leaf & Spine` `DC Switching` `Modular Chassis` `Fixed Form Factor` `vPC` `ECMP` `FEX` `Fabric Extender` `Nexus 2000` `Nexus 5000` `Nexus 7000` `Nexus 9000`  `Port-Channel` `LAG` `VLAN` `VRF` `Overlay` `Underlay` `EVPN` `VXLAN`  `Spine Switch` `Leaf Switch` `Control Plane` `Forwarding Plane` `Supervisor Card` `Line Card`  `Redundant Power Supply` `Hot-swappable` `In-Service Software Upgrade (ISSU)` `High Availability`  `Twinax Cable` `SFP+` `QSFP28` `QSFP-DD` `10G` `25G` `40G` `100G` `400G`
+#### Keywords: `Cisco` `CCNA` `CCNP` `ACL` `Access Control List` `Standard ACL` `Extended ACL` `Numbered ACL` `Named ACL` `ip access-list` `access-list` `access-class` `VTY ACL` `Telnet ACL` `SSH ACL` `VTY Lines` `Firewall` `L3 Filter` `Packet Filtering` `Permit` `Deny` `Wildcard Mask` `host` `any` `eq` `range` `icmp` `tcp` `udp` `ACL Logging` `log` `show access-lists` `debug ip packet` `debug ip icmp` `undebug all` `ip access-group` `inbound` `outbound` `ip policy route-map` `route-map` `match ip address` `set ip next-hop` `Policy-Based Routing` `PBR` `QoS Classification` `Class-map` `Control Plane Policing` `CoPP` `NAT` `ip nat inside source` `PAT` `Overload` `Redistribution Filtering` `OSPF ACL` `BGP ACL` `route filtering` `deny ip any any` `permit ip any any` `Interface ACL` `Traffic Control` `Security` `Edge Filtering` `Core Filtering` `Router Security` `Switch Security` `Cisco IOS` `CCNA` `CCNP` `Cisco Firewall Basics` `Network Access Control` `Routing Security` `Access Filtering` `IPv4 ACL` `IPv6 ACL` `Cisco Labs` `Network Simulator` `Packet Tracer`
 
 ---
 
 <br>
 
 # 📄 `Index`
+
+
+
+
+
+
+
+
+
+
+
+
+## 🔍 Cisco ACL Types – Unified Overview
+
+| 🔖 **ACL Type**            | 🧠 **Description**                                                                                                                                     | 🎯 **Match Criteria**                 | 🛠️ **Application Scope**                    | 💡 **Example**                               |
+|---------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------|---------------------------------------------|----------------------------------------------|
+| `Standard ACL`            | Filters **only by source IP address**. Best used **closest to the destination**. Very common.                                                         | Source IP only                       | NAT, VTY access, basic filtering             | `access-list 1 permit 10.10.0.0 0.0.0.255`    |
+| `Extended ACL`            | Matches **source, destination, protocol, and ports**. Should be placed **closest to the source**. Most flexible and widely used.                      | Src/Dst IP, Protocol, Port           | Traffic filtering, firewall, QoS, PBR        | `access-list 100 permit tcp any any eq 80`   |
+| `Numbered ACL`            | Uses ACL number (`1–99` for standard, `100–199` for extended). **Legacy format**, still commonly used.                                                 | Same as standard/extended            | Quick configs or simple use cases            | `access-list 10 permit 192.168.1.0 0.0.0.255` |
+| `Named ACL`               | Uses a **custom name** instead of a number. Supports **sequence numbers** and easier management. Recommended for modern configs.                        | Same as numbered                     | Modern, editable ACLs                        | `ip access-list extended BLOCK-HTTP`         |
+| `VTY ACL`                 | Standard ACL applied to **VTY lines** (SSH/Telnet) to **restrict remote access** by source IP. Essential for device hardening.                         | Source IP                            | SSH/Telnet access control                    | `access-class 55 in`                          |
+| `SSH/Telnet ACL`          | Synonym of VTY ACL, focused on **restricting CLI remote access**. Uses standard ACL format. Common practice.                                           | Source IP                            | Limit SSH/Telnet access                      | `access-list 55 permit 10.0.0.0 0.0.0.255`    |
+| `Reflexive ACL`           | **Stateful ACL** that allows return traffic based on outbound sessions. Less common in modern setups.                                                  | Session-aware (evaluated)            | Basic stateful filtering                     | `evaluate OUTBOUND-TRAFFIC`                  |
+| `Time-Based ACL`          | ACL that applies **only during defined time-ranges** (e.g., work hours). Very useful but not widely used.                                              | IP + Time-Range                      | Temporary access control                     | `time-range WORK-HOURS`                      |
+| `IPv6 ACL`                | ACL designed to filter **IPv6 traffic**. Syntax is similar to IPv4 extended ACLs.                                                                      | IPv6 addresses & protocols           | IPv6 traffic control                         | `ipv6 access-list BLOCK-ICMPv6`              |
+| `Dynamic ACL (Lock-and-Key)` | **Allows access after user authentication** via Telnet. Rarely used today.                                                                      | Source IP (after login)              | Telnet-based access control (legacy)         | `autocommand access-enable`                  |
+| `Port ACL (PACL)`         | Applied **directly to switchports** (Layer 2). Filters traffic entering physical ports. Used mostly in Catalyst switches.                              | MAC or IP                            | Security on access ports                     | `ip access-group 101 in` on L2 port          |
+| `Control Plane ACL (CoPP)`| Filters traffic **destined to the control plane** (e.g., OSPF, BGP, SSH). Essential in datacenter/ISP.                                                  | Src/Dst IP, Protocol                 | CPU protection (CoPP/CPPr)                   | `control-plane` with ACL                     |
+| `MAC ACL`                 | Filters traffic **based on MAC addresses** instead of IP. Only supported on certain switch platforms. Rarely used today.                               | Source/Destination MAC               | L2 security filtering on trunks or ports     | `mac access-list extended MAC-FILTER`        |
+
 
 
 
