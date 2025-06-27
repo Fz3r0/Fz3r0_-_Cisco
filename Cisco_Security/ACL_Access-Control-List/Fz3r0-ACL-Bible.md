@@ -267,6 +267,83 @@ access-list 100 permit ip host 192.168.1.10 any
 
 
 
+## 🔁 Inbound vs Outbound – Where Should You Apply the ACL?
+
+Understanding **inbound** and **outbound** is simple but important when applying ACLs.
+
+When you apply an ACL to an interface, you must specify the **direction**:
+
+- `inbound` :: The ACL is applied **as packets enter** the interface
+- `outbound` :: The ACL is applied **as packets exit** the interface
+
+---
+
+### 🧠 Real-world scenario
+
+Imagine a router with two PCs on each side:
+
+![image](https://github.com/user-attachments/assets/5cec8d19-71a6-4c78-a9eb-9e0111c54372)
+
+- PC1 on network `10.10.0.0/16`, connected to `Gig0/1`
+- PC2 on network `10.20.0.0/16`, connected to `Gig0/2`
+
+You want to **block file transfers (FTP/TFTP/SMB)** between these two devices.
+
+### 🔄 Understanding traffic flow
+
+#### ✅ Example 1: PC1 initiates FTP connection to PC2
+
+- Packet goes **into Gig0/1 (inbound)**
+- Then **out of Gig0/2 (outbound)** toward PC2
+
+So if PC1 is the one initiating traffic → the ACL should be applied **inbound on Gig0/1**
+
+---
+
+#### ✅ Example 2: PC2 initiates FTP connection to PC1
+
+- Packet goes **into Gig0/2 (inbound)**
+- Then **out of Gig0/1 (outbound)** toward PC1
+
+If PC2 is initiating traffic → the ACL should be applied **inbound on Gig0/2**
+
+---
+
+### 🧭 Best practice: Block traffic at the source (inbound)
+
+You **should apply the ACL on the inbound interface**, where the conversation starts. Why?
+
+- Blocking at **inbound** prevents the traffic from even entering the router
+- Blocking at **outbound** allows it to enter, consume CPU, and be processed — only to be dropped later
+- **Inbound = more efficient and clean**
+
+---
+
+### ✅ Summary decision logic:
+
+| Who initiates? | Apply ACL on... | Direction  |
+|----------------|------------------|------------|
+| PC1            | Interface Gig0/1 | `inbound`  |
+| PC2            | Interface Gig0/2 | `inbound`  |
+
+---
+
+### ⚙️ Example Config
+
+```bash
+!# Step 1 – Deny FTP (port 21) from PC1 to PC2
+ip access-list extended BLOCK-FTP
+ deny tcp host 10.10.1.10 host 10.10.2.10 eq 21
+ permit ip any any
+
+!# Step 2 – Apply ACL to interface facing PC1 (inbound)
+interface GigabitEthernet0/1
+ ip address 10.10.1.1 255.255.255.0
+ ip access-group BLOCK-FTP in
+```
+
+
+
 
 
 
