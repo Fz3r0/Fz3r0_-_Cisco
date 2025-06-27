@@ -179,6 +179,32 @@ access-list 100 deny ip host 10.30.0.5 any
 access-list 100 permit ip 10.30.0.0 0.0.0.255 any
 ````
 
+## ✅ ACL Rules You Should Always Follow
+
+1. **`Write from specific to general`**  
+   Put specific matches (like a single IP or host) before general ones (like a whole subnet). If you do it backwards, the specific rule might never get hit.
+
+2. **`Permit first, deny later`**  
+   Normally, you start by allowing what’s needed. Deny rules usually come after. But if your goal is to block something specific, deny can go first — just be intentional.
+
+3. **`ACLs are read top to bottom`**  
+   The router checks the list line by line. First match wins. Anything below a match is ignored.
+
+4. **`Once a match is found, the rest is skipped`**  
+   As soon as a rule matches a packet, the router stops reading the ACL. Later lines don’t matter for that packet.
+
+5. **`There’s an invisible "deny all" at the end`**  
+   If no rule matches, the traffic is dropped. The router won’t warn you — it just silently blocks it. Always keep this in mind.
+
+6. **`ACLs must be applied to an interface`**  
+   Creating an ACL does nothing unless you apply it to an interface (`in` or `out`), or use it in a feature like NAT, VTY, or route-maps.
+
+7. **`Only one ACL per direction per interface`**  
+   You can’t apply two ACLs inbound or two outbound on the same interface. One per direction, that’s it.
+
+8. **`Only one ACL per protocol (IPv4 or IPv6)`**  
+   You can’t mix IPv4 and IPv6 ACLs on the same direction of the same interface. Use the right type depending on the traffic.
+
 
 
 
