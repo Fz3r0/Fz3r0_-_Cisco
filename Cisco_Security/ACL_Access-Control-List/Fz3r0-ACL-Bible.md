@@ -279,7 +279,7 @@ When you apply an ACL to an interface, you must specify the **direction**:
 
 Imagine a router with two PCs on each side:
 
-![image](https://github.com/user-attachments/assets/5cec8d19-71a6-4c78-a9eb-9e0111c54372)
+![image](https://github.com/user-attachments/assets/a9665d77-2d31-4402-af4e-8b0ed2ac3ebb)
 
 - PC1 on network `10.10.0.0/16`, connected to `Gig0/1`
 - PC2 on network `10.20.0.0/16`, connected to `Gig0/2`
