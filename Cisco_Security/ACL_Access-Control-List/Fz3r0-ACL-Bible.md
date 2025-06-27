@@ -128,6 +128,12 @@ Donde configurar la ACL para bloquear el trafico entonceS? inbound u outbiun?:
 
 Recordar siempre la regla, hay que bliqeuar el inbound, es decir desde donde se esta generando la conversaicon inciial. porque sino, el trafico lograria entrar, y aunque no pueda salir, ya habra atreavezado el router por primera vez, eso no es necesario, se debe blqoeuar desd einciio, es decir, ibound! 
 
+En teoria, tambien podria bloieeyar el outbound de gi/01 y tambien estaria bien, pero ya habra pasado tambien entre ambas inte3fraces por dentro del router, seria mas limpia el primer ocpion. 
+
+y esto se configura asi: 
+
+1. hacer la ACL: `ACL deny from PC1 to PC2 FTP`
+2. aokucar a ka ubterfaz coini inbound `Eth 0/1 ACL inbound`
 
 
 
