@@ -57,14 +57,12 @@ Reglas a considerar
 
 - Se deben declarar de lo más específico a lo más general (Por ejemplo, una IP en particular en caso de solo querer una PC, o una red unicamente si solo se quiere seleccionar una subred por ejemplo)
 - Las declaraciones deben especificar primero lo que se permite (en una norma, aunque en ocasiones especiales si se puede llegar a poner primeor lo que se niega, estas son las nuevas practicas)
-- Las declaraciones se revisan de arriba hacia abajo (es decir, en la lsita, literal se revisan de arriba para abajo, el orden importa!!! por ejemplo en nuetsro ejemplo , perimo revisara el puerto 80 http, y despues el SMPT y asi...por eorden si primero se niega la red 10.10.x.x y luego se permite, se va a terminar pemritiendo, porque seri ala sguenda linea la que lee al final)
-- Cuando se encuentra una coincidencia se ejecuta y termina la revisión
-- Por defecto bloquea todo el tráfico al final de la lista
-- Las ACL se aplican por interfaz
-
-Solo se puede aplicar una ACL por sentido en cada interfaz (E/S)
-
-Solo se puede aplicar una ACL por protocolo de Capa 3 (IPv4, IPv6)
+- Las declaraciones se revisan de arriba hacia abajo (es decir, en la lsita, literal se revisan de arriba para abajo, el orden importa!!! por ejemplo en nuetsro ejemplo , perimo revisara el puerto 80 http, y despues el SMPT y asi...por eorden si primero se niega la red 10.10.x.x y luego se permite, se va a terminar pemritiendo, porque seri ala sguenda linea la que lee al final de forma secuencial) 
+- Cuando se encuentra una coincidencia se ejecuta y termina la revisión (como dije antes, prime se ejecuta la sentencia, y depsues la sque siguen, por eso el ejemplo de por eorden si primero se niega la red 10.10.x.x y luego se permite, se va a terminar pemritiendo, porque seri ala sguenda linea la que lee al final de forma secuencial)
+- Por defecto bloquea todo el tráfico al final de la lista (por default el router al final podnra una linea que se llama "negar todo lo demas", asi que en caso que no se haya permitido o negado lo necesario, eso seria bloqueado)
+- Las ACL se aplican por interfaz (Es decir, despues de crar una lsita, hay qu eentrar a la interfaz y aplicarla. En pocas ocasiones se pone en otras lineas como para VTY o NAT)
+- Solo se puede aplicar una ACL por sentido en cada interfaz (E/S) (Solo un ACL por entrada o por salida)
+- Solo se puede aplicar una ACL por protocolo de Capa 3 (IPv4, IPv6)
 
 
 
