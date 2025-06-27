@@ -49,12 +49,8 @@
 
 # 🗃️ Resources
 
-- https://www.youtube.com/watch?v=fWCH39T-_fU
-- https://arubanetworking.hpe.com/techdocs/VSG/docs/040-dc-design/esp-dc-design-020-network-design/
-
-![image](https://github.com/user-attachments/assets/097c8612-b84c-46cc-b86d-e33dec0322fe)
-
-
+- https://www.youtube.com/watch?v=ob7rgwt9nuk&list=PLwAU7bA502wHx44LlUptxSG6UQ3ONx3hh
+  
 ---
 
 <span align="center"> <p align="center"> ![giphy](https://user-images.githubusercontent.com/94720207/166587250-292d9a9f-e590-4c25-a678-d457e2268e85.gif) </p> </span> 
