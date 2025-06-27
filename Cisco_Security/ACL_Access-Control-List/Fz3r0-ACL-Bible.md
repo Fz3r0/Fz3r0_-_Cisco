@@ -233,9 +233,13 @@ A **wildcard** is a bitmask that tells the router which parts of an IP address *
 
 As you can see, the wildcard highlights **which bits are ignored (0's)**, while the subnet mask highlights **which bits are fixed (0's)**.
 
+- That's why ACLs don’t use subnet masks: they don’t need to define networks, they just need to match patterns (using the significant bits (0's))
+
 ---
 
 ### 📌 Wildcard & ACL example
+
+#### **Whole Network**
 
 ```py
 !# In a /24 (255.255.255.0) network, you want to make relevant the first portion:
@@ -244,8 +248,21 @@ As you can see, the wildcard highlights **which bits are ignored (0's)**, while 
 access-list 100 permit ip 192.168.1.0 0.0.0.255 any
 ```
 
+#### **Single Host**
 
+````py
+!# You want to match ONLY the exact IP 192.168.1.10
+!# In binary, all bits must match:
+!# 00000000.00000000.00000000.00000000
+!# So the wildcard is: 0.0.0.0 (no bits are ignored)
+access-list 100 permit ip 192.168.1.10 0.0.0.0 any
+````
 
+Or you can use simplified version::
+
+````py
+access-list 100 permit ip host 192.168.1.10 any
+````
 
 
 
