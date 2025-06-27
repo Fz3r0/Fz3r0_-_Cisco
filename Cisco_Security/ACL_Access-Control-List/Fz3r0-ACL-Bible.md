@@ -215,6 +215,21 @@ access-list 100 permit ip 10.30.0.0 0.0.0.255 any
 
 
 
+## Wildcard & ACLs
+
+A **wildcard** is a bitmask that tells the router which parts of an IP address **must match** and which parts **can vary** when evaluating an ACL rule.
+
+- `0` means "this bit must match exactly" _(bits significativos)_  
+- `1` means "this bit can be anything" _(bits irrelevantes)_
+
+> ✅ So, wildcards are basically the **reverse** of a subnet mask.
+
+### 🔁 Comparing Mask vs Wildcard:
+
+| Type           | Decimal             | Binary                              |
+|----------------|----------------------|--------------------------------------|
+| `Subnet Mask`    | 255.255.255.**0**        | 11111111.11111111.11111111.**00000000** |
+| `Wildcard Mask`  | 0.0.0.**255**            | 00000000.00000000.00000000.**11111111** |
 
 
 
