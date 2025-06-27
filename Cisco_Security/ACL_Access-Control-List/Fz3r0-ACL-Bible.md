@@ -96,6 +96,16 @@ Entocnes en las ACL por eso dse dcide usar la wilcard, si por ejemplo la wildcar
 
 ## ACL y and OUT
 
+Es sencillo pero iportante comprende de que sentido debo onfigurar las ACL en una interfaz. ya se ainbpound o outbound
+
+Poneindo un ejemplo sencillo, con un router enmedio y una PC1 del lazi quiziquiero y una PC 2 dell lado derecho, cada una en su red ejemplo 10.10.1.0 y 10.10.2.0 se va a confugurar los ACL enmedio en el router
+
+- En este ejemplo en particular PC1 del lado izuqierdo, enviara tradico hacia PC2, es decir, es quien esta "hablando"
+- El requerimiento es "prihuibir la trasnferencia de arhcivos FTP/TFTP/SMB entre la PC 1 y PC 2
+
+y la pregunta qui es: 
+
+- Se debe configurar el ACL inbound o outbound? siendo que PC1 es quiene sta hablando? 
 
 
 
