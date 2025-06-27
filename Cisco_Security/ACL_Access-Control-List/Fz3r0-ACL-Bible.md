@@ -51,9 +51,9 @@ como su nombre lo dice en una lista y lleva uin order por ejemplo
 
 Todas esas son siderentes sencencias que tienes diretepntes propositos, y todos son parte de una misma lista, o una misma ACL.,
 
-### Reglas a considerar para ACL
+## Reglas a considerar para ACL
 
-Reglas a considerar
+
 
 - Se deben declarar de lo más específico a lo más general (Por ejemplo, una IP en particular en caso de solo querer una PC, o una red unicamente si solo se quiere seleccionar una subred por ejemplo)
 - Las declaraciones deben especificar primero lo que se permite (en una norma, aunque en ocasiones especiales si se puede llegar a poner primeor lo que se niega, estas son las nuevas practicas)
@@ -63,6 +63,44 @@ Reglas a considerar
 - Las ACL se aplican por interfaz (Es decir, despues de crar una lsita, hay qu eentrar a la interfaz y aplicarla. En pocas ocasiones se pone en otras lineas como para VTY o NAT)
 - Solo se puede aplicar una ACL por sentido en cada interfaz (E/S) (Solo un ACL por entrada o por salida)
 - Solo se puede aplicar una ACL por protocolo de Capa 3 (IPv4, IPv6)
+
+## Wildcard
+
+Es una máscara de bits que indica qué partes de una dirección de IP debe coincidir para la ejecución de una determinada acción de la lista. Es deicr, que parte de la IP es la que tiene que coincideir para permitirla/negarl
+
+- LA wildcard sencillamente es lo contrario a la mscara
+
+Otra forma de decirlo es que el Wildcard es la representación de bits significativos
+
+Los “0” en el wildcard indican los bits significativos (es decir lo bit q ue no pueden cambair, osea con los que estoy comparando)
+
+Los “1” en el wildcard indican que ese bit es irrelevante (es decir que puede ser 1 o 0, no importa, estos no seran leidos)
+
+Es por eso que se usa una wildcard!!! y no la mwsxcara, porque digamsoq ue es el proceso a la rewversa entre signifciativos y no. 
+
+Concepto basico:
+
+Red: 192.168.1.0/24
+
+Mascara 255.255.255.0
+
+Wild card 0.0.0.255 (inversa)
+
+que esta pasando? en binaro el /24 significa los bits que estan activos, en hexadicimal ya vimos qu eeso:
+
+Mascara /24 == 255.255.255.0 == 11111111.11111111.11111111.00000000
+
+eentonces una vez comprneido eso, lo que debe hacer martch son lso bit significativos, los 1, osea 192.168.1 y el .0 seria el no signiciativo. osea la wil car dserira 0.0.0.255 == 00000000.0000000.0000000.11111111
+
+Entocnes en las ACL por eso dse dcide usar la wilcard, si por ejemplo la wildcard fuera mas especifica, yo podria haacer coincidencia con solo la IP 192.168.1.1 con su binario
+
+## ACL y and OUT
+
+
+
+
+
+
 
 
 
