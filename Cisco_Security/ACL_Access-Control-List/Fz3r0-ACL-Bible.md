@@ -97,7 +97,7 @@ Ports range from **1 to 65535**, and ACLs can filter **both directions**:
 
 ```PY
 ! Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
-access-list 110 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
+access-list Fz3r0-ACL-1 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
 ````
 
 ## 🗃️ ACL Purpose:  `Classification`
@@ -111,7 +111,28 @@ ACLs can also be used to **identify and classify** traffic for other processes. 
 
 > 🎯 In this use case, ACLs **do not filter traffic**, they just **mark or select** it for another process.
 
+---
 
+### 📌 Example ACL for NAT
+
+```PY
+!# Step 1 – Define a standard ACL that selects which IPs to NAT
+access-list Fz3r0-ACL-1 permit 10.10.0.0 0.0.0.255
+access-list Fz3r0-ACL-1 permit 10.30.0.0 0.0.0.255
+access-list Fz3r0-ACL-1 permit 10.50.0.0 0.0.0.255
+
+!# Step 2 – Define the NAT rule using that ACL
+ip nat inside source list Fz3r0-ACL-1 interface GigabitEthernet0/0 overload
+
+!# Step 3 – Mark interfaces
+interface GigabitEthernet0/1
+ ip address 10.10.0.1 255.255.255.0
+ ip nat inside
+
+interface GigabitEthernet0/0
+ ip address 123.1.1.2 255.255.255.252
+ ip nat outside
+```
 
 
 ---
