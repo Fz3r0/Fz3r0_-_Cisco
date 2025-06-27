@@ -98,7 +98,7 @@ Ports range from **1 to 65535**, and ACLs can filter **both directions**:
 ### 📌 Example ACL Entry (L3 + L4)
 
 ```PY
-! Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
+!# Deny HTTP traffic from 10.10.10.0/24 / to web server 192.168.1.100
 access-list Fz3r0-ACL-1 deny tcp 10.10.10.0 0.0.0.255 host 192.168.1.100 eq 80
 ````
 
