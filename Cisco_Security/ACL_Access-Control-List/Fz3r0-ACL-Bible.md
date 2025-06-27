@@ -22,7 +22,9 @@
 
 An **Access Control List (ACL)** is a mechanism used in network devices (mainly routers) to make **decisions about traffic** based on specific criteria such as **IP address**, **protocol**, and **port number**. 
 
-- ACLs are the **core tool** in Cisco IOS for **controlling**, **filtering**, and **classifying** traffic. They act like bouncers at a nightclub: they decide who gets in, who gets kicked out, and who gets redirected to the VIP area.
+- ACLs are the **core tool** in Cisco IOS for **controlling**, **filtering**, and **classifying** traffic.
+- ACLs control what traffic is allowed or denied between two points based on rules you define.
+- They act like bouncers at a nightclub: they decide who gets in, who gets kicked out, and who gets redirected to the VIP area.
 
 ACLs have existed in the computing world since the early days of **file system permissions** in operating systems (like Unix in the 1970s). But in networking, they became standard tools with the rise of **access-layer routers** and **filtering firewalls** in the 1990s.
 
