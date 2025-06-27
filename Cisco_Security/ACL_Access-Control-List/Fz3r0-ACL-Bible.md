@@ -17,9 +17,39 @@
 
 
 
+## ACL
 
+2 propositos basicos: 
 
+1. filtrado - (mas utilizadas) permitir, negar , resgtingir acceso a algo
+2. clasificacion - la sque se usan en conjunto por eemplo con Qos dond elas ACL clasifican os eeleciconan redes, rangos, o IPs par aclasicicar, igual como para rutas en BGP OSPf
 
+## Filtrado
+
+- enunciados o sentiencias que segun su config pemrioten o niegan pquetes de atravesar un router
+- Pueden tomart desiciones basadas en paqietes (osi layer 3 network = direcciones IP) o segmentos (osi layer 4 trasnporte = puertos) o tomart desicines em ambos 3 y 4
+
+En caso de ser layer 3 IP, se pueden diltrar por:
+
+- ip, rango, subred, red, o superred. 
+
+En caso de ser layer 4, por
+
+- puertos 1 al 65535, (TCP/UDP)
+
+### ACL = la lista
+
+como su nombre lo dice en una lista y lleva uin order por ejemplo
+
+1. permitir puerto l4 80 (http)
+2. permitir puerto l4 25 (SMPT)
+3. permitir la IP X
+4. negar acceso a la red 192.168.1.0
+5. Permitir acceso a telnet solo a la IPx
+6. etc
+7. etc
+
+Todas esas son siderentes sencencias que tienes diretepntes propositos, y todos son parte de una misma lista, o una misma ACL.,
 
 
 
