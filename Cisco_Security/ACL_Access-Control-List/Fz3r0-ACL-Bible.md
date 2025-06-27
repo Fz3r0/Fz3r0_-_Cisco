@@ -139,8 +139,47 @@ interface GigabitEthernet0/0
 
 ---
 
+## ACL = The List (And Why Order Matters)
 
-These rules are always processed **top-down**, and the first match wins. Once a match is found, **no further ACL lines are evaluated**.
+ACLs are called *lists* for a reason: they’re literally read **line by line, from top to bottom**, like a checklist. And once a rule matches, **that’s it**, the rest of the list is ignored.
+
+-  🧠 **Rule of ACLs:** First match wins. No second chances :: These rules are always evaluated **top-down**, and the **first matching condition** decides the fate of the packet. Nothing below that match is ever checked. For example:
+
+````py
+!# 1. 
+permit tcp any any eq 80            ← allow HTTP
+!# 2.
+permit tcp any any eq 25            ← allow SMTP
+!# 3.
+permit ip host 10.30.0.5 any        ← allow specific IP
+!# 4.
+deny ip 192.168.1.0 0.0.0.255 any   ← deny access from a subnet
+!# 5.
+permit tcp host 10.30.0.5 eq 23     ← allow Telnet only for that IP
+!# etc ...more rules...
+````
+
+### ACL: Order Matters
+
+Imagine you do something like this:
+
+```bash
+access-list 100 permit ip 10.30.0.0 0.0.0.255 any
+access-list 100 deny ip host 10.30.0.5 any
+````
+
+- Did you just denied `10.30.0.5.`???... even though you already allowed the whole network `10.30.0.0` one line before??? No! because:
+    - **That first line already matched the IP `10.30.0.5`!!!, so the second rule never gets evaluated.**
+    - This means, If you allow a whole subnet before denying a specific IP from it, the deny will never apply, the packet was already allowed. **That’s why **rule number one of ACLs** is: Always go from specific to general**
+
+✅ **"Always go from specific to general"**: To block a specific IP but allow the rest of the subnet, place the deny for that IP first, followed by a permit for the broader subnet:
+
+```bash
+!# 1. Specific: Single Host (block)
+access-list 100 deny ip host 10.30.0.5 any
+!# 2. General: Whole Subnet (permit)
+access-list 100 permit ip 10.30.0.0 0.0.0.255 any
+````
 
 
 
@@ -200,7 +239,7 @@ En caso de ser layer 4, por
 
 - puertos 1 al 65535, (TCP/UDP)
 
-### ACL = la lista
+
 
 como su nombre lo dice en una lista y lleva uin order por ejemplo
 
@@ -213,6 +252,8 @@ como su nombre lo dice en una lista y lleva uin order por ejemplo
 7. etc
 
 Todas esas son siderentes sencencias que tienes diretepntes propositos, y todos son parte de una misma lista, o una misma ACL.,
+
+Es decur aqui podria pasar algo chistoo si yo primero perimito la IP 10.30.0.0, pero depsues la blqoueo, en relaidad se quedar ablqueada porque bl abla bla bla
 
 ## Reglas a considerar para ACL
 
