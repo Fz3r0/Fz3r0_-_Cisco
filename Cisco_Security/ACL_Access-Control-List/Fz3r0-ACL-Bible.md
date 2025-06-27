@@ -100,16 +100,33 @@ Es sencillo pero iportante comprende de que sentido debo onfigurar las ACL en un
 
 Poneindo un ejemplo sencillo, con un router enmedio y una PC1 del lazi quiziquiero y una PC 2 dell lado derecho, cada una en su red ejemplo 10.10.1.0 y 10.10.2.0 se va a confugurar los ACL enmedio en el router
 
-- En este ejemplo en particular PC1 del lado izuqierdo, enviara tradico hacia PC2, es decir, es quien esta "hablando"
+- En este ejemplo en particular existira trafico entre PC1 (eth0/1) y PC2 (eth0/2) y dependiendo el caso el trafico seria inbound o outbound. 
 - El requerimiento es "prihuibir la trasnferencia de arhcivos FTP/TFTP/SMB entre la PC 1 y PC 2
 
 y la pregunta qui es: 
 
-- Se debe configurar el ACL inbound o outbound? siendo que PC1 es quiene sta hablando? 
+- Se debe configurar el ACL inbound o outbound?  todo depende de donde viene el trafico que se quiere bloquear e smuy faicl:
+
+Ejemplo 1: 
+
+Aqui la PC 1 es quien genera el flujo de trafico inicial, es quien genera la "conversaicion"
+
+- PC1 envia trafico FTP a router a la Eth0/1 donde esta conectado
+- Entonces, el trafico ENTRA (inbound) por la interfaz Eth 0/1 al router (el putbound esta en eth0/2 hacia la PC2)
+
+Ejemplo 2: 
+
+Aqui la PC 2 es quien genera el flujo de trafico inicial, es quien genera la "conversaicion"
+
+- PC2 envia trafico FTP a router a la Eth0/2 donde esta conectado
+- Entonces, el trafico ENTRA (inbound) por la interfaz Eth 0/2 al router (el putbound esta en eth0/1 hacia la PC1)
 
 
+![image](https://github.com/user-attachments/assets/5cec8d19-71a6-4c78-a9eb-9e0111c54372)
 
+Donde configurar la ACL para bloquear el trafico entonceS? inbound u outbiun?:
 
+Recordar siempre la regla, hay que bliqeuar el inbound, es decir desde donde se esta generando la conversaicon inciial. porque sino, el trafico lograria entrar, y aunque no pueda salir, ya habra atreavezado el router por primera vez, eso no es necesario, se debe blqoeuar desd einciio, es decir, ibound! 
 
 
 
