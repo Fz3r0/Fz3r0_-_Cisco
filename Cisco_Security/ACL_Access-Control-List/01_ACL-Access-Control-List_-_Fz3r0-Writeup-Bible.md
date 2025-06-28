@@ -30,7 +30,21 @@ ACLs have existed in the computing world since the early days of **file system p
 
 - ACLs are vendor-specific features (Cisco, Juniper, etc.) and do not follow any formal RFC or IEEE standard, because they are considered a device-level implementation, not a network protocol. Their syntax, capabilities, and behavior can vary depending on the vendor
 
-# 🎯 Core Purposes of ACLs
+## 🧱 `ACL` vs `Firewall`
+
+While both ACLs and firewalls are used to control traffic, there's a key difference:
+
+`Firewall` = **Stateful** :: They track connections, sessions, and application behavior.
+
+- Think of ACLs as basic traffic filters: They look at the packet, match it to a rule, and allow or deny it. 
+
+`ACL` = **Stateless** :: They simply check each packet individually against a rule, without remembering anything about previous traffic.
+
+- Firewalls go further than ACLs, by understanding ongoing sessions (e.g., “this TCP connection is already established, allow return traffic”).
+
+**That’s why ACLs are often used for basic `filtering` or `classification`, while firewalls handle more advanced security tasks, like `detecting attacks`, `traffic shaping`, `very granular blocking rules` or `deep packet inspection behavior`.**
+
+## 🎯 Core Purposes of ACLs
 
 While ACLs can do many things, they serve **two main purposes** across most network environments:
 
