@@ -1,7 +1,9 @@
 
 
 
-## ACL
+# ACL
+
+## 1. Use extended ACLs
 
 - Use allways Extended ACLs so names and order can be edited, even the ACL is a basic IP block/allow, also config is cleaner, example:
 
