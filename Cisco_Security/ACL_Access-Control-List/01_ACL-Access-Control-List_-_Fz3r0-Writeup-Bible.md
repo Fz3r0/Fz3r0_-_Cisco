@@ -622,6 +622,32 @@ exit
 
 ---
 
+### 📋 ACL: `Route Redistribution Filtering (OSPF)`
+
+- ACL Type: `Standard`
+- Purpose: `Classification`
+- Use Case: Control what OSPF routes get redistributed. This setup prevents the route 192.168.50.0/24 from being advertised into OSPF, while allowing all others. Useful when you want to limit route propagation between domains or avoid leaking sensitive routes.
+
+````py
+!# Step 1 – Define ACL to deny specific routes from redistribution
+access-list 20 deny 192.168.50.0 0.0.0.255
+access-list 20 permit any
+
+!# Step 2 – Reference ACL in a route-map
+route-map FILTER-ROUTES permit 10
+   match ip address 20
+exit
+
+!# Step 3 – Apply the route-map during redistribution into OSPF
+router ospf 1
+   redistribute static subnets route-map FILTER-ROUTES
+exit
+
+
+````
+
+---
+
 ### 📋 ACL: `ACL for QoS (Quality of Service)`
 
 - ACL Type: `Extended`
@@ -646,10 +672,7 @@ exit
 
 
 
----
 
-
-````
 
 
 
