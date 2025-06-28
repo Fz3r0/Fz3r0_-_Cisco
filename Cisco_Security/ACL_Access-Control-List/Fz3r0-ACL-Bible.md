@@ -301,8 +301,6 @@ When you apply an ACL to an interface, you must specify the **direction**:
 - `inbound` :: The ACL is applied **as packets enter** the interface
 - `outbound` :: The ACL is applied **as packets exit** the interface
 
----
-
 ### 🔄 Understanding traffic flow (inbound/outbound)
 
 Imagine a router with two PCs on each side:
