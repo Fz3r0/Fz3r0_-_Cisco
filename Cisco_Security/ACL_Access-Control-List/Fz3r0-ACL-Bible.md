@@ -358,10 +358,10 @@ interface GigabitEthernet0/1
 
 Cisco ACLs come in two main types **Standard** and **Extended**. Each one serves a different purpose and offers different levels of control:
 
-- **`Standard ACLs`**: Filter traffic **only by source IP address**; _(simple but limited)._
+- **`Standard ACLs`**: Filter traffic **only by source IP address**; _(simple but limited)._ <br>
    :: **Block a subnet (10.10.0.0/16) or host (10.10.0.167)**
   
-- **`Extended ACLs`**: Allow filtering **by source/destination IP**; **protocol**, and **port number**. _(Offering precise, application-aware control)._
+- **`Extended ACLs`**: Allow filtering **by source/destination IP**; **protocol**, and **port number**. _(Offering precise, application-aware control)._ <br>
    :: **Block HTTP (TCP 80) from a specific subnet (10.10.0.0/16) to a specific server (10.67.0.10)**
 
 
