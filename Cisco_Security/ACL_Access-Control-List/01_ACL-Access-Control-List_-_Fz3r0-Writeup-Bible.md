@@ -57,7 +57,7 @@ While ACLs can do many things, they serve **two main purposes** across most netw
 
 ACLs are most often used to **control access** by:
 
-- **`Permitting`** or **`denying*`** traffic between devices or networks (**`inbound`** or **`outbound`** traffic)
+- **`Permitting`** or **`denying`** traffic between devices or networks (**`inbound`** or **`outbound`** traffic)
 - Enforcing segmentation between VLANs or security zones
 - Blocking specific protocols or ports (e.g. deny telnet, allow SSH)
 - Acting as **stateless firewalls** on interfaces, meaning they evaluate each packet individually, without keeping track of connection states like a stateful firewall would (This means, an ACL doesn't "remember" that a TCP session was established).
