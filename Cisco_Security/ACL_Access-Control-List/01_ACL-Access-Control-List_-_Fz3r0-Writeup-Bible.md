@@ -548,24 +548,26 @@ exit
 - Use Case: Select which IPs or subnets will be translated to the router’s public IP using Port Address Translation (PAT).
 
 ````py
-!# Step 1 – Create the ACL that defines which internal IPs are allowed to be NATed
-access-list 10 permit 10.10.0.0 0.0.0.255
-access-list 10 permit 10.30.0.0 0.0.0.255
-access-list 10 permit 10.50.0.0 0.0.0.255
+!# Step 1 – Create the ACL that defines which internal IPs are allowed to be NATed / using: 10.10.x.x/16 (Mask: 255.255.0.0)
+access-list 10 permit 10.10.0.0 0.0.255.255
+access-list 10 permit 10.30.0.0 0.0.255.255
+access-list 10 permit 10.50.0.0 0.0.255.255
 
 !# Step 2 – Create the NAT rule that applies overload using the ACL
 ip nat inside source list 10 interface GigabitEthernet0/0 overload
 
 !# Step 3 – Mark interfaces as NAT inside or outside
 interface GigabitEthernet0/1
- description ** LAN (Inside) **
- ip address 10.10.0.1 255.255.255.0
- ip nat inside
+   description ** LAN (Inside) **
+   ip address 10.10.0.1 255.255.0.0
+   ip nat inside
+exit
 
 interface GigabitEthernet0/0
- description ** WAN (Outside) **
- ip address 123.1.1.2 255.255.255.252
- ip nat outside
+   description ** WAN (Outside) **
+   ip address 123.1.1.2 255.255.255.252
+   ip nat outside
+exit
 ````
 
 ---
