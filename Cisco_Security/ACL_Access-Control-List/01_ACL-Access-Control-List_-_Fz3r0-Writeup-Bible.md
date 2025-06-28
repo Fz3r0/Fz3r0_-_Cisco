@@ -495,6 +495,49 @@ Here are real-world examples for each ACL use case. These are pure gold for any 
 
 ## ACL Purpose: `Filtering`
 
+### 📋 ACL: `Block Inter-VLAN Communication`
+
+- ACL Type: `Extended`
+- Purpose: `Filtering`
+- Use Case: Blocks any IP traffic originating from VLAN 10 (10.10.10.0/24) from reaching VLAN 20 (10.10.20.0/24). All other traffic _(e.g. to other VLANs or the internet)_ will be allowed thanks to the `permit ip any any` at the end. (One on the few cases when `out` outbound interface is used in an ACL)
+
+````py
+!# Step 1 – Create an extended ACL to block traffic from VLAN 10 to VLAN 20
+ip access-list extended VLAN-BLOCK
+   deny ip 10.10.10.0 0.0.0.255 10.10.20.0 0.0.0.255
+   permit ip any any
+exit
+
+!# Step 2 – Apply the ACL outbound on VLAN 10 interface
+interface Vlan10
+   ip access-group VLAN-BLOCK out
+exit
+````
+
+---
+
+### 📋 ACL: `Basic L3 Firewall Filter`
+
+- ACL Type: `Extended`
+- Purpose: `Filtering`
+- Use Case: It acts like a basic stateless firewall = Only SSH traffic (TCP port 22) from any source is allowed to reach the server 192.168.1.10. / All other traffic is denied and logged, thanks to `deny ip any any log`.
+
+````py
+!# Step 1 – Create the ACL to allow only SSH to a specific server, deny everything else
+ip access-list extended INBOUND-FILTER
+   permit tcp any host 192.168.1.10 eq 22
+   deny ip any any log
+exit
+
+!# Step 2 – Apply the ACL inbound on the external-facing interface
+interface GigabitEthernet0/0
+   ip access-group INBOUND-FILTER in
+exit
+
+````
+
+
+
 
 ## ACL Purpose: `Classification`
 
