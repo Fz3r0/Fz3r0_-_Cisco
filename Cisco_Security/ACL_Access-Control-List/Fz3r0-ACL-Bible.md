@@ -296,10 +296,10 @@ access-list 100 permit ip host 192.168.1.10 any
 
 Understanding **inbound** and **outbound** is simple but important when applying ACLs.
 
-When you apply an ACL to an interface, you must specify the **direction**:
+When you apply an ACL **to an interface**, you must specify the **direction**:
 
-- `inbound` :: The ACL is applied **as packets enter** the interface
-- `outbound` :: The ACL is applied **as packets exit** the interface
+- `inbound` :: The ACL is applied **as packets enter** the interface = **`in`**
+- `outbound` :: The ACL is applied **as packets exit** the interface = **`out`**
 
 ### 🔄 Understanding traffic flow (inbound/outbound)
 
@@ -317,14 +317,14 @@ You want to **block file transfers (FTP/TFTP/SMB)** between these two devices:
 - Packet goes **into Gig0/1 (inbound)**
 - Then **out of Gig0/2 (outbound)** toward PC2
 
-So if PC1 is the one initiating traffic → the ACL should be applied **inbound on Gig0/1**
+So if PC1 is the one initiating traffic → the ACL should be applied **inbound on Gig0/1** :: `Gi0/1` = `in`
 
 #### ✅ Example 2: PC2 initiates FTP connection to PC1
 
 - Packet goes **into Gig0/2 (inbound)**
 - Then **out of Gig0/1 (outbound)** toward PC1
 
-If PC2 is initiating traffic → the ACL should be applied **inbound on Gig0/2**
+If PC2 is initiating traffic → the ACL should be applied **inbound on Gig0/2**  :: `Gi0/2` = `in`
 
 ### 🧭 Best practice: Block traffic at the source (inbound)
 
@@ -348,9 +348,9 @@ ip access-list extended BLOCK-FTP
  permit ip any any
 exit
 
-!# Step 2 – Apply ACL to interface facing source of the traffic = >> INBOUND TRAFFIC <<
+!# Step 2 – Apply ACL to interface facing source of the traffic = >> INBOUND TRAFFIC (in) <<
 interface GigabitEthernet0/1
- ip access-group BLOCK-FTP i
+ ip access-group BLOCK-FTP in
 ```
 
 
