@@ -184,6 +184,34 @@ access-list 100 deny ip host 10.30.0.5 any
 access-list 100 permit ip 10.30.0.0 0.0.0.255 any
 ````
 
+### ACL: invisible "deny" last line
+
+In Cisco IOS, all ACLs end with an **invisible** rule:
+
+````py
+deny ip any any
+````
+
+If a packet doesn’t match any line, it will be dropped, even if it’s valid traffic.
+
+#### ❌ Example (Bad): 
+
+All other traffic (HTTP, ICMP, DNS, etc.) will be blocked by default:
+
+````py
+access-list 110 deny tcp 10.10.0.0 0.0.255.255 any eq 21
+````
+
+#### ✅ Example (Correct): 
+
+Always add permit ip any any at the end **unless you want to block everything else on purpose.**
+
+````py
+access-list 110 deny tcp 10.10.0.0 0.0.255.255 any eq 21
+access-list 110 permit ip any any
+````
+
+
 ## ✅ ACL Rules You Should Always Follow
 
 1. **`Write from specific to general`**  
@@ -275,7 +303,7 @@ When you apply an ACL to an interface, you must specify the **direction**:
 
 ---
 
-### 🧠 Real-world scenario
+### 🔄 Understanding traffic flow (inbound/outbound)
 
 Imagine a router with two PCs on each side:
 
@@ -284,9 +312,7 @@ Imagine a router with two PCs on each side:
 - PC1 on network `10.10.0.0/16`, connected to `Gig0/1`
 - PC2 on network `10.20.0.0/16`, connected to `Gig0/2`
 
-You want to **block file transfers (FTP/TFTP/SMB)** between these two devices.
-
-### 🔄 Understanding traffic flow
+You want to **block file transfers (FTP/TFTP/SMB)** between these two devices:
 
 #### ✅ Example 1: PC1 initiates FTP connection to PC2
 
@@ -295,16 +321,12 @@ You want to **block file transfers (FTP/TFTP/SMB)** between these two devices.
 
 So if PC1 is the one initiating traffic → the ACL should be applied **inbound on Gig0/1**
 
----
-
 #### ✅ Example 2: PC2 initiates FTP connection to PC1
 
 - Packet goes **into Gig0/2 (inbound)**
 - Then **out of Gig0/1 (outbound)** toward PC1
 
 If PC2 is initiating traffic → the ACL should be applied **inbound on Gig0/2**
-
----
 
 ### 🧭 Best practice: Block traffic at the source (inbound)
 
@@ -314,29 +336,23 @@ You **should apply the ACL on the inbound interface**, where the conversation st
 - Blocking at **outbound** allows it to enter, consume CPU, and be processed — only to be dropped later
 - **Inbound = more efficient and clean**
 
----
-
-### ✅ Summary decision logic:
-
-| Who initiates? | Apply ACL on... | Direction  |
-|----------------|------------------|------------|
-| PC1            | Interface Gig0/1 | `inbound`  |
-| PC2            | Interface Gig0/2 | `inbound`  |
 
 ---
 
 ### ⚙️ Example Config
 
-```bash
-!# Step 1 – Deny FTP (port 21) from PC1 to PC2
-ip access-list extended BLOCK-FTP
- deny tcp host 10.10.1.10 host 10.10.2.10 eq 21
- permit ip any any
+In this example PC1 is initiating the conversation: PC1 -> PC2
 
-!# Step 2 – Apply ACL to interface facing PC1 (inbound)
+```bash
+!# Step 1 – Deny FTP (TCP port 21) from any host in 10.10.0.0/16 to anywhere
+ip access-list extended BLOCK-FTP
+ deny tcp 10.10.0.0 0.0.255.255 any eq 21
+ permit ip any any
+exit
+
+!# Step 2 – Apply ACL to interface facing source of the traffic (inbound)
 interface GigabitEthernet0/1
- ip address 10.10.1.1 255.255.255.0
- ip access-group BLOCK-FTP in
+ ip access-group BLOCK-FTP i
 ```
 
 
