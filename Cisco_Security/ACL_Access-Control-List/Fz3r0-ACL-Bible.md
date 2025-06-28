@@ -146,6 +146,8 @@ interface GigabitEthernet0/0
 
 ACLs are called *lists* for a reason: they’re literally read **line by line, from top to bottom**, like a checklist. And once a rule matches, **that’s it**, the rest of the list is ignored.
 
+Some access control lists are comprised of multiple statements. The ordering of statements is key to ACL processing. The router starts from the top (first) and cycles through all statements until a matching statement is found. The packet is dropped when no match exists. Order all ACL statements from most specific to least specific. Assigning least specific statements first will sometimes cause a false match to occur. As a result the match on the intended ACL statement never occurs.
+
 -  🧠 **Rule of ACLs:** First match wins. No second chances :: These rules are always evaluated **top-down**, and the **first matching condition** decides the fate of the packet. Nothing below that match is ever checked. For example:
 
 ````py
@@ -192,7 +194,11 @@ In Cisco IOS, all ACLs end with an **invisible** rule:
 deny ip any any
 ````
 
-If a packet doesn’t match any line, it will be dropped, even if it’s valid traffic.
+This implicit hidden command at the end of the ACLs, by default deny all last statement clause added to the end of any extended ACL. 
+
+- You must include `permit ip any any` as a last statement to all extended ACLs. That effectively permits all packets that do not match any previous clause within an ACL.
+
+Some ACLs are comprised of all deny statements as well, so without the last permit statement, all packets would be dropped. So, if a packet doesn’t match any line of the ACL, it will be dropped, even if it’s valid traffic. 
 
 #### ❌ Example (Bad): 
 
@@ -211,6 +217,40 @@ access-list 110 deny tcp 10.10.0.0 0.0.255.255 any eq 21
 access-list 110 permit ip any any
 ````
 
+
+## How to Read an ACL Entry (Left to Right)
+
+When reading an ACL line, always parse it **from left to right**, like a sentence. Here's an example from our lab with PC1 and PC2:
+
+- Allow TCP traffic from source IP `10.10.0.10` (PC1) to destination IP `10.20.0.20` (PC2) on port `80` (HTTP).
+
+````py
+!# Allow TCP traffic from source IP `10.10.0.10` (PC1) to destination IP `10.20.0.20` (PC2) on port `80` (HTTP).
+access-list 100 permit tcp host 10.10.0.10 host 10.20.0.20 eq 80
+````
+
+**Structure Breakdown:**
+
+- **`[action]` `[protocol]` from `[source IP]` to `[destination IP]` `[optional port match]`**
+
+| Field            | Example Value     | Meaning                              |
+|------------------|-------------------|--------------------------------------|
+| `access-list 100` | Named or numbered | ACL identifier (100 = extended)      |
+| `permit` or `deny` | `permit`         | Action: allow or block the traffic   |
+| `tcp` / `udp` / `ip` | `tcp`           | Protocol to match                    |
+| `source`         | `host 10.10.0.10` | Who is initiating the traffic (PC1)  |
+| `destination`    | `host 10.20.0.20` | Who receives the traffic (PC2)       |
+| `port`           | `eq 80`           | Optional: match specific port (HTTP) |
+
+🧭 **Tip:** This format helps you mentally follow the packet flow:  
+
+- **`From` → `To` → `What` → `Action`**
+
+Also remember:
+
+- `tcp` is layer 4 and is used for applications like **HTTP, SSH, Telnet, FTP**
+- `udp` is layer 4 and is used for apps like **DNS, SNMP, NTP**
+- `ip` matches **any protocol** at Layer 3 (more general)
 
 ## ✅ ACL Rules You Should Always Follow
 
@@ -238,6 +278,27 @@ access-list 110 permit ip any any
 8. **`Only one ACL per protocol (IPv4 or IPv6)`**  
    You can’t mix IPv4 and IPv6 ACLs on the same direction of the same interface. Use the right type depending on the traffic.
 
+## Cisco Best Practices
+
+Cisco best practices for creating and applying ACLs:
+
+1. **📍 `Apply extended ACLs close to the source`**  
+   Since extended ACLs allow filtering by **source/destination IP, protocol, and port**, placing them near the **source** prevents unnecessary traffic from entering the network in the first place.
+
+2. **🎯 `Apply standard ACLs close to the destination`**  
+   Standard ACLs only check the **source IP**, which makes them less precise. Placing them near the **destination** helps avoid accidentally blocking traffic that should’ve been allowed.
+
+3. **📐 `Order ACL entries from most specific to least specific`**  
+   Always list **specific rules first** (like individual hosts), followed by broader ones (like subnets or `any`). ACLs are read **top-down**, and the **first match wins**.
+
+4. **🔀 `Only one ACL per direction per Layer 3 protocol per interface`**  
+   You can apply **one ACL inbound** and **one ACL outbound** per interface, per Layer 3 protocol (IPv4 or IPv6). You can’t stack multiple ACLs in the same direction.
+
+5. **➕ `Maximum of two ACLs per interface`**  
+   Because of the previous rule, you can apply a **maximum of 2 ACLs** per interface:  
+   - One **inbound ACL**  
+   - One **outbound ACL**  
+   And each must be for a single protocol (IPv4 or IPv6).
 
 
 ## Wildcard & ACLs
@@ -397,7 +458,19 @@ exit
 | Configuration complexity | Simple                   | More detailed and powerful               |
 | ACL Number Range         | 1–99 / 1300–1999 <br> _Or named (string)_         | 100–199 / 2000–2699 <br> _Or named (string)_                    |
 
+### Standard VS Extended
 
+Standard ACLs are an older type and very general. 
+
+- As a result they can inadvertently filter traffic incorrectly.
+-  Applying the standard ACL near the destination is recommended to prevents possible over-filtering.
+
+Extended ACLs are more complex and granular
+
+- Extended ACLs are granular (specific) and provide more filtering options.
+- They include source address, destination address, protocols and port numbers.
+- Extended ACL should be applied closest to the source.
+- Applying extended ACLs nearest to the source prevents traffic that should be filtered from traversing the network. That conserves bandwidth and additional processing required at each router hop from source to destination endpoints.
 
 
 
@@ -424,6 +497,7 @@ exit
 # 🗃️ Resources
 
 - https://www.youtube.com/watch?v=ob7rgwt9nuk&list=PLwAU7bA502wHx44LlUptxSG6UQ3ONx3hh
+- https://community.cisco.com/t5/networking-knowledge-base/cisco-access-control-lists-acl/ta-p/4182349
   
 ---
 
