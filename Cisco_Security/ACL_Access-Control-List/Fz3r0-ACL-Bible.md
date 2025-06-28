@@ -124,7 +124,7 @@ ACLs can also be used to **identify and classify** traffic for other processes. 
 ### 📌 Example ACL for NAT
 
 ```PY
-!# Step 1 – Define a standard ACL that selects which IPs to NAT
+!# Step 1 – Define a STANDARD ACL that selects which IPs to NAT
 access-list Fz3r0-ACL-1 permit 10.10.0.0 0.0.0.255
 access-list Fz3r0-ACL-1 permit 10.30.0.0 0.0.0.255
 access-list Fz3r0-ACL-1 permit 10.50.0.0 0.0.0.255
