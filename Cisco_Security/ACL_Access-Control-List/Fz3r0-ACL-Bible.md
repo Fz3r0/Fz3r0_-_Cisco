@@ -348,7 +348,7 @@ ip access-list extended BLOCK-FTP
  permit ip any any
 exit
 
-!# Step 2 – Apply ACL to interface facing source of the traffic (inbound)
+!# Step 2 – Apply ACL to interface facing source of the traffic = >> INBOUND TRAFFIC <<
 interface GigabitEthernet0/1
  ip access-group BLOCK-FTP i
 ```
