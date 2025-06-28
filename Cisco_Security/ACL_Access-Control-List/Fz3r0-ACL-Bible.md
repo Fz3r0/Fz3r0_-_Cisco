@@ -360,11 +360,33 @@ Cisco ACLs come in two main types **Standard** and **Extended**. Each one serves
 
 - **`Standard ACLs`**: Filter traffic **only by source IP address**; _(simple but limited)._ <br>
    :: **Block a subnet (10.10.0.0/16) or host (10.10.0.167)**
+
+````py
+!# Step 1 – Create the ACL
+access-list 10 deny 10.10.0.0 0.0.255.255
+access-list 10 permit any
+
+!# Step 2 – Apply to an interface (inbound or outbound)
+interface GigabitEthernet0/1
+   ip access-group 10 in
+exit
+````
   
 - **`Extended ACLs`**: Allow filtering **by source/destination IP**; **protocol**, and **port number**. _(Offering precise, application-aware control)._ <br>
    :: **Block HTTP (TCP 80) from a specific subnet (10.10.0.0/16) to a specific server (10.67.0.10)**
 
+````py
+!# Step 1 – Create the ACL
+ip access-list extended BLOCK-HTTP
+   deny tcp 10.10.0.0 0.0.255.255 host 10.67.0.10 eq 80
+   permit ip any any
+exit
 
+!# Step 2 – Apply to an interface (inbound or outbound)
+interface GigabitEthernet0/1
+   ip access-group BLOCK-HTTP in
+exit
+````
 
 
 
