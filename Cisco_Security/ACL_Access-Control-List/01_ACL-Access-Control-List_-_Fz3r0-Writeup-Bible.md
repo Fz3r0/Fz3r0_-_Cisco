@@ -568,6 +568,36 @@ interface GigabitEthernet0/0
  ip nat outside
 ````
 
+---
+
+### 📋 ACL: `Policy-Based Routing (PBR)`
+
+- ACL Type: `Extended`
+- Purpose: `Classification`
+- Use Case: "The bouncer at a nightclub who redirects the packets into the VIP area". This setup forces any traffic from the 10.10.10.0/24 subnet to follow a specific next-hop (192.168.100.1) instead of using the normal routing table. This is useful when you want certain traffic to exit through a different ISP, VPN, or gateway — even if it breaks the regular routing logic.
+
+````py
+!# Step 1 – Define an ACL to match specific source traffic
+ip access-list extended VIP-TRAFFIC
+   permit ip 10.10.10.0 0.0.0.255 any
+exit
+
+!# Step 2 – Create a route-map that matches this traffic and sets a custom next-hop
+route-map VIP-PATH permit 10
+   match ip address VIP-TRAFFIC
+   set ip next-hop 192.168.100.1
+exit
+
+!# Step 3 – Apply the route-map to the interface (inbound)
+!# Note: ip policy route-map is always applied inbound; no need to specify "in", since Policy-Based Routing only affects traffic entering the interface.
+interface GigabitEthernet0/1
+   ip policy route-map VIP-PATH
+exit
+
+````
+
+
+
 
 
 
