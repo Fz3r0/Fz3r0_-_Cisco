@@ -20,15 +20,15 @@
 
 # 🚦👮🛑 `ACL - Access Control List :: Fz3r0 Bible`
 
-An **Access Control List (ACL)** is a mechanism used in network devices (mainly routers) to make **decisions about traffic** based on specific criteria such as **IP address**, **protocol**, and **port number**. 
+An **Access Control List (ACL)** is a mechanism used in network devices _(mainly routers)_ to make **decisions about traffic** _(e.g. **permit** or **deny** traffic)_ based on specific criteria such as **IP address**, **protocol**, and **port number**. 
 
 - ACLs are the **core tool** in Cisco IOS for **controlling**, **filtering**, and **classifying** traffic.
-- ACLs control what traffic is allowed or denied between two points based on rules you define.
+- ACLs control what traffic is **allowed** or **denied** between two points **based on rules** you define.
 - They act like bouncers at a nightclub: they decide who gets in, who gets kicked out, and who gets redirected to the VIP area.
 
 ACLs have existed in the computing world since the early days of **file system permissions** in operating systems (like Unix in the 1970s). But in networking, they became standard tools with the rise of **access-layer routers** and **filtering firewalls** in the 1990s.
 
-- ACLs are vendor-specific in implementation (Cisco, Juniper, etc.), they **do not have a formal RFC**, because they’re considered a **device-level feature**, not a protocol. 
+- ACLs are vendor-specific features (Cisco, Juniper, etc.) and do not follow any formal RFC or IEEE standard, because they are considered a device-level implementation, not a network protocol. Their syntax, capabilities, and behavior can vary depending on the vendor
 
 # 🎯 Core Purposes of ACLs
 
@@ -46,7 +46,7 @@ ACLs are most often used to **control access** by:
 - **`Permitting`** or **`denying*`** traffic between devices or networks (**`inbound`** or **`outbound`** traffic)
 - Enforcing segmentation between VLANs or security zones
 - Blocking specific protocols or ports (e.g. deny telnet, allow SSH)
-- Acting as **stateless firewalls** on interfaces
+- Acting as **stateless firewalls** on interfaces, meaning they evaluate each packet individually, without keeping track of connection states like a stateful firewall would (This means, an ACL doesn't "remember" that a TCP session was established).
 
 > ✅ This is the typical usage in most CCNA/CCNP setups and enterprise networks.
 
@@ -58,14 +58,14 @@ ACLs make decisions based on the contents of a packet, using criteria from:
 - **Layer 4 (Transport Layer)** = `TCP/UDP Ports`  
 - Or a **`combination of both`**
 
-This is what makes **extended ACLs** so powerful, they can evaluate **source/destination IP** *and* **source/destination port** at the same time _(Extended ACLs)_.
+This is what makes **`extended ACLs`** so powerful, they can evaluate **source/destination IP** *and* **source/destination port** at the same time.
 
 ### 🌐 Layer 3 (IP-based Filtering)
 
 ACLs can match packets based on:
 
 - A single **host IP**  
-  → `host 192.168.1.1`
+  → `192.168.10.1 0.0.0.0` or `host 192.168.1.1`
 - An entire **subnet**  
   → `192.168.10.0 0.0.0.255`
 - A **range of IPs** using wildcard masks  
@@ -91,7 +91,7 @@ Ports range from **1 to 65535**, and ACLs can filter **both directions**:
 - Source Port (rare)
 - Destination Port (most common)
 
-> ⚠️ **IMPORTANT:**  Port-based filtering is only available in **extended ACLs**.
+⚠️ **IMPORTANT:**  Port-based filtering is only available in **extended ACLs**.
 
 ---
 
@@ -104,7 +104,7 @@ ip access-list extended Fz3r0-ACL-HTTP-BLOCK
    permit ip any any
 exit
 
-!# Step 2 – Apply the ACL to the inbound interface where the subnet is located
+!# Step 2 – Apply the ACL to the INBOUND (in) interface where the subnet is located
 interface GigabitEthernet0/1
    ip access-group Fz3r0-ACL-HTTP-BLOCK in
 exit
@@ -142,7 +142,7 @@ interface GigabitEthernet0/0
  ip nat outside
 ```
 
-## ACL = The List (And Why Order Matters)
+## 📋 ACL: `The List (And Why Order Matters)`
 
 ACLs are called *lists* for a reason: they’re literally read **line by line, from top to bottom**, like a checklist. And once a rule matches, **that’s it**, the rest of the list is ignored.
 
@@ -162,9 +162,10 @@ deny ip 192.168.1.0 0.0.0.255 any   ← deny access from a subnet
 !# 5.
 permit tcp host 10.30.0.5 eq 23     ← allow Telnet only for that IP
 !# etc ...more rules...
+
 ````
 
-### ACL: Order Matters
+### 🔢 ACL: `Order Matters`
 
 Imagine you do something like this:
 
@@ -186,7 +187,7 @@ access-list 100 deny ip host 10.30.0.5 any
 access-list 100 permit ip 10.30.0.0 0.0.0.255 any
 ````
 
-### ACL: invisible "deny" last line
+### 🚧 ACL: `invisible "deny" last line`
 
 In Cisco IOS, all ACLs end with an **invisible** rule:
 
@@ -218,7 +219,7 @@ access-list 110 permit ip any any
 ````
 
 
-## How to Read an ACL Entry (Left to Right)
+## 👀 How to Read an ACL Entry _(Left to Right)_
 
 When reading an ACL line, always parse it **from left to right**, like a sentence. Here's an example from our lab with PC1 and PC2:
 
