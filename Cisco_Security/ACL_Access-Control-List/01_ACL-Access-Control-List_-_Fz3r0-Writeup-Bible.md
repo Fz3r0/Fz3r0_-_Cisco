@@ -539,6 +539,36 @@ exit
 
 
 
+
+
+
+### 📋 ACL: `ACL for QoS (Quality of Service)`
+🔧 Type: Extended
+🎯 Use Case: Classification (for prioritizing VoIP traffic)
+
+- ACL Type: `Extended`
+- Purpose: `Classification`
+- Use Case: For prioritizing VoIP traffic. This **class-map** can be used in a QoS policy to give priority to real-time voice traffic, ensuring better call quality.
+
+````py
+!# Step 1 – Define an ACL to match VoIP RTP traffic (UDP ports 16384–32767)
+ip access-list extended VOICE-TRAFFIC
+   permit udp any any range 16384 32767
+exit
+
+!# Step 2 – Create a class-map that matches this ACL
+class-map match-all VOICE
+   match access-group name VOICE-TRAFFIC
+exit
+
+
+````
+
+
+
+
+
+
 ## ACL Purpose: `Classification`
 
 ### 📋 ACL: `NAT Overload (PAT)` :: _`Classification` / `Standard`_
