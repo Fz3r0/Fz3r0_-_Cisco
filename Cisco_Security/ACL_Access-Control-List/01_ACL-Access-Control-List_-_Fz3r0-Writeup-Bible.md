@@ -475,8 +475,41 @@ Extended ACLs are more complex and granular
 
 
 
+# 🔧 ACL: `Practical Examples` _by Purpose & Scenario_
+
+Here are real-world examples for each ACL use case. These are pure gold for any network engineer’s toolkit:
+
+## ACL Purpose: `Filtering`
 
 
+## ACL Purpose: `Classification`
+
+### 📋 ACL: `NAT Overload (PAT)` :: _`Classification` / `Standard`_
+
+- ACL Type: `Standard`
+- Purpose: `Classification`
+- Use Case: Select which IPs or subnets will be translated to the router’s public IP using Port Address Translation (PAT).
+
+````py
+!# Step 1 – Create the ACL that defines which internal IPs are allowed to be NATed
+access-list 10 permit 10.10.0.0 0.0.0.255
+access-list 10 permit 10.30.0.0 0.0.0.255
+access-list 10 permit 10.50.0.0 0.0.0.255
+
+!# Step 2 – Create the NAT rule that applies overload using the ACL
+ip nat inside source list 10 interface GigabitEthernet0/0 overload
+
+!# Step 3 – Mark interfaces as NAT inside or outside
+interface GigabitEthernet0/1
+ description ** LAN (Inside) **
+ ip address 10.10.0.1 255.255.255.0
+ ip nat inside
+
+interface GigabitEthernet0/0
+ description ** WAN (Outside) **
+ ip address 123.1.1.2 255.255.255.252
+ ip nat outside
+````
 
 
 
