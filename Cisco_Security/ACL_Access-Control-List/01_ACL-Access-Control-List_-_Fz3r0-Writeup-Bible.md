@@ -50,7 +50,7 @@ While ACLs can do many things, they serve **two main purposes** across most netw
 
 | Purpose       | Role of ACL     | Common Examples                                          |
 |---------------|------------------|-----------------------------------------------------------|
-| 🔍 **`Filtering`**   | Allow or block   | `VLAN segmentation`, `firewall rules (block/allow traffic between networks/devices/etc)`, `VTY restrictions`      |
+| 🔍 **`Filtering`**   | Allow or block   | `VLAN segmentation`, `firewall rules (block/allow traffic between networks/devices/etc)`, `VTY restrictions (ssh/telnet)`      |
 | 🗃️ **`Classification`** | Identify/select | `QoS tagging`, `NAT selection`, `route filtering (OSPF, BGP, etc)`, `PBR`         |
 
 ## 🔍 ACL Purpose: `Filtering` _(most common use)_
@@ -495,6 +495,24 @@ Here are real-world examples for each ACL use case. These are pure gold for any 
 
 ## ACL Purpose: `Filtering`
 
+### 📋 ACL: `SSH/Telnet :: Access Control`
+
+- ACL Type: `Standard`
+- Purpose: `Filtering`
+- Use Case: Control device/network management access. This ACL ensures that only devices from the 10.10.0.0/24 subnet can initiate remote CLI sessions (SSH/Telnet) to the router or switch / All others will be **silently** blocked.
+
+````py
+!# Step 1 – Create STANDARD ACL to permit only trusted IPs or subnets for remote access
+access-list 55 permit 10.10.0.0 0.0.0.255
+
+!# Step 2 – Apply ACL to VTY lines to control SSH/Telnet access. INBOUND
+line vty 0 4
+   access-class 55 in
+exit
+````
+
+---
+
 ### 📋 ACL: `Block Inter-VLAN Communication`
 
 - ACL Type: `Extended`
@@ -537,32 +555,6 @@ exit
 ````
 
 
-
-
-
-
-
-### 📋 ACL: `ACL for QoS (Quality of Service)`
-🔧 Type: Extended
-🎯 Use Case: Classification (for prioritizing VoIP traffic)
-
-- ACL Type: `Extended`
-- Purpose: `Classification`
-- Use Case: For prioritizing VoIP traffic. This **class-map** can be used in a QoS policy to give priority to real-time voice traffic, ensuring better call quality.
-
-````py
-!# Step 1 – Define an ACL to match VoIP RTP traffic (UDP ports 16384–32767)
-ip access-list extended VOICE-TRAFFIC
-   permit udp any any range 16384 32767
-exit
-
-!# Step 2 – Create a class-map that matches this ACL
-class-map match-all VOICE
-   match access-group name VOICE-TRAFFIC
-exit
-
-
-````
 
 
 
@@ -628,14 +620,36 @@ exit
 
 ````
 
+---
+
+### 📋 ACL: `ACL for QoS (Quality of Service)`
+
+- ACL Type: `Extended`
+- Purpose: `Classification`
+- Use Case: For prioritizing VoIP traffic. This **class-map** can be used in a QoS policy to give priority to real-time voice traffic, ensuring better call quality.
+
+````py
+!# Step 1 – Define an ACL to match VoIP RTP traffic (UDP ports 16384–32767)
+ip access-list extended VOICE-TRAFFIC
+   permit udp any any range 16384 32767
+exit
+
+!# Step 2 – Create a class-map that matches this ACL
+class-map match-all VOICE
+   match access-group name VOICE-TRAFFIC
+exit
+
+
+````
 
 
 
 
 
+---
 
 
-
+````
 
 
 
