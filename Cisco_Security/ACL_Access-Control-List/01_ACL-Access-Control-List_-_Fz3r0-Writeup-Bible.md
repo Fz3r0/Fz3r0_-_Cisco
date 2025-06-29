@@ -495,11 +495,41 @@ Here are real-world examples for each ACL use case. These are pure gold for any 
 
 ## ACL Purpose: `Filtering`
 
+
+
+
+### 📋 ACL: `Block IP ACL (The most common & essential ACL)` - Block Host, Subnet, Supernet and Range
+
+- ACL Type: `Extended`
+- Purpose: `Filtering`
+- Use Case: Block different levels of source IPs (host, subnet, supernet, wildcard range). This is the most common and production-friendly ACL you’ll find in real networks. It's simple, lightweight, and powerful. Used to block known bad IPs, rogue subnets, or overly broad address ranges without needing complex logic. Perfect for securing user access, inter-vlan routing, restricting unauthorized devices, or protecting sensitive resources at the edge of the network.
+
+````py
+!# Step 1 – Create the ACL:
+   !# Block a single host
+access-list 15 deny 10.10.10.50 0.0.0.0
+   !# Block a /16 subnet
+access-list 15 deny 10.20.0.0 0.0.255.255
+   !# Block a /12 supernet (172.16.0.0–172.31.255.255)
+access-list 15 deny 172.16.0.0 0.15.255.255
+   !# Block large range (192.0.0.0–192.255.255.255)
+access-list 15 deny 192.0.0.0 0.255.255.255
+   !# Allow everything else  
+access-list 15 permit any                       
+
+!# Step 2 – Apply to an interface (inbound)
+interface GigabitEthernet0/1
+   ip access-group 15 in
+exit
+````
+
+---
+
 ### 📋 ACL: `SSH/Telnet :: Access Control`
 
 - ACL Type: `Standard`
 - Purpose: `Filtering`
-- Use Case: Control device/network management access. This ACL ensures that only devices from the 10.10.0.0/24 subnet can initiate remote CLI sessions (SSH/Telnet) to the router or switch / All others will be **silently** blocked.
+- Use Case: Control device/network management access. This ACL is also very common and ensures that only devices from "X" or "Y" subnet can initiate remote CLI sessions (SSH/Telnet) to the router or switch / All others will be **silently** blocked.
 
 ````py
 !# Step 1 – Create STANDARD ACL to permit only trusted IPs or subnets for remote access
