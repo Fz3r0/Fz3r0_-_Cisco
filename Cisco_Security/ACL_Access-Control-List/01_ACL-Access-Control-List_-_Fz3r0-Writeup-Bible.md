@@ -493,10 +493,6 @@ Extended ACLs are more complex and granular
 
 Here are real-world examples for each ACL use case. These are pure gold for any network engineer’s toolkit:
 
-## ACL Purpose: `Filtering`
-
-
-
 
 ### 📋 ACL: `Block IP ACL (The most common & essential ACL)` - Block Host, Subnet, Supernet and Range
 
