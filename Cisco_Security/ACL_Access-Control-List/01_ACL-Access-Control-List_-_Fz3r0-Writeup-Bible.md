@@ -496,7 +496,7 @@ Here are real-world examples for each ACL use case. These are pure gold for any 
 
 ### 📋 ACL: `Block IP ACL (The most common & essential ACL)` - Block Host, Subnet, Supernet and Range
 
-- ACL Type: `Extended`
+- ACL Type: `Standard`
 - Purpose: `Filtering`
 - Use Case: Block different levels of source IPs (host, subnet, supernet, wildcard range). This is the most common and production-friendly ACL you’ll find in real networks. It's simple, lightweight, and powerful. Used to block known bad IPs, rogue subnets, or overly broad address ranges without needing complex logic. Perfect for securing user access, inter-vlan routing, restricting unauthorized devices, or protecting sensitive resources at the edge of the network.
 
