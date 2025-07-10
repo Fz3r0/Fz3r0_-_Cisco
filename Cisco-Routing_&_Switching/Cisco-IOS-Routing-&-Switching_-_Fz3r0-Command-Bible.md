@@ -13,3 +13,8 @@
 | `(config-vlan)#`        | 🧱 **VLAN Configuration Mode**      | Used to configure VLANs on switches.                                      |
 | `(config-access-list)#` | 🚫 **Access List Config Mode**      | Configure standard or extended ACLs.                                      |
 | `(vlan)#`               | 🗂️ **VLAN Database Mode**          | Legacy mode accessed with `vlan database` (mostly on older IOS).          |
+
+
+## Security SSH & VTY Lines
+
+<img width="512" height="640" alt="image" src="https://github.com/user-attachments/assets/cc0bc66b-09a9-4a92-8503-f6ed02b55d5b" />
