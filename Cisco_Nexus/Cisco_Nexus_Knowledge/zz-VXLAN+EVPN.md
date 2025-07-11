@@ -17,6 +17,13 @@ VXLAN explanation
 
 https://www.youtube.com/watch?v=SnnNrXtIc1c
 
+VXLAN Multisite tutirial easy youtube awesome diagram i will add it lol!
+
+https://www.youtube.com/watch?v=LOAgbGk6FOQ
+
+<img width="948" height="587" alt="image" src="https://github.com/user-attachments/assets/0d0ca2cb-fa77-4802-a462-86fcc6e4d975" />
+
+
 https://www.youtube.com/watch?v=KNLLVOye3u4
 ---
 
