@@ -22,6 +22,8 @@ https://www.youtube.com/watch?v=SnnNrXtIc1c
 https://youtu.be/3-7BkLDfDaY?si=YACu5zmUXrHyo0c_
 ESPAÑOL EVPN TODO
 
+
+
 ---
 
 - https://www.youtube.com/watch?v=vJqwIl2V8GY
@@ -56,3 +58,10 @@ Encapsulation vxlan
 
 https://www.thenetworkdna.com/2024/03/a-step-by-step-guide-to-vxlan.html?fbclid=IwY2xjawKJ4-xleHRuA2FlbQIxMABicmlkETFOSHJyS0REbGl5V0tLMDJVAR7j0H6uIbn-wVocfZvy6N-Dm3aZhXEeGh_vP_vkR6QN94t1KDPaEK9TWNfxjQ_aem_WBFWQVNRsasIXr5uARaAbg
 
+
+----
+
+
+Mltisite VXLAN EVPN full config rapido y facil
+
+https://www.youtube.com/watch?v=WUG7OtKEcg4
