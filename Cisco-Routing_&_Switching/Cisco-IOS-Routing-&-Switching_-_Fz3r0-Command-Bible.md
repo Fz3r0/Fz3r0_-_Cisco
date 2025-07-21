@@ -15,7 +15,7 @@
 | `(vlan)#`               | 🗂️ **VLAN Database Mode**          | Legacy mode accessed with `vlan database` (mostly on older IOS).          |
 
 
-## `show running-config`
+## 📟 `show running-config`
 
 - The `show running-config` command is one of the most frequently used tools on Cisco IOS devices. 
 - It displays the current active configuration stored in RAM, reflecting any changes made since the last save.
@@ -44,6 +44,25 @@
 | `show running-config \| section ntp`                                                                      | ⏰ Filters only NTP-related config.                                        |
 | `show running-config \| include logging`                                                                  | 📝 Displays all logging commands (buffered, trap, host, etc).             |
 | `show running-config \| include service`                                                                  | 🧩 Shows service-level config lines (e.g., `service timestamps`).         |
+
+
+
+## `Encryption Types`
+
+- Cisco IOS supports multiple password encryption formats, each with varying levels of security and compatibility.
+- You can specify the encryption type using a number (e.g., `0`, `5`, `7`, `8`, or `9`) in commands like `username admin password`, `username admin secret`, `enable secret`, `line vty password`, `snmp-server user/secret`, `energywise shared-secret`, `ppp chap password`, `key-string` (for routing protocol authentication), etc.
+- _It’s important to understand which types are secure (e.g., SHA-256, SCRYPT) and which are weak or obsolete (e.g., Type 7 or plaintext)._
+
++--------+ 🔒 Encryption Method      + 🧠 Description                         + 📜 Example in 'show running-config'                     +
+| Type   |                          |                                       |                                                        |
++--------+---------------------------+---------------------------------------+--------------------------------------------------------+
+| `0`    | **Plaintext**             | No encryption (visible as-is)         | `username admin password 0 mypassword123` or <br>        |
+|        |                           |                                       |  `username admin password mypassword123`             |
+| `7`    | **Cisco Type 7**          | Weak reversible encoding              | `username admin password 7 104D000A0618`               |
+| `5`    | **MD5 Hash**              | Legacy one-way hash                   | `username admin secret 5 $1$abc$klsdjfoaisjdlfkjlkajsf/`|
+| `8`    | **SHA-256 (PBKDF2)**      | Strong hash, modern IOS               | `username admin secret 8 $8$XUSPOuRbfydzjcWx...`       |
+| `9`    | **SCRYPT Hash**           | Stronger than SHA-256                 | `username admin secret 9 $9$wJrQaTlg1HvMwkw...`        |
++--------+---------------------------+---------------------------------------+--------------------------------------------------------+
 
 
 ## `show interfaces`
