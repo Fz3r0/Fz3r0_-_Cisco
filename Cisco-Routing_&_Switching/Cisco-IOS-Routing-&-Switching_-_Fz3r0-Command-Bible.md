@@ -44,6 +44,29 @@
 | `SPACE`            | **Command Separator**           | Separates elements of a command line.                                  | `interface GigabitEthernet0/1`                 | 
 
 
+## ⌨️ Cisco IOS: Control Key Combinations
+
+- Cisco IOS supports several keyboard shortcuts using the `Ctrl` key (^) to make command-line navigation and editing more efficient.
+- These combinations help you interrupt processes, end configuration modes, repeat commands, and more.
+
+****
+
+| ⌨️ Key Combo | 🧠 Description                                                       | 💡 Common Usage Example                                      |
+| --------- | --------------------------------------------------------------------- | --------------------------------------------------------- |
+| `^`       | **"Ctrl" Key Notation**                                               | Represents `Ctrl` key combinations (e.g., `^C` = Ctrl+C). |
+| `^Z`      | End configuration mode and return to privileged EXEC (`exit` + `end`) | Finish configuration and return to `#` prompt.            |
+| `^C`      | Cancel command or break current process                               | Interrupt a `ping`, `traceroute`, or long-running output. |
+| `^D`      | Log out or exit input (EOF)                                           | Ends input stream (rare, used with manual `more`).        |
+| `^A`      | Move cursor to beginning of the line                                  | Quick navigation when editing long commands.              |
+| `^E`      | Move cursor to end of the line                                        | Jump to the end of a typed command.                       |
+| `^U`      | Erase entire line                                                     | Clears everything typed on the line.                      |
+| `^W`      | Erase the last word                                                   | Deletes last word without clearing the full line.         |
+| `^P`      | Recall previous command (same as ↑)                                   | Scrolls up through command history.                       |
+| `^N`      | Recall next command (same as ↓)                                       | Scrolls down through command history.                     |
+| `^R`      | Redisplay the current line                                            | Redraws command line (if output overlaps).                |
+| `^L`      | Refresh the screen (terminal dependent)                               | Clears/refreshes screen – mostly in some emulators.       |
+
+
 ## 🔐 Cisco IOS: `Password Encryption Types`
 
 - Cisco IOS supports multiple password encryption formats, each with varying levels of security and compatibility.  
