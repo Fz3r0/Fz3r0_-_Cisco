@@ -2,17 +2,47 @@
 
 ## 📟 Cisco IOS Prompt Modes
 
-| Prompt                  | Mode Name                           | Description                                                               |
-| ----------------------- | ----------------------------------- | ------------------------------------------------------------------------- |
-| `>`                     | 🧑‍💻 **User EXEC Mode**            | Basic access – allows limited commands like `ping`, `show`, `traceroute`. |
-| `#`                     | 🔐 **Privileged EXEC Mode**         | Full access – enter with `enable`; lets you view and troubleshoot.        |
-| `(config)#`             | ⚙️ **Global Configuration Mode**    | Allows system-wide configuration changes with `configure terminal`.       |
-| `(config-if)#`          | 🌐 **Interface Configuration Mode** | Used to configure specific interfaces (e.g., `GigabitEthernet0/1`).       |
-| `(config-line)#`        | 📞 **Line Configuration Mode**      | Used to configure terminal lines (e.g., VTY, console, aux).               |
-| `(config-router)#`      | 🛣️ **Routing Protocol Mode**       | Used to configure routing protocols like OSPF, BGP, EIGRP, etc.           |
-| `(config-vlan)#`        | 🧱 **VLAN Configuration Mode**      | Used to configure VLANs on switches.                                      |
-| `(config-access-list)#` | 🚫 **Access List Config Mode**      | Configure standard or extended ACLs.                                      |
-| `(vlan)#`               | 🗂️ **VLAN Database Mode**          | Legacy mode accessed with `vlan database` (mostly on older IOS).          |
+- Cisco IOS has various operational modes, each with a unique command-line prompt and purpose.
+- Understanding these modes is essential for navigating, configuring, and troubleshooting Cisco devices.
+- The prompt helps you identify what you can do at any given moment.
+
+| Prompt                  | 🧭 Mode Name                     | 📝 Description                                                            |
+| ----------------------- | -------------------------------- | ------------------------------------------------------------------------- |
+| `>`                     | **User EXEC Mode**               | Basic access – allows limited commands like `ping`, `show`, `traceroute`. |
+| `#`                     | **Privileged EXEC Mode**         | Full access – enter with `enable`; lets you view and troubleshoot.        |
+| `(config)#`             | **Global Configuration Mode**    | Allows system-wide configuration changes with `configure terminal`.       |
+| `(config-if)#`          | **Interface Configuration Mode** | Used to configure specific interfaces (e.g., `GigabitEthernet0/1`).       |
+| `(config-line)#`        | **Line Configuration Mode**      | Used to configure terminal lines (e.g., VTY, console, aux).               |
+| `(config-router)#`      | **Routing Protocol Mode**        | Used to configure routing protocols like OSPF, BGP, EIGRP, etc.           |
+| `(config-vlan)#`        | **VLAN Configuration Mode**      | Used to configure VLANs on switches.                                      |
+| `(config-access-list)#` | **Access List Config Mode**      | Configure standard or extended ACLs.                                      |
+| `(vlan)#`               | **VLAN Database Mode**           | Legacy mode accessed with `vlan database` (mostly on older IOS).          |
+| `rommon #>`             | **ROM Monitor Mode (ROMmon)**    | Low-level recovery mode used when the device cannot boot IOS.             |
+| `switch:`               | **Boot Loader Mode**             | Limited mode used during corrupted image recovery (e.g., `boot tftp:`).   |
+| `loader>`               | **Loader Mode**                  | Similar to boot loader; appears in certain older platforms.               |
+| `setup>`                | **Initial Configuration Dialog** | Interactive setup wizard shown on first boot or after config deletion.    |
+
+##  🔣 Cisco IOS: `Special Characters & Syntax`
+
+- Cisco IOS uses a variety of special characters in both command syntax and output filtering.
+- Understanding these characters helps when reading help menus, crafting complex commands, or parsing long outputs.
+- Characters like `?`, `|`, `{}`, and `[]` have specific meanings and are used throughout CLI interaction.
+
+| Character / Syntax | 🔧 Name / Function              | 🧠 Description                                                         | 💡 Example Usage                               |  
+| ------------------ | ------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------- | 
+| `?`                | **Help Prompt**                 | Displays available commands or options in the current context.         | `show ?`                                       |    
+| `^`                | **Control Key Notation**        | Represents Ctrl key combinations (e.g., `^C` = Ctrl+C).                | `^Z` to end configuration mode.                |    
+| `!`                | **Comment Marker**              | Marks configuration comments or separates sections.                    | `! This is a comment`                          |    
+| `\|`               | **Pipe for Filtering**          | Sends command output to filters like `include`, `begin`, or `exclude`. | `show running-config \| include ip route`      |    
+| `/`                | **Regex Separator**             | Used in pattern matching or as part of regular expressions.            | `show log \| include /UPDOWN/`                 |    
+| `>`                | **User EXEC Prompt / Redirect** | Indicates User EXEC mode or used rarely in file redirection.           | `Router>`                                      |    
+| `#`                | **Privileged EXEC Prompt**      | Indicates privileged EXEC mode or config submode.                      | `Router(config)#`                              |      
+| `()`               | **Mode Context Indicators**     | Shows current config context (e.g., interface, line, router).          | `Router(config-if)#`, `Router(config-router)#` |     
+| `[]`               | **Optional Argument**           | Marks optional input parameters in help messages.                      | `ping [ip-address]`                            |     
+| `{}`               | **Required Choice Set**         | Indicates a mandatory selection between options.                       | `transport input {all\| none \| ssh \| telnet}` |
+| `TAB`              | **Autocompletion**              | Auto-completes commands or arguments.                                  | Typing `conf` + `TAB` completes to `configure` | 
+| `SPACE`            | **Command Separator**           | Separates elements of a command line.                                  | `interface GigabitEthernet0/1`                 | 
+
 
 ## 🔐 Cisco IOS: `Password Encryption Types`
 
