@@ -211,7 +211,7 @@ show ip arp 10.10.66.101
 Check the MAC address table _(in this case the device is located on another switch using a trunked Port-Channel LACP):_
 
 ````py
-show mac address-table address 0050.aa4e.f8de
+show mac address-table address f0f0.f0f0.f0f0
 ````
 
 ✅ Result:
@@ -272,7 +272,7 @@ show int status | include Gi1/0/45
 
 ## ✅ Summary
 
-We successfully traced the IP 10.23.25.201 to physical port Gi1/0/45 on STL-SW-B1F2-1, confirming it's a network printer with voice/QoS configurations applied.
+We successfully traced the IP 10.10.66.101 to physical port Gi1/0/45 on IOS-L2SW-11, confirming it's a network printer with voice/QoS configurations applied.
 
 ---
 
