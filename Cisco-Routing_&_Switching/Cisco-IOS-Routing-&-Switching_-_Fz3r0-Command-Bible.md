@@ -172,6 +172,120 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+## 🔎 Host Tracing: `IP ADDRESS` : `10.10.66.101`
+
+This is the process of locating a host in a traditional Layer 2 enterprise network, such as an office branch where advanced Layer 3 overlay technologies (like VXLAN in cloud data centers) are not in use. This method applies to standard Cisco Catalyst-based environments, where Layer 2 switching, VLAN segmentation, and centralized Layer 3 gateways are commonly deployed. This architecture is still widely used across most enterprise networks.
+
+In this scenario, **we only have the IP address of the target device**, and our goal is to identify the following:
+
+- Its MAC address
+- What kind of device it is
+- Where it is physically connected
+- Which switches and interfaces are involved in its path
+- The configuration used by the device, and more details
+
+### 🧩 `Step 1`: Get MAC from ARP Table
+
+````py
+show ip arp 10.10.66.101
+````
+
+✅ Result:
+- **IP Address**: `10.10.66.101`  
+- **MAC Address**: `f0f0.f0f0.f0f0`  
+- **VLAN**: `66`
+
+### 🧩 `Step 2`: Find which port learned the MAC
+
+Check the MAC address table _(in this case the device is located on another switch using a trunked Port-Channel LACP):_
+
+````py
+show mac address-table address 0050.aa4e.f8de
+````
+
+✅ Result:
+- **Interface**: `Po10 (Port-Channel 10)`
+
+### 🧩 Step 3: Inspect EtherChannel
+
+Check which interfaces form Po21:
+
+show etherchannel summary
+
+✅ Result:
+Po10: Twe1/1/0/7, Twe2/1/0/7
+
+---
+
+## 🧩 Step 4: Identify neighbor switch
+
+Use CDP to discover connected devices:
+
+show cdp neighbors | include Twe1/1/0/7
+
+✅ Result:
+- Neighbor: `IOS-L2SW-11`
+
+---
+
+## 🧩 Step 5: Find MAC on access switch
+
+Log in to `IOS-L2SW-11` and run:
+
+show mac address-table address 0050.aa4e.f8de
+
+✅ Result:
+Interface: Gi1/0/45
+
+---
+
+## 🧩 Step 6: Check port configuration and status
+
+🔖 Description:
+show int descr | include Gi1/0/45
+
+⚙️ Configuration:
+show run int Gi1/0/45
+
+📶 Status:
+show int status | include Gi1/0/45
+
+✅ Result:
+- Port is connected
+- Access VLAN: 104
+- Voice VLAN: 204
+- AutoQoS enabled for Cisco IP phone
+- Likely endpoint: HP PRINTER FZ3R0
+
+---
+
+## ✅ Summary
+
+We successfully traced the IP 10.23.25.201 to physical port Gi1/0/45 on STL-SW-B1F2-1, confirming it's a network printer with voice/QoS configurations applied.
+
+---
+
+🛠 Carlos – NOC Tier 3 | Wi-Fi & Network Tracing Ops
+"""
+
+
+
+
+
+
+
+
 ## Security SSH & VTY Lines
 
 <img width="512" height="640" alt="image" src="https://github.com/user-attachments/assets/cc0bc66b-09a9-4a92-8503-f6ed02b55d5b" />
