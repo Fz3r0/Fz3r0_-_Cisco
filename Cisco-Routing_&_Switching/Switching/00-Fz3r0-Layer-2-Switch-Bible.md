@@ -162,6 +162,8 @@ ip route 0.0.0.0 0.0.0.0 10.10.66.1
 ! # REMOTE ACCESS & SECURITY                                                          #
 ! #####################################################################################
 
+security passwords min-length 10
+
 ! # ADMIN LOGIN
 username admin privilege 15 secret admin.cisco
 
@@ -200,6 +202,7 @@ exit
 
 ! # VTY LINES LOGIN (INTERFACES - VIRTUAL TELETYPE)
 line vty 0 4
+   access-class 8 in
    exec-timeout 0 0
    password admin.cisco
    transport preferred none
