@@ -561,3 +561,4 @@ copy running-config startup-config
 
 - https://github.com/Fz3r0/Fz3r0/tree/1914a8727ec9f0f2eca5c63c789c5b37f99bdad7/Networking/Labs
 - https://github.com/Fz3r0/Fz3r0/blob/1914a8727ec9f0f2eca5c63c789c5b37f99bdad7/Networking/Labs/EtherChannel_All-in-One.md
+- https://github.com/Fz3r0/Fz3r0/blob/1914a8727ec9f0f2eca5c63c789c5b37f99bdad7/Networking/Labs/Security_%26_Best-Practices_VS_Layer2_Attack_FULL_PRO_CONFIG.md
