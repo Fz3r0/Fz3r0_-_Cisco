@@ -484,8 +484,7 @@ snmp-server chassis-id IOS-SWL2-10
 snmp-server group Fz3r0-SNMP-GROUPNAME v3 priv access Fz3r0-SNMP-ACL
 
 ! # SNMP USER - with SHA authentication and AES‑256 privacy, assigned to the specified SNMP group.
-!snmp-server user <SNMP user name> <SNMP group name> v3 auth sha <SNMP auth-password> priv aes 256 <SNMP priv-passphrase>
-! # Real Catalyst IOS example
+! # Real Catalyst IOS-XE example
 !snmp-server user Fz3r0-SNMP-USERNAME Fz3r0-SNMP-GROUPNAME v3 auth sha Fz3r0-SNMP-Auth_Pa$$ priv aes 256 Fz3r0-SNMP-Priv_Pa$$
 ! # Virtual IOS (Eve-NG / GNS3)
 snmp-server user Fz3r0-SNMP-USERNAME Fz3r0-SNMP-GROUPNAME v3 auth sha Fz3r0-SNMP-Auth_Pa$$ access Fz3r0-SNMP-Priv_Pa$$
