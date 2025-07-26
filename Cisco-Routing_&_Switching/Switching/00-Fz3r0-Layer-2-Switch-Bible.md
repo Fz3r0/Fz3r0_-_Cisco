@@ -123,19 +123,21 @@ no service pad
 
 ! # Adds detailed timestamps (with milliseconds) to all debug output.
 service timestamps debug datetime msec
+! # Adds local time timestamps to log messages for accurate event tracking.
 service timestamps log datetime localtime
+! # Cisco’s weak Type‑7 password encryption, hide plain-text passwords in configs (basic obfuscation, not strong security).
 service password-encryption
 
 ! #####################################################################################
 ! # DOMAIN & DNS                                                                      #
 ! #####################################################################################
 
-! # DOMAIN = (fz3r0.com)
+! # DOMAIN = (fz3r0.com) - Device’s default DNS domain name (used to build its FQDN) / required for generating SSH keys / appended when resolving unqualified hostnames  | ping server1 (server1.fz3r0.com)
 ip domain-name fz3r0.com
 
-! # Google DNS 1
+! # DNS 1 - Google DNS 
 ip name-server 8.8.8.8
-! # Google DNS 2
+! # DNS 2 - Google DNS 2
 ip name-server 8.8.4.4
 
 ! # Disable DNS lookup (For labs: Avoid delays when typing invalid commands)
@@ -145,23 +147,24 @@ no ip domain-lookup
 ! # DEFAULT GATEWAY & IP ROUTE                                                        #
 ! #####################################################################################
 
-! # L2 : Default Gateway @ GW
+! # L2 : Default Gateway @ GW - Pure Layer 2 (no routing enabled) send traffic to local LAN GW.
 ip default-gateway 10.10.66.1
 
-! # L3 : Default Route @ WAN (Outside)
+! # L3 : Default Route @ GW->WAN - Default route to a Layer‑3 Router, sending all non‑local traffic to 10.10.66.1 (Gateway) so it can reach ANY OUTSIDE networks.
 ip route 0.0.0.0 0.0.0.0 10.10.66.1
 
 ! #####################################################################################
 ! #  ENABLE IP ROUTING                                                                #
 ! #####################################################################################
 
-!# Enables the router to forward packets BETWEEN DIFFERENT NETWORKS (turns on Layer 3 routing between management & default VRFs) - InterVLAN Routing
+!# (For L3 Switches) Enables the router to forward packets BETWEEN DIFFERENT NETWORKS (turns on Layer 3 routing between management & default VRFs) - InterVLAN Routing
 !ip routing
 
 ! #####################################################################################
 ! # REMOTE ACCESS & SECURITY                                                          #
 ! #####################################################################################
 
+! # MINIMUM PASSWORDS LENGHT
 security passwords min-length 10
 
 ! # ADMIN LOGIN
@@ -200,14 +203,25 @@ line con 0
    stopbits 1
 exit
 
-! # VTY LINES LOGIN (INTERFACES - VIRTUAL TELETYPE)
+! # VTY LINES LOGIN (SSH/Telnet) - ACL for VTY Access Control | Deny = default Implicit (best practice to write it out) 
+ip access-list standard Fz3r0-VTY-ACCESS
+  ! # Networks
+  permit 10.10.0.0 0.0.255.255        
+  permit 10.10.66.0 0.0.0.255
+  ! # Hosts    
+  permit host 10.10.10.101            
+  permit host 10.10.20.101
+  ! # Deny (implicit)  
+  deny any                         
+exit
+! # VTY LINES LOGIN (INTERFACES - VIRTUAL TELETYPE (SSH/Telnet) - Use telnet ONLY in lab enviorments / Use SSHv2 in real scenarios
 line vty 0 4
-   access-class 8 in
-   exec-timeout 0 0
-   password admin.cisco
-   transport preferred none
-   !transport input ssh
-   transport input telnet
+   access-class Fz3r0-VTY-ACCESS in
+       exec-timeout 0 0
+       password admin.cisco
+       transport preferred none
+           transport input telnet
+           !transport input ssh
 exit
 
 ! # NO HTTP SERVER 
@@ -547,3 +561,4 @@ copy running-config startup-config
 ## Resources
 
 - https://github.com/Fz3r0/Fz3r0/tree/1914a8727ec9f0f2eca5c63c789c5b37f99bdad7/Networking/Labs
+- https://github.com/Fz3r0/Fz3r0/blob/1914a8727ec9f0f2eca5c63c789c5b37f99bdad7/Networking/Labs/EtherChannel_All-in-One.md
