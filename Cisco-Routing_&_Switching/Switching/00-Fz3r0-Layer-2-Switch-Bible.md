@@ -377,7 +377,7 @@ interface range Ethernet 0/2-3
    description ** UPLINK - TRUNK - Po2 MEMBER *
       switchport trunk encapsulation dot1q
       switchport mode trunk
-         ! # Auto QoS for trust trunk - Config it only in Physical Eth (In Po the command doesn't even exists)
+         ! # Auto QoS: Trust trunk for QoS - Config it only in Physical Eth (In Po the command doesn't even exists)
          mls qos trust dscp
              channel-group 2 mode active
 exit
@@ -390,9 +390,18 @@ interface range Ethernet 1/0-1
       switchport mode access
       switchport access vlan 10
          switchport voice vlan 40
-         ! # Auto QoS for access host (Cisco Phone)
+         ! # Auto QoS: (Access Eth Host - Cisco Phone) AutoQoS macro for IP phones. Voice QoS on port + generates global QoS commands (mls qos, auto qos srnd4, class‑maps, and policy‑maps) across the switch.
          auto qos voip cisco-phone
                spanning-tree portfast edge
+                  ! # Port Security: (Access Eth Host) Locks 2 static MAC + 8 sticky MACs | Violation opts: shutdown/protect/restrict | delete inactive sticky after 60 min
+                  switchport port-security
+                  switchport port-security maximum 10
+                  switchport port-security mac-address 0000.1111.2222    ! # PC 1 fija
+                  switchport port-security mac-address 0000.3333.4444    ! # PC 2 fija
+                  switchport port-security mac-address sticky
+                  switchport port-security violation shutdown 
+                  switchport port-security aging time 60                 ! # 60 min
+                  switchport port-security aging type inactivity         ! # solo borra sticky inactivas
 exit
 
 ! # ACCESS VLAN 20 (RED) + VLAN 40 (VOICE) - RED HOST
@@ -432,6 +441,9 @@ interface Ethernet 2/3
       switchport access vlan 66
                spanning-tree portfast edge
 exit
+
+! # CLEAR PORT-SECURITY STICKY MAC LEARNED (IF NEEDED)
+!clear port-security sticky interface range Ethernet1/0-3,Ethernet2/0-3,Ethernet3/0-3
 
 ! #####################################################################################
 ! # SNMP (MONITORING: SolarWinds, Grafana, Data Dog, Zabbix, etc)                     #
