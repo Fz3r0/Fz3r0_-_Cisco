@@ -519,3 +519,16 @@ copy running-config startup-config
 
 ````
 
+
+
+
+
+
+
+
+
+
+
+## Resources
+
+- https://github.com/Fz3r0/Fz3r0/tree/1914a8727ec9f0f2eca5c63c789c5b37f99bdad7/Networking/Labs
