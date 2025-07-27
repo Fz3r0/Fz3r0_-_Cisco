@@ -1,9 +1,9 @@
 
+## How to recover a password without losing configuration:
 
+1 - Insert Console cable and login to the switch until you have the login prompt _(if you try any user/pass you will fail the login)_:
 
-1 - Insert Console cable and login to the switch until you have the login prompt:
-
-<img width="449" height="346" alt="image" src="https://github.com/user-attachments/assets/0f5832e0-ff98-41c1-8e8a-f6e32d696195" />
+<img width="617" height="603" alt="image" src="https://github.com/user-attachments/assets/c40c577f-9abc-433f-9176-65923fe1b26b" />
 
 2 - Turn off Router (keep you console window opened to see the boot process)
 
