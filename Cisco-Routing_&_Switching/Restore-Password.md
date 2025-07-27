@@ -96,6 +96,50 @@ reload
 <img width="833" height="68" alt="image" src="https://github.com/user-attachments/assets/bba9a0bb-e41d-46ae-9ebe-51771ff3eebe" />
 
 
+
+
+
+
+
+## Backup current config
+
+````py
+## (Optional) Backup Before Wipe
+
+! # 1. Insert the USB drive into the router.
+! #    The router will recognize it as 'usbflash0:' (you can verify with 'dir usbflash0:').
+
+! # 2. Verify the USB is detected and list its contents.
+dir usbflash0:
+
+! # 3. Save the current startup configuration to the USB.
+copy startup-config usbflash0:startup-config-backup.cfg
+
+! # 4. (Optional) Save the running configuration as well, just in case.
+copy running-config usbflash0:running-config-backup.cfg
+
+! # 5. (Optional) If you want to back up the IOS image or any file from flash, copy it too.
+copy flash:<filename> usbflash0:<filename>
+
+! # 6. Confirm the files are on the USB.
+dir usbflash0:
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Wipe config
 
 ### Mandatory
