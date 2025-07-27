@@ -100,7 +100,7 @@ reload
 
 ````
 
-<img width="692" height="525" alt="image" src="https://github.com/user-attachments/assets/36946862-357a-4142-84af-cd96d16a34d2" />
+
 
 12 - You will access with new
 
