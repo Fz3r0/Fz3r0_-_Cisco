@@ -17,8 +17,51 @@
 
 <img width="839" height="567" alt="image" src="https://github.com/user-attachments/assets/3b8ed850-d8cf-450d-80a3-6b8ed6a7e8a9" />
 
+5 - Once in ROMMON mode prompt, add the next command _(Change the default Configuration Register Value to 0x2142)_: 
 
+````py
+confreg 0x2142
+````
 
+6 - Restart the router:
+
+````
+reset
+````
+
+7 - Wait until the router boots again and do the following:
+- copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P)
+- change the secret
+- save configuration
+- restart the router
+
+````
+enable
+
+copy startup-config running-config
+
+!
+!
+
+configure terminal
+
+enable secret cisco.12345
+
+end
+
+copy running-config startup-config
+
+configure terminal
+
+config-register 0x2102
+
+end
+
+copy running-config startup-config
+
+reload
+
+````
 
 ## Resources
 
