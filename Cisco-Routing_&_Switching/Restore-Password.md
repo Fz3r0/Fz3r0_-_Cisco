@@ -246,6 +246,34 @@ license clear
 
 ````
 
+### Example:
+
+````
+Fz3r0-Router-4331#
+Fz3r0-Router-4331#write erase
+************************************************************************************************************
+Erasing Nvram will not clear license trust code.
+************************************************************************************************************
+Erasing the nvram filesystem will remove all configuration files! Continue? [confirm]
+[OK]
+Erase of nvram: complete
+Fz3r0-Router-4331#
+*Jul 27 12:34:42.962: %SYS-7-NV_BLOCK_INIT: Initialized the geometry of nvram
+Fz3r0-Router-4331#
+Fz3r0-Router-4331#reload
+
+System configuration has been modified. Save? [yes/no]: no
+Proceed with reload? [confirm]
+
+*Jul 27 12:35:26.976: %SYS-5-RELOAD: Reload requested by admin on console. Reload Reason: Reload Command.Jul 27 12:35:39.350: %PMAN-5-EXITACTION: R0/0:vp: Process manager is exiting: process exit with reload chassis code
+
+Initializing Hardware ...
+
+.
+.
+.
+
+````
 
 
 ## Resources
