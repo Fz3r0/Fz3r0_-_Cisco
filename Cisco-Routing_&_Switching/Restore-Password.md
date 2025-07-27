@@ -192,6 +192,11 @@ Directory of usb0:/
 
 7806648320 bytes total (6400761856 bytes free)
 s705r2#
+
+*Jul 27 12:28:47.763: %IOSD_INFRA-6-IFS_DEVICE_OIR: Device usb0 removed
+
+
+
 ````
 
 
@@ -224,7 +229,7 @@ reload
 
 ````
 
-### Optional
+### Optional (CAUTION!!!)
 
 ````py
 ! # -. Check the flash storage for leftover files (old configs, backups, etc.)
