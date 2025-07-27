@@ -15,6 +15,8 @@
 
 4 - Go to putty and right click top of the window, then click special commands > break. _(You need to click **MULTIPLE TIMES FAST** TO "CATCH THE BOOT", until you get to the Rommon mode)_
 
+CTRL + SHIFT + 6 + X
+
 <img width="693" height="592" alt="image" src="https://github.com/user-attachments/assets/eea03cb6-1473-40f1-b128-986fda814c3e" />
 
 <img width="585" height="419" alt="image" src="https://github.com/user-attachments/assets/7e2a0898-5e38-4fde-8b29-5b50f5f05623" />
