@@ -97,7 +97,32 @@ reload
 
 
 
+## Check current configuration, licenses, etc
 
+`````py
+## Check running config
+
+show running-configuration
+
+## How to Verify License and Firmware on a Cisco ISR 4331
+
+! # 1. Check active licenses installed and currently in use
+show license summary
+! Expected: Lists securityk9, appxk9, uck9, etc., with their status (IN USE, NOT IN USE).
+
+! # 2. Check the hardware throughput level (license-based performance)
+show platform hardware throughput level
+! Expected: Will show something like 100000 kb/s (100 Mbps) or higher if upgraded.
+
+! # 3. Check IOS XE version, ROM, and system image currently running
+show version
+! Expected output includes:
+!   - Cisco IOS XE Software Version (ex: 17.03.05)
+!   - System image file name (ex: bootflash:isr4300-universalk9.17.03.05.SPA.bin)
+!   - ROM version (ex: 16.12(2r))
+!   - Licensing details and router mode
+!   - Memory, flash, and interface summary
+````
 
 
 
