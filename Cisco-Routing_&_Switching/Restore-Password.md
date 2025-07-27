@@ -100,13 +100,15 @@ reload
 
 ````
 
+12 - You now can access access with the new admin and enable passwords:
 
 
-12 - You will access with new
+
 
 ## Resources
 
-https://www.youtube.com/watch?v=WYQMJoIKvvA
+- https://www.youtube.com/watch?v=WYQMJoIKvvA
+- https://youtu.be/WYQMJoIKvvA?si=eTtJN8e7a4nOzObk
 
 
 
