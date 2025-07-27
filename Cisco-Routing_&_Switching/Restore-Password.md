@@ -58,14 +58,14 @@ copy startup-config running-config
 
 ````
 
-9 - change the secret
+9 - change the secret & configure register `0x2102`
 
 ````
 configure terminal
 
 enable secret cisco.12345
 
-
+config-register 0x2102
 ````
 
 10 - Save Configuration
@@ -74,34 +74,19 @@ enable secret cisco.12345
 end
 
 copy running-config startup-config
-````
 
-
-
-````
-
-
-end
-
-copy running-config startup-config
-
-configure terminal
-
-config-register 0x2102
-
-end
-
-copy running-config startup-config
-
-reload
 
 ````
 
-- restart the router
+11 -  restart the router
 
 ````
 reload
 ````
+
+<img width="692" height="525" alt="image" src="https://github.com/user-attachments/assets/36946862-357a-4142-84af-cd96d16a34d2" />
+
+12 - You will access with new
 
 ## Resources
 
