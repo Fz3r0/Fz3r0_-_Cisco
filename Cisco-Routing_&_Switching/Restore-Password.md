@@ -79,6 +79,8 @@ write memory
 
 ````
 
+<img width="680" height="632" alt="image" src="https://github.com/user-attachments/assets/bc84252f-6f88-4409-970f-dc6a80696f5e" />
+
 11 -  restart the router
 
 ````
