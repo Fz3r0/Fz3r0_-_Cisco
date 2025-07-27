@@ -13,9 +13,12 @@
 
 <img width="932" height="127" alt="image" src="https://github.com/user-attachments/assets/eea25930-fc34-4cc8-b99a-7587c945045d" />
 
-4 - Go to putty and right click top of the window, then click special commands > break. _(You need to click multiple times FAST until you get to the Rommon mode)_
+4 - Go to putty and right click top of the window, then click special commands > break. _(You need to click **MULTIPLE TIMES FAST** TO "CATCH THE BOOT", until you get to the Rommon mode)_
 
 <img width="693" height="592" alt="image" src="https://github.com/user-attachments/assets/eea03cb6-1473-40f1-b128-986fda814c3e" />
+
+<img width="585" height="419" alt="image" src="https://github.com/user-attachments/assets/7e2a0898-5e38-4fde-8b29-5b50f5f05623" />
+
 
 5 - Once in ROMMON mode prompt, add the next command _(Change the default Configuration Register Value to 0x2142)_: 
 
