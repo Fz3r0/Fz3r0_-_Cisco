@@ -85,11 +85,12 @@ Serial communication was pioneered by IBM and widely adopted in computing and ne
 5. Click **Open** to start the session.
 6. Log in with **admin credentials**, and you're ready to configure the device!
 
-<img width="531" height="491" alt="image" src="https://github.com/user-attachments/assets/6e56aeb1-f161-402a-9add-9dc851d0a0de" />or<img width="455" height="446" alt="image" src="https://github.com/user-attachments/assets/e7a86159-ca51-4ac9-ad0f-3e0f44a0ed28" />
+<img width="531" height="491" alt="image" src="https://github.com/user-attachments/assets/6e56aeb1-f161-402a-9add-9dc851d0a0de" /><img width="455" height="446" alt="image" src="https://github.com/user-attachments/assets/e7a86159-ca51-4ac9-ad0f-3e0f44a0ed28" />
 
 
 
-<img width="536" height="487" alt="image" src="https://github.com/user-attachments/assets/8bce3046-da47-4da9-928a-841b5230226e" />
+<img width="536" height="487" alt="image" src="https://github.com/user-attachments/assets/8bce3046-da47-4da9-928a-841b5230226e" /><img width="410" height="367" alt="image" src="https://github.com/user-attachments/assets/3e63ccf8-2dfa-4f71-ab2b-d94665a7f6f0" />
+
 
 
 ## Troubleshooting Console Connection:
