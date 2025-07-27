@@ -63,6 +63,8 @@ copy startup-config running-config
 ````
 configure terminal
 
+username admin privilege 15 secret admin.cisco
+!
 enable secret cisco.12345
 
 config-register 0x2102
