@@ -69,19 +69,24 @@ Serial communication was pioneered by IBM and widely adopted in computing and ne
 1. Connect the PC to the router/switch using the appropriate serial cable for your PC/Router/Switch.
 2. Open **Device Manager** (`Win + X` → Device Manager).
 3. Expand **"Ports (COM & LPT)"**.
-4. Locate the active COM ports (e.g., `COM4`, `COM7`).
+4. Locate the active COM ports (e.g., `COM3`, `COM4`, `COM5`).
    - If you see a **yellow warning icon (!)**, install the required driver.
+
+<img width="793" height="511" alt="image" src="https://github.com/user-attachments/assets/5381d846-b224-4d4e-adaf-e8fbc5aa68c1" />
 
 ### Step 2: Connect via PuTTY
 
 1. Open **PuTTY** (or another terminal emulator like Tera Term or SecureCRT).
 2. Select **"Serial"** as the connection type.
-3. In the **"Serial line"** field, enter the COM port (e.g., `COM4`).
+3. In the **"Serial line"** field, enter the COM port (e.g., `COM5`).
 4. Set the **Speed (Baud Rate)**:
    - Cisco default: `9600`
    - Raritan Server (example): `115200`
 5. Click **Open** to start the session.
 6. Log in with **admin credentials**, and you're ready to configure the device!
+
+<img width="531" height="491" alt="image" src="https://github.com/user-attachments/assets/6e56aeb1-f161-402a-9add-9dc851d0a0de" />
+
 
 ## Troubleshooting Console Connection:
 
