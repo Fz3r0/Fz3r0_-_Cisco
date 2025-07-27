@@ -100,6 +100,17 @@ If the console is unresponsive:
 - Try different baud rates (`9600`, `115200`, `38400`).
 - Restart PuTTY or the router/switch.
 
+---
+
+Error message:
+
+<img width="390" height="178" alt="image" src="https://github.com/user-attachments/assets/e37d4a0a-502e-46f8-a5b7-73353fb9774f" />
+
+Just disable and enable console again:
+
+<img width="404" height="574" alt="image" src="https://github.com/user-attachments/assets/6e0c6101-f456-4816-b02c-fc1e1c790d70" /><img width="407" height="578" alt="image" src="https://github.com/user-attachments/assets/4e194a35-860d-4570-a410-9b282a4f805f" />
+
+Try to connect again
 
 
 
