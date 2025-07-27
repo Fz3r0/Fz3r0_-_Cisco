@@ -126,8 +126,7 @@ show version
 
 
 
-## Backup current config
-
+# Backup current config @ local USB
 
 Cisco ISR 4331 only supports USB drives formatted in FAT32, and it’s safest to use drives 8–16 GB max; when inserted, the router mounts it as `usb0:` or `usbflash0:` and you can copy configs, IOS images, or backups directly to/from it.
 
@@ -160,19 +159,19 @@ Fz3r0-Router-4331#
 3. Save the current startup configuration to the USB.
 
 ````
-copy startup-config usbflash0:startup-config-backup.cfg
+copy startup-config usb0:startup-config-backup.cfg
 ````
 
 3. (Optional) Save the running configuration as well, just in case.
 
 ````py
-copy running-config usbflash0:running-config-backup.cfg
+copy running-config usb0:running-config-backup.cfg
 ````
 
 4. (Optional) If you want to back up the IOS image or any file from flash, copy it too.
 
 ````py
-copy flash:<filename> usbflash0:<filename>
+copy flash:<filename> usb0:<filename>
 ````
 
 5. Confirm the files are on the USB.
@@ -181,7 +180,19 @@ copy flash:<filename> usbflash0:<filename>
 dir usbflash0:
 ````
 
+````
+Directory of usb0:/
 
+118     -rwx        702197190  Jul 27 2025 12:23:24 -05:00  isr4300-universalk9.17.03.04a.SPA.bin
+117     -rwx          1005451  Jul 27 2025 12:20:45 -05:00  ISReigrp.pcap
+116     -rwx        702560970  Jul 27 2025 12:11:49 -05:00  isr4300-universalk9.17.03.05.SPA.bin
+115     -rwx            54088  Jul 27 2025 12:09:38 -05:00  running-config-backup.cfg
+114     -rwx            44304  Jul 27 2025 12:08:55 -05:00  startup-config-backup.cfg
+113     drwx             4096  Jul 27 2025 06:43:58 -05:00  System Volume Information
+
+7806648320 bytes total (6400761856 bytes free)
+s705r2#
+````
 
 
 
