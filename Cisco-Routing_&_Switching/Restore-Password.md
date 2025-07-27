@@ -91,6 +91,8 @@ reload
 
 12 - You now can access access with the new admin user & pass `admin`:`admin.cisco` & enable pass: `cisco.12345`
 
+<img width="611" height="794" alt="image" src="https://github.com/user-attachments/assets/dc5f2f02-fc21-45b1-aa2d-78a8242dc244" />
+
 
 
 
