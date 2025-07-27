@@ -48,7 +48,7 @@ Resetting .......
 
 ````
 
-8 - Enter to the switch (it will not have any password), and copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P)
+8 - Enter to the switch (it will not have any password), and copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P), wait and you will see a prompt similar to `s705r2#`
 
 ````
 enable
@@ -58,29 +58,28 @@ copy startup-config running-config
 
 ````
 
-- change the secret
+9 - change the secret
 
 ````
 configure terminal
 
 enable secret cisco.12345
+
+
+````
+
+10 - Save Configuration
+
+````
+end
+
+copy running-config startup-config
 ````
 
 
-- save configuration
-- restart the router
 
 ````
-enable
 
-copy startup-config running-config
-
-!
-!
-
-configure terminal
-
-enable secret cisco.12345
 
 end
 
@@ -96,6 +95,12 @@ copy running-config startup-config
 
 reload
 
+````
+
+- restart the router
+
+````
+reload
 ````
 
 ## Resources
