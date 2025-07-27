@@ -275,6 +275,19 @@ Initializing Hardware ...
 
 ````
 
+For a blank init setup choose: 
+
+````
+         --- System Configuration Dialog ---
+
+Would you like to enter the initial configuration dialog? [yes/no]: no <<<---
+
+Would you like to terminate autoinstall? [yes]: yes <<<---
+
+
+````
+
+
 
 ## Resources
 
