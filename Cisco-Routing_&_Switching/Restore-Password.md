@@ -99,7 +99,7 @@ reload
 
 ## Check current configuration, licenses, etc
 
-`````py
+````py
 ## Check running config
 
 show running-configuration
@@ -128,27 +128,59 @@ show version
 
 ## Backup current config
 
+
+Cisco ISR 4331 only supports USB drives formatted in FAT32, and it’s safest to use drives 8–16 GB max; when inserted, the router mounts it as `usb0:` or `usbflash0:` and you can copy configs, IOS images, or backups directly to/from it.
+
+1. Insert the USB drive into the router.
+    The router will recognize it as 'usbflash0:' (you can verify with 'dir usbflash0:').
+
+2. Verify the USB is detected and list its contents.
+
 ````py
-## (Optional) Backup Before Wipe
+dir usb0:
+````
 
-! # 1. Insert the USB drive into the router.
-! #    The router will recognize it as 'usbflash0:' (you can verify with 'dir usbflash0:').
+Example: 
 
-! # 2. Verify the USB is detected and list its contents.
-dir usbflash0:
+````py
+Fz3r0-Router-4331#
+*Jul 27 11:59:31.696: %IOSD_INFRA-6-IFS_DEVICE_OIR: Device usb0 added  <<<<<---------| log shows usb0: added
+Fz3r0-Router-4331#
 
-! # 3. Save the current startup configuration to the USB.
+Fz3r0-Router-4331#dir usb0:                                            <<<<<---------| Dir shows empty usb (it was just formatted)
+Directory of usb0:/
+
+113     drwx             4096  Jul 27 2025 06:43:58 -05:00  System Volume Information
+
+7806648320 bytes total (7806631936 bytes free)
+
+Fz3r0-Router-4331#
+````
+
+3. Save the current startup configuration to the USB.
+
+````
 copy startup-config usbflash0:startup-config-backup.cfg
+````
 
-! # 4. (Optional) Save the running configuration as well, just in case.
+3. (Optional) Save the running configuration as well, just in case.
+
+````py
 copy running-config usbflash0:running-config-backup.cfg
+````
 
-! # 5. (Optional) If you want to back up the IOS image or any file from flash, copy it too.
+4. (Optional) If you want to back up the IOS image or any file from flash, copy it too.
+
+````py
 copy flash:<filename> usbflash0:<filename>
+````
 
-! # 6. Confirm the files are on the USB.
+5. Confirm the files are on the USB.
+
+````py
 dir usbflash0:
 ````
+
 
 
 
