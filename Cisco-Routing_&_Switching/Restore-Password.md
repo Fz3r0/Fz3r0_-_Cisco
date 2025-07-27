@@ -288,6 +288,48 @@ Would you like to terminate autoinstall? [yes]: yes <<<---
 ````
 
 
+## CONFIGURE MANAGEMENT INTERFACE (Gi0)
+
+Now we will have access with an ethernet port or the serial 
+
+````py
+! # Configure line:
+enable
+configure terminal 
+
+! # Interface MANAGEMENT
+interface GigabitEthernet0
+   description *** OOB MANAGEMENT PORT ***
+      ip address 192.168.1.201 255.255.255.0   
+no shutdown
+exit
+
+! # DEFAULT ROUTE FOR MANAGEMENT - Points all management traffic to your gateway
+ip route 0.0.0.0 0.0.0.0 192.168.1.254 
+
+! # ENABLE SSH ACCESS FOR MANAGEMENT
+hostname Fz3r0-R-4331
+ip domain name fz3r0.com
+crypto key generate rsa modulus 2048
+ip ssh version 2
+
+! # CREATE LOCAL USER FOR SSH LOGIN
+username admin privilege 15 secret cisco.12345
+
+! # CONFIGURE VTY LINES FOR SSH ONLY
+line vty 0 4
+   transport input ssh
+   login loc
+exit
+
+end
+write memory
+
+!
+!
+
+
+````
 
 ## Resources
 
