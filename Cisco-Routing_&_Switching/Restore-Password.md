@@ -15,12 +15,9 @@
 
 4 - Go to putty and right click top of the window, then click special commands > break. _(You need to click **MULTIPLE TIMES FAST** TO "CATCH THE BOOT", until you get to the Rommon mode)_
 
-CTRL + SHIFT + 6 + X
+`CTRL + c` like crazy!
 
-<img width="693" height="592" alt="image" src="https://github.com/user-attachments/assets/eea03cb6-1473-40f1-b128-986fda814c3e" />
-
-<img width="585" height="419" alt="image" src="https://github.com/user-attachments/assets/7e2a0898-5e38-4fde-8b29-5b50f5f05623" />
-
+<img width="570" height="494" alt="image" src="https://github.com/user-attachments/assets/77abc79a-08e3-43df-a2a8-8aa7901bfbc5" />
 
 5 - Once in ROMMON mode prompt, add the next command _(Change the default Configuration Register Value to 0x2142)_: 
 
@@ -34,9 +31,42 @@ confreg 0x2142
 reset
 ````
 
-7 - Wait until the router boots again and do the following:
-- copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P)
+7 - Wait until the router boots...
+
+````
+rommon 1 >
+rommon 1 > confreg 0x2142
+
+You must reset or power cycle for new config to take effect
+rommon 2 > reset
+
+Resetting .......
+
+.
+.
+.
+
+````
+
+8 - Enter to the switch (it will not have any password), and copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P)
+
+````
+enable
+
+copy startup-config running-config
+
+
+````
+
 - change the secret
+
+````
+configure terminal
+
+enable secret cisco.12345
+````
+
+
 - save configuration
 - restart the router
 
