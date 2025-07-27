@@ -74,9 +74,9 @@ Serial communication was pioneered by IBM and widely adopted in computing and ne
 
 <img width="793" height="511" alt="image" src="https://github.com/user-attachments/assets/5381d846-b224-4d4e-adaf-e8fbc5aa68c1" />
 
-### Step 2: Connect via PuTTY
+### Step 2: Connect via PuTTY or SecureCRT
 
-1. Open **PuTTY** (or another terminal emulator like Tera Term or SecureCRT).
+1. Open **PuTTY** or **SecureCRT** (or another terminal emulator like Tera Term).
 2. Select **"Serial"** as the connection type.
 3. In the **"Serial line"** field, enter the COM port (e.g., `COM5`).
 4. Set the **Speed (Baud Rate)**:
@@ -86,6 +86,8 @@ Serial communication was pioneered by IBM and widely adopted in computing and ne
 6. Log in with **admin credentials**, and you're ready to configure the device!
 
 <img width="531" height="491" alt="image" src="https://github.com/user-attachments/assets/6e56aeb1-f161-402a-9add-9dc851d0a0de" />
+
+<img width="536" height="487" alt="image" src="https://github.com/user-attachments/assets/8bce3046-da47-4da9-928a-841b5230226e" />
 
 
 ## Troubleshooting Console Connection:
