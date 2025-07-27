@@ -96,6 +96,39 @@ reload
 <img width="833" height="68" alt="image" src="https://github.com/user-attachments/assets/bba9a0bb-e41d-46ae-9ebe-51771ff3eebe" />
 
 
+## Wipe config
+
+### Mandatory
+
+````py
+! # 1. Erase the startup configuration so the router boots with no config
+write erase
+
+! # 2. Reload the router to apply the wipe and start fresh
+reload
+
+!
+!
+
+````
+
+### Optional
+
+````py
+! # -. Check the flash storage for leftover files (old configs, backups, etc.)
+dir flash:
+
+! # -. Manually delete any unwanted files you find in flash
+delete flash:<filename>
+
+! # -. (Optional) Clear any stored license information to leave the router completely clean
+license clear
+
+!
+!
+
+````
+
 
 
 ## Resources
