@@ -13,9 +13,9 @@
 
 <img width="932" height="127" alt="image" src="https://github.com/user-attachments/assets/eea25930-fc34-4cc8-b99a-7587c945045d" />
 
-4 - Go to putty and right click top of the window, then click special commands > break. _(You need to click multiple times until you get to the Rommon mode)_
+4 - Go to putty and right click top of the window, then click special commands > break. _(You need to click multiple times FAST until you get to the Rommon mode)_
 
-<img width="839" height="567" alt="image" src="https://github.com/user-attachments/assets/3b8ed850-d8cf-450d-80a3-6b8ed6a7e8a9" />
+<img width="693" height="592" alt="image" src="https://github.com/user-attachments/assets/eea03cb6-1473-40f1-b128-986fda814c3e" />
 
 5 - Once in ROMMON mode prompt, add the next command _(Change the default Configuration Register Value to 0x2142)_: 
 
@@ -66,3 +66,51 @@ reload
 ## Resources
 
 https://www.youtube.com/watch?v=WYQMJoIKvvA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
