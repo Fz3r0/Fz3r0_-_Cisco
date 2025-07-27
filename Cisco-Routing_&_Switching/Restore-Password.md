@@ -89,7 +89,7 @@ reload
 
 ````
 
-12 - You now can access access with the new admin and enable passwords:
+12 - You now can access access with the new admin and enable passwords `admin`:`admin.cisco`
 
 
 
