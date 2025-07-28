@@ -29,3 +29,4 @@ license clear
 ## Resources
 
 - https://www.youtube.com/watch?v=bk-4jkb6Cwo
+- https://www.youtube.com/watch?v=CwfFQxd2zig
