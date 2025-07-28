@@ -94,7 +94,7 @@ banner motd $
 #                                                                                     #
 #    SNMP       : SNMP VERSION       :  SNMPv3                                        #
 #               : MONITOR SERVER     :  SOLARWINDS                                    #
-#               : SOLARWINDS SERVER  :  10.10.66.202     
+#               : SOLARWINDS SERVER  :  10.10.66.203     
 
 
 
@@ -241,9 +241,15 @@ aaa authentication login default local group radius
 aaa authorization exec default local group radius 
 aaa session-id common
 
-! # RADIUS
-radius server Fz3r0_RADIUS_SERVER
+! # RADIUS-SERVER-1
+radius server Fz3r0_RADIUS_SERVER_PRIMARY
    address ipv4 10.10.66.201 auth-port 1645 acct-port 1646
+   key Fz3r0_RADIUS_Pa$$w0rD
+exit
+
+! # RADIUS-SERVER-2
+radius server Fz3r0_RADIUS_SERVER_SECONDARY
+   address ipv4 10.10.66.202 auth-port 1645 acct-port 1646
    key Fz3r0_RADIUS_Pa$$w0rD
 exit
 
