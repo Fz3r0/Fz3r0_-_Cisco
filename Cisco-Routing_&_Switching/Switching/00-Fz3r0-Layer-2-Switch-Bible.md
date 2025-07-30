@@ -340,6 +340,13 @@ interface Vlan30
    no shutdown
 exit
 
+! # SVI - VLAN 40 (VOIP) (/23 = 510 hosts)
+interface Vlan40
+   description *** V40-VOIP-PHONES ***
+   no ip address
+   no shutdown
+exit
+
 ! # SVI - VLAN 50 (WIRELESS) (/23 = 510 hosts)
 interface Vlan50
    description *** V50-WIFI-WIRELESS ***
