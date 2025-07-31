@@ -477,7 +477,7 @@ exit
 ! #####################################################################################
 
 ! # SNMP ACL - SNMP Allow IPs [Other Branch Networks / Single Hosts] - (Deny everything else) 
-ip access-list standard Fz3r0-SNMP-ACL
+ip access-list standard Fz3r0-SNMP-ACL-RO
    ! # INTERNAL SITE NETWORK:
    permit 10.10.0.0
    ! # EXTERNAL NETWORKS (Other Servers):
@@ -493,8 +493,8 @@ exit
 ! # SNMP LOCAL CHASSIS-ID - Monitoring tools (Solarwinds) display this identifier for the device.
 snmp-server chassis-id IOS-SWL2-10
 
-! # SNMP GROUP - “priv” security level (auth + encryption). binds to ACL Fz3r0-SNMP-ACL to restrict which IPs can access SNMP through this group.
-snmp-server group Fz3r0-SNMP-GROUPNAME v3 priv access Fz3r0-SNMP-ACL
+! # SNMP GROUP - “priv” security level (auth + encryption). binds to ACL Fz3r0-SNMP-ACL-RO to restrict which IPs can access SNMP through this group.
+snmp-server group Fz3r0-SNMP-GROUPNAME v3 priv access Fz3r0-SNMP-ACL-RO
 
 ! # SNMP USER - with SHA authentication and AES‑256 privacy, assigned to the specified SNMP group.
 ! # Real Catalyst IOS-XE example
