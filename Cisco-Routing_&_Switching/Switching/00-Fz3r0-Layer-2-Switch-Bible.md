@@ -508,6 +508,8 @@ snmp-server host 10.10.0.201 version 3 priv Fz3r0-SNMP-USERNAME
 
 ! # SNMP MANAGER(SERVER) LOGGING - MAIN (SOLARWINDS)
 logging host 10.10.0.201
+logging host 10.10.0.202
+logging host 10.10.0.203
 ! # SNMP MANAGER(SERVER) LOGGING - SECONDARY (External Support Monitoring Hosts)
 logging host 10.20.0.10
 logging host 10.20.0.11
