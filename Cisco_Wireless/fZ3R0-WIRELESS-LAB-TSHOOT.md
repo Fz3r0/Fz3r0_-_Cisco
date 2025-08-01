@@ -206,7 +206,7 @@ exit
 
 ! # SVI - VLAN 10 
 interface Vlan10
-   description *** V10-BLUE - GATEWAY ***
+   description *** V10-BLUE - L2 ***
    no ip address
    no shutdown
 exit
@@ -303,6 +303,156 @@ wr
 ````
 
 
+
+
+
+
+## AP-BRIDGE (ACT AS TRUNK PORT)
+
+````py
+!
+!
+
+enable
+terminal width 500
+configure terminal
+hostname AP-BRIDGE
+
+! #####################################################################################
+! # VLANs                                                                             #
+! #####################################################################################
+
+!# VLAN
+vlan 10
+   name V10-BLUE
+exit
+vlan 20
+   name V10-RED
+exit
+vlan 30
+   name V10-GREEN
+exit
+!
+vlan 40 
+   name V40-VOIP
+exit
+!
+vlan 50 
+   name V50-WIRELESS
+exit
+!
+vlan 66 
+   name V66-MANAGEMENT
+exit
+!
+
+! #####################################################################################
+! # SWITCH VIRTUAL INTERFACES (SVI) - L3 LAN GATEWAYS                                 #
+! #####################################################################################
+
+! # SVI - VLAN 1 DEFAULT SHUTDOWN (for security)
+interface Vlan1
+   no ip address
+   shutdown
+exit
+
+! # SVI - VLAN 10 
+interface Vlan10
+   description *** V10-BLUE - L2 ***
+   no ip address
+   no shutdown
+exit
+!
+! # SVI - VLAN 20
+interface Vlan20
+   description *** V20-RED - L2 ***
+   no ip address
+   no shutdown
+exit
+!
+! # SVI - VLAN 30
+interface Vlan30
+   description *** V30-GREEN - L2 ***
+   no ip address
+   no shutdown
+exit
+
+! # SVI - VLAN 40 
+interface Vlan40
+   description *** V40-VOIP-PHONES - L2 ***
+   no ip address
+   no shutdown
+exit
+
+! # SVI - VLAN 50 
+interface Vlan50
+   description *** V50-WIFI-WIRELESS - L2 ***
+   no ip address
+   no shutdown
+exit
+
+! # SVI - VLAN 66 
+interface Vlan66
+   description *** V66-MANAGEMENT - L2 ***
+   ip address 10.10.66.10 255.255.254.0
+   no shutdown
+exit
+
+! #####################################################################################
+! # DOMAIN & DNS                                                                      #
+! #####################################################################################
+
+! # DOMAIN = fz3r0.com
+ip domain-name fz3r0.com
+
+! # DNS 1 - Google DNS 
+ip name-server 6.6.6.6
+! # DNS 2 - Google DNS 2
+ip name-server 6.6.3.3
+
+! # Disable DNS lookup (For labs: Avoid delays when typing invalid commands)
+no ip domain-lookup
+
+ ######################################################################################
+! # DEFAULT GATEWAY & IP ROUTE                                                        #
+! #####################################################################################
+
+! # L2 : Default Gateway @ GW - NOT NEEDED IN CORE, WE ARE ALREADY THE GATEWAY!
+ip default-gateway 10.10.66.1
+
+! # L3 : Default Route @ GW->WAN - NOT NEEDED IN CORE, WE ARE ALREADY THE GATEWAY!
+ip route 0.0.0.0 0.0.0.0 10.10.66.1
+
+! #####################################################################################
+! #  Interfaces                                                                #
+! #####################################################################################
+
+interface range Ethernet0/0-1
+   description ** TRUNK ALLOW ALL **
+   no shutdown
+   switchport trunk encapsulation dot1q
+   switchport mode trunk
+exit
+
+interface range Ethernet0/2-3
+   description ** ACESS WIRLESS MAYBE BAD **
+   no shutdown
+   switchport mode access 
+   switchport access vlan 50
+exit
+
+! #####################################################################################
+! #  Save                                                               #
+! #####################################################################################
+
+
+end
+wr
+
+!
+!
+
+````
 
 
 
