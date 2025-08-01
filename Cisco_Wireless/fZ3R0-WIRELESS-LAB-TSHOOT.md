@@ -95,7 +95,7 @@ exit
 ! # DOMAIN & DNS                                                                      #
 ! #####################################################################################
 
-! # DOMAIN = (fz3r0.com) - Device’s default DNS domain name (used to build its FQDN) / required for generating SSH keys / appended when resolving unqualified hostnames  | ping server1 (server1.fz3r0.com)
+! # DOMAIN = fz3r0.com
 ip domain-name fz3r0.com
 
 ! # DNS 1 - Google DNS 
