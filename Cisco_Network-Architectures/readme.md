@@ -30,7 +30,11 @@ https://www.youtube.com/watch?v=6TF2ph6jiEI
 
 ![image](https://github.com/user-attachments/assets/bcf69315-3089-4df0-aeeb-8f425a331471)
 
+Cable organizer:
 
+https://www.youtube.com/shorts/tcRrxAac_MM
+
+---
 
 Optimizing On-Premise Network Infrastructure: A Component-Level Breakdown ⚙️
 
