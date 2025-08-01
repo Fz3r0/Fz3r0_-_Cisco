@@ -394,7 +394,7 @@ exit
 ! # SVI - VLAN 66 
 interface Vlan66
    description *** V66-MANAGEMENT - L2 ***
-   ip address 10.10.66.10 255.255.254.0
+   ip address 10.10.66.11 255.255.254.0
    no shutdown
 exit
 
