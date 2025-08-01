@@ -8,6 +8,7 @@
 !
 
 enable
+terminal width 500
 configure terminal
 hostname SWL3-CORE-1
 
@@ -161,6 +162,7 @@ wr
 !
 
 enable
+terminal width 500
 configure terminal
 hostname SWL2-MEETING-ROOM
 
