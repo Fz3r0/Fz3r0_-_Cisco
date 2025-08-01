@@ -1,0 +1,156 @@
+
+
+
+## SWL3-CORE-1
+
+````py
+!
+!
+
+enable
+configure terminal
+hostname SWL3-CORE-1
+
+! #####################################################################################
+! # VLANs                                                                             #
+! #####################################################################################
+
+!# VLAN
+vlan 10
+   name V10-BLUE
+exit
+vlan 20
+   name V10-RED
+exit
+vlan 30
+   name V10-GREEN
+exit
+!
+vlan 40 
+   name V40-VOIP
+exit
+!
+vlan 50 
+   name V50-WIRELESS
+exit
+!
+vlan 66 
+   name V66-MANAGEMENT
+exit
+!
+
+! #####################################################################################
+! # SWITCH VIRTUAL INTERFACES (SVI) - L3 LAN GATEWAYS                                 #
+! #####################################################################################
+
+! # SVI - VLAN 1 DEFAULT SHUTDOWN (for security)
+interface Vlan1
+   no ip address
+   shutdown
+exit
+
+! # SVI - VLAN 10 (/23 = 510 hosts)
+interface Vlan10
+   description *** V10-BLUE - GATEWAY ***
+   ip address 10.10.10.1 255.255.254.0
+   no shutdown
+exit
+!
+! # SVI - VLAN 20 (/23 = 510 hosts)
+interface Vlan20
+   description *** V20-RED - GATEWAY ***
+   ip address 10.10.20.1 255.255.254.0
+   no shutdown
+exit
+!
+! # SVI - VLAN 30 (/23 = 510 hosts)
+interface Vlan30
+   description *** V30-GREEN - GATEWAY ***
+   ip address 10.10.30.1 255.255.254.0
+   no shutdown
+exit
+
+! # SVI - VLAN 40 (VOIP) (/23 = 510 hosts)
+interface Vlan40
+   description *** V40-VOIP-PHONES - GATEWAY ***
+   ip address 10.10.40.1 255.255.254.0
+   no shutdown
+exit
+
+! # SVI - VLAN 50 (WIRELESS) (/23 = 510 hosts)
+interface Vlan50
+   description *** V50-WIFI-WIRELESS - GATEWAY ***
+   ip address 10.10.50.1 255.255.254.0
+   no shutdown
+exit
+
+! # SVI - VLAN 66 (MANAGEMENT) (/23 = 510 hosts)
+interface Vlan66
+   description *** V66-MANAGEMENT - GATEWAY ***
+   ip address 10.10.66.1 255.255.254.0
+   no shutdown
+exit
+
+! #####################################################################################
+! # DOMAIN & DNS                                                                      #
+! #####################################################################################
+
+! # DOMAIN = (fz3r0.com) - Device’s default DNS domain name (used to build its FQDN) / required for generating SSH keys / appended when resolving unqualified hostnames  | ping server1 (server1.fz3r0.com)
+ip domain-name fz3r0.com
+
+! # DNS 1 - Google DNS 
+ip name-server 6.6.6.6
+! # DNS 2 - Google DNS 2
+ip name-server 6.6.3.3
+
+! # Disable DNS lookup (For labs: Avoid delays when typing invalid commands)
+no ip domain-lookup
+
+ ######################################################################################
+! # DEFAULT GATEWAY & IP ROUTE                                                        #
+! #####################################################################################
+
+! # L2 : Default Gateway @ GW - NOT NEEDED IN CORE, WE ARE ALREADY THE GATEWAY!
+!ip default-gateway 10.10.66.1
+
+! # L3 : Default Route @ GW->WAN - NOT NEEDED IN CORE, WE ARE ALREADY THE GATEWAY!
+!ip route 0.0.0.0 0.0.0.0 10.10.66.1
+
+! #####################################################################################
+! #  ENABLE IP ROUTING                                                                #
+! #####################################################################################
+
+!# (For L3 Switches) Enables the router to forward packets BETWEEN DIFFERENT NETWORKS (turns on Layer 3 routing between management & default VRFs) - InterVLAN Routing
+ip routing
+
+! #####################################################################################
+! #  Interfaces                                                                #
+! #####################################################################################
+
+interface range Ethernet0/0-1
+   description ** TRUNK ALLOW ALL **
+   no shutdown
+   switchport trunk encapsulation dot1q
+   switchport mode trunk
+exit
+!
+
+! #####################################################################################
+! #  Save                                                               #
+! #####################################################################################
+
+
+end
+wr
+
+!
+!
+
+````
+
+
+
+
+
+
+
