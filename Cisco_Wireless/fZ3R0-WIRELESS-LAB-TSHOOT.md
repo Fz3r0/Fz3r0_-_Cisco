@@ -394,7 +394,7 @@ exit
 ! # SVI - VLAN 66 
 interface Vlan66
    description *** V66-MANAGEMENT - L2 ***
-   ip address 10.10.66.11 255.255.254.0
+   ip address 10.10.66.99 255.255.254.0
    no shutdown
 exit
 
@@ -427,18 +427,34 @@ ip route 0.0.0.0 0.0.0.0 10.10.66.1
 ! #  Interfaces                                                                #
 ! #####################################################################################
 
-interface range Ethernet0/0-1
+interface Ethernet 0/0
    description ** TRUNK ALLOW ALL **
    no shutdown
    switchport trunk encapsulation dot1q
    switchport mode trunk
 exit
 
-interface range Ethernet0/2-3
-   description ** ACESS WIRLESS MAYBE BAD **
+!
+
+interface Ethernet 0/1
+   description ** ACESS 10 **
    no shutdown
    switchport mode access 
-   switchport access vlan 50
+   switchport access vlan 10
+exit
+
+interface Ethernet 0/2
+   description ** ACESS 20 **
+   no shutdown
+   switchport mode access 
+   switchport access vlan 20
+exit
+
+interface Ethernet 0/3
+   description ** ACESS 30 **
+   no shutdown
+   switchport mode access 
+   switchport access vlan 30
 exit
 
 ! #####################################################################################
