@@ -590,7 +590,6 @@ interface  1/1/8
 exit
 
 exit
-exit
 write memory
 
 
