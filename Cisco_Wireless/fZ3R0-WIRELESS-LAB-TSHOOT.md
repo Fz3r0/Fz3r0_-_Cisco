@@ -556,37 +556,37 @@ exit
 interface  1/1/3
    description *** ACCESS VLAN 10 ***
       no routing
-         vlan access vlan 10
+         vlan access 10
 exit
 
 interface  1/1/4
    description *** ACCESS VLAN 20 ***
       no routing
-         vlan access vlan 20
+         vlan access 20
 exit
 
 interface  1/1/5
    description *** ACCESS VLAN 30 ***
       no routing
-         vlan access vlan 30
+         vlan access 30
 exit
 
 interface  1/1/6
    description *** ACCESS VLAN 40 ***
       no routing
-         vlan access vlan 30
+         vlan access 30
 exit
 
 interface  1/1/7
    description *** ACCESS VLAN 50 ***
       no routing
-         vlan access vlan 30
+         vlan access 30
 exit
 
 interface  1/1/8
    description *** ACCESS VLAN 60 ***
       no routing
-         vlan access vlan 30
+         vlan access 30
 exit
 
 exit
