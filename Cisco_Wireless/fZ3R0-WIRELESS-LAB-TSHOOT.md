@@ -487,7 +487,7 @@ wr
 !
 
 configure terminal
-hostname AP-BRIDGE
+hostname AP-BRIDGE-ARUBA
 lldp run
 
 ! #####################################################################################
