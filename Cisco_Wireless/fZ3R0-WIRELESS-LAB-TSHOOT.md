@@ -11,6 +11,7 @@ enable
 terminal width 500
 configure terminal
 hostname SWL3-CORE-1
+lldp run
 
 ! #####################################################################################
 ! # VLANs                                                                             #
@@ -172,6 +173,7 @@ enable
 terminal width 500
 configure terminal
 hostname SWL2-MEETING-ROOM
+lldp run
 
 ! #####################################################################################
 ! # VLANs                                                                             #
@@ -486,6 +488,7 @@ wr
 
 configure terminal
 hostname AP-BRIDGE
+lldp run
 
 ! #####################################################################################
 ! # DOMAIN & DNS                                                                      #
@@ -619,6 +622,7 @@ L3 SIMULATION FOR WIRELESS CLIENT IN DIFFERENT SSIDS:
 !
 enable
 configure terminal
+lldp run
 
 hostname CLIENT-STA-1
 
