@@ -479,7 +479,7 @@ wr
 
 ````
 
-## Aruba Version
+## Aruba AP Brdged mode (trunk)
 
 ````py
 
