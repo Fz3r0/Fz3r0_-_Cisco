@@ -136,6 +136,13 @@ interface range Ethernet0/0-1
 exit
 !
 
+interface Ethernet 0/2
+   description ** ACESS WIRLESS MAYBE BAD **
+   no shutdown
+   switchport mode access 
+   switchport access vlan 50
+exit
+
 ! #####################################################################################
 ! #  Save                                                               #
 ! #####################################################################################
@@ -469,6 +476,178 @@ wr
 !
 
 ````
+
+## Aruba Version
+
+````py
+
+!
+!
+
+configure terminal
+hostname AP-BRIDGE
+
+! #####################################################################################
+! # DOMAIN & DNS                                                                      #
+! #####################################################################################
+
+ip dns domain-name fz3r0.com
+ip dns server-address 6.6.6.6
+ip dns server-address 6.6.3.3
+ip route 0.0.0.0/0 10.10.66.1
+
+! #####################################################################################
+! # VLANs                                                                             #
+! #####################################################################################
+
+!# VLAN
+vlan 10
+   name V10-BLUE
+exit
+vlan 20
+   name V10-RED
+exit
+vlan 30
+   name V10-GREEN
+exit
+!
+vlan 40 
+   name V40-VOIP
+exit
+!
+vlan 50 
+   name V50-WIRELESS
+exit
+!
+vlan 66 
+   name V66-MANAGEMENT
+exit
+!
+
+
+! #####################################################################################
+! # SWITCH VIRTUAL INTERFACES (SVI) - L3 LAN GATEWAYS                                 #
+! #####################################################################################
+
+interface vlan 66
+   description *** V66-MANAGEMENT L2 *** 
+   ip address 10.10.66.98/23
+exit
+
+
+! #####################################################################################
+! #  Interfaces                                                                #
+! #####################################################################################
+
+interface  1/1/1
+   description *** TRUNK ALL VLANS ***
+      no routing
+         vlan trunk allowed all
+         vlan trunk native 1
+exit
+
+interface  1/1/2
+   description *** TRUNK ALL VLANS ***
+      no routing
+         vlan trunk allowed all
+         vlan trunk native 1
+exit
+
+interface  1/1/3
+   description *** ACCESS VLAN 10 ***
+      no routing
+         vlan access vlan 10
+exit
+
+interface  1/1/4
+   description *** ACCESS VLAN 20 ***
+      no routing
+         vlan access vlan 20
+exit
+
+interface  1/1/5
+   description *** ACCESS VLAN 30 ***
+      no routing
+         vlan access vlan 30
+exit
+
+interface  1/1/6
+   description *** ACCESS VLAN 40 ***
+      no routing
+         vlan access vlan 30
+exit
+
+interface  1/1/7
+   description *** ACCESS VLAN 50 ***
+      no routing
+         vlan access vlan 30
+exit
+
+interface  1/1/8
+   description *** ACCESS VLAN 60 ***
+      no routing
+         vlan access vlan 30
+exit
+
+exit
+exit
+write memory
+
+
+!
+!
+
+
+````
+
+
+
+
+
+
+
+
+
+
+
+# WLAN CLIENTS
+
+L3 SIMULATION FOR WIRELESS CLIENT IN DIFFERENT SSIDS: 
+
+## CLIENT-STA-1
+
+````py
+!
+enable
+configure terminal
+
+hostname CLIENT-STA-1
+
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** WIRELESS STA **
+   ip address 10.10.10.101 255.255.254.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+
+````
+
 
 
 
