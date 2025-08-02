@@ -420,13 +420,13 @@ exit
 interface  1/1/7
    description *** ACCESS VLAN 50 ***
       no routing
-         vlan access 30
+         vlan access 50
 exit
 
 interface  1/1/8
-   description *** ACCESS VLAN 60 ***
+   description *** ACCESS VLAN 66 ***
       no routing
-         vlan access 30
+         vlan access 66
 exit
 
 exit
