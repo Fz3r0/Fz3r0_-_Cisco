@@ -384,7 +384,7 @@ interface  1/1/1
       no shut
       no routing
          vlan trunk allowed all
-         vlan trunk native 1
+         vlan trunk native 10
 exit
 
 interface  1/1/2
@@ -392,7 +392,7 @@ interface  1/1/2
       no shut
       no routing
          vlan trunk allowed all
-         vlan trunk native 1
+         vlan trunk native 10
 exit
 
 interface  1/1/3
