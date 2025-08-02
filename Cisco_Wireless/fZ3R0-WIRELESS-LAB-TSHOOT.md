@@ -453,7 +453,7 @@ write memory
 
 L3 SIMULATION FOR WIRELESS CLIENT IN DIFFERENT SSIDS: 
 
-## CLIENT-STA-1
+### CLIENT-STA-1
 
 ````py
 !
@@ -468,7 +468,77 @@ no ip domain-lookup
 ! # Configure interface as if it's the PC's network card
 interface Ethernet 0/0
    description ** WIRELESS STA **
-   ip address 10.10.10.101 255.255.254.0
+   ip address 10.10.10.150 255.255.254.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+
+````
+
+### CLIENT-STA-2
+
+````py
+!
+enable
+configure terminal
+lldp run
+
+hostname CLIENT-STA-2
+
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** WIRELESS STA **
+   ip address 10.10.10.151 255.255.254.0
+   duplex full
+   no shutdown
+exit
+
+! # Set a default route pointing to the gateway (usually your lab router)
+ip route 0.0.0.0 0.0.0.0 10.10.10.1
+
+! # Exit & Save
+end
+write memory
+
+
+!
+!
+
+
+
+````
+
+### CLIENT-STA-3
+
+````py
+!
+enable
+configure terminal
+lldp run
+
+hostname CLIENT-STA-3
+
+no ip domain-lookup
+
+! # Configure interface as if it's the PC's network card
+interface Ethernet 0/0
+   description ** WIRELESS STA **
+   ip address 10.10.50.150 255.255.254.0
    duplex full
    no shutdown
 exit
