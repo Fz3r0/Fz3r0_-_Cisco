@@ -399,7 +399,7 @@ interface  1/1/3
    description *** ACCESS VLAN 10 ***
       no shut
       no routing
-         vlan access 1
+         vlan access 10
 exit
 
 interface  1/1/4
