@@ -292,7 +292,7 @@ interface range Ethernet0/0-1
 exit
 
 interface range Ethernet0/2-3
-   description ** ACESS WIRLESS MAYBE BAD **
+   description ** ACCESS WIRLESS MAYBE BAD **
    no shutdown
    switchport mode access 
    switchport access vlan 50
