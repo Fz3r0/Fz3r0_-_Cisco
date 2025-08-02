@@ -381,6 +381,7 @@ exit
 
 interface  1/1/1
    description *** TRUNK ALL VLANS ***
+      no shut
       no routing
          vlan trunk allowed all
          vlan trunk native 1
@@ -388,6 +389,7 @@ exit
 
 interface  1/1/2
    description *** TRUNK ALL VLANS ***
+      no shut
       no routing
          vlan trunk allowed all
          vlan trunk native 1
@@ -395,43 +397,28 @@ exit
 
 interface  1/1/3
    description *** ACCESS VLAN 10 ***
+      no shut
       no routing
          vlan access 10
 exit
 
 interface  1/1/4
-   description *** ACCESS VLAN 20 ***
-      no routing
-         vlan access 20
-exit
-
-interface  1/1/5
-   description *** ACCESS VLAN 30 ***
-      no routing
-         vlan access 30
-exit
-
-interface  1/1/6
-   description *** ACCESS VLAN 40 ***
-      no routing
-         vlan access 30
-exit
-
-interface  1/1/7
    description *** ACCESS VLAN 50 ***
+      no shut
       no routing
          vlan access 50
 exit
 
-interface  1/1/8
+interface  1/1/5
    description *** ACCESS VLAN 66 ***
+      no shut
       no routing
          vlan access 66
 exit
 
 exit
-write memory
 
+write memory
 
 !
 !
@@ -503,13 +490,13 @@ no ip domain-lookup
 ! # Configure interface as if it's the PC's network card
 interface Ethernet 0/0
    description ** WIRELESS STA **
-   ip address 10.10.10.151 255.255.254.0
+   ip address 10.10.50.150 255.255.254.0
    duplex full
    no shutdown
 exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
-ip route 0.0.0.0 0.0.0.0 10.10.10.1
+ip route 0.0.0.0 0.0.0.0 10.10.50.1
 
 ! # Exit & Save
 end
@@ -538,13 +525,13 @@ no ip domain-lookup
 ! # Configure interface as if it's the PC's network card
 interface Ethernet 0/0
    description ** WIRELESS STA **
-   ip address 10.10.50.150 255.255.254.0
+   ip address 10.10.66.150 255.255.254.0
    duplex full
    no shutdown
 exit
 
 ! # Set a default route pointing to the gateway (usually your lab router)
-ip route 0.0.0.0 0.0.0.0 10.10.10.1
+ip route 0.0.0.0 0.0.0.0 10.10.66.1
 
 ! # Exit & Save
 end
