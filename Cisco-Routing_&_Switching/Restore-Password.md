@@ -331,10 +331,145 @@ write memory
 
 ````
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Switch
+
+<img width="1179" height="594" alt="image" src="https://github.com/user-attachments/assets/2a0aaa66-78ff-46da-8021-79ac7176f63d" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Resources
 
 - https://www.youtube.com/watch?v=WYQMJoIKvvA
 - https://youtu.be/WYQMJoIKvvA?si=eTtJN8e7a4nOzObk
+- https://www.youtube.com/watch?v=HXRiFsimDhE
+- https://www.youtube.com/watch?v=a0kSJUYQrt4
 
 
 
