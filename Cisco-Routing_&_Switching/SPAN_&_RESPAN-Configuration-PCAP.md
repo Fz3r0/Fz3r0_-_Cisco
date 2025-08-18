@@ -109,7 +109,11 @@ show interface status | include Gi1/0/11
 
 ````
 
-Importante:
+## Resultado
+
+<img width="1314" height="385" alt="image" src="https://github.com/user-attachments/assets/881f25fa-0bc4-45c6-8a76-e69c1fa7f002" />
+
+## Importante:
 
 - El puerto destino entra en modo monitor (no envía tráfico de usuario, no puede ser trunk, ni pertenecer a un port-channel, ni tener port-security).
 - Conecta tu PC con Wireshark a Gi1/0/11 y listo!!!
