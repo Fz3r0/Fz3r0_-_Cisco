@@ -124,6 +124,14 @@ show interfaces trunk | include 999
 
 6. Limpieza / quitar SPAN al terminal (Es importante para que el puerto deje de monitorear)
 
+**IMPORTNAT!!!:**
+
+**When configuring a SPAN/RSPAN session, neither the source port nor the destination port permanently lose their previous configuration.** 
+
+- The source port continues to operate normally (e.g., access VLAN, security policies, QoS) while its traffic is simply mirrored.
+- The destination port, on the other hand, temporarily ignores its normal switchport configuration (VLAN assignment, voice VLAN, STP, etc.) and becomes a dedicated monitor port that only outputs the mirrored traffic.
+- **Once the SPAN session is removed, the destination port automatically returns to its original configuration as defined in the running-config, without requiring manual reconfiguration.**
+
 En ambos switches:
 
 ````
@@ -140,7 +148,6 @@ end
 ````
 
 7. Opcional: conservar la `VLAN 999` para futuras capturas o borrarla si ya no se usará.
-
 
 
 # 📚🗂️🎥 Resources
