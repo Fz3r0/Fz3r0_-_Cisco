@@ -554,31 +554,58 @@ copy running-config startup-config
 
 11. Reload the device.
 
+- `reload`
+
+````
 Device# reload
+````
 
-12. You will be again on "switch" with fabirc configs, no pass, no nothing. 
-
-
-
----
-
-
-recuperar:
-
-
+12. You will be again on "switch" with fabirc configs, no pass, no nothing. Press "no" again. 
 
 Procedimiento para evitar que el switch arranque en 'switch>' y cargue siempre la configuración:
 
-1. Revisar archivos en flash (confirmar que existe packages.conf)
----------------------------------------------------------------
-dir flash:
+13. evisar archivos en flash (confirmar que existe packages.conf)
 
-2. Apuntar el boot al archivo correcto
----------------------------------------------------------------
+````
+dir flash:
+````
+
+14. Apuntar el boot al archivo correcto
+
+````
 conf t
  boot system switch all flash:packages.conf
 end
 write memory
+````
+
+15. Evitar que ignore el startup config init:
+
+````
+no system ignore startupconfig switch all
+````
+
+16. Guardar y reiniciar: 
+
+````
+copy start
+
+write
+
+reload
+````
+
+Dosfrutar! 
+
+
+
+1. R
+---------------------------------------------------------------
+dir flash:
+
+
+---------------------------------------------------------------
+
 
 3. Verificar variables de boot
 ---------------------------------------------------------------
@@ -623,13 +650,6 @@ show startup-config | include hostname ! tu hostname guardado
 
 despues de switch>
 
-no system ignore startupconfig switch all
-
-copy start
-
-write
-
-reload
 
 
 
