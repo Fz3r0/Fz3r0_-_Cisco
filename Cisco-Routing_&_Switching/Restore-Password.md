@@ -557,13 +557,7 @@ copy running-config startup-config
 
 Device# reload
 
-Step 11 Return the Bootloader parameters (previously changed in Steps 2 and 3) to their original values.
-Device: switch: SWITCH_IGNORE_STARTUP_CFG=0
-Step 12 Boot the device with the packages.conf file from flash.
-Device: boot flash:packages.conf
-Step 13 After the device boots up, disable manual boot on the device.
-Device(config)# no boot manual
-
+12. You will be again on "switch" with fabirc configs, no pass, no nothing. 
 
 
 
