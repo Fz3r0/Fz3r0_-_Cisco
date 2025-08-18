@@ -643,7 +643,51 @@ reload
 
 
 
+---
 
+Facil
+
+1. dejar picado hast estar los 2 en mabar
+2. entrar el modo seitch: y ejecutraR:
+
+````
+flash_init
+````
+
+check files to delete
+
+````
+dir flash:
+````
+
+Files to delete = `vlan.dat` & `config.text`
+
+
+````
+! # old cisco iios:
+!del flash:config.text
+
+! # ios-xe
+del flash:nvram_config
+
+del flash:vlan.dat
+````
+
+check files non exist enymore:
+
+````
+dir flash:
+````
+
+boot
+
+````
+boot
+````
+
+enjoy new switch!
+
+---
 
 
 
