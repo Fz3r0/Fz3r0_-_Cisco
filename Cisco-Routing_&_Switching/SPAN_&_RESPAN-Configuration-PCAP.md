@@ -72,8 +72,8 @@ enable
 conf t
 !
 
-! # Sesion 10: fuente = Gi1/0/1 (ambas direcciones)
-monitor session 10 source interface gi1/0/1 both
+! # Sesion 10: fuente = Gi1/0/13 (ambas direcciones)
+monitor session 10 source interface gi1/0/13 both
 
 ! # Destino = VLAN remota 888 (RSPAN)
 monitor session 10 destination remote vlan 888
@@ -176,8 +176,8 @@ monitor session 10 destination interface gi1/0/11
 ````
 !# Client SIDE
 
-! # Sesion 10: fuente = Gi1/0/1 (ambas direcciones)
-monitor session 10 source interface gi1/0/1 both
+! # Sesion 10: fuente = Gi1/0/13 (ambas direcciones)
+monitor session 10 source interface gi1/0/13 both
 ! # Destino = VLAN remota 888 (RSPAN)
 monitor session 10 destination remote vlan 888
 ````
