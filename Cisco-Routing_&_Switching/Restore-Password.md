@@ -47,12 +47,14 @@ copy startup-config running-config
 
 9 - Change the enable secret & admin/password + save configuration
 
+en los routers puse `admin.cisco` y el otro `cisco.12345` cambialo!
+
 ````
 configure terminal
 
-username admin privilege 15 secret admin.cisco
+username admin privilege 15 secret Cisco.12345
 !
-enable secret cisco.12345
+enable secret Cisco.12345
 
 end
 write memory
@@ -509,8 +511,20 @@ Would you like to enter the initial configuration dialog? [yes/no]: no <<<<<<<<<
 8. At the switch prompt, enter privileged EXEC mode with `enable` & `Copy the startup configuration to running configuration` .
 
 ````
-Device> enable
-Switch#
+Switch>
+Switch>enable
+Switch#copy startup-config running-config
+Destination filename [running-config]? 
+
+*Aug 17 23:27:31.573: %SYS-4-CONFIG_NEWER: Configuration from version 15.2 may not be correctly understood
+qos queue-softmax-multiplier 100
+    ^
+% Invalid input detected at '^' marker.
+Failed to generate persistent self-signed certificate.
+    Secure server will use temporary self-signed certificate.
+
+3075 bytes copied in 10.120 secs (304 bytes/sec)
+SWITCH-OLD-PASSWORD-LOST#  <<<<<<<<<<<<<<< switch original name again!
 ````
 
 9. Copy the startup configuration to running configuration.
@@ -520,18 +534,29 @@ Switch#
 Press Return in response to the confirmation prompts. The configuration file is now reloaded, and **you can change the
 password.**
 
-Step 7 Enter global configuration mode and change the enable password.
-Device# configure terminal
-Device(config)#
-Step 8 Write the running configuration to the startup configuration file.
-Device# copy running-config startup-config
-Step 9 Confirm that manual boot mode is enabled.
-Device# show boot
-BOOT variable = flash:packages.conf;
-Manual Boot = yes
-Enable Break = yes
-Step 10 Reload the device.
+10. Enter global configuration mode and change the enable password & copy running-config startup-config
+
+````
+configure terminal
+
+username admin privilege 15 secret Cisco.12345
+!
+enable secret Cisco.12345
+
+end
+write memory
+copy running-config startup-config
+
+!
+!
+
+
+````
+
+11. Reload the device.
+
 Device# reload
+
 Step 11 Return the Bootloader parameters (previously changed in Steps 2 and 3) to their original values.
 Device: switch: SWITCH_IGNORE_STARTUP_CFG=0
 Step 12 Boot the device with the packages.conf file from flash.
