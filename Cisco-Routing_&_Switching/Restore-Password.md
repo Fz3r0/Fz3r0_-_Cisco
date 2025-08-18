@@ -418,18 +418,109 @@ write memory
 
 ## Switch
 
+1. Apagar el sdwitch por completo
+
+2. sostener el boton de enfrente
+
+3. conectar el cable de power par aque el switch prenda (el botón ya estaba presionado, y mantenerlo aun presionado)
+
+- MANTENER EL BOTON PRESIONADO DESDE EL ARRANQUE HASTA QUE SE PONGA AMBAR, TARDA BASTANTE UNSO 20 SEGUNDOS MINIMO, UNA VEZ EN AMBAR YA SE PUEDE SOLTAR
+
 <img width="1179" height="594" alt="image" src="https://github.com/user-attachments/assets/2a0aaa66-78ff-46da-8021-79ac7176f63d" />
 
+Una vez ambos en ambar, ya estarás dentro de switch recover
 
+<img width="685" height="511" alt="image" src="https://github.com/user-attachments/assets/94efb1e2-66af-4b27-978c-ad7a5417103c" />
 
+4.  Initialize the flash file system.
+- Command: `flash_init`
 
+````
+switch: flash_init
+Initializing Flash...
 
+flashfs[7]: 0 files, 1 directories
+flashfs[7]: 0 orphaned files, 0 orphaned directories
+flashfs[7]: Total bytes: 6784000
+flashfs[7]: Bytes used: 1024
+flashfs[7]: Bytes available: 6782976
+flashfs[7]: flashfs fsck took 2 seconds....done Initializing Flash.
 
+switch: 
+````
 
+5.  Ignore the startup configuration with the following command:
 
+- Device: `SWITCH_IGNORE_STARTUP_CFG=1`
 
+````
+switch: SWITCH_IGNORE_STARTUP_CFG=1
 
+switch: 
+````
 
+6. Boot the switch with the packages.conf file from flash.
+
+Device: `boot flash:packages.conf`
+
+7. Terminate the initial configuration dialog by answering `No`
+
+````
+switch: SWITCH_IGNORE_STARTUP_CFG=1
+
+switch: boot flash:packages.conf
+Getting rest of image
+Reading full image into memory....done
+Reading full base package into memory...: done = 79122052
+Bundle Image
+--------------------------------------
+Kernel Address    : 0x6042f350
+Kernel Size       : 0x402ecf/4206287
+Initramfs Address : 0x60832220
+Initramfs Size    : 0xdb9c62/14392418
+Compression Format: .mzip
+
+Bootable image at @ ram:0x6042f350
+Bootable image segment 0 address range [0x81100000, 0x82110000] is in range [0x80180000, 0x90000000].
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@boot_system: 377
+Loading Linux kernel with entry point 0x81653a10 ...
+Bootloader: Done loading app on core_mask: 0xf
+
+### Launching Linux Kernel (flags = 0x5)
+````
+
+8. At the switch prompt, enter privileged EXEC mode with `enable` & `Copy the startup configuration to running configuration` .
+
+````
+Device> enable
+Switch#
+````
+
+9. Copy the startup configuration to running configuration.
+
+- `copy startup-config running-config` 
+
+Press Return in response to the confirmation prompts. The configuration file is now reloaded, and **you can change the
+password.**
+
+Step 7 Enter global configuration mode and change the enable password.
+Device# configure terminal
+Device(config)#
+Step 8 Write the running configuration to the startup configuration file.
+Device# copy running-config startup-config
+Step 9 Confirm that manual boot mode is enabled.
+Device# show boot
+BOOT variable = flash:packages.conf;
+Manual Boot = yes
+Enable Break = yes
+Step 10 Reload the device.
+Device# reload
+Step 11 Return the Bootloader parameters (previously changed in Steps 2 and 3) to their original values.
+Device: switch: SWITCH_IGNORE_STARTUP_CFG=0
+Step 12 Boot the device with the packages.conf file from flash.
+Device: boot flash:packages.conf
+Step 13 After the device boots up, disable manual boot on the device.
+Device(config)# no boot manual
 
 
 
@@ -470,6 +561,8 @@ write memory
 - https://youtu.be/WYQMJoIKvvA?si=eTtJN8e7a4nOzObk
 - https://www.youtube.com/watch?v=HXRiFsimDhE
 - https://www.youtube.com/watch?v=a0kSJUYQrt4
+- https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3650/software/release/3se/system_management/configuration_guide/b_sm_3se_3650_cg.pdf
+
 
 
 
