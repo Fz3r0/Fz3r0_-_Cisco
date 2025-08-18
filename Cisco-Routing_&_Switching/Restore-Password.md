@@ -487,6 +487,23 @@ Loading Linux kernel with entry point 0x81653a10 ...
 Bootloader: Done loading app on core_mask: 0xf
 
 ### Launching Linux Kernel (flags = 0x5)
+
+.
+.
+.
+.
+
+Enable secret warning
+----------------------------------
+In order to access the device manager, an enable secret is required
+If you enter the initial configuration dialog, you will be prompted for the enable secret
+If you choose not to enter the intial configuration dialog, or if you exit setup without setting the enable secret,
+please set an enable secret using the following CLI in configuration mode-
+enable secret 0 <cleartext password>
+----------------------------------
+Would you like to enter the initial configuration dialog? [yes/no]: no <<<<<<<<<<<<<<<<<<< NO!
+
+
 ````
 
 8. At the switch prompt, enter privileged EXEC mode with `enable` & `Copy the startup configuration to running configuration` .
