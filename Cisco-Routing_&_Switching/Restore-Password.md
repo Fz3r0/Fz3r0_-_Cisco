@@ -618,6 +618,30 @@ show startup-config | include hostname ! tu hostname guardado
 
 
 
+---
+
+despues de switch>
+
+no system ignore startupconfig switch all
+
+copy start
+
+write
+
+reload
+
+
+
+
+---
+
+
+
+
+
+
+
+
 
 
 
