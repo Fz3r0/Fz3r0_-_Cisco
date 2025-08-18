@@ -645,6 +645,7 @@ show startup-config | include hostname ! tu hostname guardado
 - https://www.youtube.com/watch?v=HXRiFsimDhE
 - https://www.youtube.com/watch?v=a0kSJUYQrt4
 - https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3650/software/release/3se/system_management/configuration_guide/b_sm_3se_3650_cg.pdf
+- https://www.youtube.com/watch?v=SWEKEBdC-hg
 
 
 
