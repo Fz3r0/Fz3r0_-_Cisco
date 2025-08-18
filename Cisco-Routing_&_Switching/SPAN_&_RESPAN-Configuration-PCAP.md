@@ -21,7 +21,7 @@ Tu escenario pide RSPAN (capturar en SW2 pero recibir la copia en SW1).
 
 - Destino (destination): SW1, interfaz Gi1/0/11 (donde conectas Wireshark). Este será el core switch, tiene varios access switch conectados. 
 
-- Transporte: una RSPAN VLAN (ej. 999) que viaje por los trunks entre SW2 ↔︎ SW1. LA VLAN DE RSPAN DEBE SER UNA NUEVA CONFIGURADA EN TODOS LOS SWITCHES, La VLAN RSPAN no se usa para usuarios u otro tráfico o subnet (dedícala solo a RSPAN).
+- Transporte: una RSPAN VLAN (ej. 888) que viaje por los trunks entre SW2 ↔︎ SW1. LA VLAN DE RSPAN DEBE SER UNA NUEVA CONFIGURADA EN TODOS LOS SWITCHES, La VLAN RSPAN no se usa para usuarios u otro tráfico o subnet (dedícala solo a RSPAN).
 
 ## Configuración:
 
@@ -45,7 +45,7 @@ enable
 conf t
 !
 interface Range GigabitEthernet1/0/19-24
-   switchport trunk allowed vlan ADD 999
+   switchport trunk allowed vlan ADD 888
 end
 
 ````
@@ -54,7 +54,7 @@ end
 
 ````
 !
-show interfaces trunk | include 999
+show interfaces trunk | include 888
 
 !
 show vlan remote-span
@@ -75,8 +75,8 @@ conf t
 ! # Sesion 10: fuente = Gi1/0/1 (ambas direcciones)
 monitor session 10 source interface gi1/0/1 both
 
-! # Destino = VLAN remota 999 (RSPAN)
-monitor session 10 destination remote vlan 999
+! # Destino = VLAN remota 888 (RSPAN)
+monitor session 10 destination remote vlan 888
 
 end
 
@@ -87,15 +87,15 @@ show monitor session 10
 
 4. Terminar la sesión en el switch destino (SW1) _Donde conectaremos el wireshark para monitorear_
 
-Ahora recibes ese “túnel” en la VLAN 999 y lo sacas por tu puerto de análisis Gi1/0/11:
+Ahora recibes ese “túnel” en la VLAN 888 y lo sacas por tu puerto de análisis Gi1/0/11:
 
 ````
 enable
 conf t
 !
 
-! # Sesión 10: fuente = VLAN remota 999
-monitor session 10 source remote vlan 999
+! # Sesión 10: fuente = VLAN remota 888
+monitor session 10 source remote vlan 888
 
 ! # Destino = tu puerto de captura (conecta aquí el laptop con Wireshark)
 monitor session 10 destination interface gi1/0/11
@@ -111,7 +111,7 @@ show interface status | include Gi1/0/11
 
 ## Resultado
 
-<img width="1314" height="385" alt="image" src="https://github.com/user-attachments/assets/881f25fa-0bc4-45c6-8a76-e69c1fa7f002" />
+<img width="1062" height="209" alt="image" src="https://github.com/user-attachments/assets/e33ce204-2c5a-4cb2-8522-da7166394270" />
 
 ## Importante:
 
@@ -123,7 +123,7 @@ show interface status | include Gi1/0/11
 ````
 show vlan remote-span
 show monitor session all
-show interfaces trunk | include 999
+show interfaces trunk | include 888
 ````
 
 6. Limpieza / quitar SPAN al terminal (Es importante para que el puerto deje de monitorear)
@@ -151,7 +151,7 @@ end
 
 ````
 
-7. Opcional: conservar la `VLAN 999` para futuras capturas o borrarla si ya no se usará.
+7. Opcional: conservar la `VLAN 888` para futuras capturas o borrarla si ya no se usará.
 
 
 
@@ -179,13 +179,13 @@ SW1-Fz3r0#
 SW1-Fz3r0#config t
 Enter configuration commands, one per line.  End with CNTL/Z.
 SW1-Fz3r0(config)#interface Range GigabitEthernet1/0/19-24
-SW1-Fz3r0(config-if-range)#   switchport trunk allowed vlan ADD 999
+SW1-Fz3r0(config-if-range)#   switchport trunk allowed vlan ADD 888
 SW1-Fz3r0(config-if-range)#end
 SW1-Fz3r0#
 SW1-Fz3r0#
 SW1-Fz3r0#!
-SW1-Fz3r0#show interfaces trunk | include 999
-Gi1/0/23    2-100,999
+SW1-Fz3r0#show interfaces trunk | include 888
+Gi1/0/23    2-100,888
 SW1-Fz3r0#
 SW1-Fz3r0#!
 SW1-Fz3r0#show vlan remote-span
@@ -200,8 +200,8 @@ SW1-Fz3r0#conf t
 Enter configuration commands, one per line.  End with CNTL/Z.
 SW1-Fz3r0(config)#!
 SW1-Fz3r0(config)#
-SW1-Fz3r0(config)#! # SesiC3n 10: fuente = VLAN remota 999
-SW1-Fz3r0(config)#monitor session 10 source remote vlan 999
+SW1-Fz3r0(config)#! # SesiC3n 10: fuente = VLAN remota 888
+SW1-Fz3r0(config)#monitor session 10 source remote vlan 888
 SW1-Fz3r0(config)#
 SW1-Fz3r0(config)#$to de captura (conecta aquC- el laptop con Wireshark)     
 SW1-Fz3r0(config)#monitor session 10 destination interface gi1/0/11
@@ -213,7 +213,7 @@ SW1-Fz3r0#show monitor session 10
 Session 10
 ----------
 Type                   : Remote Destination Session
-Source RSPAN VLAN      : 999
+Source RSPAN VLAN      : 888
 Destination Ports      : Gi1/0/11
     Encapsulation      : Native
           Ingress      : Disabled
@@ -244,13 +244,13 @@ SW2-Fz3r0#
 SW2-Fz3r0#config t
 Enter configuration commands, one per line.  End with CNTL/Z.
 SW2-Fz3r0(config)#interface Range GigabitEthernet1/0/19-24
-SW2-Fz3r0(config-if-range)#   switchport trunk allowed vlan ADD 999
+SW2-Fz3r0(config-if-range)#   switchport trunk allowed vlan ADD 888
 SW2-Fz3r0(config-if-range)#end
 SW2-Fz3r0#
 SW2-Fz3r0#
 SW2-Fz3r0#!
-SW2-Fz3r0#show interfaces trunk | include 999
-Gi1/0/23    2-100,999
+SW2-Fz3r0#show interfaces trunk | include 888
+Gi1/0/23    2-100,888
 SW2-Fz3r0#
 SW2-Fz3r0#!
 SW2-Fz3r0#show vlan remote-span
@@ -268,8 +268,8 @@ SW2-Fz3r0(config)#
 SW2-Fz3r0(config)#! # Sesion 10: fuente = Gi1/0/1 (ambas direcciones)
 SW2-Fz3r0(config)#monitor session 10 source interface gi1/0/1 both
 SW2-Fz3r0(config)#
-SW2-Fz3r0(config)#! # Destino = VLAN remota 999 (RSPAN)
-SW2-Fz3r0(config)#monitor session 10 destination remote vlan 999
+SW2-Fz3r0(config)#! # Destino = VLAN remota 888 (RSPAN)
+SW2-Fz3r0(config)#monitor session 10 destination remote vlan 888
 SW2-Fz3r0(config)#
 SW2-Fz3r0(config)#end
 SW2-Fz3r0#
@@ -280,7 +280,7 @@ Session 10
 Type                   : Remote Source Session
 Source Ports           : 
     Both               : Gi1/0/1
-Dest RSPAN VLAN        : 999
+Dest RSPAN VLAN        : 888
 
 
 SW2-Fz3r0#
