@@ -453,7 +453,7 @@ switch:
 
 5.  Ignore the startup configuration with the following command:
 
-- Device: `SWITCH_IGNORE_STARTUP_CFG=1`
+- `SWITCH_IGNORE_STARTUP_CFG=1`
 
 ````
 switch: SWITCH_IGNORE_STARTUP_CFG=1
@@ -463,7 +463,7 @@ switch:
 
 6. Boot the switch with the packages.conf file from flash.
 
-Device: `boot flash:packages.conf`
+- `boot flash:packages.conf`
 
 7. Terminate the initial configuration dialog by answering `No`
 
@@ -508,7 +508,13 @@ Would you like to enter the initial configuration dialog? [yes/no]: no <<<<<<<<<
 
 ````
 
-8. At the switch prompt, enter privileged EXEC mode with `enable` & `Copy the startup configuration to running configuration` .
+8. At the switch prompt, enter privileged EXEC and save configuratrion:
+
+- `enable`
+- `copy startup-config running-config` 
+
+Press Return in response to the confirmation prompts. The configuration file is now reloaded, and **you can change the
+password.**
 
 ````
 Switch>
@@ -526,13 +532,6 @@ Failed to generate persistent self-signed certificate.
 3075 bytes copied in 10.120 secs (304 bytes/sec)
 SWITCH-OLD-PASSWORD-LOST#  <<<<<<<<<<<<<<< switch original name again!
 ````
-
-9. Copy the startup configuration to running configuration.
-
-- `copy startup-config running-config` 
-
-Press Return in response to the confirmation prompts. The configuration file is now reloaded, and **you can change the
-password.**
 
 10. Enter global configuration mode and change the enable password & copy running-config startup-config
 
@@ -565,6 +564,8 @@ Device# reload
 
 
 recuperar:
+
+
 
 Procedimiento para evitar que el switch arranque en 'switch>' y cargue siempre la configuración:
 
