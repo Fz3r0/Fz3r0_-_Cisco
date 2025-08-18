@@ -72,8 +72,8 @@ enable
 conf t
 !
 
-! # Sesion 10: fuente = Gi1/0/13 (ambas direcciones)
-monitor session 10 source interface gi1/0/13 both
+! # Sesion 10: fuente = gi1/0/14 (ambas direcciones)
+monitor session 10 source interface gi1/0/14 both
 
 ! # Destino = VLAN remota 888 (RSPAN)
 monitor session 10 destination remote vlan 888
@@ -169,6 +169,10 @@ Una vez teniendo todo configurado simplemente hay que prender y apagar interface
 monitor session 10 source remote vlan 888
 ! # Destino = tu puerto de captura (conecta aquí el laptop con Wireshark)
 monitor session 10 destination interface gi1/0/11
+
+! # Verifica
+show monitor session 10
+show interface status | include Gi1/0/11
 ````
 
 - Donde vamos a monitorear, por ejemplo 3 APs, en 2 switches distinos prender ese monitoreo solo hay que hacer:
@@ -176,10 +180,13 @@ monitor session 10 destination interface gi1/0/11
 ````
 !# Client SIDE
 
-! # Sesion 10: fuente = Gi1/0/13 (ambas direcciones)
-monitor session 10 source interface gi1/0/13 both
+! # Sesion 10: fuente = gi1/0/14 (ambas direcciones)
+monitor session 10 source interface gi1/0/14 both
 ! # Destino = VLAN remota 888 (RSPAN)
 monitor session 10 destination remote vlan 888
+
+! # Verifica
+show monitor session 10
 ````
 
 Y ya que terminemos, en todos los swiutches usados solo correr: 
