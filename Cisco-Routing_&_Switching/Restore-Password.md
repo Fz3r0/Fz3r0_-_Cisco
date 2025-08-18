@@ -561,6 +561,53 @@ Device# reload
 
 
 
+---
+
+
+recuperar:
+
+Procedimiento para evitar que el switch arranque en 'switch>' y cargue siempre la configuración:
+
+1. Revisar archivos en flash (confirmar que existe packages.conf)
+---------------------------------------------------------------
+dir flash:
+
+2. Apuntar el boot al archivo correcto
+---------------------------------------------------------------
+conf t
+ boot system switch all flash:packages.conf
+end
+write memory
+
+3. Verificar variables de boot
+---------------------------------------------------------------
+show boot
+
+   (Debe salir: BOOT variable = flash:packages.conf;  Manual Boot = no)
+
+4. Arreglar el config-register
+---------------------------------------------------------------
+conf t
+ config-register 0x2102
+end
+write memory
+
+5. Validar el config-register
+---------------------------------------------------------------
+show version | include register
+
+   (Debe salir: Configuration register is 0x142 (will be 0x2102 at next reload))
+
+6. Reiniciar para aplicar cambios
+---------------------------------------------------------------
+reload
+
+7. Después del reload validar
+---------------------------------------------------------------
+show version | include register        ! debe ser 0x2102 (o 0x102 en algunos modelos)
+show boot                              ! BOOT variable = flash:packages.conf; en ambos
+show startup-config | include hostname ! tu hostname guardado
+"""
 
 
 
