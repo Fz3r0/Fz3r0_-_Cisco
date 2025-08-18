@@ -154,137 +154,40 @@ end
 7. Opcional: conservar la `VLAN 888` para futuras capturas o borrarla si ya no se usará.
 
 
+---
 
+## Monitoreo final
 
+Una vez teniendo todo configurado simplemente hay que prender y apagar interfaces a palcer a monitorear, por ejemplo:
 
-
-## Ejemplo:
-
-
-### SWITCH1 - WIRESHARK CONNECTED
-
-````
-SW1-Fz3r0#
-
-SW1-Fz3r0#enable
-SW1-Fz3r0#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-SW1-Fz3r0(config)#!
-SW1-Fz3r0(config)#vlan 888
-SW1-Fz3r0(config-vlan)#   name RSPAN-888
-SW1-Fz3r0(config-vlan)#   remote-span
-SW1-Fz3r0(config-vlan)#end
-SW1-Fz3r0#
-SW1-Fz3r0#
-SW1-Fz3r0#config t
-Enter configuration commands, one per line.  End with CNTL/Z.
-SW1-Fz3r0(config)#interface Range GigabitEthernet1/0/19-24
-SW1-Fz3r0(config-if-range)#   switchport trunk allowed vlan ADD 888
-SW1-Fz3r0(config-if-range)#end
-SW1-Fz3r0#
-SW1-Fz3r0#
-SW1-Fz3r0#!
-SW1-Fz3r0#show interfaces trunk | include 888
-Gi1/0/23    2-100,888
-SW1-Fz3r0#
-SW1-Fz3r0#!
-SW1-Fz3r0#show vlan remote-span
-
-Remote SPAN VLANs
-------------------------------------------------------------------------------
-888
-SW1-Fz3r0#
-SW1-Fz3r0#
-SW1-Fz3r0#enable
-SW1-Fz3r0#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-SW1-Fz3r0(config)#!
-SW1-Fz3r0(config)#
-SW1-Fz3r0(config)#! # SesiC3n 10: fuente = VLAN remota 888
-SW1-Fz3r0(config)#monitor session 10 source remote vlan 888
-SW1-Fz3r0(config)#
-SW1-Fz3r0(config)#$to de captura (conecta aquC- el laptop con Wireshark)     
-SW1-Fz3r0(config)#monitor session 10 destination interface gi1/0/11
-SW1-Fz3r0(config)#
-SW1-Fz3r0(config)#end
-SW1-Fz3r0#
-SW1-Fz3r0#! # Verifica
-SW1-Fz3r0#show monitor session 10
-Session 10
-----------
-Type                   : Remote Destination Session
-Source RSPAN VLAN      : 888
-Destination Ports      : Gi1/0/11
-    Encapsulation      : Native
-          Ingress      : Disabled
-
-
-SW1-Fz3r0#show interface status | include Gi1/0/11
-Gi1/0/11                     notconnect   1            auto   auto 10/100/1000BaseTX
-SW1-Fz3r0#
-SW1-Fz3r0#
-````
-
-### SWITCH2 - AP CONNECTED
-
+- En donde vas a monitorear basciamente todo ese tiempo estará prendido como monitor con: 
 
 ````
-SW2-Fz3r0#
+!# Wireshark Switch Side:
 
-SW2-Fz3r0#enable
-SW2-Fz3r0#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-SW2-Fz3r0(config)#!
-SW2-Fz3r0(config)#vlan 888
-SW2-Fz3r0(config-vlan)#   name RSPAN-888
-SW2-Fz3r0(config-vlan)#   remote-span
-SW2-Fz3r0(config-vlan)#end
-SW2-Fz3r0#
-SW2-Fz3r0#
-SW2-Fz3r0#config t
-Enter configuration commands, one per line.  End with CNTL/Z.
-SW2-Fz3r0(config)#interface Range GigabitEthernet1/0/19-24
-SW2-Fz3r0(config-if-range)#   switchport trunk allowed vlan ADD 888
-SW2-Fz3r0(config-if-range)#end
-SW2-Fz3r0#
-SW2-Fz3r0#
-SW2-Fz3r0#!
-SW2-Fz3r0#show interfaces trunk | include 888
-Gi1/0/23    2-100,888
-SW2-Fz3r0#
-SW2-Fz3r0#!
-SW2-Fz3r0#show vlan remote-span
-
-Remote SPAN VLANs
-------------------------------------------------------------------------------
-888
-SW2-Fz3r0#
-SW2-Fz3r0#
-SW2-Fz3r0#enable
-SW2-Fz3r0#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-SW2-Fz3r0(config)#!
-SW2-Fz3r0(config)#
-SW2-Fz3r0(config)#! # Sesion 10: fuente = Gi1/0/1 (ambas direcciones)
-SW2-Fz3r0(config)#monitor session 10 source interface gi1/0/1 both
-SW2-Fz3r0(config)#
-SW2-Fz3r0(config)#! # Destino = VLAN remota 888 (RSPAN)
-SW2-Fz3r0(config)#monitor session 10 destination remote vlan 888
-SW2-Fz3r0(config)#
-SW2-Fz3r0(config)#end
-SW2-Fz3r0#
-SW2-Fz3r0#! # Verifica
-SW2-Fz3r0#show monitor session 10
-Session 10
-----------
-Type                   : Remote Source Session
-Source Ports           : 
-    Both               : Gi1/0/1
-Dest RSPAN VLAN        : 888
-
-
-SW2-Fz3r0#
+! # Sesión 10: fuente = VLAN remota 888
+monitor session 10 source remote vlan 888
+! # Destino = tu puerto de captura (conecta aquí el laptop con Wireshark)
+monitor session 10 destination interface gi1/0/11
 ````
+
+- Donde vamos a monitorear, por ejemplo 3 APs, en 2 switches distinos prender ese monitoreo solo hay que hacer:
+
+````
+!# Client SIDE
+
+! # Sesion 10: fuente = Gi1/0/1 (ambas direcciones)
+monitor session 10 source interface gi1/0/1 both
+! # Destino = VLAN remota 888 (RSPAN)
+monitor session 10 destination remote vlan 888
+````
+
+Y ya que terminemos, en todos los swiutches usados solo correr: 
+
+````
+no monitor session 10
+````
+
 
 # 📚🗂️🎥 Resources
 
