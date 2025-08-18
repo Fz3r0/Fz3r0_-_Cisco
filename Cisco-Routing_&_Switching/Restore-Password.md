@@ -671,7 +671,9 @@ reload
 - https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3650/software/release/3se/system_management/configuration_guide/b_sm_3se_3650_cg.pdf
 - https://www.youtube.com/watch?v=SWEKEBdC-hg
 
+facil
 
+- https://www.youtube.com/watch?v=Ai09vSbhl0M&t=183s
 
 
 
