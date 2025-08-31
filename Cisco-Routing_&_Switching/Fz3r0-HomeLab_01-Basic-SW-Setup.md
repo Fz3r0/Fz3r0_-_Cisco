@@ -114,8 +114,13 @@ vlan 999
 ! (global) taggear la native (si lo necesitas)
 vlan dot1q tag native
 
+interface Vlan1
+   no ip address
+   shutdown
+exit
+
 ! SVI de management
-interface Vlan66
+interface Vlan 66
  description *** V66-MANAGEMENT - GATEWAY ***
  ip address 192.168.1.11 255.255.255.0
  no shutdown
@@ -173,7 +178,7 @@ write memory
 ````
 
 
-## F0-SW-02 - Access Switch 2
+## F0-SW-02 - Core Switch 2
 
 ````py
 enable
@@ -252,8 +257,13 @@ vlan 999
 ! (global) taggear la native (si lo necesitas)
 vlan dot1q tag native
 
+interface Vlan1
+   no ip address
+   shutdown
+exit
+
 ! SVI de management
-interface Vlan66
+interface Vlan 66
  description *** V66-MANAGEMENT - GATEWAY ***
  ip address 192.168.1.12 255.255.255.0
  no shutdown
