@@ -15,6 +15,25 @@
 
 # 📄 `Index`
 
+## Sipe
+
+````py
+! #####################################################################################
+! # WIPE SWITCH TO INIT SETTINGS                                                      #
+! #####################################################################################
+
+! # Completely erases the startup configuration
+write erase
+
+! # Completely erases the VLAN database
+delete vlan.dat
+
+! # Completely erases any stack provisioning
+!no switch <X> provision
+
+! # Reloads the device for a full factory‑default reset.
+reload
+````
 
 ## F0-SW-01 - Core Switch 1
 
