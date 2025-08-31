@@ -143,6 +143,8 @@ interface Port-channel 1
    no shutdown
 exit
 
+lldp run
+
 end
 write memory
 
@@ -278,6 +280,8 @@ interface Port-channel 1
    switchport trunk allowed vlan all
    no shutdown
 exit
+
+lldp run
 
 end
 write memory
