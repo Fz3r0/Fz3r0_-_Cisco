@@ -48,8 +48,7 @@ ip domain-name fz3r0.dojo
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 ip default-gateway 192.168.1.254
-! si NO vas a enrutador en el switch, quita la ruta estática:
-! no ip route 0.0.0.0 0.0.0.0 192.168.1.254
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
 
 ! usuarios y secretos
 username admin privilege 15 secret Cisco.12345
@@ -191,8 +190,7 @@ ip domain-name fz3r0.dojo
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 ip default-gateway 192.168.1.254
-! si NO vas a enrutador en el switch, quita la ruta estática:
-! no ip route 0.0.0.0 0.0.0.0 192.168.1.254
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
 
 ! usuarios y secretos
 username admin privilege 15 secret Cisco.12345
