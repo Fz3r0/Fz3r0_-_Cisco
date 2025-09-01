@@ -15,7 +15,7 @@
 
 # 📄 `Index`
 
-## Sipe
+## Wipe
 
 ````py
 ! #####################################################################################
@@ -136,7 +136,7 @@ interface range GigabitEthernet1/0/1-12
 exit
 
 ! Trunks solitos
-interface range GigabitEthernet1/0/13-20
+interface range GigabitEthernet1/0/13-16
  description *** Trunk ***
  switchport mode trunk
  switchport trunk native vlan 999
@@ -146,7 +146,7 @@ exit
 
 ! Trunks port channel
 
-interface range GigabitEthernet1/0/21-24
+interface range GigabitEthernet1/0/17-20
    description *** Uplink (Port-Channel-1 Members) ***
    switchport
    switchport mode trunk
@@ -155,10 +155,30 @@ interface range GigabitEthernet1/0/21-24
    channel-group 1 mode active
    no shutdown
 exit
-
+!
 ! # Paso 2: Configurar la interfaz Port-Channel lógica
 interface Port-channel 1
-   description *** Uplink (Trunk Port-Channel) ***
+   description *** Uplink (Trunk Port-Channel 1) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   no shutdown
+exit
+
+interface range GigabitEthernet1/0/21-24
+   description *** Uplink (Port-Channel-2 Members) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   channel-group 2 mode active
+   no shutdown
+exit
+
+! # Paso 2: Configurar la interfaz Port-Channel lógica
+interface Port-channel 2
+   description *** Uplink (Trunk Port-Channel 2) ***
    switchport
    switchport mode trunk
    switchport trunk native vlan 999
@@ -288,7 +308,7 @@ exit
 
 ! Trunks port channel
 
-interface range GigabitEthernet1/0/21-24
+interface range GigabitEthernet1/0/17-20
    description *** Uplink (Port-Channel-1 Members) ***
    switchport
    switchport mode trunk
@@ -297,10 +317,30 @@ interface range GigabitEthernet1/0/21-24
    channel-group 1 mode active
    no shutdown
 exit
-
+!
 ! # Paso 2: Configurar la interfaz Port-Channel lógica
 interface Port-channel 1
-   description *** Uplink (Trunk Port-Channel) ***
+   description *** Uplink (Trunk Port-Channel 1) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   no shutdown
+exit
+
+interface range GigabitEthernet1/0/21-24
+   description *** Uplink (Port-Channel-2 Members) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   channel-group 2 mode active
+   no shutdown
+exit
+
+! # Paso 2: Configurar la interfaz Port-Channel lógica
+interface Port-channel 2
+   description *** Uplink (Trunk Port-Channel 2) ***
    switchport
    switchport mode trunk
    switchport trunk native vlan 999
@@ -318,6 +358,168 @@ write memory
 
 ````
 
+
+
+## F0-SW-03 - Access Switch 3
+
+````py
+enable
+conf t
+
+hostname F0-SW-03
+ip domain-name fz3r0.dojo
+
+! DNS y gateway para administración L2 (sin ip routing)
+ip name-server 8.8.8.8
+ip name-server 8.8.4.4
+ip default-gateway 192.168.1.254
+ip route 0.0.0.0 0.0.0.0 192.168.1.254
+
+! usuarios y secretos
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+
+! proteger intentos
+login block-for 60 attempts 3 within 60
+login on-failure log
+login on-success log
+
+! claves y SSH
+crypto key generate rsa modulus 2048
+ip ssh version 2
+
+! consola (si quieres que pida password en consola, agrega 'login')
+line con 0
+ logging synchronous
+ no transport preferred
+! login
+! password Cisco.12345
+exit
+
+! VTY: SOLO SSH + usuario local en TODAS las líneas
+line vty 0 15
+ no transport preferred
+ transport input ssh
+ login local
+ exec-timeout 10 0
+exit
+
+authentication mac-move permit
+
+! VLANs
+vlan 10
+ name V10-BLUE
+exit
+vlan 20
+ name V20-RED
+exit
+vlan 30
+ name V30-GREEN
+exit
+vlan 40
+ name V40-VOIP
+exit
+vlan 50
+ name V50-WIRELESS-TUNNEL
+exit
+vlan 66
+ name V66-MANAGEMENT
+exit
+vlan 888
+   name V888-RSPAN
+   remote-span
+exit
+vlan 999
+   name VLAN99-TRUNK-NATIVE
+   vlan dot1q tag native
+! # <Auto-Exit>
+
+! (global) taggear la native (si lo necesitas)
+vlan dot1q tag native
+
+interface Vlan1
+   no ip address
+   shutdown
+exit
+
+! SVI de management
+interface Vlan 66
+ description *** V66-MANAGEMENT - GATEWAY ***
+ ip address 192.168.1.13 255.255.255.0
+ no shutdown
+exit
+
+! Puerto hacia tu mgmt
+interface range GigabitEthernet1/0/1-36
+ description *** V66 MANAGEMENT ***
+ switchport
+ switchport mode access
+ switchport access vlan 66
+ spanning-tree portfast
+   no shutdown
+exit
+
+! Trunks solitos
+interface range GigabitEthernet1/0/37-40
+ description *** Trunk ***
+ switchport mode trunk
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan all
+   no shutdown
+exit
+
+! Trunks port channel
+
+interface range GigabitEthernet1/0/41-44
+   description *** Uplink (Port-Channel-1 Members) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   channel-group 1 mode active
+   no shutdown
+exit
+!
+! # Paso 2: Configurar la interfaz Port-Channel lógica
+interface Port-channel 1
+   description *** Uplink (Trunk Port-Channel 1) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   no shutdown
+exit
+
+interface range GigabitEthernet1/0/45-48
+   description *** Uplink (Port-Channel-2 Members) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   channel-group 2 mode active
+   no shutdown
+exit
+!
+! # Paso 2: Configurar la interfaz Port-Channel lógica
+interface Port-channel 2
+   description *** Uplink (Trunk Port-Channel 2) ***
+   switchport
+   switchport mode trunk
+   switchport trunk native vlan 999
+   switchport trunk allowed vlan all
+   no shutdown
+exit
+
+lldp run
+
+end
+write memory
+
+!
+!
+
+````
 
 # 🗃️ Resources
 
