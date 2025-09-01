@@ -30,6 +30,7 @@ delete vlan.dat
 
 ! # Completely erases any stack provisioning
 !no switch <X> provision
+!switch 2 renumber 1
 
 ! # Reloads the device for a full factory‑default reset.
 reload
