@@ -55,6 +55,8 @@ delete vlan.dat
 reload
 ````
 
+# `DC SIDE`
+
 ## F0-SW-WAN-00 - WAN SWITCH L3 @ INTERNET
 
 ````py
@@ -304,6 +306,128 @@ wr
 ````
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+# `BRANCH SIDE`
+
+````py
+! # F0-RT-BR-00 - BRANCH ROUTER (trunk al WAN: 98 OSPF p2p + 99 NAT; default -> modem)
+enable
+configure terminal
+
+! --- System / L3 ---
+hostname F0-RT-BR-00
+ip domain name fz3r0.dojo
+lldp run
+ip routing
+
+! --- (Opcional) DNS ---
+ip name-server 8.8.8.8
+ip name-server 8.8.4.4
+
+! --- Mismo puerto al WAN switch con subinterfaces ---
+default interface Gi0/0/0
+interface Gi0/0/0
+ no ip address
+ no shut
+
+! --- Subif OSPF p2p (VLAN 98) ---
+interface Gi0/0/0.98
+ description *** OSPF P2P to WAN L3 (VLAN 98) ***
+ encapsulation dot1q 98
+ ip address 123.2.2.2 255.255.255.252
+ ip ospf network point-to-point
+ no shut
+
+! --- Subif “LAN del módem” para NAT (VLAN 99) ---
+interface Gi0/0/0.99
+ description *** OUTSIDE to Telmex LAN (VLAN 99) ***
+ encapsulation dot1q 99
+ ip address 192.168.0.11 255.255.255.0
+ ip nat outside
+ no shut
+
+! --- Enlace al BRANCH L3 SWITCH (tu /30 existente) ---
+interface Gi0/0/1
+ description *** TO F0-SW-BR-00 ***
+ ip address 123.2.2.9 255.255.255.252
+ ip nat inside
+ ip ospf network point-to-point
+ no shut
+
+! --- Loopback de management (opcional; la marcamos inside para pruebas) ---
+interface Loopback0
+ description *** MGMT LOOPBACK ***
+ ip address 10.255.0.3 255.255.255.255
+ ip nat inside
+
+! --- NAT (PAT) de redes del branch ---
+ip access-list standard LAB-BR-NETS
+ permit 10.10.30.0 0.0.0.255
+ permit 10.10.40.0 0.0.0.255
+ permit 10.10.100.0 0.0.0.255
+ permit 10.10.130.0 0.0.0.255
+ permit 10.255.0.0 0.0.255.255
+!
+ip nat inside source list LAB-BR-NETS interface Gi0/0/0.99 overload
+
+! --- Default directa al módem (para que NAT salga por .99) ---
+ip route 0.0.0.0 0.0.0.0 192.168.0.254
+
+! --- OSPF: solo p2p + loopback; NO anunciar .99 ---
+router ospf 1
+ router-id 10.255.0.3
+ passive-interface default
+ no passive-interface Gi0/0/0.98
+ no passive-interface Gi0/0/1
+ network 123.2.2.0 0.0.0.3 area 0
+ network 123.2.2.8 0.0.0.3 area 0
+ network 10.255.0.3 0.0.0.0 area 0
+
+! --- Admin + SSH ---
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh source-interface Loopback0
+line con 0
+ logging synchronous
+ password Cisco.12345
+ login
+line vty 0 15
+ transport input ssh
+ login local
+ exec-timeout 10 0
+no ip http server
+no ip http secure-server
+
+end
+wr
+
+!
+!
+
+````
 
 
 
