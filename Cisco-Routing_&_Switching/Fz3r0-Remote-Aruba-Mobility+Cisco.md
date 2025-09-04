@@ -363,7 +363,7 @@ interface Gi1/0/24
  no shut
 
 ! --- MANAGEMENT INTERFACES FOR SERVERS AND HOSTS ---
-interface RANGE Gi1/0/1-12
+interface range Gi1/0/1-12
  description *** MGMT INTERFACES DATACENTER ***
  switchport
  switchport mode access
@@ -371,10 +371,10 @@ interface RANGE Gi1/0/1-12
  no shut
 
 ! --- ETRUNK INTERFACES FUTURE USES ---
-interface RANGE Gi1/0/13-23
+interface range Gi1/0/13-23
  description *** MGMT INTERFACES DATACENTER ***
  switchport
- switchport mode TRUNK
+ switchport mode trunk
  no shut
 
 ! --- Loopback de management (origen estable para SSH/ICMP) ---
@@ -391,7 +391,7 @@ router ospf 1
  passive-interface default
  no passive-interface Gi1/0/24
  network 123.1.1.8 0.0.0.3 area 0     ! p2p al router
- network 192.168.1.0 0.0.0.255 area 0 ! VLAN1
+ network 192.168.1.0 0.0.0.255 area 0 ! VLAN66
  network 10.10.10.0 0.0.0.255 area 0  ! VLAN10
  network 10.10.20.0 0.0.0.255 area 0  ! VLAN20
  network 10.255.0.11 0.0.0.0 area 0   ! Loopback
