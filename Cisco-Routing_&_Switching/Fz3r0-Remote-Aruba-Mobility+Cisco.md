@@ -308,7 +308,133 @@ wr
 
 
 
+## F0-SW-DC-00 - DC CORE SWITCH L3 (LAN GATEWAY & UPLINK TO ROUTER)
 
+````py
+! # F0-SW-DC-00 - DC L3 SWITCH (SVIs DC + /30 al DC Router + OSPF p2p + default al router)
+enable
+configure terminal
+
+! --- System / L3 ---
+hostname F0-SW-DC-00
+ip domain-name fz3r0.dojo
+lldp run
+ip routing
+
+! --- (Opcional) DNS ---
+ip name-server 8.8.8.8
+ip name-server 8.8.4.4
+
+! --- VLANs del DC ---
+vlan 66
+ name DC-MGMT
+vlan 10
+ name DC-TUNNEL-ENT
+vlan 20
+ name DC-TUNNEL-PSK
+
+! --- SVIs (gateways del DC) ---
+interface Vlan66
+ description *** DC MGMT GATEWAY ***
+ ip address 192.168.1.254 255.255.255.0
+ no shut
+!
+interface Vlan10
+ description *** DC USERS TUNNELED VLAN10 ***
+ ip address 10.10.10.1 255.255.255.0
+ no shut
+!
+interface Vlan20
+ description *** DC USERS TUNNELED VLAN20 ***
+ ip address 10.10.20.1 255.255.255.0
+ no shut
+
+! --- Enlace L3 al DC Router (p2p /30) ---
+interface Gi1/0/24
+ description *** TO F0-RT-DC-00 ***
+ no switchport
+ ip address 123.1.1.10 255.255.255.252
+ ip ospf network point-to-point
+ no shut
+
+! --- MANAGEMENT INTERFACES FOR SERVERS AND HOSTS ---
+interface RANGE Gi1/0/1-12
+ description *** MGMT INTERFACES DATACENTER ***
+ switchport
+ switchport mode access
+ switchport access vlan 66
+ no shut
+
+! --- ETRUNK INTERFACES FUTURE USES ---
+interface RANGE Gi1/0/13-23
+ description *** MGMT INTERFACES DATACENTER ***
+ switchport
+ switchport mode TRUNK
+ no shut
+
+! --- Loopback de management (origen estable para SSH/ICMP) ---
+interface Loopback0
+ description *** MGMT LOOPBACK ***
+ ip address 10.255.0.11 255.255.255.255
+
+! --- Default: todo hacia el DC Router (que hace NAT a 192.168.0.0/24) ---
+ip route 0.0.0.0 0.0.0.0 123.1.1.9
+
+! --- OSPF: solo el p2p al router + loopback; SVIs en pasivo ---
+router ospf 1
+ router-id 10.255.0.11
+ passive-interface default
+ no passive-interface Gi1/0/24
+ network 123.1.1.8 0.0.0.3 area 0     ! p2p al router
+ network 192.168.1.0 0.0.0.255 area 0 ! VLAN1
+ network 10.10.10.0 0.0.0.255 area 0  ! VLAN10
+ network 10.10.20.0 0.0.0.255 area 0  ! VLAN20
+ network 10.255.0.11 0.0.0.0 area 0   ! Loopback
+
+! --- (Opcional) DHCP para las VLANs del DC ---
+! ip dhcp excluded-address 192.168.1.1 192.168.1.50
+! ip dhcp pool DC_MGMT
+!  network 192.168.1.0 255.255.255.0
+!  default-router 192.168.1.254
+!  dns-server 8.8.8.8
+! ip dhcp pool V10_TUNNEL
+!  network 10.10.10.0 255.255.255.0
+!  default-router 10.10.10.1
+!  dns-server 8.8.8.8
+! ip dhcp pool V20_TUNNEL
+!  network 10.10.20.0 255.255.255.0
+!  default-router 10.10.20.1
+!  dns-server 8.8.8.8
+
+! --- Admin + SSH ---
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+login block-for 60 attempts 3 within 60
+login on-failure log
+login on-success log
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh source-interface Loopback0
+line con 0
+ logging synchronous
+ password Cisco.12345
+ login
+line vty 0 15
+ transport input ssh
+ login local
+ exec-timeout 10 0
+no ip http server
+no ip http secure-server
+
+end
+wr
+
+!
+!
+
+
+````
 
 
 
