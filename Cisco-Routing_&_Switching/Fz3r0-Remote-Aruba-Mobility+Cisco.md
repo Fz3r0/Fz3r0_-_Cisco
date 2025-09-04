@@ -58,101 +58,119 @@ reload
 ## F0-SW-WAN-00 - WAN SWITCH L3 @ INTERNET
 
 ````py
-! # F0-SW-WAN-00 - L3 WAN SWITCH
+! # F0-SW-WAN-00 - L3 WAN SWITCH (SVI VLAN99 + trunks a routers; OSPF p2p)
 enable
 configure terminal
 
-! # System - Identity - L3 enable
+! --- System / L3 ---
 hostname F0-SW-WAN-00
 ip domain-name fz3r0.dojo
 lldp run
 ip routing
 
-! # DNS (for name resolution on the box)
+! --- DNS + default propia ---
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
-
-! # Default route to Telmex modem 
 ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
-! # Disable default VLAN SVI (we route only on routed links) 
+! --- No usamos Vlan1 ---
 interface Vlan1
-   no ip address
-   shutdown
-exit
+ no ip address
+ shutdown
 
-! # Uplink to Telmex modem (routed) 
+! --- VLANs ---
+vlan 99
+ name WAN-LAN
+vlan 97
+ name P2P-DC
+vlan 98
+ name P2P-BR
+
+! --- Puerto al MÓDEM en L2 (VLAN 99) ---
+default interface Gi1/0/1
 interface Gi1/0/1
-   description *** UPLINK TO TELMEX HOME MODEM ***
-   no switchport
-   ip address 192.168.0.99 255.255.255.0
-   no shut
-exit
+ description *** TO TELMEX HOME MODEM (L2, VLAN 99) ***
+ switchport
+ switchport mode access
+ switchport access vlan 99
+ spanning-tree portfast
+ no shut
 
-! # L3 p2p to DC Router 
+! --- TRUNK a DC ROUTER: permite VLAN 99 y 97 ---
+default interface Gi1/0/47
 interface Gi1/0/47
-   description *** UPLINK TO DC ROUTER ***
-   no switchport
-   ip address 123.1.1.1 255.255.255.252
-   no shut
-exit
+ description *** TO DC ROUTER (TRUNK 99 + 97) ***
+ switchport
+ switchport mode trunk
+ switchport trunk allowed vlan 99,97
+ spanning-tree portfast trunk
+ no shut
 
-! # L3 p2p to Branch Router 
+! --- TRUNK a BRANCH ROUTER: permite VLAN 99 y 98 ---
+default interface Gi1/0/48
 interface Gi1/0/48
-   description *** UPLINK TO BRANCH ROUTER ***
-   no switchport
-   ip address 123.2.2.1 255.255.255.252
-   no shut
-exit
+ description *** TO BRANCH ROUTER (TRUNK 99 + 98) ***
+ switchport
+ switchport mode trunk
+ switchport trunk allowed vlan 99,98
+ spanning-tree portfast trunk
+ no shut
 
-! # Management loopback (stable SSH/ping source) 
+! --- SVI de la LAN del módem ---
+interface Vlan99
+ description *** WAN LAN toward Telmex ***
+ ip address 192.168.0.99 255.255.255.0
+ no shut
+
+! --- SVIs p2p para OSPF hacia los routers ---
+interface Vlan97
+ description *** P2P OSPF to DC ROUTER ***
+ ip address 123.1.1.1 255.255.255.252
+ ip ospf network point-to-point
+ no shut
+
+interface Vlan98
+ description *** P2P OSPF to BRANCH ROUTER ***
+ ip address 123.2.2.1 255.255.255.252
+ ip ospf network point-to-point
+ no shut
+
+! --- Loopback de management ---
 interface Loopback0
-   description *** MANAGEMENT LOOPBACK ***
-   ip address 10.255.0.1 255.255.255.255
-exit
+ description *** MANAGEMENT LOOPBACK ***
+ ip address 10.255.0.1 255.255.255.255
 
-! # OSPF (single process, only on p2p + loopback) 
+! --- OSPF: solo p2p + loopback; NO incluir Vlan99 ---
 router ospf 1
-   router-id 10.255.0.1
-   passive-interface default
-   no passive-interface Gi1/0/47
-   no passive-interface Gi1/0/48
-   network 123.1.1.0 0.0.0.3 area 0
-   network 123.2.2.0 0.0.0.3 area 0
-   network 10.255.0.1 0.0.0.0 area 0
- ! # NOTE: advertise 0/0 to all OSPF neighbors (cleanest way for all nodes to learn Internet default)
- ! #       This originates a default route ONLY because this box already has a static 0/0 → 192.168.0.254
- default-information originate
-exit
+ router-id 10.255.0.1
+ passive-interface default
+ no passive-interface Vlan97
+ no passive-interface Vlan98
+ network 123.1.1.0 0.0.0.3 area 0
+ network 123.2.2.0 0.0.0.3 area 0
+ network 10.255.0.1 0.0.0.0 area 0
+ ! default-information originate   ! (déjalo apagado: NAT va en routers)
 
-! # Local admin + hardening basics 
+! --- Admin + SSH ---
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
 login block-for 60 attempts 3 within 60
 login on-failure log
 login on-success log
-
-! # SSH enable (keys + v2) and use loopback as source 
 crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
 
-! # Console line (local login) 
 line con 0
-   logging synchronous
-   password Cisco.12345
-   login
-exit
-
-! # VTY lines (SSH only, local user, idle timeout) ---
+ logging synchronous
+ password Cisco.12345
+ login
 line vty 0 15
-   transport input ssh
-   login local
-   exec-timeout 10 0
-exit
+ transport input ssh
+ login local
+ exec-timeout 10 0
 
-! # Optional: disable HTTP/HTTPS server on the box 
 no ip http server
 no ip http secure-server
 
@@ -161,6 +179,7 @@ wr
 
 !
 !
+
 
 
 ````
