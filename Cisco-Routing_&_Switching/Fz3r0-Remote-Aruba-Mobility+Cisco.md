@@ -160,23 +160,12 @@ ip routing
 
 vlan 66
  name DC-MGMT
-vlan 10
- name DC-TUNNEL-ENT
-vlan 20
- name DC-TUNNEL-PSK
+
 
 ! Gateways
 interface Vlan66
  description *** DC MGMT ***
  ip address 192.168.1.254 255.255.255.0
- no shutdown
-interface Vlan10
- description *** DC USERS VLAN10 ***
- ip address 10.10.10.254 255.255.255.0
- no shutdown
-interface Vlan20
- description *** DC USERS VLAN20 ***
- ip address 10.10.20.254 255.255.255.0
  no shutdown
 
 ! Enlace a R1
@@ -225,26 +214,6 @@ ip dhcp pool DC-MGMT
  domain-name fz3r0.dojo
  lease 0 8 0
 
-! --- DC-TUNNEL-ENT (VLAN 10) 10.10.10.0/24 ---
-ip dhcp excluded-address 10.10.10.1 10.10.10.100
-ip dhcp excluded-address 10.10.10.201 10.10.10.254
-ip dhcp pool DC-TUNNEL-ENT
- network 10.10.10.0 255.255.255.0
- default-router 10.10.10.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
-
-! --- DC-TUNNEL-PSK (VLAN 20) 10.10.20.0/24 ---
-ip dhcp excluded-address 10.10.20.1 10.10.20.100
-ip dhcp excluded-address 10.10.20.201 10.10.20.254
-ip dhcp pool DC-TUNNEL-PSK
- network 10.10.20.0 255.255.255.0
- default-router 10.10.20.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
-
 
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
@@ -287,27 +256,30 @@ ip domain-name fz3r0.dojo
 lldp run
 ip routing
 
+vlan 30
+ name BR-ENT
+vlan 40
+ name BR-PSK
 vlan 100
  name BR-MGMT
-vlan 702
- name BR-ENT
-vlan 703
- name BR-PSK
 vlan 300
  name BR-WLAN-MGMT
 
 ! Gateways
-interface Vlan100
- description *** BR MGMT ***
- ip address 10.10.100.254 255.255.255.0
- no shutdown
-interface Vlan702
+
+
+interface Vlan30
  description *** BR USERS VLAN701 ***
  ip address 10.10.30.254 255.255.255.0
  no shutdown
-interface Vlan703
+interface Vlan40
  description *** BR USERS VLAN702 ***
  ip address 10.10.40.254 255.255.255.0
+ no shutdown
+
+interface Vlan100
+ description *** BR MGMT ***
+ ip address 10.10.100.254 255.255.255.0
  no shutdown
 interface Vlan300
  description *** BR WLAN MGMT ***
@@ -357,7 +329,7 @@ interface range GigabitEthernet1/0/17-20
  description *** TRUNK NATIVE 300 WI-FI ***
  switchport
  switchport mode trunk
- switchport trunk allowed vlan 702,703,100,300
+ switchport trunk allowed vlan 30,40,100,300
  switchport trunk native vlan 300
  no shutdown
 
@@ -367,7 +339,7 @@ interface range GigabitEthernet1/0/21-23
  no switchport
  switchport
  switchport mode trunk
- switchport trunk allowed vlan 702,703,100,300
+ switchport trunk allowed vlan 30,40,100,300
  no shutdown
 
 
@@ -386,7 +358,7 @@ ip dhcp pool BR-MGMT
  domain-name fz3r0.dojo
  lease 7
 
-! --- BR-ENT (VLAN 702) 10.10.30.0/24 ---
+! --- BR-ENT (VLAN 30) 10.10.30.0/24 ---
 ip dhcp excluded-address 10.10.30.1 10.10.30.100
 ip dhcp excluded-address 10.10.30.201 10.10.30.254
 ip dhcp pool BR-ENT
@@ -396,7 +368,7 @@ ip dhcp pool BR-ENT
  domain-name fz3r0.dojo
  lease 7
 
-! --- BR-PSK (VLAN 703) 10.10.40.0/24 ---
+! --- BR-PSK (VLAN 40) 10.10.40.0/24 ---
 ip dhcp excluded-address 10.10.40.1 10.10.40.100
 ip dhcp excluded-address 10.10.40.201 10.10.40.254
 ip dhcp pool BR-PSK
