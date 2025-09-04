@@ -157,7 +157,7 @@ configure terminal
 ! # Hostname
 hostname F0-RT-DC-01
 ! # Dominio para SSH
-ip domain-name fz3r0.dojo
+ip domain name fz3r0.dojo
 ! # Routing L3 activo
 ip routing
 ! # Descubrimiento L2
