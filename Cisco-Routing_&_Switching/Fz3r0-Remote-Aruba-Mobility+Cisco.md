@@ -169,11 +169,11 @@ interface Vlan66
  no shutdown
 interface Vlan10
  description *** DC USERS VLAN10 ***
- ip address 10.10.10.1 255.255.255.0
+ ip address 10.10.10.254 255.255.255.0
  no shutdown
 interface Vlan20
  description *** DC USERS VLAN20 ***
- ip address 10.10.20.1 255.255.255.0
+ ip address 10.10.20.254 255.255.255.0
  no shutdown
 
 ! Enlace a R1
@@ -242,6 +242,120 @@ wr
 
 
 ````py
+enable
+configure terminal
+hostname F0-SW02-BRANCH
+ip domain-name fz3r0.dojo
+lldp run
+ip routing
+
+vlan 100
+ name BR-MGMT
+vlan 30
+ name BR-ENT
+vlan 40
+ name BR-PSK
+vlan 300
+ name BR-WLAN-MGMT
+
+! Gateways
+interface Vlan100
+ description *** BR MGMT ***
+ ip address 10.10.100.254 255.255.255.0
+ no shutdown
+interface Vlan30
+ description *** BR USERS VLAN30 ***
+ ip address 10.10.30.254 255.255.255.0
+ no shutdown
+interface Vlan40
+ description *** BR USERS VLAN40 ***
+ ip address 10.10.40.254 255.255.255.0
+ no shutdown
+interface Vlan300
+ description *** BR WLAN MGMT ***
+ ip address 10.10.130.254 255.255.255.0
+ no shutdown
+
+! Enlace a R1
+interface GigabitEthernet1/0/24
+ description *** L3 TO R1 ***
+ no switchport
+ ip address 10.255.98.2 255.255.255.252
+ no shutdown
+
+! ¡MGMT!
+interface Loopback0
+ description *** MGMT LOOPBACK ***
+ ip address 10.255.0.21 255.255.255.255
+
+! Default al router
+ip route 0.0.0.0 0.0.0.0 10.255.98.1
+
+! INTERFACES ACCESS
+interface range GigabitEthernet1/0/1-8
+ description *** ACCESS 100 MANAGEMENT ***
+ switchport
+ switchport mode access
+ switchport access vlan 100
+ no shutdown
+
+! INTERFACES ACCESS
+interface range GigabitEthernet1/0/9-12
+ description *** ACCESS 300 WLAN ***
+ switchport
+ switchport mode access
+ switchport access vlan 300
+ no shutdown
+
+! INTERFACES TRUNK (DEFAULT NATIVE)
+interface range GigabitEthernet1/0/13-16
+ description *** TRUNK DEFAULT NATIVE 1 ***
+ switchport
+ switchport mode trunk
+ no shutdown
+
+! INTERFACES TRUNK (v300 WI-FI NATIVE)
+interface range GigabitEthernet1/0/17-20
+ description *** TRUNK NATIVE 300 WI-FI ***
+ switchport
+ switchport mode trunk
+ switchport trunk native vlan 300
+ no shutdown
+
+! MORE INTERFACES TRUNK
+interface range GigabitEthernet1/0/21-23
+ description *** TRUNK UPLINK ***
+ no switchport
+ switchport
+ switchport mode trunk
+ no shutdown
+
+! Endurecimiento + SSH
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh source-interface Loopback0
+line con 0
+ logging synchronous
+ password Cisco.12345
+ login
+line vty 0 15
+ transport input ssh
+ login local
+ exec-timeout 10 0
+no ip http server
+no ip http secure-server
+
+
+end
+wr
+
+!
+!
+
+
 ````
 
 
