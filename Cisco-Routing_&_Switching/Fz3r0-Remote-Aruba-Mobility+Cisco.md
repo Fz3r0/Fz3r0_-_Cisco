@@ -111,7 +111,7 @@ ip access-list standard LAN-ALL
  permit 192.168.1.0 0.0.0.255
  permit 10.10.0.0 0.0.255.255
  permit 10.255.0.0 0.0.255.255
-ip nat inside source list LAN-ALL interface GigabitEthernet0/0 overload
+ip nat inside source list LAN-ALL interface GigabitEthernet0/0/0 overload
 
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
