@@ -17,7 +17,10 @@
 
 #  Cisco IOS & Aruba Mobility :: `Fz3r0 Remote Aruba Mobility + Cisco Lab`
 
-https://excalidraw.com/#json=eB2Mg-KynXcDY8qiBTz4b,UuDoyFRtNus_aG6nL1_R7A
+https://excalidraw.com/#json=-ybsUmNuQ2Q7W5pg7P0hf,Y-n_3Dr32cQimiIak_Ed2Q
+
+<img width="1598" height="1062" alt="image" src="https://github.com/user-attachments/assets/58717910-fe40-4786-ac55-3e4d7d774aae" />
+
 
 ## IMPORTANT NOTES!!
 
