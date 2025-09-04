@@ -154,7 +154,7 @@ wr
 enable
 configure terminal
 hostname F0-RT-DC-01
-ip domain-name fz3r0.dojo
+ip domain name fz3r0.dojo
 ip routing
 lldp run
 
