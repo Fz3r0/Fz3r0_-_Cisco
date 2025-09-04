@@ -332,6 +332,52 @@ interface range GigabitEthernet1/0/21-23
  switchport trunk allowed vlan 30,40,100,300
  no shutdown
 
+
+
+! ===== DHCP SERVER (en el propio switch) =====
+service dhcp
+ip dhcp ping packets 1
+
+! --- BR-MGMT (VLAN 100) 10.10.100.0/24 ---
+ip dhcp excluded-address 10.10.100.1 10.10.100.100
+ip dhcp excluded-address 10.10.100.201 10.10.100.254
+ip dhcp pool BR-MGMT
+ network 10.10.100.0 255.255.255.0
+ default-router 10.10.100.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 7
+
+! --- BR-ENT (VLAN 30) 10.10.30.0/24 ---
+ip dhcp excluded-address 10.10.30.1 10.10.30.100
+ip dhcp excluded-address 10.10.30.201 10.10.30.254
+ip dhcp pool BR-ENT
+ network 10.10.30.0 255.255.255.0
+ default-router 10.10.30.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 7
+
+! --- BR-PSK (VLAN 40) 10.10.40.0/24 ---
+ip dhcp excluded-address 10.10.40.1 10.10.40.100
+ip dhcp excluded-address 10.10.40.201 10.10.40.254
+ip dhcp pool BR-PSK
+ network 10.10.40.0 255.255.255.0
+ default-router 10.10.40.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 7
+
+! --- BR-WLAN-MGMT (VLAN 300) 10.10.130.0/24 ---
+ip dhcp excluded-address 10.10.130.1 10.10.130.100
+ip dhcp excluded-address 10.10.130.201 10.10.130.254
+ip dhcp pool BR-WLAN-MGMT
+ network 10.10.130.0 255.255.255.0
+ default-router 10.10.130.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 7
+
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
