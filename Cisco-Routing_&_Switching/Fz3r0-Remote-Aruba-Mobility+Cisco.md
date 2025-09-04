@@ -86,7 +86,7 @@ interface GigabitEthernet0/0/1
  ip nat inside
  no shutdown
 
-interface GigabitEthernet0/0/2
+interface GigabitEthernet0/2/0
  description *** TO BRANCH L3 SWITCH ***
  ip address 10.255.98.1 255.255.255.252
  ip nat inside
