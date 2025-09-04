@@ -74,19 +74,19 @@ interface Loopback0
  description *** MGMT LOOPBACK ***
  ip address 10.255.0.1 255.255.255.255
 
-interface GigabitEthernet0/0
+interface GigabitEthernet0/0/0
  description *** TO TELMEX MODEM ***
  ip address 192.168.0.11 255.255.255.0
  ip nat outside
  no shutdown
 
-interface GigabitEthernet0/1
+interface GigabitEthernet0/0/1
  description *** TO DC L3 SWITCH ***
  ip address 10.255.97.1 255.255.255.252
  ip nat inside
  no shutdown
 
-interface GigabitEthernet0/2
+interface GigabitEthernet0/0/2
  description *** TO BRANCH L3 SWITCH ***
  ip address 10.255.98.1 255.255.255.252
  ip nat inside
