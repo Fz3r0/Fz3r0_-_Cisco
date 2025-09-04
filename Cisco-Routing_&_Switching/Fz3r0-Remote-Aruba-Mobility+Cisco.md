@@ -191,6 +191,23 @@ interface Loopback0
 ! Default al router
 ip route 0.0.0.0 0.0.0.0 10.255.97.1
 
+! INTERFACES ACCESS
+interface range GigabitEthernet1/0/1-12
+ description *** ACCESS 66 MANAGEMENT ***
+ switchport
+ switchport mode access
+ switchport access vlan 66
+ no shutdown
+
+! INTERFACES TRUNK
+interface range GigabitEthernet1/0/13-23
+ description *** TRUNK UPLINK ***
+ no switchport
+ switchport
+ switchport mode trunk
+ no shutdown
+
+
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
