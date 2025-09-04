@@ -99,8 +99,6 @@ interface GigabitEthernet0/2/0
 
 ! Rutas a las LANs en DC
 ip route 192.168.1.0 255.255.255.0 10.255.97.2
-ip route 10.10.10.0 255.255.255.0 10.255.97.2
-ip route 10.10.20.0 255.255.255.0 10.255.97.2
 
 ! Rutas a las LANs en Branch
 ip route 10.10.100.0 255.255.255.0 10.255.98.2
