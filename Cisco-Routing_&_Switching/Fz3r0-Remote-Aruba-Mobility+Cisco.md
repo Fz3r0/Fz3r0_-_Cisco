@@ -148,25 +148,21 @@ wr
 
 
 
-## F0-RT-DC-01 - DC ROUTER (learns default via OSPF from WAN L3)
+## F0-RT-DC-01 - DC ROUTER 
 
 ````py
-! # ========= BASE =========
 enable
 configure terminal
-! # Hostname
 hostname F0-RT-DC-01
-! # Dominio para SSH
-ip domain name fz3r0.dojo
-! # Routing L3 activo
+ip domain-name fz3r0.dojo
 ip routing
-! # Descubrimiento L2
 lldp run
-! # DNS opcional
+
+! DNS opcional
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 
-! # ========= OUTSIDE HACIA EL MÓDEM EN VLAN 99 (TRUNK CON EL SW-WAN) =========
+! OUTSIDE hacia Telmex por VLAN 99
 default interface Gi0/0/0
 interface Gi0/0/0
  no ip address
@@ -179,53 +175,46 @@ interface Gi0/0/0.99
  ip nat outside
  no shutdown
 
-! # ========= ENLACE L3 AL SWITCH DC =========
+! Enlace L3 al switch DC
 default interface Gi0/0/1
 interface Gi0/0/1
- description *** L3 to F0-SW-DC-00 ***
+ description *** L3 to F0-SW-DC-01 ***
  ip address 10.255.97.1 255.255.255.252
  ip nat inside
  no shutdown
 
-! # ========= LOOPBACK DE MGMT =========
+! Loopback de mgmt (opcional)
 interface Loopback0
  description *** MGMT LOOPBACK ***
  ip address 10.255.0.2 255.255.255.255
  ip nat inside
 
-! # ========= NAT PAT PARA LAS REDES DEL DC =========
+! NAT PAT para redes del DC
 ip access-list standard LAB-DC-NETS
- ! VLAN10 usuarios
- permit 10.10.10.0 0.0.0.255
- ! VLAN20 usuarios
- permit 10.10.20.0 0.0.0.255
- ! VLAN66 mgmt DC
  permit 192.168.1.0 0.0.0.255
- ! Loopbacks internas
+ permit 10.10.10.0 0.0.0.255
+ permit 10.10.20.0 0.0.0.255
  permit 10.255.0.0 0.0.255.255
 !
 ip nat inside source list LAB-DC-NETS interface Gi0/0/0.99 overload
 
-! # ========= DEFAULT ROUTE A LA PUERTA DEL MÓDEM =========
+! Default a la puerta del módem
 ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
-! # ========= OSPF SOLO CON EL SWITCH DC =========
-router ospf 1
- router-id 10.255.0.2
- passive-interface default
- no passive-interface Gi0/0/1
- network 10.255.97.0 0.0.0.3 area 0
- network 10.255.0.2 0.0.0.0 area 0
-! # No metas 192.168.0.0/24 al OSPF
+! Rutas estáticas hacia las LAN del DC
+ip route 192.168.1.0 255.255.255.0 10.255.97.2
+ip route 10.10.10.0 255.255.255.0 10.255.97.2
+ip route 10.10.20.0 255.255.255.0 10.255.97.2
+! (si quieres llegar a la loopback del switch)
+ip route 10.255.0.11 255.255.255.255 10.255.97.2
 
-! # ========= ENDURECIMIENTO BÁSICO + SSH =========
+! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
 crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
-
 line con 0
  logging synchronous
  password Cisco.12345
@@ -234,7 +223,6 @@ line vty 0 15
  transport input ssh
  login local
  exec-timeout 10 0
-
 no ip http server
 no ip http secure-server
 end
@@ -249,25 +237,18 @@ wr
 
 
 
-## F0-SW-DC-00 - DC CORE SWITCH L3 (LAN GATEWAY & UPLINK TO ROUTER)
+## F0-SW-DC-01 - DC CORE SWITCH L3 (LAN GATEWAY & UPLINK TO ROUTER)
 
 ````py
-! # ========= BASE =========
+
 enable
 configure terminal
-! # Hostname
-hostname F0-SW-DC-00
-! # Dominio para SSH
+hostname F0-SW-DC-01
 ip domain-name fz3r0.dojo
-! # Descubrimiento L2
 lldp run
-! # Switch en modo L3
 ip routing
-! # DNS opcional
-ip name-server 8.8.8.8
-ip name-server 8.8.4.4
 
-! # ========= VLANES DEL DC =========
+! VLANs
 vlan 66
  name DC-MGMT
 vlan 10
@@ -275,30 +256,28 @@ vlan 10
 vlan 20
  name DC-TUNNEL-PSK
 
-! # ========= SVIs GATEWAY =========
+! Gateways
 interface Vlan66
  description *** DC MGMT GATEWAY ***
  ip address 192.168.1.254 255.255.255.0
  no shutdown
-!
 interface Vlan10
  description *** DC USERS TUNNELED VLAN10 ***
  ip address 10.10.10.1 255.255.255.0
  no shutdown
-!
 interface Vlan20
  description *** DC USERS TUNNELED VLAN20 ***
  ip address 10.10.20.1 255.255.255.0
  no shutdown
 
-! # ========= PUERTO L3 AL ROUTER =========
+! Enlace L3 al router
 interface GigabitEthernet1/0/24
- description *** L3 to F0-RT-DC-00 ***
+ description *** L3 to F0-RT-DC-01 ***
  no switchport
  ip address 10.255.97.2 255.255.255.252
  no shutdown
 
-! # ========= PUERTOS ACCESO MGMT (OPCIONAL) =========
+! Puertos acceso mgmt (opcional)
 interface range GigabitEthernet1/0/1 - 12
  description *** MGMT INTERFACES DATACENTER ***
  switchport
@@ -307,7 +286,7 @@ interface range GigabitEthernet1/0/1 - 12
  spanning-tree portfast
  no shutdown
 
-! # ========= TRUNKS FUTUROS (OPCIONAL) =========
+! Trunks futuros (opcional)
 interface range GigabitEthernet1/0/13 - 23
  description *** TRUNK INTERFACES (FUTURE USE) ***
  switchport
@@ -315,33 +294,21 @@ interface range GigabitEthernet1/0/13 - 23
  spanning-tree portfast trunk
  no shutdown
 
-! # ========= LOOPBACK DE MGMT =========
+! Loopback mgmt (opcional)
 interface Loopback0
  description *** MGMT LOOPBACK ***
  ip address 10.255.0.11 255.255.255.255
 
-! # ========= DEFAULT HACIA EL ROUTER =========
+! Default al router
 ip route 0.0.0.0 0.0.0.0 10.255.97.1
 
-! # ========= OSPF PARA ANUNCIAR SVIs AL ROUTER =========
-router ospf 1
- router-id 10.255.0.11
- passive-interface default
- no passive-interface GigabitEthernet1/0/24
- network 10.255.97.0 0.0.0.3 area 0
- network 192.168.1.0 0.0.0.255 area 0
- network 10.10.10.0 0.0.0.255 area 0
- network 10.10.20.0 0.0.0.255 area 0
- network 10.255.0.11 0.0.0.0 area 0
-
-! # ========= ENDURECIMIENTO BÁSICO + SSH =========
+! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
 crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
-
 line con 0
  logging synchronous
  password Cisco.12345
@@ -350,7 +317,6 @@ line vty 0 15
  transport input ssh
  login local
  exec-timeout 10 0
-
 no ip http server
 no ip http secure-server
 end
@@ -380,108 +346,6 @@ wr
 ---
 
 # `BRANCH SIDE`
-
-````py
-! # F0-RT-BR-00 - BRANCH ROUTER (trunk al WAN: 98 OSPF p2p + 99 NAT; default -> modem)
-enable
-configure terminal
-
-! --- System / L3 ---
-hostname F0-RT-BR-00
-ip domain name fz3r0.dojo
-lldp run
-ip routing
-
-! --- (Opcional) DNS ---
-ip name-server 8.8.8.8
-ip name-server 8.8.4.4
-
-! --- Mismo puerto al WAN switch con subinterfaces ---
-default interface Gi0/0/0
-interface Gi0/0/0
- no ip address
- no shut
-
-! --- Subif OSPF p2p (VLAN 98) ---
-interface Gi0/0/0.98
- description *** OSPF P2P to WAN L3 (VLAN 98) ***
- encapsulation dot1q 98
- ip address 123.2.2.2 255.255.255.252
- ip ospf network point-to-point
- no shut
-
-! --- Subif “LAN del módem” para NAT (VLAN 99) ---
-interface Gi0/0/0.99
- description *** OUTSIDE to Telmex LAN (VLAN 99) ***
- encapsulation dot1q 99
- ip address 192.168.0.11 255.255.255.0
- ip nat outside
- no shut
-
-! --- Enlace al BRANCH L3 SWITCH (tu /30 existente) ---
-interface Gi0/0/1
- description *** TO F0-SW-BR-00 ***
- ip address 123.2.2.9 255.255.255.252
- ip nat inside
- ip ospf network point-to-point
- no shut
-
-! --- Loopback de management (opcional; la marcamos inside para pruebas) ---
-interface Loopback0
- description *** MGMT LOOPBACK ***
- ip address 10.255.0.3 255.255.255.255
- ip nat inside
-
-! --- NAT (PAT) de redes del branch ---
-ip access-list standard LAB-BR-NETS
- permit 10.10.30.0 0.0.0.255
- permit 10.10.40.0 0.0.0.255
- permit 10.10.100.0 0.0.0.255
- permit 10.10.130.0 0.0.0.255
- permit 10.255.0.0 0.0.255.255
-!
-ip nat inside source list LAB-BR-NETS interface Gi0/0/0.99 overload
-
-! --- Default directa al módem (para que NAT salga por .99) ---
-ip route 0.0.0.0 0.0.0.0 192.168.0.254
-
-! --- OSPF: solo p2p + loopback; NO anunciar .99 ---
-router ospf 1
- router-id 10.255.0.3
- passive-interface default
- no passive-interface Gi0/0/0.98
- no passive-interface Gi0/0/1
- network 123.2.2.0 0.0.0.3 area 0
- network 123.2.2.8 0.0.0.3 area 0
- network 10.255.0.3 0.0.0.0 area 0
-
-! --- Admin + SSH ---
-username admin privilege 15 secret Cisco.12345
-enable secret Cisco.12345
-service password-encryption
-crypto key generate rsa modulus 2048
-ip ssh version 2
-ip ssh source-interface Loopback0
-line con 0
- logging synchronous
- password Cisco.12345
- login
-line vty 0 15
- transport input ssh
- login local
- exec-timeout 10 0
-no ip http server
-no ip http secure-server
-
-end
-wr
-
-!
-!
-
-````
-
-
 
 
 
