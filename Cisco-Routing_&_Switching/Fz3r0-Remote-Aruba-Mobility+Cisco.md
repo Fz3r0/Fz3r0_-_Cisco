@@ -57,112 +57,71 @@ reload
 
 # `DC SIDE`
 
-## F0-SW-WAN-00 - WAN SWITCH L3 @ INTERNET
+## F0-SW-WAN-01 - WAN SWITCH L2
 
 ````py
-! # F0-SW-WAN-00 - L3 WAN SWITCH (SVI VLAN99 + trunks a routers; OSPF p2p)
+! # ========= BASE =========
 enable
 configure terminal
-
-! --- System / L3 ---
-hostname F0-SW-WAN-00
+! # Hostname
+hostname F0-SW-WAN-01
+! # Dominio para SSH
 ip domain-name fz3r0.dojo
+! # Descubrimiento L2
 lldp run
-ip routing
+! # Este switch será solo L2
+no ip routing
 
-! --- DNS + default propia ---
-ip name-server 8.8.8.8
-ip name-server 8.8.4.4
-ip route 0.0.0.0 0.0.0.0 192.168.0.254
-
-! --- No usamos Vlan1 ---
-interface Vlan1
- no ip address
- shutdown
-
-! --- VLANs ---
+! # ========= VLANING =========
+! # VLAN de la LAN del módem
 vlan 99
  name WAN-LAN
-vlan 97
- name P2P-DC
-vlan 98
- name P2P-BR
 
-! --- Puerto al MÓDEM en L2 (VLAN 99) ---
+! # ========= MGMT DEL SWITCH =========
+! # IP de administración en la LAN del módem
+interface Vlan99
+ description *** MGMT on WAN-LAN toward Telmex ***
+ ip address 192.168.0.10 255.255.255.0
+ no shutdown
+! # Default-gateway L2 para administrar el switch
+ip default-gateway 192.168.0.254
+
+! # ========= PUERTO AL MÓDEM =========
 default interface Gi1/0/1
 interface Gi1/0/1
- description *** TO TELMEX HOME MODEM (L2, VLAN 99) ***
+ description *** TO TELMEX HOME MODEM ***
  switchport
  switchport mode access
  switchport access vlan 99
  spanning-tree portfast
- no shut
+ no shutdown
 
-! --- TRUNK a DC ROUTER: permite VLAN 99 y 97 ---
+! # ========= TRUNK AL DC ROUTER (SOLO VLAN 99) =========
 default interface Gi1/0/47
 interface Gi1/0/47
- description *** TO DC ROUTER (TRUNK 99 + 97) ***
+ description *** TO DC ROUTER (VLAN 99 only) ***
  switchport
  switchport mode trunk
- switchport trunk allowed vlan 99,97
+ switchport trunk allowed vlan 99
  spanning-tree portfast trunk
- no shut
+ no shutdown
 
-! --- TRUNK a BRANCH ROUTER: permite VLAN 99 y 98 ---
+! # ========= TRUNK AL BRANCH ROUTER FUTURO (SOLO VLAN 99) =========
 default interface Gi1/0/48
 interface Gi1/0/48
- description *** TO BRANCH ROUTER (TRUNK 99 + 98) ***
+ description *** TO BRANCH ROUTER (VLAN 99 only, future) ***
  switchport
  switchport mode trunk
- switchport trunk allowed vlan 99,98
+ switchport trunk allowed vlan 99
  spanning-tree portfast trunk
- no shut
+ no shutdown
 
-! --- SVI de la LAN del módem ---
-interface Vlan99
- description *** WAN LAN toward Telmex ***
- ip address 192.168.0.99 255.255.255.0
- no shut
-
-! --- SVIs p2p para OSPF hacia los routers ---
-interface Vlan97
- description *** P2P OSPF to DC ROUTER ***
- ip address 123.1.1.1 255.255.255.252
- ip ospf network point-to-point
- no shut
-
-interface Vlan98
- description *** P2P OSPF to BRANCH ROUTER ***
- ip address 123.2.2.1 255.255.255.252
- ip ospf network point-to-point
- no shut
-
-! --- Loopback de management ---
-interface Loopback0
- description *** MANAGEMENT LOOPBACK ***
- ip address 10.255.0.1 255.255.255.255
-
-! --- OSPF: solo p2p + loopback; NO incluir Vlan99 ---
-router ospf 1
- router-id 10.255.0.1
- passive-interface default
- no passive-interface Vlan97
- no passive-interface Vlan98
- network 123.1.1.0 0.0.0.3 area 0
- network 123.2.2.0 0.0.0.3 area 0
- network 10.255.0.1 0.0.0.0 area 0
- ! default-information originate   ! (déjalo apagado: NAT va en routers)
-
-! --- Admin + SSH ---
+! # ========= ENDURECIMIENTO BASICO + SSH =========
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
-login block-for 60 attempts 3 within 60
-login on-failure log
-login on-success log
 crypto key generate rsa modulus 2048
 ip ssh version 2
-ip ssh source-interface Loopback0
 
 line con 0
  logging synchronous
@@ -175,13 +134,11 @@ line vty 0 15
 
 no ip http server
 no ip http secure-server
-
 end
 wr
 
 !
 !
-
 
 
 ````
@@ -191,109 +148,84 @@ wr
 
 
 
-## F0-RT-DC-00 - DC ROUTER (learns default via OSPF from WAN L3)
+## F0-RT-DC-01 - DC ROUTER (learns default via OSPF from WAN L3)
 
 ````py
-! # F0-RT-DC-00 - DC ROUTER (trunk al WAN: 97 OSPF p2p + 99 NAT; default -> modem)
+! # ========= BASE =========
 enable
 configure terminal
-
-! --- System / L3 ---
-hostname F0-RT-DC-00
-ip domain name fz3r0.dojo
-lldp run
+! # Hostname
+hostname F0-RT-DC-01
+! # Dominio para SSH
+ip domain-name fz3r0.dojo
+! # Routing L3 activo
 ip routing
-
-! --- (Opcional) DNS ---
+! # Descubrimiento L2
+lldp run
+! # DNS opcional
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 
-! --- Mismo PUERTO al WAN switch, pero con SUBINTERFACES dot1q ---
+! # ========= OUTSIDE HACIA EL MÓDEM EN VLAN 99 (TRUNK CON EL SW-WAN) =========
 default interface Gi0/0/0
 interface Gi0/0/0
  no ip address
- no shut
-
-! --- Subif OSPF p2p (VLAN 97) hacia F0-SW-WAN-00 ---
-interface Gi0/0/0.97
- description *** OSPF P2P to WAN L3 (VLAN 97) ***
- encapsulation dot1q 97
- ip address 123.1.1.2 255.255.255.252
- ip ospf network point-to-point
- no shut
-
-! --- Subif "LAN del modem" para NAT (VLAN 99) ---
+ no shutdown
+!
 interface Gi0/0/0.99
  description *** OUTSIDE to Telmex LAN (VLAN 99) ***
  encapsulation dot1q 99
- ip address 192.168.0.10 255.255.255.0
+ ip address 192.168.0.11 255.255.255.0
  ip nat outside
- no shut
+ no shutdown
 
-! --- Enlace L3 al DC L3 SWITCH (tu /30 existente) ---
+! # ========= ENLACE L3 AL SWITCH DC =========
+default interface Gi0/0/1
 interface Gi0/0/1
- description *** TO F0-SW-DC-00 ***
- no ip address 
- no shut
-exit
- 
-interface Gi0/0/1.97
- description *** P2P to F0-SW-DC-00 (VLAN 97) ***
- encapsulation dot1q 97
- ip address 123.1.1.9 255.255.255.252
+ description *** L3 to F0-SW-DC-00 ***
+ ip address 10.255.97.1 255.255.255.252
  ip nat inside
- ip ospf network point-to-point
- no shut
+ no shutdown
 
-
-
-
-! --- Loopback de management (úsala como source de SSH/ping) ---
+! # ========= LOOPBACK DE MGMT =========
 interface Loopback0
  description *** MGMT LOOPBACK ***
  ip address 10.255.0.2 255.255.255.255
  ip nat inside
 
-! --- NAT (PAT) de las redes internas del DC ---
+! # ========= NAT PAT PARA LAS REDES DEL DC =========
 ip access-list standard LAB-DC-NETS
-   ! VLAN10 tunneled
-   permit 10.10.10.0 0.0.0.255
-   ! VLAN20 tunneled   
-   permit 10.10.20.0 0.0.0.255
-   ! DC mgmt LAN     
-   permit 192.168.1.0 0.0.0.255
-   ! loopbacks/mgmt   
-   permit 10.255.0.0 0.0.255.255   
-   !
+ ! VLAN10 usuarios
+ permit 10.10.10.0 0.0.0.255
+ ! VLAN20 usuarios
+ permit 10.10.20.0 0.0.0.255
+ ! VLAN66 mgmt DC
+ permit 192.168.1.0 0.0.0.255
+ ! Loopbacks internas
+ permit 10.255.0.0 0.0.255.255
+!
 ip nat inside source list LAB-DC-NETS interface Gi0/0/0.99 overload
 
-! --- Default directa al modem (para que el NAT salga por .99) ---
+! # ========= DEFAULT ROUTE A LA PUERTA DEL MÓDEM =========
 ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
-! --- OSPF: solo p2p + loopback; NO anunciar VLAN 99 ---
+! # ========= OSPF SOLO CON EL SWITCH DC =========
 router ospf 1
  router-id 10.255.0.2
  passive-interface default
- no passive-interface Gi0/0/0.97
- no passive-interface Gi0/0/1.97
- ! Gi0/0/0.97
- network 123.1.1.0 0.0.0.3 area 0
- ! Gi0/0/1  
- network 123.1.1.8 0.0.0.3 area 0
- ! Loopback0   
- network 10.255.0.2 0.0.0.0 area 0   
+ no passive-interface Gi0/0/1
+ network 10.255.97.0 0.0.0.3 area 0
+ network 10.255.0.2 0.0.0.0 area 0
+! # No metas 192.168.0.0/24 al OSPF
 
-
-! --- Admin + SSH ---
+! # ========= ENDURECIMIENTO BÁSICO + SSH =========
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
-login block-for 60 attempts 3 within 60
-login on-failure log
-login on-success log
 crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
+
 line con 0
  logging synchronous
  password Cisco.12345
@@ -302,9 +234,9 @@ line vty 0 15
  transport input ssh
  login local
  exec-timeout 10 0
+
 no ip http server
 no ip http secure-server
-
 end
 wr
 
