@@ -340,10 +340,14 @@ interface Vlan1
  shutdown
 
 ! --- VLANs del DC ---
-vlan 66  name DC-MGMT
-vlan 10  name DC-TUNNEL-ENT
-vlan 20  name DC-TUNNEL-PSK
-vlan 97  name P2P-DC-RTR
+vlan 66
+name DC-MGMT
+vlan 10
+name DC-TUNNEL-ENT
+vlan 20
+name DC-TUNNEL-PSK
+vlan 97
+name P2P-DC-RTR
 
 ! --- SVIs (gateways del DC) ---
 interface Vlan66
@@ -369,7 +373,6 @@ interface Vlan97
  no shut
 
 ! --- Puerto al DC Router: TRUNK solo VLAN 97 ---
-default interface GigabitEthernet1/0/24
 interface GigabitEthernet1/0/24
  description *** TO F0-RT-DC-00 (TRUNK SOLO VLAN 97) ***
  switchport
