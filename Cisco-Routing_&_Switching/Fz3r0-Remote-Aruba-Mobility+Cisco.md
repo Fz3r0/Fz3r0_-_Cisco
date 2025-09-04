@@ -58,30 +58,30 @@ reload
 ## F0-SW-WAN-00 - WAN SWITCH L3 @ INTERNET
 
 ````py
+! # F0-SW-WAN-00 - L3 WAN SWITCH
 enable
 configure terminal
 
+! # System - Identity - L3 enable
 hostname F0-SW-WAN-00
 ip domain-name fz3r0.dojo
 lldp run
-
-! IP routing (L3 router transform + ospf enable)
 ip routing
 
-! DNS y gateway para administración L2 (sin ip routing)
+! # DNS (for name resolution on the box)
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 
-! # Default route hacia el módem Telmex
+! # Default route to Telmex modem 
 ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
-! # Apagar VLAN 1 y su DHCP/IP
-interface vlan1
+! # Disable default VLAN SVI (we route only on routed links) 
+interface Vlan1
    no ip address
    shutdown
 exit
 
-! # Enlace físico al módem Telmex
+! # Uplink to Telmex modem (routed) 
 interface Gi1/0/1
    description *** UPLINK TO TELMEX HOME MODEM ***
    no switchport
@@ -89,7 +89,7 @@ interface Gi1/0/1
    no shut
 exit
 
-! # Enlaces p2p a routers
+! # L3 p2p to DC Router 
 interface Gi1/0/47
    description *** UPLINK TO DC ROUTER ***
    no switchport
@@ -97,6 +97,7 @@ interface Gi1/0/47
    no shut
 exit
 
+! # L3 p2p to Branch Router 
 interface Gi1/0/48
    description *** UPLINK TO BRANCH ROUTER ***
    no switchport
@@ -104,56 +105,59 @@ interface Gi1/0/48
    no shut
 exit
 
-! # Loopback de mgmt
+! # Management loopback (stable SSH/ping source) 
 interface Loopback0
    description *** MANAGEMENT LOOPBACK ***
    ip address 10.255.0.1 255.255.255.255
 exit
 
+! # OSPF (single process, only on p2p + loopback) 
 router ospf 1
    router-id 10.255.0.1
-      passive-interface default
-         network 123.1.1.0 0.0.0.3 area 0
-         network 123.2.2.0 0.0.0.3 area 0
-         network 10.255.0.1 0.0.0.0 area 0
+   passive-interface default
+   no passive-interface Gi1/0/47
+   no passive-interface Gi1/0/48
+   network 123.1.1.0 0.0.0.3 area 0
+   network 123.2.2.0 0.0.0.3 area 0
+   network 10.255.0.1 0.0.0.0 area 0
 exit
 
-! usuarios y ssh
+! # Local admin + hardening basics 
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
 login block-for 60 attempts 3 within 60
 login on-failure log
 login on-success log
+
+! # SSH enable (keys + v2) and use loopback as source 
 crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
 
-! consola (si quieres que pida password en consola, agrega 'login')
+! # Console line (local login) 
 line con 0
    logging synchronous
-   no transport preferred
    password Cisco.12345
    login
 exit
 
-! VTY: SOLO SSH + usuario local en TODAS las líneas
+! # VTY lines (SSH only, local user, idle timeout) ---
 line vty 0 15
-   no transport preferred
    transport input ssh
    login local
    exec-timeout 10 0
 exit
 
-authentication mac-move permit
+! # Optional: disable HTTP/HTTPS server on the box 
+no ip http server
+no ip http secure-server
 
 end
-
 wr
 
 !
 !
-
 
 
 ````
