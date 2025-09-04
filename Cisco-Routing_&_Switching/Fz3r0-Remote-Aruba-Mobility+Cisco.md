@@ -233,10 +233,19 @@ interface Gi0/0/0.99
 ! --- Enlace L3 al DC L3 SWITCH (tu /30 existente) ---
 interface Gi0/0/1
  description *** TO F0-SW-DC-00 ***
+ no ip address 
+ no shut
+exit
+ 
+interface Gi0/0/1.97
+ description *** P2P to F0-SW-DC-00 (VLAN 97) ***
+ encapsulation dot1q 97
  ip address 123.1.1.9 255.255.255.252
  ip nat inside
  ip ospf network point-to-point
  no shut
+
+
 
 
 ! --- Loopback de management (úsala como source de SSH/ping) ---
