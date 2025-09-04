@@ -47,7 +47,7 @@ copy startup-config running-config
 
 9 - Change the enable secret & admin/password + save configuration
 
-en los routers puse `admin.cisco` y el otro `cisco.12345` cambialo!
+In this example I used: `admin`:`Cisco.12345`
 
 ````
 configure terminal
