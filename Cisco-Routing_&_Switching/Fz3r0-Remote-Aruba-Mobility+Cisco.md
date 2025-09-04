@@ -325,6 +325,11 @@ ip routing
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 
+! --- No usamos Vlan1 ---
+interface Vlan1
+ no ip address
+ shutdown
+
 ! --- VLANs del DC ---
 vlan 66
  name DC-MGMT
