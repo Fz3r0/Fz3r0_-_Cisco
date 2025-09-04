@@ -59,10 +59,14 @@ reload
 
 ````py
 enable
-conf t
+configure terminal
 
 hostname F0-SW-WAN-00
 ip domain-name fz3r0.dojo
+lldp run
+
+! IP routing (L3 router transform + ospf enable)
+ip routing
 
 ! DNS y gateway para administración L2 (sin ip routing)
 ip name-server 8.8.8.8
@@ -72,40 +76,47 @@ ip name-server 8.8.4.4
 ip default-gateway 192.168.0.254
 ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
+! # Apagar VLAN 1 y su DHCP/IP
+interface vlan1
+   no ip address
+   shutdown
+exit
+
 ! # Enlace físico al módem Telmex
- *** UPLINK TO TELMEX HOME MODEM ***
 interface Gi1/0/1
- no switchport
- ip address 192.168.0.99 255.255.255.0
- no shut
+   description *** UPLINK TO TELMEX HOME MODEM ***
+   no switchport
+   ip address 192.168.0.99 255.255.255.0
+   no shut
 exit
 
 ! # Enlaces p2p a routers
 interface Gi1/0/47
- *** UPLINK TO DC ROUTER ***
- no switchport
- ip address 123.1.1.1 255.255.255.252
- no shut
+   description *** UPLINK TO DC ROUTER ***
+   no switchport
+   ip address 123.1.1.1 255.255.255.252
+   no shut
+exit
 
 interface Gi1/0/48
- *** UPLINK TO BRANCH ROUTER ***
- no switchport
- ip address 123.2.2.1 255.255.255.252
- no shut
+   description *** UPLINK TO BRANCH ROUTER ***
+   no switchport
+   ip address 123.2.2.1 255.255.255.252
+   no shut
+exit
 
 ! # Loopback de mgmt
 interface Loopback0
- *** MANAGEMENT LOOPBACK ***
- ip address 10.255.0.1 255.255.255.255
+   description *** MANAGEMENT LOOPBACK ***
+   ip address 10.255.0.1 255.255.255.255
 exit
 
 router ospf 1
- router-id 10.255.0.1
- network 123.1.1.0 0.0.0.3 area 0
- network 123.2.2.0 0.0.0.3 area 0
- network 10.255.0.1 0.0.0.0 area 0
+   router-id 10.255.0.1
+   network 123.1.1.0 0.0.0.3 area 0
+   network 123.2.2.0 0.0.0.3 area 0
+   network 10.255.0.1 0.0.0.0 area 0
 exit
-
 
 ! usuarios y secretos
 username admin privilege 15 secret Cisco.12345
@@ -123,18 +134,18 @@ ip ssh version 2
 
 ! consola (si quieres que pida password en consola, agrega 'login')
 line con 0
- logging synchronous
- no transport preferred
-! login
-! password Cisco.12345
+   logging synchronous
+   no transport preferred
+   password Cisco.12345
+   login
 exit
 
 ! VTY: SOLO SSH + usuario local en TODAS las líneas
 line vty 0 15
- no transport preferred
- transport input ssh
- login local
- exec-timeout 10 0
+   no transport preferred
+   transport input ssh
+   login local
+   exec-timeout 10 0
 exit
 
 authentication mac-move permit
