@@ -236,6 +236,7 @@ interface Gi0/0/1
  ip ospf network point-to-point
  no shut
 
+
 ! --- Loopback de management (úsala como source de SSH/ping) ---
 interface Loopback0
  description *** MGMT LOOPBACK ***
