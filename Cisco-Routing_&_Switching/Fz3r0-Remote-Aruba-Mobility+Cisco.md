@@ -73,7 +73,6 @@ ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 
 ! # Default route hacia el módem Telmex
-ip default-gateway 192.168.0.254
 ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
 ! # Apagar VLAN 1 y su DHCP/IP
@@ -113,24 +112,22 @@ exit
 
 router ospf 1
    router-id 10.255.0.1
-   network 123.1.1.0 0.0.0.3 area 0
-   network 123.2.2.0 0.0.0.3 area 0
-   network 10.255.0.1 0.0.0.0 area 0
+      passive-interface default
+         network 123.1.1.0 0.0.0.3 area 0
+         network 123.2.2.0 0.0.0.3 area 0
+         network 10.255.0.1 0.0.0.0 area 0
 exit
 
-! usuarios y secretos
+! usuarios y ssh
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
-
-! proteger intentos
 login block-for 60 attempts 3 within 60
 login on-failure log
 login on-success log
-
-! claves y SSH
 crypto key generate rsa modulus 2048
 ip ssh version 2
+ip ssh source-interface Loopback0
 
 ! consola (si quieres que pida password en consola, agrega 'login')
 line con 0
@@ -156,6 +153,7 @@ wr
 
 !
 !
+
 
 
 ````
