@@ -17,6 +17,8 @@
 
 #  Cisco IOS & Aruba Mobility :: `Fz3r0 Remote Aruba Mobility + Cisco Lab`
 
+https://excalidraw.com/#json=eB2Mg-KynXcDY8qiBTz4b,UuDoyFRtNus_aG6nL1_R7A
+
 ## IMPORTANT NOTES!!
 
 ### `NATIVE VLANS FOR TRUNKS`
@@ -286,9 +288,9 @@ ip routing
 
 vlan 100
  name BR-MGMT
-vlan 701
- name BR-ENT
 vlan 702
+ name BR-ENT
+vlan 703
  name BR-PSK
 vlan 300
  name BR-WLAN-MGMT
@@ -298,11 +300,11 @@ interface Vlan100
  description *** BR MGMT ***
  ip address 10.10.100.254 255.255.255.0
  no shutdown
-interface Vlan701
+interface Vlan702
  description *** BR USERS VLAN701 ***
  ip address 10.10.30.254 255.255.255.0
  no shutdown
-interface Vlan702
+interface Vlan703
  description *** BR USERS VLAN702 ***
  ip address 10.10.40.254 255.255.255.0
  no shutdown
@@ -354,7 +356,7 @@ interface range GigabitEthernet1/0/17-20
  description *** TRUNK NATIVE 300 WI-FI ***
  switchport
  switchport mode trunk
- switchport trunk allowed vlan 701,702,100,300
+ switchport trunk allowed vlan 702,703,100,300
  switchport trunk native vlan 300
  no shutdown
 
@@ -364,7 +366,7 @@ interface range GigabitEthernet1/0/21-23
  no switchport
  switchport
  switchport mode trunk
- switchport trunk allowed vlan 701,702,100,300
+ switchport trunk allowed vlan 702,703,100,300
  no shutdown
 
 
@@ -383,7 +385,7 @@ ip dhcp pool BR-MGMT
  domain-name fz3r0.dojo
  lease 7
 
-! --- BR-ENT (VLAN 701) 10.10.30.0/24 ---
+! --- BR-ENT (VLAN 702) 10.10.30.0/24 ---
 ip dhcp excluded-address 10.10.30.1 10.10.30.100
 ip dhcp excluded-address 10.10.30.201 10.10.30.254
 ip dhcp pool BR-ENT
@@ -393,7 +395,7 @@ ip dhcp pool BR-ENT
  domain-name fz3r0.dojo
  lease 7
 
-! --- BR-PSK (VLAN 702) 10.10.40.0/24 ---
+! --- BR-PSK (VLAN 703) 10.10.40.0/24 ---
 ip dhcp excluded-address 10.10.40.1 10.10.40.100
 ip dhcp excluded-address 10.10.40.201 10.10.40.254
 ip dhcp pool BR-PSK
