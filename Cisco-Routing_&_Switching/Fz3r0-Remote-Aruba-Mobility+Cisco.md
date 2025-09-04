@@ -208,6 +208,41 @@ interface range GigabitEthernet1/0/13-23
  no shutdown
 
 
+! ===== DHCP SERVER EN EL SWITCH DC =====
+service dhcp
+ip dhcp ping packets 1
+
+! --- DC-MGMT (VLAN 66) 192.168.1.0/24 ---
+ip dhcp excluded-address 192.168.1.1 192.168.1.100
+ip dhcp excluded-address 192.168.1.201 192.168.1.254
+ip dhcp pool DC-MGMT
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 0 8 0
+
+! --- DC-TUNNEL-ENT (VLAN 10) 10.10.10.0/24 ---
+ip dhcp excluded-address 10.10.10.1 10.10.10.100
+ip dhcp excluded-address 10.10.10.201 10.10.10.254
+ip dhcp pool DC-TUNNEL-ENT
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 0 8 0
+
+! --- DC-TUNNEL-PSK (VLAN 20) 10.10.20.0/24 ---
+ip dhcp excluded-address 10.10.20.1 10.10.20.100
+ip dhcp excluded-address 10.10.20.201 10.10.20.254
+ip dhcp pool DC-TUNNEL-PSK
+ network 10.10.20.0 255.255.255.0
+ default-router 10.10.20.254
+ dns-server 8.8.8.8 1.1.1.1
+ domain-name fz3r0.dojo
+ lease 0 8 0
+
+
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
