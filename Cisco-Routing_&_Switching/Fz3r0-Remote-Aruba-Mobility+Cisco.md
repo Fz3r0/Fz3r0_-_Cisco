@@ -314,20 +314,22 @@ interface range GigabitEthernet1/0/13-16
  switchport mode trunk
  no shutdown
 
-! INTERFACES TRUNK (v300 WI-FI NATIVE)
+! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
 interface range GigabitEthernet1/0/17-20
  description *** TRUNK NATIVE 300 WI-FI ***
  switchport
  switchport mode trunk
+ switchport trunk allowed vlan 30,40,100,300
  switchport trunk native vlan 300
  no shutdown
 
-! MORE INTERFACES TRUNK
+! INTERFACES TRUNK (ALLOWED BUT DEFAULT NATIVE VLAN)
 interface range GigabitEthernet1/0/21-23
  description *** TRUNK UPLINK ***
  no switchport
  switchport
  switchport mode trunk
+ switchport trunk allowed vlan 30,40,100,300
  no shutdown
 
 ! Endurecimiento + SSH
