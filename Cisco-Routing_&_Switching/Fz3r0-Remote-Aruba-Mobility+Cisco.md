@@ -245,11 +245,15 @@ interface Loopback0
 
 ! --- NAT (PAT) de las redes internas del DC ---
 ip access-list standard LAB-DC-NETS
- permit 10.10.10.0 0.0.0.255     ! VLAN10 tunneled
- permit 10.10.20.0 0.0.0.255     ! VLAN20 tunneled
- permit 192.168.1.0 0.0.0.255    ! DC mgmt LAN
- permit 10.255.0.0 0.0.255.255   ! loopbacks/mgmt
-!
+   ! VLAN10 tunneled
+   permit 10.10.10.0 0.0.0.255
+   ! VLAN20 tunneled   
+   permit 10.10.20.0 0.0.0.255
+   ! DC mgmt LAN     
+   permit 192.168.1.0 0.0.0.255
+   ! loopbacks/mgmt   
+   permit 10.255.0.0 0.0.255.255   
+   !
 ip nat inside source list LAB-DC-NETS interface Gi0/0/0.99 overload
 
 ! --- Default directa al modem (para que el NAT salga por .99) ---
@@ -261,11 +265,41 @@ router ospf 1
  passive-interface default
  no passive-interface Gi0/0/0.97
  no passive-interface Gi0/0/1
- network 123.1.1.0 0.0.0.3 area 0     ! Gi0/0/0.97
- network 123.1.1.8 0.0.0.3 area 0     ! Gi0/0/1
- network 10.255.0.2 0.0.0.0 area 0    ! Loopback0
+ ! Gi0/0/0.97
+ network 123.1.1.0 0.0.0.3 area 0
+ ! Gi0/0/1  
+ network 123.1.1.8 0.0.0.3 area 0
+ ! Loopback0   
+ network 10.255.0.2 0.0.0.0 area 0   
 
-! --- Admin + SSH
+
+! --- Admin + SSH ---
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+login block-for 60 attempts 3 within 60
+login on-failure log
+login on-success log
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh source-interface Loopback0
+line con 0
+ logging synchronous
+ password Cisco.12345
+ login
+line vty 0 15
+ transport input ssh
+ login local
+ exec-timeout 10 0
+no ip http server
+no ip http secure-server
+
+end
+wr
+
+!
+!
+
 
 ````
 
