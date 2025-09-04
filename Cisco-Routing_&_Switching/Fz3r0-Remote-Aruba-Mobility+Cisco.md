@@ -120,6 +120,9 @@ router ospf 1
    network 123.1.1.0 0.0.0.3 area 0
    network 123.2.2.0 0.0.0.3 area 0
    network 10.255.0.1 0.0.0.0 area 0
+ ! # NOTE: advertise 0/0 to all OSPF neighbors (cleanest way for all nodes to learn Internet default)
+ ! #       This originates a default route ONLY because this box already has a static 0/0 → 192.168.0.254
+ default-information originate
 exit
 
 ! # Local admin + hardening basics 
@@ -161,6 +164,106 @@ wr
 
 
 ````
+
+
+
+
+
+
+## F0-RT-DC-00 - DC ROUTER (learns default via OSPF from WAN L3)
+
+````py
+! # F0-RT-DC-00 - DC ROUTER (learns default via OSPF from WAN L3)
+enable
+configure terminal
+
+! # System - Identity - L3 enable
+hostname F0-RT-DC-00
+ip domain name fz3r0.dojo
+lldp run
+ip routing
+
+! # (Optional) DNS for local name resolution
+ip name-server 8.8.8.8
+ip name-server 8.8.4.4
+
+! # p2p to WAN L3 (F0-SW-WAN-00)
+interface Gi0/0/0
+   description *** TO WAN L3 (F0-SW-WAN-00) ***
+   ip address 123.1.1.2 255.255.255.252
+   no shut
+exit
+
+! # p2p to DC L3 Switch (F0-SW-DC-00)
+interface Gi0/0/1
+   description *** TO DC L3 SWITCH (F0-SW-DC-00) ***
+   ip address 123.1.1.9 255.255.255.252
+   no shut
+exit
+
+! # Management loopback (stable SSH/ICMP source)
+interface Loopback0
+ description *** MANAGEMENT LOOPBACK ***
+ ip address 10.255.0.2 255.255.255.255
+exit
+
+! # OSPF (single process; only p2p + loopback)
+! # NOTE: Default (0/0) is learned as OE2 from WAN L3; no static default here.
+router ospf 1
+ router-id 10.255.0.2
+ passive-interface default
+ no passive-interface Gi0/0/0
+ no passive-interface Gi0/0/1
+ network 123.1.1.0 0.0.0.3 area 0
+ network 123.1.1.8 0.0.0.3 area 0
+ network 10.255.0.2 0.0.0.0 area 0
+exit
+
+! # Local admin + hardening basics
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+login block-for 60 attempts 3 within 60
+login on-failure log
+login on-success log
+
+! # SSH (keys + v2) and use loopback as source
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh source-interface Loopback0
+
+! # Console line (local login)
+line con 0
+ logging synchronous
+ password Cisco.12345
+ login
+exit
+
+! # VTY lines (SSH only, local user, idle timeout)
+line vty 0 15
+ transport input ssh
+ login local
+ exec-timeout 10 0
+exit
+
+! # Optional: disable HTTP/HTTPS server on the box
+no ip http server
+no ip http secure-server
+
+end
+wr
+
+!
+!
+
+````
+
+
+
+
+
+
+
 
 # 🗃️ Resources
 
