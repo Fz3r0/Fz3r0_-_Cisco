@@ -252,111 +252,96 @@ wr
 ## F0-SW-DC-00 - DC CORE SWITCH L3 (LAN GATEWAY & UPLINK TO ROUTER)
 
 ````py
-! # F0-SW-DC-00 - DC L3 SWITCH (SVIs + SVI p2p VLAN 97 + OSPF p2p + default al router)
+! # ========= BASE =========
 enable
 configure terminal
-
-! --- System / L3 ---
+! # Hostname
 hostname F0-SW-DC-00
+! # Dominio para SSH
 ip domain-name fz3r0.dojo
+! # Descubrimiento L2
 lldp run
+! # Switch en modo L3
 ip routing
-
-! --- DNS (opcional) ---
+! # DNS opcional
 ip name-server 8.8.8.8
 ip name-server 8.8.4.4
 
-! --- No usamos Vlan1 ---
-interface Vlan1
- no ip address
- shutdown
-
-! --- VLANs del DC ---
+! # ========= VLANES DEL DC =========
 vlan 66
-name DC-MGMT
+ name DC-MGMT
 vlan 10
-name DC-TUNNEL-ENT
+ name DC-TUNNEL-ENT
 vlan 20
-name DC-TUNNEL-PSK
-vlan 97
-name P2P-DC-RTR
+ name DC-TUNNEL-PSK
 
-! --- SVIs (gateways del DC) ---
+! # ========= SVIs GATEWAY =========
 interface Vlan66
  description *** DC MGMT GATEWAY ***
  ip address 192.168.1.254 255.255.255.0
- no shut
+ no shutdown
 !
 interface Vlan10
  description *** DC USERS TUNNELED VLAN10 ***
  ip address 10.10.10.1 255.255.255.0
- no shut
+ no shutdown
 !
 interface Vlan20
  description *** DC USERS TUNNELED VLAN20 ***
  ip address 10.10.20.1 255.255.255.0
- no shut
+ no shutdown
 
-! --- SVI p2p al DC Router (OSPF point-to-point) ---
-interface Vlan97
- description *** P2P OSPF to F0-RT-DC-00 ***
- ip address 123.1.1.10 255.255.255.252
- ip ospf network point-to-point
- no shut
-
-! --- Puerto al DC Router: TRUNK solo VLAN 97 ---
+! # ========= PUERTO L3 AL ROUTER =========
 interface GigabitEthernet1/0/24
- description *** TO F0-RT-DC-00 (TRUNK SOLO VLAN 97) ***
- switchport
- switchport mode trunk
- switchport trunk allowed vlan 97
- spanning-tree portfast trunk
- no shut
+ description *** L3 to F0-RT-DC-00 ***
+ no switchport
+ ip address 10.255.97.2 255.255.255.252
+ no shutdown
 
-! --- Puertos de acceso MGMT (opcional) ---
+! # ========= PUERTOS ACCESO MGMT (OPCIONAL) =========
 interface range GigabitEthernet1/0/1 - 12
  description *** MGMT INTERFACES DATACENTER ***
  switchport
  switchport mode access
  switchport access vlan 66
  spanning-tree portfast
- no shut
+ no shutdown
 
-! --- Trunks futuros (opcional) ---
+! # ========= TRUNKS FUTUROS (OPCIONAL) =========
 interface range GigabitEthernet1/0/13 - 23
  description *** TRUNK INTERFACES (FUTURE USE) ***
  switchport
  switchport mode trunk
- ! switchport trunk allowed vlan 66,10,20
  spanning-tree portfast trunk
- no shut
+ no shutdown
 
-! --- Loopback de management ---
+! # ========= LOOPBACK DE MGMT =========
 interface Loopback0
  description *** MGMT LOOPBACK ***
  ip address 10.255.0.11 255.255.255.255
 
-! --- Default: todo hacia el DC Router (que hace NAT por .99) ---
-ip route 0.0.0.0 0.0.0.0 123.1.1.9
+! # ========= DEFAULT HACIA EL ROUTER =========
+ip route 0.0.0.0 0.0.0.0 10.255.97.1
 
-! --- OSPF: p2p en Vlan97 + loopback; SVIs de usuarios en pasivo ---
+! # ========= OSPF PARA ANUNCIAR SVIs AL ROUTER =========
 router ospf 1
  router-id 10.255.0.11
  passive-interface default
- no passive-interface Vlan97
- network 123.1.1.8 0.0.0.3 area 0     ! Vlan97 p2p al router
- network 192.168.1.0 0.0.0.255 area 0 ! VLAN66 mgmt
- network 10.10.10.0 0.0.0.255 area 0  ! VLAN10
- network 10.10.20.0 0.0.0.255 area 0  ! VLAN20
- network 10.255.0.11 0.0.0.0 area 0   ! Loopback
+ no passive-interface GigabitEthernet1/0/24
+ network 10.255.97.0 0.0.0.3 area 0
+ network 192.168.1.0 0.0.0.255 area 0
+ network 10.10.10.0 0.0.0.255 area 0
+ network 10.10.20.0 0.0.0.255 area 0
+ network 10.255.0.11 0.0.0.0 area 0
 
-! --- Admin + SSH ---
+! # ========= ENDURECIMIENTO BÁSICO + SSH =========
 username admin privilege 15 secret Cisco.12345
 enable secret Cisco.12345
 service password-encryption
 crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
+
 line con 0
  logging synchronous
  password Cisco.12345
@@ -365,14 +350,14 @@ line vty 0 15
  transport input ssh
  login local
  exec-timeout 10 0
+
 no ip http server
 no ip http secure-server
-
 end
 wr
 
-
-
+!
+!
 
 
 ````
