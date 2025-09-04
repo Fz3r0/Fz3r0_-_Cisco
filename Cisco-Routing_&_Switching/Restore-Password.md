@@ -35,7 +35,7 @@ reset
 
 <img width="545" height="214" alt="image" src="https://github.com/user-attachments/assets/70938559-41cf-4479-acf2-6bd9d51fc92a" />
 
-8 - Enter to the switch (it will not have any password), and copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P), wait and you will see a prompt similar to `s705r2#`
+8 - Enter to the switch (it will not have any password), and copy the old config intro running config (so I don't lose the old config) tip: this is the inverse command that we usually to save :P), wait and you will see a prompt similar to `Switch-Original-Name#`
 
 ````
 enable
