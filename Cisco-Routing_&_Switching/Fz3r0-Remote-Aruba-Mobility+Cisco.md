@@ -153,6 +153,10 @@ wr
 ## F0-SW01-DC - DC SWITCH
 
 ````py
+!
+!
+
+
 enable
 configure terminal
 hostname F0-SW01-DC
@@ -161,47 +165,45 @@ lldp run
 ip routing
 
 vlan 66
- name DC-MGMT
-
+   name DC-MGMT
 
 ! Gateways
 interface Vlan66
- description *** DC MGMT ***
- ip address 192.168.1.254 255.255.255.0
- no shutdown
+   description *** DC MGMT ***
+   ip address 192.168.1.254 255.255.255.0
+   no shutdown
 
 ! Enlace a R1
 interface GigabitEthernet1/0/24
- description *** L3 TO R1 ***
- no switchport
- ip address 10.255.97.2 255.255.255.252
- no shutdown
+   description *** L3 TO R1 ***
+   no switchport
+   ip address 10.255.97.2 255.255.255.252
+   no shutdown
 
 ! ¡MGMT!
 interface Loopback0
- description *** MGMT LOOPBACK ***
- ip address 10.255.0.11 255.255.255.255
+   description *** MGMT LOOPBACK ***
+   ip address 10.255.0.11 255.255.255.255
 
 ! Default al router
 ip route 0.0.0.0 0.0.0.0 10.255.97.1
 
 ! INTERFACES ACCESS
 interface range GigabitEthernet1/0/1-12
- description *** ACCESS 66 MANAGEMENT ***
- switchport
- switchport mode access
- switchport access vlan 66
- spanning-tree portfast
- no shutdown
+   description *** ACCESS 66 MANAGEMENT ***
+   switchport
+   switchport mode access
+   switchport access vlan 66
+   spanning-tree portfast
+   no shutdown
 
 ! INTERFACES TRUNK
 interface range GigabitEthernet1/0/13-23
- description *** TRUNK UPLINK ***
- switchport
- switchport mode trunk
- spanning-tree portfast trunk
- no shutdown
-
+   description *** TRUNK UPLINK ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   no shutdown
 
 ! ===== DHCP SERVER EN EL SWITCH DC =====
 service dhcp
@@ -211,12 +213,11 @@ ip dhcp ping packets 1
 ip dhcp excluded-address 192.168.1.1 192.168.1.100
 ip dhcp excluded-address 192.168.1.201 192.168.1.254
 ip dhcp pool DC-MGMT
- network 192.168.1.0 255.255.255.0
- default-router 192.168.1.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
-
+   network 192.168.1.0 255.255.255.0
+   default-router 192.168.1.254
+   dns-server 8.8.8.8 1.1.1.1
+   domain-name fz3r0.dojo
+   lease 0 8 0
 
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
@@ -226,13 +227,13 @@ crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
 line con 0
- logging synchronous
- password Cisco.12345
- login
+   logging synchronous
+   password Cisco.12345
+   login
 line vty 0 15
- transport input ssh
- login local
- exec-timeout 10 0
+   transport input ssh
+   login local
+   exec-timeout 10 0
 no ip http server
 no ip http secure-server
 
@@ -252,6 +253,10 @@ wr
 
 
 ````py
+!
+!
+
+
 enable
 configure terminal
 hostname F0-SW02-BRANCH
@@ -260,94 +265,95 @@ lldp run
 ip routing
 
 vlan 30
- name BR-ENT
+   name BR-ENT
 vlan 40
- name BR-PSK
+   name BR-PSK
 vlan 100
- name BR-MGMT
+   name BR-MGMT
 vlan 300
- name BR-WLAN-MGMT
+   name BR-WLAN-MGMT
 
 ! Gateways
 
-
 interface Vlan30
- description *** BR USERS VLAN30 (ENTERPRISE) ***
- ip address 10.10.30.254 255.255.255.0
- no shutdown
+   description *** BR USERS VLAN30 (ENTERPRISE) ***
+   ip address 10.10.30.254 255.255.255.0
+   no shutdown
+
 interface Vlan40
- description *** BR USERS VLAN40 (PSK) ***
- ip address 10.10.40.254 255.255.255.0
- no shutdown
+   description *** BR USERS VLAN40 (PSK) ***
+   ip address 10.10.40.254 255.255.255.0
+   no shutdown
 
 interface Vlan100
- description *** BR MGMT ***
- ip address 10.10.100.254 255.255.255.0
- no shutdown
+   description *** BR MGMT ***
+   ip address 10.10.100.254 255.255.255.0
+   no shutdown
+
 interface Vlan300
- description *** BR WLAN MGMT ***
- ip address 10.10.130.254 255.255.255.0
- no shutdown
+   description *** BR WLAN MGMT ***
+   ip address 10.10.130.254 255.255.255.0
+   no shutdown
 
 ! Enlace a R1
 interface GigabitEthernet1/0/24
- description *** L3 TO R1 ***
- no switchport
- ip address 10.255.98.2 255.255.255.252
- no shutdown
+   description *** L3 TO R1 ***
+   no switchport
+   ip address 10.255.98.2 255.255.255.252
+   no shutdown
 
 ! ¡MGMT!
 interface Loopback0
- description *** MGMT LOOPBACK ***
- ip address 10.255.0.21 255.255.255.255
+   description *** MGMT LOOPBACK ***
+   ip address 10.255.0.21 255.255.255.255
 
 ! Default al router
 ip route 0.0.0.0 0.0.0.0 10.255.98.1
 
 ! INTERFACES ACCESS
 interface range GigabitEthernet1/0/1-8
- description *** ACCESS 100 MANAGEMENT ***
- switchport
- switchport mode access
- switchport access vlan 100
- spanning-tree portfast
- no shutdown
+   description *** ACCESS 100 MANAGEMENT ***
+   switchport
+   switchport mode access
+   switchport access vlan 100
+   spanning-tree portfast
+   no shutdown
 
 ! INTERFACES ACCESS
 interface range GigabitEthernet1/0/9-12
- description *** ACCESS 300 WLAN ***
- switchport
- switchport mode access
- switchport access vlan 300
- spanning-tree portfast
- no shutdown
+   description *** ACCESS 300 WLAN ***
+   switchport
+   switchport mode access
+   switchport access vlan 300
+   spanning-tree portfast
+   no shutdown
 
 ! INTERFACES TRUNK (DEFAULT NATIVE)
 interface range GigabitEthernet1/0/13-16
- description *** TRUNK DEFAULT NATIVE 1 - ALLOWED PRUNED ***
- switchport
- switchport mode trunk
- spanning-tree portfast trunk
- switchport trunk allowed vlan 30,40,100,300
- no shutdown
+   description *** TRUNK DEFAULT NATIVE 1 - ALLOWED PRUNED ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   switchport trunk allowed vlan 30,40,100,300
+   no shutdown
 
 ! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
 interface range GigabitEthernet1/0/17-20
- description *** TRUNK NATIVE 300 WI-FI ***
- switchport
- switchport mode trunk
- spanning-tree portfast trunk
- switchport trunk allowed vlan 30,40,100,300
- switchport trunk native vlan 300
- no shutdown
+  description *** TRUNK NATIVE 300 WI-FI ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   switchport trunk allowed vlan 30,40,100,300
+   switchport trunk native vlan 300
+   no shutdown
 
 ! INTERFACES TRUNK (ALLOWED BUT DEFAULT NATIVE VLAN)
 interface range GigabitEthernet1/0/21-23
- description *** TRUNK DEFAULT NATIVE 1 ALL ALLOWED ***
- switchport
- switchport mode trunk
- spanning-tree portfast trunk
- no shutdown
+   description *** TRUNK DEFAULT NATIVE 1 ALL ALLOWED ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   no shutdown
 
 ! ===== DHCP SERVER (en el propio switch) =====
 service dhcp
@@ -357,41 +363,41 @@ ip dhcp ping packets 1
 ip dhcp excluded-address 10.10.100.1 10.10.100.100
 ip dhcp excluded-address 10.10.100.201 10.10.100.254
 ip dhcp pool BR-MGMT
- network 10.10.100.0 255.255.255.0
- default-router 10.10.100.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
+   network 10.10.100.0 255.255.255.0
+   default-router 10.10.100.254
+   dns-server 8.8.8.8 1.1.1.1
+   domain-name fz3r0.dojo
+   lease 0 8 0
 
 ! --- BR-ENT (VLAN 30) 10.10.30.0/24 ---
 ip dhcp excluded-address 10.10.30.1 10.10.30.100
 ip dhcp excluded-address 10.10.30.201 10.10.30.254
 ip dhcp pool BR-ENT
- network 10.10.30.0 255.255.255.0
- default-router 10.10.30.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
+   network 10.10.30.0 255.255.255.0
+   default-router 10.10.30.254
+   dns-server 8.8.8.8 1.1.1.1
+   domain-name fz3r0.dojo
+   lease 0 8 0
 
 ! --- BR-PSK (VLAN 40) 10.10.40.0/24 ---
 ip dhcp excluded-address 10.10.40.1 10.10.40.100
 ip dhcp excluded-address 10.10.40.201 10.10.40.254
 ip dhcp pool BR-PSK
- network 10.10.40.0 255.255.255.0
- default-router 10.10.40.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
+   network 10.10.40.0 255.255.255.0
+   default-router 10.10.40.254
+   dns-server 8.8.8.8 1.1.1.1
+   domain-name fz3r0.dojo
+   lease 0 8 0
 
 ! --- BR-WLAN-MGMT (VLAN 300) 10.10.130.0/24 ---
 ip dhcp excluded-address 10.10.130.1 10.10.130.100
 ip dhcp excluded-address 10.10.130.201 10.10.130.254
 ip dhcp pool BR-WLAN-MGMT
- network 10.10.130.0 255.255.255.0
- default-router 10.10.130.254
- dns-server 8.8.8.8 1.1.1.1
- domain-name fz3r0.dojo
- lease 0 8 0
+   network 10.10.130.0 255.255.255.0
+   default-router 10.10.130.254
+   dns-server 8.8.8.8 1.1.1.1
+   domain-name fz3r0.dojo
+   lease 0 8 0
 
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
