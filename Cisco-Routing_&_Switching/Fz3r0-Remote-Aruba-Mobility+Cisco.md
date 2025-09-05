@@ -321,10 +321,11 @@ interface range GigabitEthernet1/0/9-12
 
 ! INTERFACES TRUNK (DEFAULT NATIVE)
 interface range GigabitEthernet1/0/13-16
- description *** TRUNK DEFAULT NATIVE 1 ***
+ description *** TRUNK DEFAULT NATIVE 1 - ALLOWED PRUNED ***
  switchport
  switchport mode trunk
  spanning-tree portfast trunk
+ switchport trunk allowed vlan 30,40,100,300
  no shutdown
 
 ! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
@@ -339,14 +340,11 @@ interface range GigabitEthernet1/0/17-20
 
 ! INTERFACES TRUNK (ALLOWED BUT DEFAULT NATIVE VLAN)
 interface range GigabitEthernet1/0/21-23
- description *** TRUNK UPLINK ***
+ description *** TRUNK DEFAULT NATIVE 1 ALL ALLOWED ***
  switchport
  switchport mode trunk
  spanning-tree portfast trunk
- switchport trunk allowed vlan 30,40,100,300
  no shutdown
-
-
 
 ! ===== DHCP SERVER (en el propio switch) =====
 service dhcp
