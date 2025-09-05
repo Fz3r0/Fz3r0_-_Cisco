@@ -268,11 +268,11 @@ vlan 300
 
 
 interface Vlan30
- description *** BR USERS VLAN701 ***
+ description *** BR USERS VLAN30 ***
  ip address 10.10.30.254 255.255.255.0
  no shutdown
 interface Vlan40
- description *** BR USERS VLAN702 ***
+ description *** BR USERS VLAN40 ***
  ip address 10.10.40.254 255.255.255.0
  no shutdown
 
@@ -355,7 +355,7 @@ ip dhcp pool BR-MGMT
  default-router 10.10.100.254
  dns-server 8.8.8.8 1.1.1.1
  domain-name fz3r0.dojo
- lease 7
+ lease 0 8 0
 
 ! --- BR-ENT (VLAN 30) 10.10.30.0/24 ---
 ip dhcp excluded-address 10.10.30.1 10.10.30.100
@@ -365,7 +365,7 @@ ip dhcp pool BR-ENT
  default-router 10.10.30.254
  dns-server 8.8.8.8 1.1.1.1
  domain-name fz3r0.dojo
- lease 7
+ lease 0 8 0
 
 ! --- BR-PSK (VLAN 40) 10.10.40.0/24 ---
 ip dhcp excluded-address 10.10.40.1 10.10.40.100
@@ -375,7 +375,7 @@ ip dhcp pool BR-PSK
  default-router 10.10.40.254
  dns-server 8.8.8.8 1.1.1.1
  domain-name fz3r0.dojo
- lease 7
+ lease 0 8 0
 
 ! --- BR-WLAN-MGMT (VLAN 300) 10.10.130.0/24 ---
 ip dhcp excluded-address 10.10.130.1 10.10.130.100
@@ -385,7 +385,7 @@ ip dhcp pool BR-WLAN-MGMT
  default-router 10.10.130.254
  dns-server 8.8.8.8 1.1.1.1
  domain-name fz3r0.dojo
- lease 7
+ lease 0 8 0
 
 ! Endurecimiento + SSH
 username admin privilege 15 secret Cisco.12345
