@@ -188,14 +188,15 @@ interface range GigabitEthernet1/0/1-12
  switchport
  switchport mode access
  switchport access vlan 66
+ spanning-tree portfast
  no shutdown
 
 ! INTERFACES TRUNK
 interface range GigabitEthernet1/0/13-23
  description *** TRUNK UPLINK ***
- no switchport
  switchport
  switchport mode trunk
+ spanning-tree portfast trunk
  no shutdown
 
 
@@ -268,11 +269,11 @@ vlan 300
 
 
 interface Vlan30
- description *** BR USERS VLAN30 ***
+ description *** BR USERS VLAN30 (ENTERPRISE) ***
  ip address 10.10.30.254 255.255.255.0
  no shutdown
 interface Vlan40
- description *** BR USERS VLAN40 ***
+ description *** BR USERS VLAN40 (PSK) ***
  ip address 10.10.40.254 255.255.255.0
  no shutdown
 
@@ -306,6 +307,7 @@ interface range GigabitEthernet1/0/1-8
  switchport
  switchport mode access
  switchport access vlan 100
+ spanning-tree portfast
  no shutdown
 
 ! INTERFACES ACCESS
@@ -314,6 +316,7 @@ interface range GigabitEthernet1/0/9-12
  switchport
  switchport mode access
  switchport access vlan 300
+ spanning-tree portfast
  no shutdown
 
 ! INTERFACES TRUNK (DEFAULT NATIVE)
@@ -321,6 +324,7 @@ interface range GigabitEthernet1/0/13-16
  description *** TRUNK DEFAULT NATIVE 1 ***
  switchport
  switchport mode trunk
+ spanning-tree portfast trunk
  no shutdown
 
 ! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
@@ -328,6 +332,7 @@ interface range GigabitEthernet1/0/17-20
  description *** TRUNK NATIVE 300 WI-FI ***
  switchport
  switchport mode trunk
+ spanning-tree portfast trunk
  switchport trunk allowed vlan 30,40,100,300
  switchport trunk native vlan 300
  no shutdown
@@ -335,9 +340,9 @@ interface range GigabitEthernet1/0/17-20
 ! INTERFACES TRUNK (ALLOWED BUT DEFAULT NATIVE VLAN)
 interface range GigabitEthernet1/0/21-23
  description *** TRUNK UPLINK ***
- no switchport
  switchport
  switchport mode trunk
+ spanning-tree portfast trunk
  switchport trunk allowed vlan 30,40,100,300
  no shutdown
 
