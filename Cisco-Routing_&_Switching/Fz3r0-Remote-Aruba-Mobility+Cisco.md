@@ -407,23 +407,21 @@ crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
 line con 0
- logging synchronous
- password Cisco.12345
- login
+   logging synchronous
+   password Cisco.12345
+   login
 line vty 0 15
- transport input ssh
- login local
- exec-timeout 10 0
+   transport input ssh
+   login local
+   exec-timeout 10 0
 no ip http server
 no ip http secure-server
-
 
 end
 wr
 
 !
 !
-
 
 ````
 
