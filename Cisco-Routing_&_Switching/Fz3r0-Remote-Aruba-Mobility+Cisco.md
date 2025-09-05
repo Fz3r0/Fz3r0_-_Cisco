@@ -64,6 +64,9 @@ reload
 ## F0-ROUTER-01 - UNIQUE ROUTER
 
 ````py
+!
+!
+
 
 enable
 configure terminal
@@ -72,47 +75,46 @@ ip domain name fz3r0.dojo
 lldp run
 ip routing
 
-
 ! ¡MGMT!
 interface Loopback0
- description *** MGMT LOOPBACK ***
- ip address 10.255.0.1 255.255.255.255
+   description *** MGMT LOOPBACK ***
+   ip address 10.255.0.1 255.255.255.255
+
+! Default a Internet
+ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
 interface GigabitEthernet0/0/0
- description *** TO TELMEX MODEM ***
- ip address 192.168.0.11 255.255.255.0
- ip nat outside
- no shutdown
+   description *** TO TELMEX MODEM ***
+   ip address 192.168.0.11 255.255.255.0
+   ip nat outside
+   no shutdown
 
 interface GigabitEthernet0/0/1
- description *** TO DC L3 SWITCH ***
- ip address 10.255.97.1 255.255.255.252
- ip nat inside
- no shutdown
+   description *** TO DC L3 SWITCH ***
+   ip address 10.255.97.1 255.255.255.252
+   ip nat inside
+   no shutdown
 
 interface GigabitEthernet0/2/0
- description *** TO BRANCH L3 SWITCH ***
- ip address 10.255.98.1 255.255.255.252
- ip nat inside
- no shutdown
+   description *** TO BRANCH L3 SWITCH ***
+   ip address 10.255.98.1 255.255.255.252
+   ip nat inside
+   no shutdown
 
 ! Rutas a las LANs en DC
 ip route 192.168.1.0 255.255.255.0 10.255.97.2
 
 ! Rutas a las LANs en Branch
-ip route 10.10.100.0 255.255.255.0 10.255.98.2
 ip route 10.10.30.0   255.255.255.0 10.255.98.2
 ip route 10.10.40.0   255.255.255.0 10.255.98.2
+ip route 10.10.100.0  255.255.255.0 10.255.98.2
 ip route 10.10.130.0  255.255.255.0 10.255.98.2
-
-! Default a Internet
-ip route 0.0.0.0 0.0.0.0 192.168.0.254
 
 ! NAT de salida para que DC y Branch lleguen a 8.8.8.8
 ip access-list standard LAN-ALL
- permit 192.168.1.0 0.0.0.255
- permit 10.10.0.0 0.0.255.255
- permit 10.255.0.0 0.0.255.255
+   permit 192.168.1.0 0.0.0.255
+   permit 10.10.0.0 0.0.255.255
+   permit 10.255.0.0 0.0.255.255
 ip nat inside source list LAN-ALL interface GigabitEthernet0/0/0 overload
 
 ! Endurecimiento + SSH
@@ -123,13 +125,14 @@ crypto key generate rsa modulus 2048
 ip ssh version 2
 ip ssh source-interface Loopback0
 line con 0
- logging synchronous
- password Cisco.12345
- login
+   logging synchronous
+   password Cisco.12345
+   login
 line vty 0 15
- transport input ssh
- login local
- exec-timeout 10 0
+   transport input ssh
+   login local
+   exec-timeout 10 0
+
 no ip http server
 no ip http secure-server
 
