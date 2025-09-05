@@ -339,7 +339,7 @@ interface range GigabitEthernet1/0/13-16
 
 ! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
 interface range GigabitEthernet1/0/17-20
-  description *** TRUNK NATIVE 300 WI-FI ***
+  description *** TRUNK NATIVE 300 WI-FI - GOOD PRACTICES!!! :D ***
    switchport
    switchport mode trunk
    spanning-tree portfast trunk
