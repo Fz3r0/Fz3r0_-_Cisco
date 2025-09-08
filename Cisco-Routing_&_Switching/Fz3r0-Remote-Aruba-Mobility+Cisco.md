@@ -338,7 +338,7 @@ interface range GigabitEthernet1/0/13-16
    no shutdown
 
 ! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
-interface range GigabitEthernet1/0/19-20
+interface range GigabitEthernet1/0/17-20
   description *** TRUNK NATIVE 300 WI-FI - GOOD PRACTICES!!! :D ***
    switchport
    switchport mode trunk
@@ -426,7 +426,112 @@ wr
 ````
 
 
-## RSPAN Config
+## F0-SW03-BRANCH - BRANCH SWITCH ACCESS POE
+
+
+````py
+!
+!
+
+
+enable
+configure terminal
+hostname F0-SW03-BRANCH
+ip domain-name fz3r0.dojo
+lldp run
+ip routing
+
+vlan 30
+   name BR-ENT
+vlan 40
+   name BR-PSK
+vlan 100
+   name BR-MGMT
+vlan 300
+   name BR-WLAN-MGMT
+
+! ¡MGMT!
+interface Loopback0
+   description *** MGMT LOOPBACK ***
+   ip address 10.255.0.22 255.255.255.255
+
+! Default al router
+ip route 0.0.0.0 0.0.0.0 10.255.98.1
+
+! INTERFACES ACCESS
+interface range GigabitEthernet1/0/1-8
+   description *** ACCESS 100 MANAGEMENT ***
+   switchport
+   switchport mode access
+   switchport access vlan 100
+   spanning-tree portfast
+   no shutdown
+
+! INTERFACES ACCESS
+interface range GigabitEthernet1/0/9-12
+   description *** ACCESS 300 WLAN ***
+   switchport
+   switchport mode access
+   switchport access vlan 300
+   spanning-tree portfast
+   no shutdown
+
+! INTERFACES TRUNK (DEFAULT NATIVE)
+interface range GigabitEthernet1/0/13-16
+   description *** TRUNK DEFAULT NATIVE 1 - ALLOWED PRUNED ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   switchport trunk allowed vlan 30,40,100,300
+   no shutdown
+
+! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
+interface range GigabitEthernet1/0/17-20
+  description *** TRUNK NATIVE 300 WI-FI - GOOD PRACTICES!!! :D ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   switchport trunk allowed vlan 30,40,100,300
+   switchport trunk native vlan 300
+   no shutdown
+
+! INTERFACES TRUNK (ALLOWED BUT DEFAULT NATIVE VLAN)
+interface range GigabitEthernet1/0/21-44
+   description *** TRUNK DEFAULT NATIVE 1 ALL ALLOWED ***
+   switchport
+   switchport mode trunk
+   spanning-tree portfast trunk
+   no shutdown
+
+! Endurecimiento + SSH
+username admin privilege 15 secret Cisco.12345
+enable secret Cisco.12345
+service password-encryption
+crypto key generate rsa modulus 2048
+ip ssh version 2
+ip ssh source-interface Loopback0
+line con 0
+   logging synchronous
+   password Cisco.12345
+   login
+line vty 0 15
+   transport input ssh
+   login local
+   exec-timeout 10 0
+no ip http server
+no ip http secure-server
+
+end
+wr
+
+!
+!
+
+````
+
+
+
+
 
 
 
@@ -478,7 +583,7 @@ vlan 888
 exit
 !
 ! # TRUNK PORTS:
-interface range GigabitEthernet1/0/41-44
+interface range GigabitEthernet1/0/21-44
    switchport trunk allowed vlan ADD 888
 end
 !
