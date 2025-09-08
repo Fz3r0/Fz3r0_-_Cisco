@@ -131,11 +131,32 @@ show monitor session all
 
 ````
 
-### 2. `Configurar Destination` :: _Monitor / Wireshark_
+Hacer lo mismo con cualquier otro switch que trasnporte la VLAN 888, en nuestro ejemplo con el switch 2, es tal cual la misma configuración: 
 
-4. Terminar la sesión en el switch destino (SW1) _Donde conectaremos el wireshark para monitorear_
+````
+enable
+configure terminal
+!
 
-Ahora recibes ese “túnel” en la VLAN 888 y lo sacas por tu puerto de análisis Gi1/0/11:
+! # Sesion 13: fuente = Gi 1/0/11 (ambas direcciones)
+monitor session 13 source interface Gi 1/0/11 both
+
+! # Destino = VLAN remota 888 (RSPAN)
+monitor session 13 destination remote vlan 888
+
+end
+
+! # Verifica
+show monitor session 13
+show monitor session all
+
+````
+
+### 3. `Configurar Destination` :: _Monitor / Wireshark_
+
+4. Todas las sesiones a monitorear van a terminar ena la sesión en el switch destino (SW1) _Donde conectaremos el wireshark para monitorear_
+
+Ahora recibes ese “túnel” en la VLAN 888 y lo sacas por tu puerto de análisis Gi 1/0/5:
 
 ````
 enable
@@ -146,27 +167,31 @@ configure terminal
 monitor session 10 source remote vlan 888
 
 ! # Destino = tu puerto de captura (conecta aquí el laptop con Wireshark)
-monitor session 10 destination interface gi1/0/11
+monitor session 10 destination interface gi 1/0/5
 
 end
 
 ! # Verifica
 show monitor session 10
-show interface status | include Gi1/0/11
+show monitor session all
+!
+show interface status | include Gi1/0/5
 
 
 ````
 
-## Resultado
+## Resultado y Validaciones
+
+Asu
 
 <img width="1062" height="209" alt="image" src="https://github.com/user-attachments/assets/e33ce204-2c5a-4cb2-8522-da7166394270" />
 
-## Importante:
+- Importante:
 
-- El puerto destino entra en modo monitor (no envía tráfico de usuario, no puede ser trunk, ni pertenecer a un port-channel, ni tener port-security).
-- Conecta tu PC con Wireshark a Gi1/0/11 y listo!!!
+- El puerto destino entra en modo monitor (no envía tráfico de usuario, no puede ser trunk, ni pertenecer a un port-channel, ni tener port-security), no es nada, simplemente un puerto monitor, por eso es importante regresarlo a la normalidad al final a menos que vaya a ser un SPAN dedicado para siempre. 
 
-5. Validaciones
+
+Validaciones
 
 ````
 show vlan remote-span
@@ -174,7 +199,11 @@ show monitor session all
 show interfaces trunk | include 888
 ````
 
-6. Limpieza / quitar SPAN al terminal (Es importante para que el puerto deje de monitorear)
+
+
+
+
+## Limpieza / quitar SPAN al terminal (Es importante para que el puerto deje de monitorear)
 
 **IMPORTNAT!!!:**
 
@@ -199,10 +228,10 @@ end
 
 ````
 
-7. Opcional: conservar la `VLAN 888` para futuras capturas o borrarla si ya no se usará.
 
 
----
+
+
 
 ## Monitoreo final
 
@@ -216,33 +245,46 @@ Una vez teniendo todo configurado simplemente hay que prender y apagar interface
 ! # Sesión 10: fuente = VLAN remota 888
 monitor session 10 source remote vlan 888
 ! # Destino = tu puerto de captura (conecta aquí el laptop con Wireshark)
-monitor session 10 destination interface gi1/0/11
+monitor session 10 destination interface gi1/0/5
 
 ! # Verifica
 show monitor session 10
-show interface status | include Gi1/0/11
+show interface status | include Gi1/0/5
 ````
 
-- Donde vamos a monitorear, por ejemplo 3 APs, en 2 switches distinos prender ese monitoreo solo hay que hacer:
+- Donde vamos a hacer el espejo del tráfioco, por ejemplo 2 APs, en un mismo switch solo hay que hacer
 
 ````
-!# Client SIDE
+!# AP-1
 
-! # Sesion 10: fuente = gi1/0/14 (ambas direcciones)
-monitor session 10 source interface gi1/0/14 both
+! # Sesion 11: fuente = Gi 1/0/11 (ambas direcciones)
+monitor session 11 source interface Gi 1/0/11 both
 ! # Destino = VLAN remota 888 (RSPAN)
-monitor session 10 destination remote vlan 888
+monitor session 11 destination remote vlan 888
+
+!# AP-2
+
+! # Sesion 12: fuente = Gi 1/0/17 (ambas direcciones)
+monitor session 12 source interface Gi 1/0/17 both
+! # Destino = VLAN remota 888 (RSPAN)
+monitor session 12 destination remote vlan 888
 
 ! # Verifica
-show monitor session 10
+show monitor session 11
+show monitor session 12
+show monitor session all
+
+
 ````
 
-Y ya que terminemos, en todos los swiutches usados solo correr: 
+Al final apagar las sesiones que usamos: 
 
 ````
 no monitor session 10
+no monitor session 11
+no monitor session 12
+no monitor session 13
 ````
-
 
 # 📚🗂️🎥 Resources
 
