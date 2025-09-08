@@ -13,23 +13,42 @@
 
 # Configure SPAN and RSPAN
 
-Tu escenario pide RSPAN (capturar en SW2 pero recibir la copia en SW1). 
+Para esta solución cubriremos 2 escenarios al mismo tiempo 
 
-## 3 Pasos de config
+1. Escenario 1
+    - En el mismo Switch-1 tendremos tanto la interfaz para capturar Wireshark (Gi 1/0/5), como 2 APs (Gi 1/0/11 y Gi 1/0/17) de los cuales queremos hacer el mirror de puerto para ver su tráfico.
+    - Es decir, en el mismo Switch-1, configurar **3 sesiones diferentes de RSPAN** utilizando la **misma VLAN 888**.
+    - 1 que "escucha", 2 que son el "espejo"
 
-- Fuente (source): SW2, interfaz Gi1/0/1 (access en VLAN 10). _Esto ya está listo ya que es el puerto a moinitorear_
+2. Escenario 2
+    - Desde elo mismo Switch-1 y el mismo puerto de captura para wireshark (Gi 1/0/5), capturar 1 AP que está en Switch-2 Gi 1/0/17.
+    - Es decir, desde Switch-1, configurar **1 sesiones de RSPAN** (escucha wireshark) y en Switch-1 configurar otra sesion de RSPAN, ambos utilizando la **misma VLAN 888**.
+    - 1 que "escucha" (Switch-1), 1 que son el "espejo" (Switch-2)
+      
+Al final, con una sola VLAN 888 podremos escuchar todos los 3 APs al mismo tiempo, tanto los que están en el mismo switch de wireshark, tanto el remoto. 
 
-- Destino (destination): SW1, interfaz Gi1/0/11 (donde conectas Wireshark). Este será el core switch, tiene varios access switch conectados. 
+Para llevar un orden limpio y no tener errores y no morir en el intento, aunque usemos switch remoto o sea el mismo SIEMPRE usaremos un número de sesion diferente de RSPAN, es decir tendremos: 
 
-- Transporte: una RSPAN VLAN (ej. 888) que viaje por los trunks entre SW2 ↔︎ SW1. LA VLAN DE RSPAN DEBE SER UNA NUEVA CONFIGURADA EN TODOS LOS SWITCHES, La VLAN RSPAN no se usa para usuarios u otro tráfico o subnet (dedícala solo a RSPAN).
+1. Switch-1 :: `RSPAN Sesion 10` - Wireshark Monitor (Destination)
+2. Switch-1 :: `RSPAN Sesion 11` - Switch-1/AP-1 Mirror (Source)
+3. Switch-1 :: `RSPAN Sesion 12` - Switch-1/AP-2 Mirror (Source)
+4. Switch-2 :: `RSPAN Sesion 13` - Switch-2/AP-3 Mirror (Source)
 
-## Configuración:
+## Configuración de RSPAN
 
-1. Crear la VLAN RSPAN en ambos switches:
+Solo hay que seguir 3 sencillos pasos: 
+
+1. Configurar VLAN y Trunks
+2. Configurar Source
+3. Configurar Destination
+
+### 1. `Configurar VLAN y Trunks`
+
+1. Crear la VLAN RSPAN en ambos switches, esta se convertirá un una VLAN dedicada para RSPAN y debe ser única. 
 
 ````
 enable
-conf t
+configure terminal
 !
 vlan 888
    name RSPAN-888
@@ -38,13 +57,15 @@ end
 
 ````
 
-2. Permitir la VLAN RSPAN en los trunks (en todos los saltos) - Revisar que el comando sea ADD para no borrar otras VLANs!!!
+2. Permitir la VLAN RSPAN en los trunks (en todos los uplinks que sean trunks a otros switches remotos que quieran ser monitoreados)
+
+- `IMPORTANTE`: Revisar que el comando sea **ADD** para no borrar otras VLANs!!!
 
 ````
 enable
-conf t
+configure terminal
 !
-interface Range GigabitEthernet1/0/19-24
+interface GigabitEthernet 1/0/23 
    switchport trunk allowed vlan ADD 888
 end
 
@@ -60,7 +81,7 @@ show interfaces trunk | include 888
 show vlan remote-span
 ````
 
-4. Definir la sesión RSPAN en el switch fuente (SW2) - _Donde está el AP o el aparato a monitorear_
+4. Definir la sesión RSPAN en el switch **SOURCE (MIRROR)**  _Donde está el AP o el aparato a monitorear_
 
 Notas:
 
@@ -69,14 +90,14 @@ Notas:
 
 ````
 enable
-conf t
+configure terminal
 !
 
-! # Sesion 10: fuente = gi1/0/14 (ambas direcciones)
-monitor session 10 source interface gi1/0/14 both
+! # Sesion 11: fuente = Gi 1/0/11 (ambas direcciones)
+monitor session 11 source interface Gi 1/0/11 both
 
 ! # Destino = VLAN remota 888 (RSPAN)
-monitor session 10 destination remote vlan 888
+monitor session 11 destination remote vlan 888
 
 end
 
@@ -91,7 +112,7 @@ Ahora recibes ese “túnel” en la VLAN 888 y lo sacas por tu puerto de análi
 
 ````
 enable
-conf t
+configure terminal
 !
 
 ! # Sesión 10: fuente = VLAN remota 888
@@ -140,7 +161,7 @@ En ambos switches:
 
 ````
 enable
-conf t
+configure terminal
 !
 
 no monitor session 10
