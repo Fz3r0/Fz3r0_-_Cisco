@@ -338,7 +338,7 @@ interface range GigabitEthernet1/0/13-16
    no shutdown
 
 ! INTERFACES TRUNK (v300 WI-FI NATIVE + PRUNED = GOOD PRACTICES)
-interface range GigabitEthernet1/0/17-20
+interface range GigabitEthernet1/0/19-20
   description *** TRUNK NATIVE 300 WI-FI - GOOD PRACTICES!!! :D ***
    switchport
    switchport mode trunk
@@ -426,9 +426,147 @@ wr
 ````
 
 
+## RSPAN Config
 
 
 
+
+## 🛠️ `RSPAN Configuration` 
+
+1. Create the RSPAN VLAN and allow it on trunks (both switches)
+2. Create the source sessions (the ports you want to mirror, e.g. APs, laptops, servers, etc)
+3. Create the destination session (where Wireshark is running)
+
+### ⭕ 1) `Configure the RSPAN VLAN and trunks`
+
+- Create the dedicated remote-span VLAN on both switches (VLAN 888):
+
+#### F0-SW02-BRANCH - BRANCH SWITCH:
+
+```py
+! ! # VLAN 888 RSPAN:
+enable
+configure terminal
+!
+vlan 888
+   name RSPAN-888
+   remote-span
+exit
+!
+! # TRUNK PORTS:
+interface range GigabitEthernet1/0/21-23
+   switchport trunk allowed vlan ADD 888
+end
+!
+wr
+
+!
+!
+
+```
+
+#### F0-SW03-BRANCH - BRANCH SWITCH:
+
+```py
+! ! # VLAN 888 RSPAN:
+enable
+configure terminal
+!
+vlan 888
+   name RSPAN-888
+   remote-span
+exit
+!
+! # TRUNK PORTS:
+interface range GigabitEthernet1/0/41-44
+   switchport trunk allowed vlan ADD 888
+end
+!
+wr
+
+!
+!
+
+```
+
+Validate:
+
+```py
+show interfaces trunk | include 888
+show vlan remote-span
+```
+
+---
+
+### ⭕ 2) `Configure the Source sessions` (mirror the AP ports)
+
+#### 📡 `AP-1 on Branch Switch-2` :: Session 11
+
+```py
+enable
+configure terminal
+!
+! # Session 11: source = Gi 1/0/11 (both directions)
+monitor session 11 source interface Gi 1/0/11 both
+! # Destination = remote RSPAN VLAN 888
+monitor session 11 destination remote vlan 888
+end
+```
+```py
+! Verify
+show monitor session 11
+show monitor session all
+```
+
+#### 📡 `AP-2 on Switch-2` :: Session 12
+
+```py
+enable
+configure terminal
+!
+! # Session 12: source = Gi 1/0/19 (both directions)
+monitor session 12 source interface Gi 1/0/19 both
+! # Destination = remote RSPAN VLAN 888
+monitor session 12 destination remote vlan 888
+end
+```
+```py
+! Verify
+show monitor session 12
+show monitor session all
+```
+
+---
+
+### ⭕ 3) Configure the Destination session (Wireshark analyzer on Switch-2)
+
+#### 🦈 Wireshark / Laptop
+
+```py
+enable
+configure terminal
+!
+! # VSession 10: source = remote RSPAN VLAN 888
+monitor session 10 source remote vlan 888
+! # VDestination = analyzer interface (plug your Wireshark laptop here)
+monitor session 10 destination interface gi 1/0/5
+end
+```
+```py
+! # Verify
+show monitor session 10
+show monitor session all
+show interface status | include Gi1/0/5
+```
+
+### ⭕ Remove RSPANs
+
+```py
+! # Verify
+no monitor session 10
+no monitor session 11
+no monitor session 12
+```
 
 
 
