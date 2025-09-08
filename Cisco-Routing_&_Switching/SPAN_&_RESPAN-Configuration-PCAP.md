@@ -38,9 +38,9 @@ Para llevar un orden limpio y no tener errores y no morir en el intento, aunque 
 
 Solo hay que seguir 3 sencillos pasos: 
 
-1. Configurar VLAN y Trunks
-2. Configurar Source
-3. Configurar Destination
+1. Configurar RSPAN-VLAN y Trunks
+2. Configurar Source (Interfaces Mirrors)
+3. Configurar Destination (Interfaz Wireshark)
 
 ### 1. `Configurar VLAN y Trunks`
 
@@ -81,12 +81,15 @@ show interfaces trunk | include 888
 show vlan remote-span
 ````
 
-4. Definir la sesión RSPAN en el switch **SOURCE (MIRROR)**  _Donde está el AP o el aparato a monitorear_
+### 2. `Configurar Source` :: _Mirrors / APs a monitorear_
+
+1. Definir la sesión RSPAN en el switch **SOURCE (MIRROR)**  _Donde está el AP o el X aparato a monitorear_
 
 Notas:
 
-- `both` copia RX y TX. Puedes usar `tx` o `rx` si quieres solo una dirección.
-- Si en vez de un puerto quisieras toda la VLAN 10 (VSPAN), usa: `monitor session 10 source vlan 10`
+- `both` copia RX y TX.
+- Puedes usar `tx` o `rx` si quieres solo una dirección.
+- Si en vez de un puerto quisieras toda la VLAN 10 (VSPAN), usa: `monitor session 11 source vlan 10`
 
 ````
 enable
@@ -102,9 +105,33 @@ monitor session 11 destination remote vlan 888
 end
 
 ! # Verifica
-show monitor session 10
+show monitor session 11
+show monitor session all
 
 ````
+
+Hacer lo mismo con el segundo puerto (o la cantidad de puertos que sea necesario), solo NO REPETIR EL NÚMERO DE SESIÓN, ES SESIÓN POR PUERTO. 
+
+````
+enable
+configure terminal
+!
+
+! # Sesion 12: fuente = Gi 1/0/17 (ambas direcciones)
+monitor session 12 source interface Gi 1/0/17 both
+
+! # Destino = VLAN remota 888 (RSPAN)
+monitor session 12 destination remote vlan 888
+
+end
+
+! # Verifica
+show monitor session 12
+show monitor session all
+
+````
+
+### 2. `Configurar Destination` :: _Monitor / Wireshark_
 
 4. Terminar la sesión en el switch destino (SW1) _Donde conectaremos el wireshark para monitorear_
 
