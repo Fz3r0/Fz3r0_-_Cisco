@@ -258,14 +258,14 @@ no monitor session 13
 monitor session 10 source remote vlan 888
 monitor session 10 destination interface gi1/0/5
 ```
-```
+```py
 show monitor session 10
 show interface status | include Gi1/0/5
 ```
 
 #### 📡 AP mirrors (example on Switch-1):
 
-```
+```py
 ! # AP-1
 monitor session 11 source interface Gi 1/0/11 both
 monitor session 11 destination remote vlan 888
@@ -274,7 +274,7 @@ monitor session 11 destination remote vlan 888
 monitor session 12 source interface Gi 1/0/17 both
 monitor session 12 destination remote vlan 888
 ```
-```
+```py
 show monitor session 11
 show monitor session 12
 show monitor session all
