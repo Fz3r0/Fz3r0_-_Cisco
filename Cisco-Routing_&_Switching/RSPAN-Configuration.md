@@ -1,4 +1,4 @@
-# 🔥🧱🛡️ Cisco: `SD-WAN: Introduction & Concept`
+# 🔥🧱🛡️ Cisco: `RSPAN Configuration`
 
 ![My Video](https://user-images.githubusercontent.com/94720207/165892585-b830998d-d7c5-43b4-a3ad-f71a07b9077e.gif)
 
@@ -11,19 +11,15 @@
 
 ---
 
-
-
-
-
-# 🛰️ Configure SPAN and RSPAN
+# 🛰️ Configure RSPAN on Cisco Switches
 
 Scenario: Mirror the traffic of **three different AP** ports to a **single Wireshark laptop** using one **RSPAN VLAN 888**.
 
-- Two APs live on Switch-1.
-- One AP lives on Switch-2.
-- All mirrored traffic arrives at Switch-1, port Gi1/0/5, where your laptop is.
+- Two APs live on Switch-1 (Gi 1/0/11 & Gi 1/0/17).
+- One AP lives on Switch-2 (Gi 1/0/17).
+- All mirrored traffic arrives at Switch-1, port Gi1/0/5, where the laptop is connected with Wireshark running.
 
-Think of VLAN 888 as the “pipe” that carries mirrored packets from source ports to your analyzer port.
+Think of VLAN 888 as the "pipe" that carries mirrored packets from **source** ports to your analyzer (**destination**) port.
 
 ````py
 AP1 (SW1 Gi1/0/11) ┐
@@ -33,18 +29,18 @@ AP3 (SW2 Gi1/0/17) ┘
 
 ### 🧩 Session plan you will configure
 
-1. Switch-1 :: Session 10 — Destination - Wireshark / Capturing Laptop
-2. Switch-1 :: Session 11 — Source - AP-1 (SW1 - Gi 1/0/11)
-3. Switch-1 :: Session 12 — Source - AP-2 (SW1 - Gi 1/0/17)
-4. Switch-2 :: Session 13 — Source - AP-3 (SW2 - Gi 1/0/17)
+1. `Switch-1` :: **Session 10** — `Destination` - Wireshark / Capturing Laptop _(SW1 - Gi 1/0/5)_
+2. `Switch-1` :: **Session 11** — `Source` - AP-1 _(SW1 - Gi 1/0/11)_
+3. `Switch-1` :: **Session 12** — `Source` - AP-2 _(SW1 - Gi 1/0/17)_
+4. `Switch-2` :: **Session 13** — `Source` - AP-3 _(SW2 - Gi 1/0/17)_
 
 ## 🛠️ `RSPAN Configuration` 
 
 You just need to follow 3 easy steps: 
 
 1. Create the RSPAN VLAN and allow it on trunks (both switches)
-2. Create the source sessions (the ports you want to mirror)
-3. Create the destination session (where Wireshark is)
+2. Create the source sessions (the ports you want to mirror, e.g. APs, laptops, servers, etc)
+3. Create the destination session (where Wireshark is running)
 
 ---
 
@@ -249,7 +245,9 @@ no monitor session 13
 
  
 
-# 📋 RSPAN: Quick Operations Playbook
+# 📋 RSPAN: `Fz3r0 Quick Operations Playbook`
+
+Just do it!
 
 #### 🦈 Analyzer side (Switch-1):
 
@@ -280,7 +278,7 @@ show monitor session 12
 show monitor session all
 ```
 
-Shutdown when finished:
+#### ⛔ Shutdown when finished:
 
 ```
 no monitor session 10
