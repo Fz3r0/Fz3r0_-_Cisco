@@ -561,6 +561,9 @@ wr
 ## SPAConfig
 
 ````
+enable
+configure terminal
+
 ! # 1. Sesión SPAN local: fuentes (APs) 
 
 ! #  -- Fuentes: Gi1/0/11 (AP-1) y Gi1/0/19 (AP-2)
@@ -583,6 +586,11 @@ wr
 
 show monitor session 10
 show interfaces status | include Gi1/0/5
+
+!
+!
+
+
 ````
 
 ## 🛠️ `RSPAN Configuration` 
