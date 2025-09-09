@@ -439,7 +439,6 @@ configure terminal
 hostname F0-SW03-BRANCH
 ip domain-name fz3r0.dojo
 lldp run
-ip routing
 
 vlan 30
    name BR-ENT
@@ -457,6 +456,7 @@ interface Loopback0
 
 ! Default al router
 ip route 0.0.0.0 0.0.0.0 10.255.98.1
+ip default-gateway 10.255.98.1
 
 ! INTERFACES ACCESS
 interface range GigabitEthernet1/0/1-8
@@ -496,7 +496,7 @@ interface range GigabitEthernet1/0/17-20
    no shutdown
 
 ! INTERFACES TRUNK (ALLOWED BUT DEFAULT NATIVE VLAN)
-interface range GigabitEthernet1/0/21-44
+interface range GigabitEthernet1/0/21-48
    description *** TRUNK DEFAULT NATIVE 1 ALL ALLOWED ***
    switchport
    switchport mode trunk
