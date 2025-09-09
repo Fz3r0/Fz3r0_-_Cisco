@@ -13,11 +13,43 @@
 
 # 🛰️ Configure RSPAN on Cisco Switches
 
-Scenario: Mirror the traffic of **three different AP** ports to a **single Wireshark laptop** using one **RSPAN VLAN 888**.
+## SPAN
 
-- Two APs live on Switch-1 (Gi 1/0/11 & Gi 1/0/17).
-- One AP lives on Switch-2 (Gi 1/0/17).
-- All mirrored traffic arrives at Switch-1, port Gi1/0/5, where the laptop is connected with Wireshark running.
+Scenario: **SAME SWITCH**. Mirror the traffic of **2 different AP** ports to a **single Wireshark laptop** using one **RSPAN VLAN 888**.
+
+````py
+! # 1. Sesión SPAN local: fuentes (APs) 
+
+! Fuentes: Gi1/0/11 (AP-1) y Gi1/0/19 (AP-2)
+monitor session 10 source interface Gi1/0/11 both
+monitor session 10 source interface Gi1/0/19 both
+
+! # 2. Sesión SPAN local: destino (Wireshark) 
+
+! Destino: Gi1/0/5 hacia tu laptop con Wireshark
+monitor session 10 destination interface Gi1/0/5
+
+! # 3. Guardar
+
+end
+wr
+
+!
+
+! # 4. Verificación
+
+show monitor session 1
+show interfaces status | include Gi1/0/5
+
+````
+
+## RSPAN
+
+Scenario: **DIFFERENT SWITCHES**. Mirror the traffic of **2 different AP** ports to a **single Wireshark laptop** using one **RSPAN VLAN 888**.
+
+- Wireleshark Capture live on Switch-1 (Gi 1/0/5).
+- Two APs lives on Switch-2 (Gi 1/0/11 & Gi 1/0/17).
+- All mirrored traffic arrives at Switch-1, port Gi1/0/5, where the laptop is connected with Wireshark running. While APs are on switch-2
 
 Think of VLAN 888 as the "pipe" that carries mirrored packets from **source** ports to your analyzer (**destination**) port.
 
