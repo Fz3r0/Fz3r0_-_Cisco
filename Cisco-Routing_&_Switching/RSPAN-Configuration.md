@@ -20,13 +20,13 @@ Scenario: **SAME SWITCH**. Mirror the traffic of **2 different AP** ports to a *
 ````py
 ! # 1. Sesión SPAN local: fuentes (APs) 
 
-! Fuentes: Gi1/0/11 (AP-1) y Gi1/0/19 (AP-2)
+! #  -- Fuentes: Gi1/0/11 (AP-1) y Gi1/0/19 (AP-2)
 monitor session 10 source interface Gi1/0/11 both
 monitor session 10 source interface Gi1/0/19 both
 
 ! # 2. Sesión SPAN local: destino (Wireshark) 
 
-! Destino: Gi1/0/5 hacia tu laptop con Wireshark
+! #  -- Destino: Gi1/0/5 hacia tu laptop con Wireshark
 monitor session 10 destination interface Gi1/0/5
 
 ! # 3. Guardar
