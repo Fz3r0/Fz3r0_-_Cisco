@@ -34,6 +34,16 @@
 - **AP = Switch**: VLAN 300 = native.
 - **Switch = Switch**: VLAN 300 = tagged (allowed).
 
+## IP Table: 
+
+- RT1 - Lo0 = `10.255.0.1` <br><br>
+- SW2 - Lo0 = `10.255.0.21` 
+- SW2 - V100 = `10.10.100.254` <br><br>
+- SW3 - Lo0 = `10.255.0.22` 
+- SW3 - V100 = `10.10.100.22` <br><br>
+- SW1 - Lo0 = `10.255.0.11`
+- SW1 - V66 = `192.168.1.254`
+
 ---
 
 
@@ -62,6 +72,9 @@ reload
 # `DC SIDE`
 
 ## F0-ROUTER-01 - UNIQUE ROUTER
+
+- RT1 - Lo0 = `10.255.0.1`
+
 
 ````py
 !
@@ -151,6 +164,9 @@ wr
 
 
 ## F0-SW01-DC - DC SWITCH
+
+- SW1 - Lo0 = `10.255.0.11`
+- SW1 - V66 = `192.168.1.254`
 
 ````py
 !
@@ -251,6 +267,8 @@ wr
 
 ## F0-SW02-BRANCH - BRANCH SWITCH
 
+- Lo0 = `10.255.0.21` 
+- V100 = `10.10.100.254`
 
 ````py
 !
@@ -428,6 +446,8 @@ wr
 
 ## F0-SW03-BRANCH - BRANCH SWITCH ACCESS POE
 
+- Lo0 = `10.255.0.22` 
+- V100 = `10.10.100.22`
 
 ````py
 !
@@ -454,9 +474,14 @@ interface Loopback0
    description *** MGMT LOOPBACK ***
    ip address 10.255.0.22 255.255.255.255
 
-! Default al router
-ip route 0.0.0.0 0.0.0.0 10.255.98.1
-ip default-gateway 10.255.98.1
+! Management por VLAN 100
+interface Vlan100
+ description *** BR MGMT ***
+ ip address 10.10.100.22 255.255.255.0
+ no shutdown
+
+! Default al gateway
+ip default-gateway 10.10.100.254
 
 ! INTERFACES ACCESS
 interface range GigabitEthernet1/0/1-8
@@ -509,7 +534,7 @@ enable secret Cisco.12345
 service password-encryption
 crypto key generate rsa modulus 2048
 ip ssh version 2
-ip ssh source-interface Loopback0
+
 line con 0
    logging synchronous
    password Cisco.12345
