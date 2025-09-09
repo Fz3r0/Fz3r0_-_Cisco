@@ -323,7 +323,9 @@ no monitor session 13
 
 
 
+Notas:
 
+me ha llegado a pasar que configuroi spans o rspan y no apturo nada.... me pasa en laptops con adaptadores, lo que hago es reinciair y ya...
 
 
 # 📚🗂️🎥 Resources
