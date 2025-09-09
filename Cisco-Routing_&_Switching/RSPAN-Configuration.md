@@ -38,7 +38,7 @@ wr
 
 ! # 4. Verificación
 
-show monitor session 1
+show monitor session 10
 show interfaces status | include Gi1/0/5
 
 ````
