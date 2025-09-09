@@ -608,7 +608,7 @@ vlan 888
 exit
 !
 ! # TRUNK PORTS:
-interface range GigabitEthernet1/0/21-44
+interface range GigabitEthernet1/0/21-48
    switchport trunk allowed vlan ADD 888
 end
 !
