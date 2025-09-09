@@ -558,8 +558,32 @@ wr
 
 
 
+## SPAConfig
 
+````
+! # 1. Sesión SPAN local: fuentes (APs) 
 
+! #  -- Fuentes: Gi1/0/11 (AP-1) y Gi1/0/19 (AP-2)
+monitor session 5 source interface Gi1/0/11 both
+monitor session 5 source interface Gi1/0/19 both
+
+! # 2. Sesión SPAN local: destino (Wireshark) 
+
+! #  -- Destino: Gi1/0/5 hacia tu laptop con Wireshark
+monitor session 5 destination interface Gi1/0/5
+
+! # 3. Guardar
+
+end
+wr
+
+!
+
+! # 4. Verificación
+
+show monitor session 10
+show interfaces status | include Gi1/0/5
+````
 
 ## 🛠️ `RSPAN Configuration` 
 
