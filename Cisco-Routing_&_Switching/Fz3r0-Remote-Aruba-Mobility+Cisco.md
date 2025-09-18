@@ -730,6 +730,17 @@ no monitor session 11
 no monitor session 12
 ```
 
+### ⭕ Remove SPANs and add othe like a trunk
+
+````
+conf t
+ ! quitar fuentes actuales
+ no monitor session 5 source interface gi1/0/11
+ no monitor session 5 source interface gi1/0/19
+
+ ! dejar como única fuente el 1/0/47 (RX+TX)
+ monitor session 5 source interface gi1/0/47 both
+````
 
 
 # 🗃️ Resources
