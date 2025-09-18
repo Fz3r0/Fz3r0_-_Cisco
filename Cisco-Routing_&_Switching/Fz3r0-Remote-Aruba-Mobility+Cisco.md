@@ -713,6 +713,10 @@ monitor session 10 source remote vlan 888
 ! # VDestination = analyzer interface (plug your Wireshark laptop here)
 monitor session 10 destination interface gi 1/0/5
 end
+
+
+! # CAPTURANDO 802.1Q VLAN TRUNKS!!!!
+ monitor session 10 destination interface gi1/0/5 encapsulation replicate
 ```
 ```py
 ! # Verify
@@ -738,7 +742,11 @@ conf t
  no monitor session 5 source interface gi1/0/11
  no monitor session 5 source interface gi1/0/19
 
- ! dejar como única fuente el 1/0/47 (RX+TX)
+! # CAPTURANDO 802.1Q VLAN TRUNKS!!!!
+ monitor session 5 destination interface gi1/0/5 encapsulation replicate
+
+
+ ! dejar como única fuente el 1/0/47 (RX+TX) ACCESS
  monitor session 5 source interface gi1/0/47 both
 ````
 
