@@ -32,13 +32,17 @@ To locate a device in the LAN, just follow these 4 steps:
 ping 10.10.0.100
 ````
 
-### ⭕ 2. Check ARP Table (this will show the MAC and the VLAN)
+### ⭕ 2. Check ARP Table 
+
+- This will show the MAC and the VLAN
 
 ````py 
 show ip arp 10.10.0.100
 ````
 
-### ⭕ 3. Search by MAC (preferably from the core switch or the closest switch)
+### ⭕ 3. Search by MAC
+
+- Preferably search from the core switch or the closest switch from the device you are searching
 
 ````py 
 show mac address-table address f0f0.f0f0.f0f0
@@ -46,7 +50,7 @@ show mac address-table address f0f0.f0f0.f0f0
 
 ### ⭕ 4. Trace the Path
 
-- 🎯 If step 3 shows you an **access port** e.g. `Gi 1/0/12`, that’s the device location
+- 🎯 If step 3 shows you an **access port** e.g. `Gi 1/0/12`, that’s the device location!!!
 - 🕵️‍♂️ If it shows a **trunk or port-channel**, go to that switch and repeat step 3 until you reach the exact switch and access port 
 
 
