@@ -20,7 +20,7 @@
 
 
 
-# 🔎 Locate Device in the LAN (by IP or MAC)
+# 🔎 Locate Device in LAN (by IP or MAC)
 
 To locate a device in the LAN, just follow these 4 steps:
 
