@@ -30,7 +30,7 @@ To locate a device in the LAN, just follow these 4 steps:
 
 ### ⭕ 1. Ping the Device 
 
-- Ping the Device If you have the IP, if you only have the MAC, skip to step 3
+- Ping the Device If you have the IP, if you only have the MAC, skip to [**step 3**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/000-Cisco_Fz3r0-Troubleshooting-Bible/Cisco-IOS_-_Fz3r0-Troubleshooting-Bible.md#-3-search-by-mac)
 
 ````py  
 ping 10.10.0.100
@@ -55,7 +55,7 @@ show mac address-table address f0f0.f0f0.f0f0
 ### ⭕ 4. Trace the Path
 
 - 🎯 If step 3 shows you an **access port** e.g. `Gi 1/0/12`, that’s the device location!!!
-- 🕵️‍♂️ If it shows a **trunk or port-channel**, go to that switch and repeat [step 3]() until you reach the exact switch and access port 
+- 🕵️‍♂️ If it shows a **trunk or port-channel**, go to that switch and repeat [**step 3**](https://github.com/Fz3r0/Fz3r0_-_Cisco/blob/main/000-Cisco_Fz3r0-Troubleshooting-Bible/Cisco-IOS_-_Fz3r0-Troubleshooting-Bible.md#-3-search-by-mac) until you reach the exact switch and access port 
 
 
 
