@@ -15,6 +15,10 @@
 
 # 📄 `Index`
 
+### Device Location
+
+- [🔎 Locate Device in LAN (by IP or MAC)]()
+
 #  Cisco IOS :: `Fz3r0 Troubleshooting Bible`
 
 
