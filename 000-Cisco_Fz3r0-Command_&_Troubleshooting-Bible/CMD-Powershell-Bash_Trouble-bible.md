@@ -127,9 +127,88 @@ Write-Host "Reply from $($result.Address): time=$($result.RoundtripTime)ms statu
 
 ````
 
-### Linux Bash
+### Linux/Apple Bash
 
 ````py
+# --- Basic ping ---
+ping google.com
+ping 8.8.8.8
+
+# Continuous ping with timestamp
+ping 8.8.8.8 | while read line; do echo "$(date '+%H:%M:%S') $line"; done
+
+# Continuous ping + timestamp saved to a file
+ping google.com | while read line; do echo "$(date '+%Y-%m-%d %H:%M:%S') $line"; done >> ~/Ping_Logs/ping_google.log
+
+# Continuous ping with timestamp, show on screen and append to log
+mkdir -p ~/Ping_Logs
+ping google.com | while read line; do
+  echo "$(date '+%Y-%m-%d %H:%M:%S') $line" | tee -a ~/Ping_Logs/ping_google.log
+done
+
+# EXACTLY 10 pings
+ping -c 10 google.com
+
+# Save log with dynamic filename (timestamp)
+DATE=$(date +%Y%m%d_%H%M%S)
+ping 8.8.8.8 | while read line; do
+  echo "$(date '+%H:%M:%S') $line"
+done >> ~/Ping_Logs/ping_$DATE.log
+
+# Extract only timeouts from a ping log
+grep "timeout" ~/Ping_Logs/ping_google.log
+
+# Quick console graph (dot = ok, x = timeout)
+ping 8.8.8.8 | while read line; do
+  if [[ $line == *"time="* ]]; then
+    echo -n "."
+  elif [[ $line == *"timeout"* ]]; then
+    echo -n "x"
+  fi
+done
+
+# High TTL (up to 255). Useful for hop expiration testing.
+ping -t 255 8.8.8.8
+
+# Low TTL (to force “Time Exceeded” near the source)
+ping -t 2 8.8.8.8
+
+# Timeout per reply (seconds)
+ping -W 2 8.8.8.8
+
+# Total deadline for the command (stop after 20s)
+ping -w 20 8.8.8.8
+
+# Payload size for MTU testing
+# Ethernet non-fragmented = 1472 (1500 - 20 IP - 8 ICMP)
+ping -M do -s 1472 8.8.8.8
+
+# Jumbo frame test (~9000 MTU → 8972 payload)
+ping -M do -s 8972 10.0.0.10
+
+# Force IPv4 or IPv6
+ping -4 google.com
+ping -6 ipv6.google.com
+
+# Resolve hostname from IP (reverse lookup)
+ping -c 1 -a 8.8.8.8
+
+# Specify source IP (useful on multihomed hosts)
+ping -I eth0 google.com
+
+# Record route (IPv4 only, max 9 hops)
+ping -R 8.8.8.8
+
+# Quick traceroute without DNS resolution
+traceroute -n 8.8.8.8
+
+# Pathping equivalent (combine ping + mtr)
+mtr -n 8.8.8.8
+
+# Custom ICMP message with hping3 (must be root)
+# -1 = ICMP mode, -E = file or string payload, -d = payload length
+sudo hping3 -1 8.8.8.8 -E <(echo "I am Fz3r0") -d 32
+
 ````
 
 # 🗃️ Resources
