@@ -385,7 +385,57 @@ while ($true) {
 
 ````
 
+### Linux/Apple Bash
 
+````py
+# Basic DNS query
+dig google.com
+
+# DNS by type
+dig google.com A
+dig google.com MX
+dig google.com TXT
+dig google.com NS
+dig google.com SOA
+
+# Using a specific DNS server (example: 8.8.8.8)
+dig @8.8.8.8 google.com A
+
+# Compact output (short format)
+dig @8.8.8.8 google.com A +short
+
+# Reverse lookup (PTR)
+dig -x 8.8.8.8
+
+# Query multiple record types (A, AAAA, MX, NS, TXT)
+for type in A AAAA MX NS TXT; do
+  echo "==== $type record ===="
+  dig @8.8.8.8 google.com $type +noall +answer
+done
+
+# Query a specific authoritative nameserver directly
+dig @ns1.example.com google.com A +noall +answer
+
+# Trace DNS resolution path (root → authoritative)
+dig +trace google.com
+
+# DNSSEC-enabled query (checks for RRSIG/AD flag)
+dig +dnssec google.com A
+
+# Continuous every 10s (loop)
+LOG=~/Documents/Ping_Logs/dns_probe.log
+echo "===== NEW SESSION $(date '+%Y-%m-%d %H:%M:%S') =====" >> "$LOG"
+
+while true; do
+  TS=$(date '+%Y-%m-%d %H:%M:%S')
+  echo -e "\n[$TS] Querying google.com (A)"
+  echo "[$TS] Querying google.com (A)" >> "$LOG"
+
+  dig @8.8.8.8 google.com A +noall +answer | tee -a "$LOG"
+  sleep 10
+done
+
+````
 
 
 
