@@ -214,11 +214,14 @@ sudo hping3 -1 8.8.8.8 -E <(echo "I am Fz3r0") -d 32
 
 ## DNS
 
-### Windows CMD
+### Windows Powershell
 
 ````py
-# Basic DNS queries
+````py
+# Basic DNS querie
 nslookup google.com
+
+# DNS by type
 nslookup -type=A google.com 8.8.8.8
 nslookup -type=MX google.com 8.8.8.8
 nslookup -type=TXT google.com 8.8.8.8
@@ -230,7 +233,47 @@ nslookup 8.8.8.8
 # Use a specific DNS server for resolution (e.g. 1.1.1.1 Cloudflare)
 nslookup google.com 1.1.1.1
 
-:: Query specific nameserver
+# Query specific nameserver
+nslookup google.com ns1.example.com
+
+# Continuous every 10s (loop)
+$LogPath = "C:\Users\Fz3r0\Documents\Ping_Logs\dns_probe.log"
+
+Write-Host "Starting DNS probe... Press Ctrl+C to stop." -ForegroundColor Cyan
+Add-Content $LogPath "`n===== NEW SESSION $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ====="
+
+while ($true) {
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    Write-Host "`n[$timestamp] Querying google.com (A)" -ForegroundColor Yellow
+
+    Resolve-DnsName google.com -Type A -Server 8.8.8.8 |
+        Tee-Object -FilePath $LogPath -Append
+
+    Start-Sleep -Seconds 10
+}
+
+````
+````
+
+### Windows CMD
+
+````py
+# Basic DNS querie
+nslookup google.com
+
+# DNS by type
+nslookup -type=A google.com 8.8.8.8
+nslookup -type=MX google.com 8.8.8.8
+nslookup -type=TXT google.com 8.8.8.8
+nslookup -type=NS google.com 8.8.8.8
+
+# Reverse lookup
+nslookup 8.8.8.8
+
+# Use a specific DNS server for resolution (e.g. 1.1.1.1 Cloudflare)
+nslookup google.com 1.1.1.1
+
+# Query specific nameserver
 nslookup google.com ns1.example.com
 
 # Continuous every 10s (loop) - MUST BE EXECUTED AS .bat SCRIPT
@@ -240,7 +283,24 @@ nslookup -type=A google.com 8.8.8.8 >> C:\Users\Fz3r0\Documents\Ping_Logs\dns_pr
 timeout /t 10 >nul
 goto loop
 
+# Fixed log path (folder already exists)
+$LogPath = "C:\Users\Fz3r0\Documents\Ping_Logs\dns_probe.log"
 
+Write-Host "Starting DNS probe... Press Ctrl+C to stop." -ForegroundColor Cyan
+Add-Content $LogPath "`n===== NEW SESSION $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ====="
+
+# Continuous every 10s (loop) 
+while ($true) {
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    Write-Host "`n[$timestamp] Querying google.com (A)" -ForegroundColor Yellow
+
+    # Run DNS query and show on screen + append to log
+    Resolve-DnsName google.com -Type A -Server 8.8.8.8 |
+        Tee-Object -FilePath $LogPath -Append
+
+    # Wait 10 seconds
+    Start-Sleep -Seconds 10
+}
 
 ````
 
