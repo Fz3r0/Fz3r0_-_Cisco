@@ -211,6 +211,44 @@ sudo hping3 -1 8.8.8.8 -E <(echo "I am Fz3r0") -d 32
 
 ````
 
+
+## DNS
+
+### Windows CMD
+
+````py
+# Basic DNS queries
+nslookup google.com
+nslookup -type=A google.com 8.8.8.8
+nslookup -type=MX google.com 8.8.8.8
+nslookup -type=TXT google.com 8.8.8.8
+nslookup -type=NS google.com 8.8.8.8
+
+# Reverse lookup
+nslookup 8.8.8.8
+
+# Use a specific DNS server for resolution (e.g. 1.1.1.1 Cloudflare)
+nslookup google.com 1.1.1.1
+
+:: Query specific nameserver
+nslookup google.com ns1.example.com
+
+# Continuous every 10s (loop) - MUST BE EXECUTED AS .bat SCRIPT
+:loop
+echo %date% %time% >> C:\Users\Fz3r0\Documents\Ping_Logs\dns_probe.log
+nslookup -type=A google.com 8.8.8.8 >> C:\Users\Fz3r0\Documents\Ping_Logs\dns_probe.log
+timeout /t 10 >nul
+goto loop
+
+
+
+````
+
+
+
+
+
+
 # 🗃️ Resources
 
 - 
