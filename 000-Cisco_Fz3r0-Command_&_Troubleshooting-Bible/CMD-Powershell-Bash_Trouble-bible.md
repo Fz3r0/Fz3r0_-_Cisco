@@ -211,12 +211,94 @@ sudo hping3 -1 8.8.8.8 -E <(echo "I am Fz3r0") -d 32
 
 ````
 
+## Trace Route 
+
+### Windows Powershell
+
+````py
+# Native PowerShell traceroute
+Test-NetConnection google.com -TraceRoute
+
+# Traceroute CMD style
+tracert google.com
+
+# Skip DNS resolution (faster)
+tracert -d google.com
+
+# Continuous loop every 60s (save + screen) - MUST BE EXECUTED AS .bat SCRIPT
+$LogPath = "C:\Users\Fz3r0\Documents\Ping_Logs\trace_google.log"
+
+Write-Host "Starting traceroute monitor... Press Ctrl+C to stop." -ForegroundColor Cyan
+Add-Content $LogPath "`n===== NEW SESSION $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ====="
+
+while ($true) {
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    Write-Host "`n[$timestamp] Running traceroute to google.com..." -ForegroundColor Yellow
+    Add-Content $LogPath "`n[$timestamp] Running traceroute to google.com..."
+
+    # Run traceroute (Tracert) and append output
+    tracert -d google.com | Tee-Object -FilePath $LogPath -Append
+
+    # Wait 60 seconds before next run
+    Start-Sleep -Seconds 60
+}
+
+````
+
+### Windows CMD
+
+````py
+# Basic route (resolves hostnames)
+tracert google.com
+
+# Numeric only (faster, skips DNS resolution)
+tracert -d google.com
+
+# Limit to 20 hops
+tracert -h 20 google.com
+
+# Timeout per hop in milliseconds (example: 1 second)
+tracert -w 1000 google.com
+
+# Continuous loop every 60s (save + screen) - MUST BE EXECUTED AS .bat SCRIPT
+:loop
+echo %date% %time% >> C:\Users\Fz3r0\Documents\Ping_Logs\trace_google.log
+tracert -d google.com >> C:\Users\Fz3r0\Documents\Ping_Logs\trace_google.log
+timeout /t 60 >nul
+goto loop
+
+````
+
+### Linux/Apple Bash
+
+````py
+# Numeric only (no DNS resolution)
+traceroute -n google.com
+
+# ICMP traceroute (requires sudo)
+sudo traceroute -I google.com
+
+# TCP traceroute (useful for testing specific ports)
+sudo traceroute -T -p 443 google.com
+
+# Interactive continuous traceroute + ping
+mtr google.com
+
+# Continuous traceroute every 60s (loop + timestamp)
+LOG=~/trace_google.log
+while true; do
+  echo "[$(date '+%F %T')] Running traceroute to google.com..." | tee -a "$LOG"
+  traceroute -n google.com | tee -a "$LOG"
+  sleep 60
+done
+
+
+````
 
 ## DNS
 
 ### Windows Powershell
 
-````py
 ````py
 # Basic DNS querie
 nslookup google.com
