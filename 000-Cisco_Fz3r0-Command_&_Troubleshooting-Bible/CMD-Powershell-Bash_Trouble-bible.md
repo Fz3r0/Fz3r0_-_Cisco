@@ -253,7 +253,6 @@ while ($true) {
 }
 
 ````
-````
 
 ### Windows CMD
 
