@@ -41,7 +41,7 @@ ping -t 8.8.8.8
 ping -n 20 google.com
 
 # Continuous ping with log output (Ctrl + C to stop)
-ping -t google.com >> C:\Temp\ping_log.txt
+ping -t google.com >> C:\Temp\ping_google_log.txt
 
 # Continuous ping with timestamp (CMD trick using for loop)
 for /f "tokens=*" %a in ('ping -t 8.8.8.8') do @echo %time% %a
@@ -61,7 +61,7 @@ ping 8.8.8.8
 ping -t google.com | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"}
 
 # Export log to file
-ping -t google.com | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"} >> C:\Temp\ping_shepherd.log
+ping -t google.com | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"} >> C:\Temp\ping_google.log
 
 ````
 
