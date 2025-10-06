@@ -437,6 +437,42 @@ done
 
 ````
 
+## Port / Protocol Connections
+
+### Windows Powershell
+
+````py
+
+# Automatic Port Connection by Fz3r0
+$TargetHost = "google.com"
+$TargetPort = 443
+$Interval   = 10   # seconds between tests
+$LogPath    = "C:\Users\Fz3r0\Documents\Ping_Logs\https-test.log"
+
+Write-Host "Starting TCP connectivity test to $TargetHost on port $TargetPort..." -ForegroundColor Cyan
+Add-Content $LogPath "`n===== NEW SESSION $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') - Testing ${TargetHost}:${TargetPort} ====="
+
+while ($true) {
+    $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
+    $sw = [System.Diagnostics.Stopwatch]::StartNew()
+    try {
+        $client = New-Object System.Net.Sockets.TcpClient
+        $client.ReceiveTimeout = 10000
+        $client.SendTimeout = 10000
+        $client.Connect($TargetHost, $TargetPort)
+        $sw.Stop()
+        "$timestamp OK - Connected to ${TargetHost}:${TargetPort} in {0} ms" -f $sw.ElapsedMilliseconds |
+            Tee-Object -FilePath $LogPath -Append
+        $client.Close()
+    }
+    catch {
+        $sw.Stop()
+        "$timestamp FAIL - Timeout or error after {0} ms : $($_.Exception.Message)" -f $sw.ElapsedMilliseconds |
+            Tee-Object -FilePath $LogPath -Append
+    }
+    Start-Sleep -Seconds $Interval
+}
+````
 
 
 
