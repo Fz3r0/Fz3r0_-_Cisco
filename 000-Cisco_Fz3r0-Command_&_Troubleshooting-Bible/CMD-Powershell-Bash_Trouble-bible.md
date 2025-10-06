@@ -42,7 +42,7 @@ ping -t 8.8.8.8
 ping -n 20 google.com
 
 # Continuous ping with log output (Ctrl + C to stop)
-ping -t google.com >> C:\Temp\ping_google_log.txt
+ping -t google.com >> C:\Users\Fz3r0\Documents\Ping_Logs\ping_google_log.txt
 
 # Continuous ping with timestamp (CMD trick using for loop)
 for /f "tokens=*" %a in ('ping -t 8.8.8.8') do @echo %time% %a
@@ -60,7 +60,10 @@ ping 8.8.8.8
 ping -t google.com | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"}
 
 # Continuous ping + timestamp saved to a file
-ping -t google.com | ForEach-Object {"$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') $_"} >> C:\Temp\ping_google.log
+ping -t google.com | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"} >> C:\Users\Fz3r0\Documents\Ping_Logs\ping_google.log
+
+# continuous ping with timestamp, show on screen and append to log
+ping -t google.com | ForEach-Object {"$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') $_"} | Tee-Object -FilePath "C:\Users\Fz3r0\Documents\Ping_Logs\ping_google.log" -Append
 
 # EXACTLY 10 pings (CMD style)
 ping -n 10 google.com
@@ -70,10 +73,10 @@ Test-Connection -ComputerName 8.8.8.8 -Count 10 -IPv4 | Select-Object Address,La
 
 # Save log with dynamic filename (timestamp)
 $date = Get-Date -Format "yyyyMMdd_HHmmss"
-ping -t 8.8.8.8 | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"} >> "C:\Temp\ping_$date.log"
+ping -t 8.8.8.8 | ForEach-Object {"$(Get-Date -Format 'HH:mm:ss') $_"} >> "C:\Users\Fz3r0\Documents\Ping_Logs\ping_$date.log"
 
 # Extract only timeouts from a ping log
-Select-String -Path "C:\Temp\ping_google.log" -Pattern "Request timed out"
+Select-String -Path "C:\Users\Fz3r0\Documents\Ping_Logs\ping_google.log" -Pattern "Request timed out"
 
 # Quick console graph (green dot = OK, red x = timeout)
 ping -t 8.8.8.8 | ForEach-Object {
