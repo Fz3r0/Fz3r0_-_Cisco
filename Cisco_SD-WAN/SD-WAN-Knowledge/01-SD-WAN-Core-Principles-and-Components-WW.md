@@ -147,20 +147,17 @@ Mientras tanto:
 
 OMP vive dentro de los túneles DTLS/IPSec del overlay.
 
----
-
-# 🧬 Analogía 
+## 🧬 Analogía 
 
 ### 🛣️ Underlay = La calle de la ciudad  
+
 Hecha de concreto, tráfico, semáforos viejos, ruta fija.
 
 ### 🛫 Overlay = Una autopista elevada inteligente  
+
 Con sensores, reglas dinámicas, direcciones optimizadas y seguridad integrada.
 
-El overlay depende del underlay,  
-pero el underlay nunca sabe que el overlay existe.
-
-
+- **El overlay depende del underlay, pero el underlay nunca sabe que el overlay existe.**
 
 # 🧱 Componentes del Cisco SD-WAN Fabric
 
