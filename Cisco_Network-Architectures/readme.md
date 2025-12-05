@@ -16,6 +16,9 @@ https://www.youtube.com/watch?v=6TF2ph6jiEI
 
 ---
 
+<img width="720" height="934" alt="image" src="https://github.com/user-attachments/assets/87cb16f9-9f0e-422d-bd11-05f742c9b094" />
+
+
 ![image](https://github.com/user-attachments/assets/20f93bb7-35c2-4cb5-9ceb-79b2517570d1)
 
 ![image](https://github.com/user-attachments/assets/e59b5c0a-3ffa-4c83-941c-238e2190f1d6)
@@ -29,6 +32,10 @@ https://www.youtube.com/watch?v=6TF2ph6jiEI
 ![image](https://github.com/user-attachments/assets/5e84195d-da8b-401a-9923-870fb762d9d2)
 
 ![image](https://github.com/user-attachments/assets/bcf69315-3089-4df0-aeeb-8f425a331471)
+
+
+<img width="1179" height="1533" alt="image" src="https://github.com/user-attachments/assets/e81ef11a-b86b-490c-bfa1-d380cc31e517" />
+
 
 Cable organizer:
 
