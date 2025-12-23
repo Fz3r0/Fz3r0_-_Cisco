@@ -133,7 +133,19 @@ Al finalizar el proceso:
 
 <img width="1714" height="466" alt="image" src="https://github.com/user-attachments/assets/71e93d2e-707c-4ca8-8009-5e2627305280" />
 
+<img width="1053" height="818" alt="image" src="https://github.com/user-attachments/assets/47ad1fb8-d34f-461b-a9ae-30af573eacd1" />
 
+---
+
+<img width="1161" height="647" alt="image" src="https://github.com/user-attachments/assets/cacfdb57-6ee8-40c0-b567-e02696ef5a95" />
+
+<img width="1085" height="516" alt="image" src="https://github.com/user-attachments/assets/596f7445-fd62-465b-8429-7919a7cf3b21" />
+
+<img width="1094" height="490" alt="image" src="https://github.com/user-attachments/assets/1955d48d-9d3e-4a8c-84fd-7b7e88dcb456" />
+
+<img width="1047" height="806" alt="image" src="https://github.com/user-attachments/assets/177cfb9c-dfd5-4165-ad15-d322df6e8e3c" />
+
+---
 
 
 # 🗃️ Resources
