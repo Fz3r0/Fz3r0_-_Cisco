@@ -148,6 +148,15 @@ Al finalizar el proceso:
 ---
 
 
+<img width="1710" height="761" alt="image" src="https://github.com/user-attachments/assets/7a47b12b-c132-4564-801c-a3e7916be689" />
+
+<img width="1701" height="374" alt="image" src="https://github.com/user-attachments/assets/894e11b4-5ab0-4af8-a18a-ac57d8d056bd" />
+
+<img width="1707" height="612" alt="image" src="https://github.com/user-attachments/assets/eec645f3-eee3-4076-9ca9-d3ef66d362e3" />
+
+
+
+
 # 🗃️ Resources
 
 - https://www.cisco.com/c/en/us/support/docs/routers/sd-wan/214509-troubleshoot-control-connections.html
