@@ -54,7 +54,6 @@ La información necesaria para que el **WAN Edge** pueda contactar al **VBond** 
 - 🤖 **automated provisioning**  
   Proceso automatizado gestionado desde **vManage**, donde el device obtiene su configuración inicial mediante workflows y mecanismos de automatización.
 
----
 
 ## 🔁📡 Flujo de Onboarding del WAN Edge
 
@@ -76,8 +75,6 @@ Una vez configurado, el **WAN Edge** inicia comunicación con el **VBond** para 
 
 - 🔐 La autenticación se basa en **system information**
 - 🆔 Incluye identidad del device, certificados y serial information
-
----
 
 ### 3️⃣ 🔄📣 Notificación y Redirección a Controllers
 
@@ -102,9 +99,9 @@ Con la información recibida, el **WAN Edge** establece conexiones directas y pe
 - 🖥️ **vManage**
 - 🧠 **vSmart**
 
-Estas conexiones forman parte del **control plane** y requieren procesos adicionales de autenticación.
+<img width="484" height="390" alt="image" src="https://github.com/user-attachments/assets/dad9889c-039e-4a8d-a61c-fbb41c2b63b4" />
 
----
+Estas conexiones forman parte del **control plane** y requieren procesos adicionales de autenticación.
 
 ### 5️⃣ ⚙️🧠 Configuración y Programación del Control Plane
 
@@ -119,17 +116,20 @@ Una vez aceptado dentro de la fabric:
   - 🛣️ Distribuye forwarding information
   - 📜 Aplica control policies, routing policies y data policies
 
----
+<img width="457" height="388" alt="image" src="https://github.com/user-attachments/assets/b152f867-896b-4e67-87e3-d723f83e83f5" />
 
 ### 6️⃣ 🟢🚀 WAN Edge Operativo
 
 Al finalizar el proceso:
+
+<img width="433" height="392" alt="image" src="https://github.com/user-attachments/assets/841482f7-0d0d-441e-a6ae-664b3091f136" />
 
 - 🟢 El **WAN Edge** queda online dentro de la SD-WAN fabric
 - 🔗 El control plane se encuentra completamente establecido
 - 🚦 El forwarding funciona conforme a las policies definidas
 - 🌐 El device queda integrado y listo para transportar traffic de producción
 
+## 🔁📡 Whistelisting
 
 
 
