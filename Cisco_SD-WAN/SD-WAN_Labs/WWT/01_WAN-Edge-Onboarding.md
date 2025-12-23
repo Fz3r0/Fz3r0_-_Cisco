@@ -37,9 +37,9 @@ Antes de ejecutar un onboarding en un entorno real, resulta fundamental comprend
 
 Para que un **WAN Edge device** pueda unirse a la **SD-WAN fabric**, el dispositivo debe establecer conectividad inicial con el **VBond**, el cual actúa como **gatekeeper** y punto de entrada al control plane.
 
-El **VBond** es responsable de la autenticación inicial del device y de la redirección hacia los demás controllers, pero no mantiene control connections permanentes con los WAN Edge devices.
+<img width="452" height="355" alt="image" src="https://github.com/user-attachments/assets/65dc1649-ca6b-4a0b-852b-53954b1ad911" />
 
----
+El **VBond** es responsable de la autenticación inicial del device y de la redirección hacia los demás controllers, pero no mantiene control connections permanentes con los WAN Edge devices.
 
 ## 🛠️📦 Métodos de Provisioning
 
@@ -53,7 +53,6 @@ La información necesaria para que el **WAN Edge** pueda contactar al **VBond** 
 
 - 🤖 **automated provisioning**  
   Proceso automatizado gestionado desde **vManage**, donde el device obtiene su configuración inicial mediante workflows y mecanismos de automatización.
-
 
 ## 🔁📡 Flujo de Onboarding del WAN Edge
 
