@@ -128,12 +128,108 @@ Al finalizar el proceso:
 - 🚦 El forwarding funciona conforme a las policies definidas
 - 🌐 El device queda integrado y listo para transportar traffic de producción
 
-## 🔁📡 Whistelisting
+## 🧾🔐 Whistelisting (Prerequisite 1)
 
+Antes de iniciar el proceso de **WAN Edge onboarding**, es obligatorio cumplir con el prerequisito de **whitelisting**.
+
+Cisco SD-WAN opera bajo un **whitelisting model**, lo que significa que cualquier **WAN Edge device** que intente unirse al **overlay network** debe ser conocido previamente por todos los **SD-WAN controllers**. Si un device no se encuentra en esta lista de dispositivos autorizados, el proceso de autenticación con **VBond** fallará.
+
+## 🌐📋 Device Inventory y Plug and Play (PNP) Portal
+
+El proceso de whitelisting se realiza agregando el **WAN Edge device** a la lista de dispositivos conocidos dentro del **device inventory**, el cual es gestionado desde el **Plug and Play (PNP) portal**.
+
+- 🖥️ El **PNP portal** se encuentra en: `software.cisco.com`
+- 📦 Este portal se utiliza para administrar el inventario de **hardware y software devices** de Cisco SD-WAN
+- 🔗 Es responsable de asociar los devices con la **SD-WAN fabric**
+
+<img width="1610" height="446" alt="image" src="https://github.com/user-attachments/assets/7fa21c9d-c931-42de-b626-6f00a14a9c29" />
+
+Para acceder a este servicio, es necesario contar con:
+
+- 🔐 Una cuenta válida de Cisco
+- 🏢 Dicha cuenta debe estar asociada al **Smart Account** de la organización
+
+## 🧩🆔 Identificación del WAN Edge Device
+
+Una vez dentro del **PNP portal**, el nuevo **WAN Edge device** debe ser agregado y asociado a un **vBond controller profile**, lo cual permite identificarlo de forma única dentro del fabric.
 
 <img width="1714" height="466" alt="image" src="https://github.com/user-attachments/assets/71e93d2e-707c-4ca8-8009-5e2627305280" />
 
 <img width="1053" height="818" alt="image" src="https://github.com/user-attachments/assets/47ad1fb8-d34f-461b-a9ae-30af573eacd1" />
+
+### 📦 Physical WAN Edge Devices
+
+En el caso de **physical devices**, la identificación se realiza proporcionando:
+
+- 🧾 Device model
+- 🧩 Chassis number
+- 🔢 Serial number
+
+### 🖥️🧪 Virtual WAN Edge Devices
+
+Para **virtual devices**, el proceso es ligeramente distinto:
+
+- 🧾 Se ingresa el **base PID** de la virtual machine
+- 🔢 Se define la **quantity** de devices a crear
+- 🧠 El **PNP portal** genera automáticamente:
+  - 🧩 Un **chassis number**
+  - 🔐 Un **token**
+
+Estos valores serán utilizados posteriormente por el WAN Edge durante la autenticación con **VBond**.
+
+---
+
+## ➕🧩 Proceso de Add Software Device
+
+El flujo general para agregar un **virtual WAN Edge device** es el siguiente:
+
+- ➕ Seleccionar **Add Software Device**
+- 🧾 Ingresar el **base PID**
+- 🔢 Definir la **quantity**
+- 💾 Seleccionar **Save**
+- ▶️ Avanzar con **Next**
+- 📤 Finalizar con **Submit**
+
+Una vez enviado, el **PNP portal** procesa la solicitud y genera el **chassis ID** y el **token**, los cuales quedan visibles en la lista de dispositivos conocidos.
+
+---
+
+## 🔄🖥️ Sincronización con SD-WAN Controllers
+
+Después de completar el whitelisting en el **PNP portal**, es necesario propagar esta información al resto de los **SD-WAN controllers**.
+
+Esto se realiza desde **vManage** utilizando la opción:
+
+- 🔄 **Sync Smart Account**
+
+Durante este proceso, es importante asegurarse de que esté marcada la opción:
+
+- ✅ **Validate the uploaded WAN Edge list and send to controllers**
+
+Esto permite que **vManage** distribuya la información actualizada a:
+- 🧠 **vSmart**
+- 🔐 **VBond**
+- 🖥️ Otros controllers relevantes
+
+---
+
+## 🟢📋 Verificación del Whitelisting
+
+Una vez completada la sincronización:
+
+- 📋 El **WAN Edge device** debe aparecer en la lista de devices dentro de **vManage**
+- 🧩 En el caso de virtual devices, se observa:
+  - 🧾 Chassis number generado
+  - 🔐 Token asignado
+
+En este punto, el device queda correctamente **whitelisted** y listo para continuar con el proceso de **WAN Edge onboarding** hacia la SD-WAN fabric.
+
+
+
+
+
+
+
 
 ---
 
