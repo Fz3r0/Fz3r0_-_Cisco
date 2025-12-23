@@ -72,6 +72,8 @@ El **WAN Edge** es configurado con la información del **VBond**, ya sea de form
 
 Una vez configurado, el **WAN Edge** inicia comunicación con el **VBond** para realizar el proceso de autenticación.
 
+<img width="459" height="397" alt="image" src="https://github.com/user-attachments/assets/1ce5eda2-062b-4156-bf74-74a80b374b70" />
+
 - 🔐 La autenticación se basa en **system information**
 - 🆔 Incluye identidad del device, certificados y serial information
 
@@ -84,11 +86,14 @@ Después de que el WAN Edge es autenticado correctamente:
 - 📣 El **VBond** notifica a **vManage** y **vSmart** sobre una conexión entrante
 - 🧭 El **VBond** redirige al WAN Edge hacia **vManage** y **vSmart**, proporcionando la información de IP necesaria
 
+<img width="485" height="393" alt="image" src="https://github.com/user-attachments/assets/ae9439cf-f7c9-444a-93e6-9b4b28d0cdaa" />
+
 ⚠️ Punto clave:
+
 - 🚪 El **VBond** no mantiene control connections permanentes
 - 🧭 Su función se limita a autenticación inicial y redirección
 
----
+<img width="447" height="352" alt="image" src="https://github.com/user-attachments/assets/df6ee74e-baec-47a9-8d8f-050077f06f4c" />
 
 ### 4️⃣ 🔗🖥️ Conexiones Permanentes del Control Plane
 
