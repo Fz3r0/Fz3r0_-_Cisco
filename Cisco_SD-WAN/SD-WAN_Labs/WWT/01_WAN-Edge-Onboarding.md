@@ -131,6 +131,7 @@ Al finalizar el proceso:
 ## 🔁📡 Whistelisting
 
 
+<img width="1714" height="466" alt="image" src="https://github.com/user-attachments/assets/71e93d2e-707c-4ca8-8009-5e2627305280" />
 
 
 
