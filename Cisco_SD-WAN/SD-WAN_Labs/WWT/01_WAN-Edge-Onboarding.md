@@ -194,11 +194,9 @@ El flujo general para agregar un **virtual WAN Edge device** es el siguiente:
 
 <img width="1094" height="490" alt="image" src="https://github.com/user-attachments/assets/1955d48d-9d3e-4a8c-84fd-7b7e88dcb456" />
 
+- 🧾 Una vez enviado, el **PNP portal** procesa la solicitud y genera el **chassis ID** y el **token**, los cuales quedan visibles en la lista de dispositivos conocidos.
+
 <img width="1047" height="806" alt="image" src="https://github.com/user-attachments/assets/177cfb9c-dfd5-4165-ad15-d322df6e8e3c" />
-
-Una vez enviado, el **PNP portal** procesa la solicitud y genera el **chassis ID** y el **token**, los cuales quedan visibles en la lista de dispositivos conocidos.
-
----
 
 ## 🔄🖥️ Sincronización con SD-WAN Controllers
 
@@ -212,12 +210,13 @@ Durante este proceso, es importante asegurarse de que esté marcada la opción:
 
 - ✅ **Validate the uploaded WAN Edge list and send to controllers**
 
+<img width="1710" height="761" alt="image" src="https://github.com/user-attachments/assets/7a47b12b-c132-4564-801c-a3e7916be689" />
+
 Esto permite que **vManage** distribuya la información actualizada a:
+
 - 🧠 **vSmart**
 - 🔐 **VBond**
 - 🖥️ Otros controllers relevantes
-
----
 
 ## 🟢📋 Verificación del Whitelisting
 
@@ -227,6 +226,8 @@ Una vez completada la sincronización:
 - 🧩 En el caso de virtual devices, se observa:
   - 🧾 Chassis number generado
   - 🔐 Token asignado
+
+<img width="1701" height="374" alt="image" src="https://github.com/user-attachments/assets/894e11b4-5ab0-4af8-a18a-ac57d8d056bd" />
 
 En este punto, el device queda correctamente **whitelisted** y listo para continuar con el proceso de **WAN Edge onboarding** hacia la SD-WAN fabric.
 
@@ -246,9 +247,9 @@ En este punto, el device queda correctamente **whitelisted** y listo para contin
 ---
 
 
-<img width="1710" height="761" alt="image" src="https://github.com/user-attachments/assets/7a47b12b-c132-4564-801c-a3e7916be689" />
 
-<img width="1701" height="374" alt="image" src="https://github.com/user-attachments/assets/894e11b4-5ab0-4af8-a18a-ac57d8d056bd" />
+
+
 
 <img width="1707" height="612" alt="image" src="https://github.com/user-attachments/assets/eec645f3-eee3-4076-9ca9-d3ef66d362e3" />
 
