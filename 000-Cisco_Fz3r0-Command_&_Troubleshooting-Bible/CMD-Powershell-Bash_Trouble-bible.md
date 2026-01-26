@@ -130,7 +130,7 @@ Write-Host "Reply from $($result.Address): time=$($result.RoundtripTime)ms statu
 ### Fz3r0 - PowerShell Ping Like a Sir
 
 ````ps
-$Target = "10.17.147.147"
+$Target = "8.8.8.8"
 $Interval = 1
 $HighLatency = 150
 
