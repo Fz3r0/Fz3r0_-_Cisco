@@ -127,6 +127,91 @@ Write-Host "Reply from $($result.Address): time=$($result.RoundtripTime)ms statu
 
 ````
 
+### Fz3r0 - PowerShell Ping Like a Sir
+
+````ps
+$Target = "10.17.147.147"
+$Interval = 1
+$HighLatency = 150
+
+$Failures = @()
+$HighLatencyEvents = @()
+$AllRTT = @()
+
+$Sent = 0
+$Received = 0
+
+$PingSender = New-Object System.Net.NetworkInformation.Ping
+
+Write-Host "Pinging $Target with timestamp... Press Ctrl+C to stop.`n"
+
+try {
+    while ($true) {
+        $Sent++
+        $TimeStamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+        $Reply = $PingSender.Send($Target, 1000)
+
+        if ($Reply.Status -eq "Success") {
+            $Received++
+            $RTT = $Reply.RoundtripTime
+            $AllRTT += $RTT
+
+            Write-Host "[$TimeStamp] Reply from $Target : time=$RTT ms"
+
+            if ($RTT -ge $HighLatency) {
+                $HighLatencyEvents += "$TimeStamp  -  Reply from $Target  -  time=$RTT ms"
+            }
+        }
+        else {
+            Write-Host "[$TimeStamp] Request timed out for $Target" -ForegroundColor Red
+            $Failures += "$TimeStamp  -  Request timed out"
+        }
+
+        Start-Sleep -Seconds $Interval
+    }
+}
+finally {
+    $Lost = $Sent - $Received
+    if ($Sent -gt 0) {
+        $LossPercent = [Math]::Round(($Lost / $Sent) * 100, 2)
+    } else {
+        $LossPercent = 0
+    }
+
+    if ($AllRTT.Count -gt 0) {
+        $Min = ($AllRTT | Measure-Object -Minimum).Minimum
+        $Max = ($AllRTT | Measure-Object -Maximum).Maximum
+        $Avg = [Math]::Round(($AllRTT | Measure-Object -Average).Average, 2)
+    } else {
+        $Min = $Max = $Avg = 0
+    }
+
+    Write-Host "`n==== PING STATISTICS FOR $Target ===="
+    Write-Host "    Packets: Sent = $Sent, Received = $Received, Lost = $Lost ($LossPercent% loss)"
+    Write-Host "Approximate round trip times in milli-seconds:"
+    Write-Host "    Minimum = $Min ms, Maximum = $Max ms, Average = $Avg ms"
+
+    Write-Host "`n--- Packet Loss / Timeouts (with timestamp) ---"
+    if ($Failures.Count -eq 0) {
+        Write-Host "No packet loss detected."
+    }
+    else {
+        $Failures | ForEach-Object { Write-Host $_ }
+    }
+
+    Write-Host "`n--- High Latency Events (>$HighLatency ms) ---"
+    if ($HighLatencyEvents.Count -eq 0) {
+        Write-Host "No high latency detected."
+    }
+    else {
+        $HighLatencyEvents | ForEach-Object { Write-Host $_ }
+    }
+
+    Write-Host "`nTest finished at: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss")"
+}
+
+````
+
 ### Linux/Apple Bash
 
 ````py
