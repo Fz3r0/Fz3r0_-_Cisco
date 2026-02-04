@@ -36,7 +36,7 @@ La topología inicial del laboratorio incluye:
 * 🔐 x1 dispositivo **Cisco Identity Services Engine (ISE)**
 * 🌍 x1 **Windows Server** que provee **DNS services** a los dispositivos del Campus
 
-<img width="1004" height="797" alt="image" src="https://github.com/user-attachments/assets/ca8ea621-949f-4ac3-a950-5264835cf8a8" /> <br><br>
+<img height="700" alt="image" src="https://github.com/user-attachments/assets/ca8ea621-949f-4ac3-a950-5264835cf8a8" /> <br><br>
 
 El routing del laboratorio ha sido configurado con:
 
