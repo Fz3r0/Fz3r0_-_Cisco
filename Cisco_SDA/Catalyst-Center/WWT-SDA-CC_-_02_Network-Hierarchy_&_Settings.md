@@ -22,6 +22,10 @@
 # ⚙️ Cisco Catalyst Center & Cisco SDA: `Network Hierarchy & Settings`
 
 
+<img width="545" height="595" alt="image" src="https://github.com/user-attachments/assets/7f8f06f4-6820-4bf5-8474-6cdc5d167c45" />
+
+
+
 # 🗃️ Resources
 
 - WWT
