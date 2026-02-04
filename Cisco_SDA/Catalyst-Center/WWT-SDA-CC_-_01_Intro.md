@@ -56,7 +56,7 @@ También se puede acceder desde la pestaña de **Service Explorer** y verlos uno
 Esta información resulta crítica durante actividades de **monitoring**, **performance validation** y **troubleshooting**, ya que permite identificar rápidamente servicios degradados o inconsistencias de versión dentro de la plataforma.
 
 
-## 📦 Software Management
+## 📦 `Software Management`
 
 La sección **Software Management** permite administrar el **software lifecycle** de Catalyst Center.
 
@@ -67,6 +67,8 @@ Desde esta vista se valida:
 * ⏬ Estado de descargas en curso
 * 🧱 Aplicaciones instaladas y disponibles
 
+<img width="3058" height="925" alt="image" src="https://github.com/user-attachments/assets/6a4c0a3f-4b8f-459c-bec8-65d3cff167cf" />
+
 Cuando una nueva versión se encuentra disponible, el sistema presenta opciones para **download** e **install**.
 En entornos de laboratorio, es común que se muestre una versión más reciente que la actualmente instalada. Sin embargo, durante ejercicios prácticos se recomienda **no ejecutar upgrades**, ya que el proceso puede tomar varias horas y afectar la estabilidad del entorno.
 
@@ -76,9 +78,10 @@ Adicionalmente, la sección **Currently Installed Applications** muestra las apl
 * 🗑️ Desinstalar aplicaciones
 * ➕ Instalar nuevas aplicaciones disponibles
 
----
+<img width="1218" height="1047" alt="image" src="https://github.com/user-attachments/assets/1208b3f6-e816-41b9-871a-22431c9d53df" />
 
-## 🛠️ Settings
+
+## 🛠️ `Settings`
 
 La sección **Settings** agrupa la configuración global del **Catalyst Center platform**.
 
@@ -91,11 +94,13 @@ Aquí se definen parámetros de carácter **system-wide**, entre los que se incl
 * ☁️ Smart Account configuration
 * ⚙️ Otros parámetros fundamentales para la operación de la plataforma
 
+<img width="3046" height="928" alt="image" src="https://github.com/user-attachments/assets/e7b7fc69-a6ae-46ea-98f6-b0a77c6f312a" />
+
+<img width="3053" height="927" alt="image" src="https://github.com/user-attachments/assets/eb2ad230-4148-4321-9150-1951111519b8" />
+
 Estos ajustes no están relacionados directamente con la topología de red, sino con el **comportamiento interno** del sistema y sus integraciones externas.
 
----
-
-## 📊 Data Platform
+## 📊 `Data Platform`
 
 El módulo **Data Platform** proporciona visibilidad sobre los servicios de **data processing** y **data storage** utilizados por Catalyst Center.
 
@@ -105,11 +110,14 @@ Desde esta sección se puede:
 * 🧠 Validar el estado de los servicios que soportan **analytics** y **assurance**
 * ⚙️ Confirmar que el flujo de datos opera correctamente en background
 
+<img width="2256" height="577" alt="image" src="https://github.com/user-attachments/assets/603b6a95-efaf-447c-9369-a492d87d68e9" />
+
+<img width="2551" height="935" alt="image" src="https://github.com/user-attachments/assets/b2cb3401-0451-40f1-a983-4e0a13b1da7a" />
+
 Este componente es clave para funciones de **Assurance**, **telemetry analysis** y **health monitoring**, aunque normalmente opera de forma transparente para el usuario.
 
----
 
-## 👤 Users and Roles
+## 👤 `Users and Roles`
 
 La sección **Users and Roles** se utiliza para administrar el acceso a la plataforma mediante **Role-Based Access Control (RBAC)**.
 
@@ -119,12 +127,18 @@ Catalyst Center incluye roles predefinidos que cubren los escenarios más comune
 * 🛡️ Network Admin
 * 👀 Observer
 
+<img width="2578" height="412" alt="image" src="https://github.com/user-attachments/assets/3e592b8d-fb9a-4ebe-ae62-1b415b89c60b" /> <br><br>
+
 Adicionalmente, se pueden crear **custom roles**, asignando permisos específicos para ajustar el acceso a requerimientos operativos particulares.
 Este modelo permite una segmentación clara de responsabilidades dentro del equipo de operación.
 
+<img width="3065" height="461" alt="image" src="https://github.com/user-attachments/assets/0e2b54fe-971b-4e68-9e76-1bc373dc56e9" /> <br><br>
+
+
 La plataforma también soporta integración con **AAA**, permitiendo centralizar la autenticación y autorización de usuarios.
 
----
+<img width="3061" height="856" alt="image" src="https://github.com/user-attachments/assets/b3ceaadf-1a94-43e0-bd4f-ed155562876d" /> <br><br>
+
 
 ## 💾 Backup and Restore
 
