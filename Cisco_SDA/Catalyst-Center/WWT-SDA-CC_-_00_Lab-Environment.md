@@ -96,7 +96,7 @@ Catalyst Center se accede mediante:
 * 🔖 Seleccionar el bookmark **Cisco Catalyst Center**
 * 🔐 Autenticarse con las credenciales configuradas en el laboratorio
 
-<span align="center"> <p align="center"> <img height="100" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
+<span align="center"> <p align="center"><img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/68b9d566-80dc-422a-9a62-e277362c130e" /></p> </span>
 
 ## 🔐 Acceso a Cisco Identity Services Engine (ISE)
 
@@ -112,7 +112,7 @@ Cisco ISE se accede mediante:
 
 El acceso CLI a routers y switches se realiza mediante **mRemoteNG**, el cual ya se encuentra configurado en la workstation del laboratorio desde el **Escritorio**.
 
-<span align="center"> <p align="center"><img width="366" height="291" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" /></p> </span>
+<span align="center"> <p align="center"><img width="300" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" /></p> </span>
 
 Características:
 
@@ -128,7 +128,7 @@ La interfaz gráfica de **EVE-NG** se accede mediante:
 * 🔖 Seleccionar el bookmark **EVE-NG**
 * 🖥️ Seleccionar **HTML console** para acceso directo a los nodos
 
-<span align="center"> <p align="center"> <img height="100" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
+<span align="center"> <p align="center"><img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/68b9d566-80dc-422a-9a62-e277362c130e" /></p> </span>
 
 Dentro de EVE-NG es posible iniciar o detener dispositivos haciendo clic derecho sobre cada nodo, lo cual resulta útil durante troubleshooting o recuperación de imágenes.
 
@@ -142,7 +142,7 @@ El acceso CLI a routers y switches se realiza mediante **mRemoteNG**, el cual ya
 * 🖱️ Remote Desktop Tool disponible en la taskbar o desktop
 * 📂 Selección del client requerido
 
-<span align="center"> <p align="center"><img width="366" height="291" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" /></p> </span>
+<span align="center"> <p align="center"><img width="300" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" /></p> </span>
 
 
 
