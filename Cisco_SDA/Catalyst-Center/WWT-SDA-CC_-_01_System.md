@@ -78,7 +78,7 @@ Adicionalmente, la sección **Currently Installed Applications** muestra las apl
 * 🗑️ Desinstalar aplicaciones
 * ➕ Instalar nuevas aplicaciones disponibles
 
-<span align="center"> <p align="center"><img width="1218" height="1047" alt="image" src="https://github.com/user-attachments/assets/1208b3f6-e816-41b9-871a-22431c9d53df" /></p> </span>
+<span align="center"> <p align="center"><img height="600" alt="image" src="https://github.com/user-attachments/assets/1208b3f6-e816-41b9-871a-22431c9d53df" /></p> </span>
 
 
 ## 🛠️ `Settings`
