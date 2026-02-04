@@ -36,7 +36,7 @@ La topología inicial del laboratorio incluye:
 * 🔐 x1 dispositivo **Cisco Identity Services Engine (ISE)**
 * 🌍 x1 **Windows Server** que provee **DNS services** a los dispositivos del Campus
 
-<span align="center"> <p align="center"><img height="700" alt="image" src="https://github.com/user-attachments/assets/ca8ea621-949f-4ac3-a950-5264835cf8a8" /></p> </span>  <br><br>
+<span align="center"> <p align="center"><img height="600" alt="image" src="https://github.com/user-attachments/assets/ca8ea621-949f-4ac3-a950-5264835cf8a8" /></p> </span>  <br><br>
 
 El routing del laboratorio ha sido configurado con:
 
@@ -44,7 +44,7 @@ El routing del laboratorio ha sido configurado con:
 * 🔁 **BGP** entre los routers y los switches adyacentes (Cat9K-A y Cat9K-B)
 * 🧭 **IS-IS** entre los Campus switches
 
-<img width="946" height="1129" alt="image" src="https://github.com/user-attachments/assets/d67b21ff-ae92-4bc9-9f3f-bd1c71e801b0" /> <br><br>
+<span align="center"> <img width="946" height="1129" alt="image" src="https://github.com/user-attachments/assets/d67b21ff-ae92-4bc9-9f3f-bd1c71e801b0" /></p> </span> <br><br>
 
 Esta configuración representa el **mínimo routed underlay** requerido para construir un **SDA fabric** dentro del laboratorio.
 
@@ -62,7 +62,7 @@ Características importantes del Catalyst 9000v en este laboratorio:
   * La mayoría de versiones soportan menos de **1 Mbps**
   * Algunas versiones pueden bajar hasta **300 Kbps**
 
-<img width="1493" height="689" alt="image" src="https://github.com/user-attachments/assets/54d7d4a4-dc21-441c-9deb-888a7e863d14" />
+<span align="center"> <img width="1493" height="689" alt="image" src="https://github.com/user-attachments/assets/54d7d4a4-dc21-441c-9deb-888a7e863d14" /></p> </span>
 
 Estos switches se ejecutan dentro de una VM de **EVE-NG**, utilizada como plataforma de emulación para simular topologías complejas de red.
 
@@ -79,7 +79,7 @@ Desde EVE-NG se puede:
 * 🛠️ Acceder a consolas para troubleshooting
 * 🔄 Recuperar nodos en caso de crash
 
-<img width="595" height="662" alt="image" src="https://github.com/user-attachments/assets/3a3deec4-4c49-44d0-b361-bef6d6fed57a" />
+<span align="center"> <img width="595" height="662" alt="image" src="https://github.com/user-attachments/assets/3a3deec4-4c49-44d0-b361-bef6d6fed57a" /></p> </span>
 
 La VM de EVE-NG tiene conectividad externa hacia:
 
@@ -96,7 +96,7 @@ Catalyst Center se accede mediante:
 * 🔖 Seleccionar el bookmark **Cisco Catalyst Center**
 * 🔐 Autenticarse con las credenciales configuradas en el laboratorio
 
-<img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" />
+<span align="center"> <img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
 
 ## 🔐 Acceso a Cisco Identity Services Engine (ISE)
 
@@ -106,13 +106,13 @@ Cisco ISE se accede mediante:
 * 🔖 Seleccionar el bookmark **Identity Service Engine**
 * 🔐 Autenticarse con credenciales administrativas
 
-<img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/68b9d566-80dc-422a-9a62-e277362c130e" />
+<span align="center"> <img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/68b9d566-80dc-422a-9a62-e277362c130e" /></p> </span>
 
 ## 💻 Acceso CLI a Routers y Switches
 
 El acceso CLI a routers y switches se realiza mediante **mRemoteNG**, el cual ya se encuentra configurado en la workstation del laboratorio desde el **Escritorio**.
 
-<img width="366" height="291" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" />
+<span align="center"> <img width="366" height="291" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" /></p> </span>
 
 Características:
 
@@ -128,7 +128,7 @@ La interfaz gráfica de **EVE-NG** se accede mediante:
 * 🔖 Seleccionar el bookmark **EVE-NG**
 * 🖥️ Seleccionar **HTML console** para acceso directo a los nodos
 
-<img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" />
+<span align="center"> <img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
 
 Dentro de EVE-NG es posible iniciar o detener dispositivos haciendo clic derecho sobre cada nodo, lo cual resulta útil durante troubleshooting o recuperación de imágenes.
 
@@ -142,7 +142,7 @@ El acceso CLI a routers y switches se realiza mediante **mRemoteNG**, el cual ya
 * 🖱️ Remote Desktop Tool disponible en la taskbar o desktop
 * 📂 Selección del client requerido
 
-<img width="366" height="291" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" />
+<span align="center"> <img width="366" height="291" alt="image" src="https://github.com/user-attachments/assets/1c70667a-87f8-44fa-90fd-613df58a0886" /></p> </span>
 
 
 
