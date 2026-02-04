@@ -24,7 +24,7 @@
 El menú **System** en Cisco Catalyst Center concentra todas las funciones relacionadas con la **gestión de la plataforma**, independientemente de la arquitectura de red que se administre (SDA, traditional campus, wireless, etc.).
 Desde esta sección se valida el estado operativo del sistema, se gestionan usuarios y roles, se controla el ciclo de vida del software y se configuran mecanismos de respaldo y recuperación.
 
-<img width="578" height="651" alt="image" src="https://github.com/user-attachments/assets/25ad4c9f-c828-4327-87c3-e296c8db9826" />
+<span align="center"> <p align="center"><img width="578" height="651" alt="image" src="https://github.com/user-attachments/assets/25ad4c9f-c828-4327-87c3-e296c8db9826" /></p> </span>
 
 ## 🧭 `System 360`
 
@@ -37,7 +37,7 @@ En esta sección se visualiza:
 * 🌐 **Management IP address** asociada a cada nodo
 * ✅ **Node status** y **services status** general
 
-<img width="2797" height="922" alt="image" src="https://github.com/user-attachments/assets/a575d89f-3b02-48a1-abfa-f05cbd73251d" />
+<span align="center"> <p align="center"><img width="2797" height="922" alt="image" src="https://github.com/user-attachments/assets/a575d89f-3b02-48a1-abfa-f05cbd73251d" /></p> </span>
 
 
 Al acceder a la sección de **Services** desde la parte del **Host**, se presenta una lista detallada de todos los servicios internos en ejecución. Para cada servicio se muestra:
@@ -47,11 +47,11 @@ Al acceder a la sección de **Services** desde la parte del **Host**, se present
 * 🧬 Software version
 * 📈 Acceso a **metrics** y **logs**
 
-<img width="3054" height="917" alt="image" src="https://github.com/user-attachments/assets/fb4d1da0-9fe1-4c36-af91-b656753aa39f" />
+<span align="center"> <p align="center"><img width="3054" height="917" alt="image" src="https://github.com/user-attachments/assets/fb4d1da0-9fe1-4c36-af91-b656753aa39f" /></p> </span>
 
 También se puede acceder desde la pestaña de **Service Explorer** y verlos uno por uno:
 
-<img width="2787" height="925" alt="image" src="https://github.com/user-attachments/assets/557ff097-f50a-4e45-91f2-83f279dc1902" />
+<span align="center"> <p align="center"><img width="2787" height="925" alt="image" src="https://github.com/user-attachments/assets/557ff097-f50a-4e45-91f2-83f279dc1902" /></p> </span>
 
 Esta información resulta crítica durante actividades de **monitoring**, **performance validation** y **troubleshooting**, ya que permite identificar rápidamente servicios degradados o inconsistencias de versión dentro de la plataforma.
 
@@ -67,7 +67,7 @@ Desde esta vista se valida:
 * ⏬ Estado de descargas en curso
 * 🧱 Aplicaciones instaladas y disponibles
 
-<img width="3058" height="925" alt="image" src="https://github.com/user-attachments/assets/6a4c0a3f-4b8f-459c-bec8-65d3cff167cf" />
+<span align="center"> <p align="center"><img width="3058" height="925" alt="image" src="https://github.com/user-attachments/assets/6a4c0a3f-4b8f-459c-bec8-65d3cff167cf" /></p> </span>
 
 Cuando una nueva versión se encuentra disponible, el sistema presenta opciones para **download** e **install**.
 En entornos de laboratorio, es común que se muestre una versión más reciente que la actualmente instalada. Sin embargo, durante ejercicios prácticos se recomienda **no ejecutar upgrades**, ya que el proceso puede tomar varias horas y afectar la estabilidad del entorno.
@@ -78,7 +78,7 @@ Adicionalmente, la sección **Currently Installed Applications** muestra las apl
 * 🗑️ Desinstalar aplicaciones
 * ➕ Instalar nuevas aplicaciones disponibles
 
-<img width="1218" height="1047" alt="image" src="https://github.com/user-attachments/assets/1208b3f6-e816-41b9-871a-22431c9d53df" />
+<span align="center"> <p align="center"><img width="1218" height="1047" alt="image" src="https://github.com/user-attachments/assets/1208b3f6-e816-41b9-871a-22431c9d53df" /></p> </span>
 
 
 ## 🛠️ `Settings`
@@ -94,9 +94,9 @@ Aquí se definen parámetros de carácter **system-wide**, entre los que se incl
 * ☁️ Smart Account configuration
 * ⚙️ Otros parámetros fundamentales para la operación de la plataforma
 
-<img width="3046" height="928" alt="image" src="https://github.com/user-attachments/assets/e7b7fc69-a6ae-46ea-98f6-b0a77c6f312a" />
+<span align="center"> <p align="center"><img width="3046" height="928" alt="image" src="https://github.com/user-attachments/assets/e7b7fc69-a6ae-46ea-98f6-b0a77c6f312a" /></p> </span>
 
-<img width="3053" height="927" alt="image" src="https://github.com/user-attachments/assets/eb2ad230-4148-4321-9150-1951111519b8" />
+<span align="center"> <p align="center"><img width="3053" height="927" alt="image" src="https://github.com/user-attachments/assets/eb2ad230-4148-4321-9150-1951111519b8" /></p> </span>
 
 Estos ajustes no están relacionados directamente con la topología de red, sino con el **comportamiento interno** del sistema y sus integraciones externas.
 
@@ -110,9 +110,9 @@ Desde esta sección se puede:
 * 🧠 Validar el estado de los servicios que soportan **analytics** y **assurance**
 * ⚙️ Confirmar que el flujo de datos opera correctamente en background
 
-<img width="2256" height="577" alt="image" src="https://github.com/user-attachments/assets/603b6a95-efaf-447c-9369-a492d87d68e9" />
+<span align="center"> <p align="center"><img width="2256" height="577" alt="image" src="https://github.com/user-attachments/assets/603b6a95-efaf-447c-9369-a492d87d68e9" /></p> </span>
 
-<img width="2551" height="935" alt="image" src="https://github.com/user-attachments/assets/b2cb3401-0451-40f1-a983-4e0a13b1da7a" />
+<span align="center"> <p align="center"><img width="2551" height="935" alt="image" src="https://github.com/user-attachments/assets/b2cb3401-0451-40f1-a983-4e0a13b1da7a" /></p> </span>
 
 Este componente es clave para funciones de **Assurance**, **telemetry analysis** y **health monitoring**, aunque normalmente opera de forma transparente para el usuario.
 
@@ -127,17 +127,17 @@ Catalyst Center incluye roles predefinidos que cubren los escenarios más comune
 * 🛡️ Network Admin
 * 👀 Observer
 
-<img width="2578" height="412" alt="image" src="https://github.com/user-attachments/assets/3e592b8d-fb9a-4ebe-ae62-1b415b89c60b" /> <br><br>
+<span align="center"> <p align="center"><img width="2578" height="412" alt="image" src="https://github.com/user-attachments/assets/3e592b8d-fb9a-4ebe-ae62-1b415b89c60b" /></p> </span> <br><br>
 
 Adicionalmente, se pueden crear **custom roles**, asignando permisos específicos para ajustar el acceso a requerimientos operativos particulares.
 Este modelo permite una segmentación clara de responsabilidades dentro del equipo de operación.
 
-<img width="3065" height="461" alt="image" src="https://github.com/user-attachments/assets/0e2b54fe-971b-4e68-9e76-1bc373dc56e9" /> <br><br>
+<span align="center"> <p align="center"><img width="3065" height="461" alt="image" src="https://github.com/user-attachments/assets/0e2b54fe-971b-4e68-9e76-1bc373dc56e9" /></p> </span> <br><br>
 
 
 La plataforma también soporta integración con **AAA**, permitiendo centralizar la autenticación y autorización de usuarios.
 
-<img width="3061" height="856" alt="image" src="https://github.com/user-attachments/assets/b3ceaadf-1a94-43e0-bd4f-ed155562876d" /> <br><br>
+<span align="center"> <p align="center"><img width="3061" height="856" alt="image" src="https://github.com/user-attachments/assets/b3ceaadf-1a94-43e0-bd4f-ed155562876d" /></p> </span> <br><br>
 
 
 ## 💾 Backup and Restore
@@ -150,6 +150,10 @@ Desde este módulo se puede:
 * ⏰ Programar backups recurrentes
 * 🔐 Almacenar configuraciones de forma segura
 * ♻️ Restaurar el sistema en caso de falla o migración
+
+<img width="1929" height="571" alt="image" src="https://github.com/user-attachments/assets/d0ba626b-df88-416b-acdc-32726430df4b" />
+
+<img width="1981" height="705" alt="image" src="https://github.com/user-attachments/assets/cbcf8258-491f-4978-a319-9e3075e07110" />
 
 Este componente es esencial para estrategias de **disaster recovery** y para preservar la continuidad operativa de la plataforma.
 
