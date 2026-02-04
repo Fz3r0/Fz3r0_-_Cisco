@@ -79,7 +79,7 @@ Desde EVE-NG se puede:
 * 🛠️ Acceder a consolas para troubleshooting
 * 🔄 Recuperar nodos en caso de crash
 
-<span align="center"> <p align="center"><img width="595" height="662" alt="image" src="https://github.com/user-attachments/assets/3a3deec4-4c49-44d0-b361-bef6d6fed57a" /></p> </span>
+<span align="center"> <p align="center"><img  height="400" alt="image" src="https://github.com/user-attachments/assets/3a3deec4-4c49-44d0-b361-bef6d6fed57a" /></p> </span>
 
 La VM de EVE-NG tiene conectividad externa hacia:
 
