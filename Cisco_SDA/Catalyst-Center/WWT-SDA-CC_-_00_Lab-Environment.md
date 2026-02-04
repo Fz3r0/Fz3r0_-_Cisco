@@ -36,7 +36,7 @@ La topología inicial del laboratorio incluye:
 * 🔐 x1 dispositivo **Cisco Identity Services Engine (ISE)**
 * 🌍 x1 **Windows Server** que provee **DNS services** a los dispositivos del Campus
 
-<img width="1004" height="797" alt="image" src="https://github.com/user-attachments/assets/ca8ea621-949f-4ac3-a950-5264835cf8a8" />
+<img width="1004" height="797" alt="image" src="https://github.com/user-attachments/assets/ca8ea621-949f-4ac3-a950-5264835cf8a8" /> <br><br>
 
 El routing del laboratorio ha sido configurado con:
 
@@ -44,7 +44,7 @@ El routing del laboratorio ha sido configurado con:
 * 🔁 **BGP** entre los routers y los switches adyacentes (Cat9K-A y Cat9K-B)
 * 🧭 **IS-IS** entre los Campus switches
 
-<img width="946" height="1129" alt="image" src="https://github.com/user-attachments/assets/d67b21ff-ae92-4bc9-9f3f-bd1c71e801b0" />
+<img width="946" height="1129" alt="image" src="https://github.com/user-attachments/assets/d67b21ff-ae92-4bc9-9f3f-bd1c71e801b0" /> <br><br>
 
 Esta configuración representa el **mínimo routed underlay** requerido para construir un **SDA fabric** dentro del laboratorio.
 
