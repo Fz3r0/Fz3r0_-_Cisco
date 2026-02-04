@@ -96,7 +96,7 @@ Catalyst Center se accede mediante:
 * 🔖 Seleccionar el bookmark **Cisco Catalyst Center**
 * 🔐 Autenticarse con las credenciales configuradas en el laboratorio
 
-<span align="center"> <p align="center"><img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
+<span align="center"> <p align="center"> <img height="100" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
 
 ## 🔐 Acceso a Cisco Identity Services Engine (ISE)
 
@@ -128,7 +128,7 @@ La interfaz gráfica de **EVE-NG** se accede mediante:
 * 🔖 Seleccionar el bookmark **EVE-NG**
 * 🖥️ Seleccionar **HTML console** para acceso directo a los nodos
 
-<span align="center"> <p align="center"> <img width="518" height="145" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
+<span align="center"> <p align="center"> <img height="100" alt="image" src="https://github.com/user-attachments/assets/7515aa7e-7f07-48e2-b03d-6970103e5e6a" /></p> </span>
 
 Dentro de EVE-NG es posible iniciar o detener dispositivos haciendo clic derecho sobre cada nodo, lo cual resulta útil durante troubleshooting o recuperación de imágenes.
 
