@@ -40,14 +40,16 @@ En esta sección se visualiza:
 <img width="2797" height="922" alt="image" src="https://github.com/user-attachments/assets/a575d89f-3b02-48a1-abfa-f05cbd73251d" />
 
 
-Al acceder a la sección de **Services**, se presenta una lista detallada de todos los servicios internos en ejecución. Para cada servicio se muestra:
+Al acceder a la sección de **Services** desde la parte del **Host**, se presenta una lista detallada de todos los servicios internos en ejecución. Para cada servicio se muestra:
 
 * 🏷️ Service name
 * 📊 Current state (Up / Down)
 * 🧬 Software version
 * 📈 Acceso a **metrics** y **logs**
 
-<img width="3055" height="920" alt="image" src="https://github.com/user-attachments/assets/8acc4400-e0f6-4da7-b38b-d2a99cc2dd7a" />
+<img width="3054" height="917" alt="image" src="https://github.com/user-attachments/assets/fb4d1da0-9fe1-4c36-af91-b656753aa39f" />
+
+También se puede acceder desde la pestaña de **Service Explorer** y verlos uno por uno:
 
 <img width="2787" height="925" alt="image" src="https://github.com/user-attachments/assets/557ff097-f50a-4e45-91f2-83f279dc1902" />
 
