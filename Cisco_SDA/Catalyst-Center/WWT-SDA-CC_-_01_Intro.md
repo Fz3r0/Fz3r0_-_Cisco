@@ -24,7 +24,7 @@
 El menú **System** en Cisco Catalyst Center concentra todas las funciones relacionadas con la **gestión de la plataforma**, independientemente de la arquitectura de red que se administre (SDA, traditional campus, wireless, etc.).
 Desde esta sección se valida el estado operativo del sistema, se gestionan usuarios y roles, se controla el ciclo de vida del software y se configuran mecanismos de respaldo y recuperación.
 
-En una instalación inicial, el entorno se presenta como un **clean deployment**, donde únicamente existen las credenciales base (root y admin) y los parámetros mínimos de management configurados durante el setup. Esto permite validar el estado del sistema antes de avanzar hacia design, policy o provisioning.
+<img width="578" height="651" alt="image" src="https://github.com/user-attachments/assets/25ad4c9f-c828-4327-87c3-e296c8db9826" />
 
 ## 🧭 `System 360`
 
@@ -37,12 +37,19 @@ En esta sección se visualiza:
 * 🌐 **Management IP address** asociada a cada nodo
 * ✅ **Node status** y **services status** general
 
+<img width="2797" height="922" alt="image" src="https://github.com/user-attachments/assets/a575d89f-3b02-48a1-abfa-f05cbd73251d" />
+
+
 Al acceder a la sección de **Services**, se presenta una lista detallada de todos los servicios internos en ejecución. Para cada servicio se muestra:
 
 * 🏷️ Service name
 * 📊 Current state (Up / Down)
 * 🧬 Software version
 * 📈 Acceso a **metrics** y **logs**
+
+<img width="3055" height="920" alt="image" src="https://github.com/user-attachments/assets/8acc4400-e0f6-4da7-b38b-d2a99cc2dd7a" />
+
+<img width="2787" height="925" alt="image" src="https://github.com/user-attachments/assets/557ff097-f50a-4e45-91f2-83f279dc1902" />
 
 Esta información resulta crítica durante actividades de **monitoring**, **performance validation** y **troubleshooting**, ya que permite identificar rápidamente servicios degradados o inconsistencias de versión dentro de la plataforma.
 
