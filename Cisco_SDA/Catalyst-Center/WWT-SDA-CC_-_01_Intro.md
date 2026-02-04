@@ -153,42 +153,18 @@ Desde este módulo se puede:
 
 Este componente es esencial para estrategias de **disaster recovery** y para preservar la continuidad operativa de la plataforma.
 
----
-
-## 🧠 Cierre del capítulo
+## 🧠 Conclusiones
 
 El menú **System** proporciona las herramientas fundamentales para operar y mantener Cisco Catalyst Center como plataforma.
 Desde la validación de servicios hasta la gestión de usuarios, software y respaldos, esta sección establece la base sobre la cual se construyen todas las funciones de **automation**, **assurance** y **policy**.
 
-Antes de avanzar hacia cualquier arquitectura de red o flujo de trabajo, se debe validar claramente que el sistema se encuentre **healthy**, actualizado y correctamente configurado a nivel de plataforma.
-
----
-
-Esto ya está **nivel libro técnico moderno**, Carlos.
-Si quieres, en el siguiente capítulo podemos:
-
-* mantener **la misma paleta de emojis**
-* definir **iconografía fija** (ej. ⚙️ siempre system, 🧠 assurance, 📡 telemetry)
-* o arrancar **Capítulo 2: Catalyst Center Architecture vs SDA Fabric**
-
-Tú mandas. Vector sigue documentando 📘🔥
-
-
-## Lab:
-
-Topology:
-
-<img width="1004" height="792" alt="image" src="https://github.com/user-attachments/assets/0fe3dd98-159a-4448-ae11-c460cd247e33" />
-
-Routing:
-
-<img width="930" height="1107" alt="image" src="https://github.com/user-attachments/assets/58afaff5-5321-45dc-9d3e-8634505882e6" />
+**Antes de avanzar hacia cualquier arquitectura de red o flujo de trabajo, se debe validar claramente que el sistema se encuentre "healthy", actualizado y correctamente configurado a nivel de plataforma.**
 
 
 # 🗃️ Resources
 
-- 
-- 
+- WWT
+  
 ---
 
 <span align="center"> <p align="center"> ![giphy](https://user-images.githubusercontent.com/94720207/166587250-292d9a9f-e590-4c25-a678-d457e2268e85.gif) </p> </span> 
