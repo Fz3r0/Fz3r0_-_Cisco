@@ -24,7 +24,7 @@
 El menú **System** en Cisco Catalyst Center concentra todas las funciones relacionadas con la **gestión de la plataforma**, independientemente de la arquitectura de red que se administre (SDA, traditional campus, wireless, etc.).
 Desde esta sección se valida el estado operativo del sistema, se gestionan usuarios y roles, se controla el ciclo de vida del software y se configuran mecanismos de respaldo y recuperación.
 
-<span align="center"> <p align="center"><img width="578" height="651" alt="image" src="https://github.com/user-attachments/assets/25ad4c9f-c828-4327-87c3-e296c8db9826" /></p> </span>
+<span align="center"> <p align="center"><img height="400" alt="image" src="https://github.com/user-attachments/assets/25ad4c9f-c828-4327-87c3-e296c8db9826" /></p> </span>
 
 ## 🧭 `System 360`
 
