@@ -79,14 +79,14 @@ Desde EVE-NG se puede:
 * 🛠️ Acceder a consolas para troubleshooting
 * 🔄 Recuperar nodos en caso de crash
 
+<img width="595" height="662" alt="image" src="https://github.com/user-attachments/assets/3a3deec4-4c49-44d0-b361-bef6d6fed57a" />
+
 La VM de EVE-NG tiene conectividad externa hacia:
 
 * Routers
 * Catalyst Center
 * Cisco ISE
 * Windows client workstations
-
-
 
 ## 🖥️ Acceso a Cisco Catalyst Center
 
