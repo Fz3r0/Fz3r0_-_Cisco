@@ -66,7 +66,7 @@ Características importantes del Catalyst 9000v en este laboratorio:
 
 Estos switches se ejecutan dentro de una VM de **EVE-NG**, utilizada como plataforma de emulación para simular topologías complejas de red.
 
----
+
 
 ## 🧠 Plataforma EVE-NG
 
@@ -86,7 +86,7 @@ La VM de EVE-NG tiene conectividad externa hacia:
 * Cisco ISE
 * Windows client workstations
 
----
+
 
 ## 🖥️ Acceso a Cisco Catalyst Center
 
