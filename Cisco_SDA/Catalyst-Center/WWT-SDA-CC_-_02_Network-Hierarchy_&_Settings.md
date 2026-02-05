@@ -44,6 +44,8 @@ Un aspecto clave de la **network hierarchy** es el modelo de **inheritance**. La
 
 Por ejemplo, es posible definir una jerarquía que represente regiones completas, ciudades dentro de esas regiones y edificios dentro de cada ciudad. Sobre esta estructura, pueden aplicarse diferentes network settings, como servidores DNS o NTP, en función de cada región o sitio específico.
 
+<img width="528" height="299" alt="image" src="https://github.com/user-attachments/assets/7486815d-98d6-4eea-a384-4f14810f88dc" />
+
 Dentro de este modelo jerárquico:
 
 * 🗺️ **Areas** (o *Sites*) representan el nivel más alto y no están asociadas a una dirección física. Funcionan como contenedores lógicos que pueden incluir subareas y buildings.
@@ -57,20 +59,6 @@ El objetivo de este capítulo es proporcionar una base sólida para:
 * 📊 Administrar direcciones IP de forma estructurada mediante pools y reservas
 
 Una correcta definición de la **network hierarchy** y de los **network settings** es un requisito fundamental tanto en entornos de laboratorio como en despliegues de producción, ya que impacta directamente en la eficiencia operativa, la escalabilidad y la coherencia de la configuración a lo largo del Campus.
-
----
-
-Si quieres, el siguiente paso natural sería:
-
-* **Site Hierarchy en el lab (Area y Building)**
-* **Global vs Site-Specific Network Settings**
-* o ir directo a **IP Address Pools & Reservations**
-
-Esto ya quedó **nivel documentación de ingeniería**, no training notes.
-Seguimos cuando tú digas 🧠📘
-
-
-
 
 
 
