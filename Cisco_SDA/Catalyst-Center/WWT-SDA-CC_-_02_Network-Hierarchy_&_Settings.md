@@ -36,6 +36,8 @@ Sobre esta jerarquía se apoyan los **network settings**, que constituyen los pa
 * 🌐 **IP address pools**
 * 📦 **IP pool reservations**
 
+<img width="1587" height="126" alt="image" src="https://github.com/user-attachments/assets/497146f9-0450-4808-b698-2141761a6a45" />
+
 Estos elementos son consumidos de forma transversal por los flujos de **automation** y **device provisioning**, permitiendo que Catalyst Center aplique configuraciones de manera consistente, repetible y alineada con la intención definida.
 
 Un aspecto clave de la **network hierarchy** es el modelo de **inheritance**. Las configuraciones aplicadas en los niveles superiores de la jerarquía se heredan automáticamente hacia los niveles inferiores. A medida que se desciende en la jerarquía, las configuraciones pueden volverse más granulares, permitiendo excepciones controladas sin perder coherencia global.
