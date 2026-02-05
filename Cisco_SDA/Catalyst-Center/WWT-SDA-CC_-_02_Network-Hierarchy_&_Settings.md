@@ -25,6 +25,16 @@
 <img width="545" height="595" alt="image" src="https://github.com/user-attachments/assets/7f8f06f4-6820-4bf5-8474-6cdc5d167c45" />
 
 
+<img width="592" height="422" alt="image" src="https://github.com/user-attachments/assets/217661e8-f350-4a53-8e87-c1106d910bee" />
+
+
+
+---
+
+net design, se necesitara en un futuro 
+
+<img width="2450" height="1240" alt="image" src="https://github.com/user-attachments/assets/11006e48-7724-4604-8daa-f71b3360e6b5" />
+
 
 # 🗃️ Resources
 
