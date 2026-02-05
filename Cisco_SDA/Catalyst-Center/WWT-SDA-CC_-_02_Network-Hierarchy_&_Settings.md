@@ -19,13 +19,59 @@
 
 
 
-# ⚙️ Cisco Catalyst Center & Cisco SDA: `Network Hierarchy & Settings`
+# 🌐 Cisco Catalyst Center & Cisco SDA: `Network Hierarchy & Settings`
+
+Los módulos **Network Hierarchy** y **Settings** definen los cimientos sobre los cuales opera **Cisco Catalyst Center** como plataforma de **intent-based networking**. Antes de avanzar hacia funcionalidades como automation, policy o provisioning, resulta indispensable establecer una estructura lógica que represente de forma fiel tanto la organización como el entorno físico de la red.
+
+<img height="380" alt="image" src="https://github.com/user-attachments/assets/7f8f06f4-6820-4bf5-8474-6cdc5d167c45" />
+
+En este capítulo se introduce el concepto de **network hierarchy**, el cual permite modelar la red dentro de Catalyst Center mediante una estructura jerárquica basada en **sites**, organizados en niveles de **Area**, **Building** y **Floor**. Esta jerarquía no cumple únicamente un propósito organizativo, sino que actúa como el punto de referencia para la aplicación de configuraciones globales y específicas por ubicación.
+
+<img width="592" height="422" alt="image" src="https://github.com/user-attachments/assets/217661e8-f350-4a53-8e87-c1106d910bee" /> <br><br>
+
+Sobre esta jerarquía se apoyan los **network settings**, que constituyen los parámetros fundamentales para la operación de la plataforma. Entre ellos se incluyen:
+
+* 🔑 **Device credentials**, utilizadas para automation y device onboarding
+* 🌍 **Infrastructure services** como DNS y NTP
+* 🌐 **IP address pools**
+* 📦 **IP pool reservations**
+
+Estos elementos son consumidos de forma transversal por los flujos de **automation** y **device provisioning**, permitiendo que Catalyst Center aplique configuraciones de manera consistente, repetible y alineada con la intención definida.
+
+Un aspecto clave de la **network hierarchy** es el modelo de **inheritance**. Las configuraciones aplicadas en los niveles superiores de la jerarquía se heredan automáticamente hacia los niveles inferiores. A medida que se desciende en la jerarquía, las configuraciones pueden volverse más granulares, permitiendo excepciones controladas sin perder coherencia global.
+
+Por ejemplo, es posible definir una jerarquía que represente regiones completas, ciudades dentro de esas regiones y edificios dentro de cada ciudad. Sobre esta estructura, pueden aplicarse diferentes network settings, como servidores DNS o NTP, en función de cada región o sitio específico.
+
+Dentro de este modelo jerárquico:
+
+* 🗺️ **Areas** (o *Sites*) representan el nivel más alto y no están asociadas a una dirección física. Funcionan como contenedores lógicos que pueden incluir subareas y buildings.
+* 🏢 **Buildings** representan ubicaciones físicas reales, requieren una dirección y coordenadas geográficas, y pueden contener floors. Los buildings permiten aplicar configuraciones específicas a un sitio concreto.
+* 🧱 **Floors** existen únicamente dentro de buildings y representan niveles físicos como pisos, oficinas, wiring closets y espacios de trabajo. En este laboratorio, no se definirán floors como parte del ejercicio.
+
+El objetivo de este capítulo es proporcionar una base sólida para:
+
+* 🧭 Construir jerarquías de red alineadas con la realidad operativa
+* ⚙️ Centralizar configuraciones comunes y permitir excepciones controladas por sitio
+* 📊 Administrar direcciones IP de forma estructurada mediante pools y reservas
+
+Una correcta definición de la **network hierarchy** y de los **network settings** es un requisito fundamental tanto en entornos de laboratorio como en despliegues de producción, ya que impacta directamente en la eficiencia operativa, la escalabilidad y la coherencia de la configuración a lo largo del Campus.
+
+---
+
+Si quieres, el siguiente paso natural sería:
+
+* **Site Hierarchy en el lab (Area y Building)**
+* **Global vs Site-Specific Network Settings**
+* o ir directo a **IP Address Pools & Reservations**
+
+Esto ya quedó **nivel documentación de ingeniería**, no training notes.
+Seguimos cuando tú digas 🧠📘
 
 
-<img width="545" height="595" alt="image" src="https://github.com/user-attachments/assets/7f8f06f4-6820-4bf5-8474-6cdc5d167c45" />
 
 
-<img width="592" height="422" alt="image" src="https://github.com/user-attachments/assets/217661e8-f350-4a53-8e87-c1106d910bee" />
+
+
 
 
 
