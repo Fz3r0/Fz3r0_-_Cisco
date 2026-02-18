@@ -51,7 +51,7 @@ Size(b)      Free(b)       Type    Flags    Prefixes
 
 Look for:
 
-* `flash:` → Internal storage
+* `flash:    ` → Internal storage
 * `usbflash0:` → USB device
 * `usbflash1:` → Secondary USB (if present)
 
