@@ -21,7 +21,86 @@
 
 #  CMD, Powershell, Bash :: `Fz3r0 Troubleshooting Bible`
 
+## Troubleshooting Network from Windows Host
 
+### Basic network info
+
+```
+ipconfig
+ipconfig /all
+```
+
+### Interface status
+
+```
+netsh interface show interface
+Get-NetAdapter
+```
+
+### Wi-Fi details
+
+```
+netsh wlan show interfaces
+netsh wlan show networks mode=bssid
+netsh wlan show all
+```
+
+### Routing
+
+```
+route print
+```
+
+### Local connectivity
+
+```
+ping -n 20 <default_gateway>
+```
+
+### Internet connectivity
+
+```
+ping -n 20 8.8.8.8
+ping -n 20 google.com
+```
+
+### Path test
+
+```
+tracert 8.8.8.8
+```
+
+### DNS resolution
+
+```
+nslookup google.com
+```
+
+### Network statistics
+
+```
+netstat -e
+```
+
+### Adapter driver info
+
+```
+driverquery | findstr /i "net"
+```
+
+### Optional reset tests (si algo se ve raro)
+
+```
+ipconfig /flushdns
+ipconfig /release
+ipconfig /renew
+```
+
+### Speed test
+
+```
+speedtest
+```
 
 
 
